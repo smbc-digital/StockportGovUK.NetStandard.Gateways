@@ -12,13 +12,13 @@ namespace StockportGovUK.AspNetCore.Gateways
             _clientFactory = clientFactory;
         }
 
-        protected async Task<HttpResponseMessage> GetAsync(string url)
+        public async Task<HttpResponseMessage> GetAsync(string url)
         {
             var client = _clientFactory.CreateClient();
             return await client.GetAsync(url);
         }
 
-        protected async Task<HttpResponseMessage> GetAsync(string name, string url)
+        public async Task<HttpResponseMessage> GetAsync(string name, string url)
         {
             var client = _clientFactory.CreateClient(name);
             return await client.GetAsync(url);

@@ -13,7 +13,7 @@ namespace StockportGovUK.AspNetCore.Gateways.AddressService
 
         }
 
-        public async Task<HttpResponseMessage> GetAsync(string postcode)
+        public async Task<HttpResponseMessage> GetAddressesAsync(string postcode)
         {
             return await GetAsync(HttpClientName, $"v1/civica/{postcode}");
         }

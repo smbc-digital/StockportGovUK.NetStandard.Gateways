@@ -6,6 +6,6 @@ namespace StockportGovUK.AspNetCore.Gateways.AddressService
 {
     public interface IAddressServiceGateway : IGateway
     {
-        Task<HttpResponseMessage> GetAsync(string postcode);
+        Task<HttpResponseMessage> GetAddressesAsync(string postcode);
     }
 }
