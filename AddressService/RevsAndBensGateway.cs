@@ -1,0 +1,21 @@
+using System.Net.Http;
+using System.Threading.Tasks;
+using StockportGovUK.AspNetCore.Gateways;
+
+namespace StockportGovUK.AspNetCore.Gateways.AddressService
+{
+    public class RevsAndBensGateway : Gateway, IAddressServiceGateway
+    {
+        private const string HttpClientName = "civicaGateway";
+
+        public RevsAndBensGateway(IHttpClientFactory clientFactory) : base(clientFactory)
+        {
+
+        }
+
+        public async Task<HttpResponseMessage> GetAsync(string postcode)
+        {
+            return await GetAsync(HttpClientName, $"v1/civica/{postcode}");
+        }
+    }
+}
