@@ -17,5 +17,10 @@ namespace StockportGovUK.AspNetCore.Gateways.AddressService
         {
             return await GetAsync(HttpClientName, $"v1/gis/{postcode}");
         }
+
+        public async Task<HttpResponseMessage> GetPropertyDetailsAsync(string uprn)
+        {
+            return await GetAsync(HttpClientName, $"v1/gis/properties/{uprn}");
+        }
     }
 }
