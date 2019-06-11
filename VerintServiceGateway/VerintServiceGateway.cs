@@ -14,7 +14,7 @@ namespace StockportGovUK.AspNetCore.Gateways.VerintServiceGateway
 
         public async Task<HttpResponseMessage> GetCase(string caseRef)
         {
-            return await GetAsync(HttpClientName, CaseEndpoint);
+            return await GetAsync(HttpClientName, $"{CaseEndpoint}?caseId={caseRef}");
         }
 
         public async Task<HttpResponseMessage> UpdateCase(HttpContent content)
