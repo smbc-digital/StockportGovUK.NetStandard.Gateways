@@ -1,11 +1,11 @@
-using System.Net.Http;
 using System.Threading.Tasks;
+using StockportGovUK.AspNetCore.Gateways.Response;
 
 namespace StockportGovUK.AspNetCore.Gateways.AddressService
 {
     public interface IAddressServiceGateway : IGateway
     {
-        Task<HttpResponseMessage> GetAddressesAsync(string postcode);
-        Task<HttpResponseMessage> GetPropertyDetailsAsync(string uprn);
+        Task<HttpResponse<T>> GetAddressesAsync<T>(string postcode);
+        Task<HttpResponse<T>> GetPropertyDetailsAsync<T>(string uprn);
     }
 }

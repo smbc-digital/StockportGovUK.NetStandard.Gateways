@@ -1,6 +1,6 @@
 using System.Net.Http;
 using System.Threading.Tasks;
-using StockportGovUK.AspNetCore.Gateways;
+using StockportGovUK.AspNetCore.Gateways.Response;
 
 namespace StockportGovUK.AspNetCore.Gateways.BinsService
 {
@@ -13,14 +13,14 @@ namespace StockportGovUK.AspNetCore.Gateways.BinsService
 
         }
 
-        public async Task<HttpResponseMessage> GetCollectionsAsync(string uprn)
+        public async Task<HttpResponse<T>> GetCollectionsAsync<T>(string uprn)
         {
-            return await GetAsync(HttpClientName, $"v1/gis/{uprn}");
+            return await GetAsync<T>(HttpClientName, $"v1/gis/{uprn}");
         }
 
-        public async Task<HttpResponseMessage> GetCalendarAsync(string uprn)
+        public async Task<HttpResponse<T>> GetCalendarAsync<T>(string uprn)
         {
-            return await GetAsync(HttpClientName, $"v1/gis/{uprn}/calendar");
+            return await GetAsync<T>(HttpClientName, $"v1/gis/{uprn}/calendar");
         }
     }
 }

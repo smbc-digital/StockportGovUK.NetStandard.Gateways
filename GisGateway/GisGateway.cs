@@ -1,6 +1,6 @@
 using System.Net.Http;
 using System.Threading.Tasks;
-using StockportGovUK.AspNetCore.Gateways;
+using StockportGovUK.AspNetCore.Gateways.Response;
 
 namespace StockportGovUK.AspNetCore.Gateways.Gis
 {
@@ -12,19 +12,19 @@ namespace StockportGovUK.AspNetCore.Gateways.Gis
         {
         }
 
-        public async Task<HttpResponseMessage> GetPropertiesAsync(string postcode)
+        public async Task<HttpResponse<T>> GetPropertiesAsync<T>(string postcode)
         {
-            return await GetAsync(HttpClientName, $"?RequestType=LocationSearch&pagesize=150&startnum=1&mapsource=SMBC%2fMyHouse&location={postcode}");
+            return await GetAsync<T>(HttpClientName, $"?RequestType=LocationSearch&pagesize=150&startnum=1&mapsource=SMBC%2fMyHouse&location={postcode}");
         }
 
-        public async Task<HttpResponseMessage> GetCollectionsAsync(string uprn)
+        public async Task<HttpResponse<T>> GetCollectionsAsync<T>(string uprn)
         {
-            return await GetAsync(HttpClientName, $"?format=json&RequestType=LocalInfo&mapsource=SMBC%2fMyHouse&group=Waste%20Collection&uid={uprn}");
+            return await GetAsync<T>(HttpClientName, $"?format=json&RequestType=LocalInfo&mapsource=SMBC%2fMyHouse&group=Waste%20Collection&uid={uprn}");
         }
 
-        public async Task<HttpResponseMessage> GetCalendarAsync(string uprn)
+        public async Task<HttpResponse<T>> GetCalendarAsync<T>(string uprn)
         {
-            return await GetAsync(HttpClientName, $"?format=json&RequestType=LocalInfo&mapsource=SMBC%2fMyHouse&group=waste%20calendars&uid={uprn}");
+            return await GetAsync<T>(HttpClientName, $"?format=json&RequestType=LocalInfo&mapsource=SMBC%2fMyHouse&group=waste%20calendars&uid={uprn}");
         }
     }
 }

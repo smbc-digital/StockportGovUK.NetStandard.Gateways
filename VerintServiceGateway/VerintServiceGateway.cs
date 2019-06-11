@@ -1,5 +1,7 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
+using StockportGovUK.AspNetCore.Gateways.Response;
+using StockportGovUK.NetStandard.Models.Models.Verint;
 
 namespace StockportGovUK.AspNetCore.Gateways.VerintServiceGateway
 {
@@ -12,9 +14,9 @@ namespace StockportGovUK.AspNetCore.Gateways.VerintServiceGateway
         {
         }
 
-        public async Task<HttpResponseMessage> GetCase(string caseRef)
+        public async Task<HttpResponse<Case>> GetCase(string caseRef)
         {
-            return await GetAsync(HttpClientName, $"{CaseEndpoint}?caseId={caseRef}");
+            return await GetAsync<Case>(HttpClientName, $"{CaseEndpoint}?caseId={caseRef}");
         }
 
         public async Task<HttpResponseMessage> UpdateCase(HttpContent content)

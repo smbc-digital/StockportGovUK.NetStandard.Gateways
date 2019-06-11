@@ -1,6 +1,7 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using StockportGovUK.AspNetCore.Gateways;
+using StockportGovUK.AspNetCore.Gateways.Response;
 
 namespace StockportGovUK.AspNetCore.Gateways.AddressService
 {
@@ -13,14 +14,14 @@ namespace StockportGovUK.AspNetCore.Gateways.AddressService
 
         }
 
-        public async Task<HttpResponseMessage> GetAddressesAsync(string postcode)
+        public async Task<HttpResponse<T>> GetAddressesAsync<T>(string postcode)
         {
-            return await GetAsync(HttpClientName, $"v1/gis/{postcode}");
+            return await GetAsync<T>(HttpClientName, $"v1/gis/{postcode}");
         }
 
-        public async Task<HttpResponseMessage> GetPropertyDetailsAsync(string uprn)
+        public async Task<HttpResponse<T>> GetPropertyDetailsAsync<T>(string uprn)
         {
-            return await GetAsync(HttpClientName, $"v1/gis/properties/{uprn}");
+            return await GetAsync<T>(HttpClientName, $"v1/gis/properties/{uprn}");
         }
     }
 }
