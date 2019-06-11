@@ -1,8 +1,8 @@
 using System.Net.Http;
 using System.Threading.Tasks;
-using StockportGovUK.AspNetCore.Gateways;
+using StockportGovUK.AspNetCore.Gateways.AddressService;
 
-namespace StockportGovUK.AspNetCore.Gateways.AddressService
+namespace StockportGovUK.AspNetCore.Gateways.AddressServicegateway
 {
     public class RevsAndBensGateway : Gateway, IAddressServiceGateway
     {
