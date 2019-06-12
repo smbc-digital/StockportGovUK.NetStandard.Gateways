@@ -1,7 +1,7 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
 using StockportGovUK.AspNetCore.Gateways.Response;
-using StockportGovUK.NetStandard.Models.Models.Verint;
+using StockportGovUK.NetStandard.Models.Models.Fostering;
 
 namespace StockportGovUK.AspNetCore.Gateways.FosteringServiceGateway
 {
@@ -14,9 +14,9 @@ namespace StockportGovUK.AspNetCore.Gateways.FosteringServiceGateway
         {
         }
 
-        public async Task<HttpResponse<Case>> GetCase(string caseRef)
+        public async Task<HttpResponse<FosteringCase>> GetCase(string caseRef)
         {
-            return await GetAsync<Case>(HttpClientName, $"{CaseEndpoint}/case?caseId={caseRef}");
+            return await GetAsync<FosteringCase>(HttpClientName, $"{CaseEndpoint}/case?caseId={caseRef}");
         }
     }
 }
