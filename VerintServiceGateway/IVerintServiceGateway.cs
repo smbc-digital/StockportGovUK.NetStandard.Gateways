@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using StockportGovUK.AspNetCore.Gateways.Response;
 using StockportGovUK.NetStandard.Models.Models.Verint;
+using StockportGovUK.NetStandard.Models.Models.Verint.Update;
 
 namespace StockportGovUK.AspNetCore.Gateways.VerintServiceGateway
 {
@@ -9,6 +10,6 @@ namespace StockportGovUK.AspNetCore.Gateways.VerintServiceGateway
     {
         Task<HttpResponse<Case>> GetCase(string caseRef);
 
-        Task<HttpResponseMessage> UpdateCaseIntegrationFormField(object content);
+        Task<HttpResponseMessage> UpdateCaseIntegrationFormField(IntegrationFormFieldsUpdateModel content);
     }
 }

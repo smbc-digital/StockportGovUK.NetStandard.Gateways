@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using StockportGovUK.AspNetCore.Gateways.Response;
 using StockportGovUK.NetStandard.Models.Models.Verint;
+using StockportGovUK.NetStandard.Models.Models.Verint.Update;
 
 namespace StockportGovUK.AspNetCore.Gateways.VerintServiceGateway
 {
@@ -19,7 +20,7 @@ namespace StockportGovUK.AspNetCore.Gateways.VerintServiceGateway
             return await GetAsync<Case>(HttpClientName, $"{CaseEndpoint}?caseId={caseRef}");
         }
 
-        public async Task<HttpResponseMessage> UpdateCaseIntegrationFormField(object content)
+        public async Task<HttpResponseMessage> UpdateCaseIntegrationFormField(IntegrationFormFieldsUpdateModel content)
         {
             return await PatchAsync(HttpClientName, $"{CaseEndpoint}/integration-form-fields", content);
         }
