@@ -1,5 +1,7 @@
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using StockportGovUK.AspNetCore.Gateways.Response;
 
 namespace StockportGovUK.AspNetCore.Gateways
@@ -36,7 +38,7 @@ namespace StockportGovUK.AspNetCore.Gateways
 
         public async Task<HttpResponseMessage> PatchAsync(string name, string url, object content)
         {
-            var stringContent = new StringContent(content.ToString());
+            var stringContent = new StringContent(JsonConvert.SerializeObject(content), Encoding.ASCII, "application/json");
 
             var client = _clientFactory.CreateClient(name);
             return await client.PatchAsync(url, stringContent);
