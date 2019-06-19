@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <PackageId>StockportGovUK.AspNetCore.Gateways</PackageId>
@@ -11,7 +11,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="StockportGovUK.NetStandard.Models" Version="0.3.1-prerelease11" />
+    <PackageReference Include="StockportGovUK.NetStandard.Models" Version="0.3.1-prerelease12" />
   </ItemGroup>
 
   <ItemGroup>
