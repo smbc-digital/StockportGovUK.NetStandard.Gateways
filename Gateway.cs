@@ -33,5 +33,13 @@ namespace StockportGovUK.AspNetCore.Gateways
             var client = _clientFactory.CreateClient(name);
             return await client.PutAsync(url, content);
         }
+
+        public async Task<HttpResponseMessage> PatchAsync(string name, string url, object content)
+        {
+            var stringContent = new StringContent(content.ToString(), System.Text.Encoding.UTF8, "application/x-www-form-urlencoded");
+
+            var client = _clientFactory.CreateClient(name);
+            return await client.PatchAsync(url, stringContent);
+        }
     }
 }

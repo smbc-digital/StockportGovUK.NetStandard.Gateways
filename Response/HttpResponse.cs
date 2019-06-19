@@ -46,4 +46,29 @@ namespace StockportGovUK.AspNetCore.Gateways.Response
             };
         }
     }
+
+    public class HttpResponse
+    {
+        public HttpResponseHeaders Headers { get; set; }
+
+        public bool IsSuccessStatusCode { get; set; }
+
+        public string ReasonPhrase { get; set; }
+
+        public HttpStatusCode StatusCode { get; set; }
+
+        public Version Version { get; set; }
+
+        public static HttpResponse Get(HttpResponseMessage responseMessage)
+        {
+            return new HttpResponse
+            {
+                Headers = responseMessage.Headers,
+                IsSuccessStatusCode = responseMessage.IsSuccessStatusCode,
+                ReasonPhrase = responseMessage.ReasonPhrase,
+                StatusCode = responseMessage.StatusCode,
+                Version = responseMessage.Version
+            };
+        }
+    }
 }
