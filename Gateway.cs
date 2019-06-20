@@ -38,7 +38,7 @@ namespace StockportGovUK.AspNetCore.Gateways
 
         public async Task<HttpResponseMessage> PatchAsync(string name, string url, object content)
         {
-            var stringContent = new StringContent(JsonConvert.SerializeObject(content), Encoding.ASCII, "application/json");
+            var stringContent = new StringContent(JsonConvert.SerializeObject(content), Encoding.UTF8, "application/json");
 
             var client = _clientFactory.CreateClient(name);
             return await client.PatchAsync(url, stringContent);
