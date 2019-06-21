@@ -11,7 +11,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="StockportGovUK.NetStandard.Models" Version="0.3.1-prerelease18" />
+    <PackageReference Include="StockportGovUK.NetStandard.Models" Version="0.3.1-prerelease21" />
   </ItemGroup>
 
   <ItemGroup>
