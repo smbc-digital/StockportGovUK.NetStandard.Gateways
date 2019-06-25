@@ -11,8 +11,15 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="StockportGovUK.NetStandard.Models" Version="0.*" />
+    <PackageReference Include="StockportGovUK.NetStandard.Models" Version="0.3.1" />
   </ItemGroup>
+
+<!-- Include this to reference a local version of the dll during dev -->
+<!-- <ItemGroup>
+  <Reference Include="StockportGovUK.NetStandard.Models">
+    <HintPath>c:\code\Microservices\Libraries\StockportGovUK.NetStandard.Models\StockportGovUK.NetStandard.Models.dll</HintPath>
+  </Reference>
+</ItemGroup> -->
 
   <ItemGroup>
     <Folder Include="VerintServiceGateway\Requests\" />
