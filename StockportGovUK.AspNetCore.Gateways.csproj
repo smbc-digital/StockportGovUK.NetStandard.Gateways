@@ -11,7 +11,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="StockportGovUK.NetStandard.Models" Version="0.3.1-prerelease25" />
+    <PackageReference Include="StockportGovUK.NetStandard.Models" Version="0.3.1-prerelease26" />
   </ItemGroup>
 
 <!-- Include this to reference a local version of the dll during dev -->

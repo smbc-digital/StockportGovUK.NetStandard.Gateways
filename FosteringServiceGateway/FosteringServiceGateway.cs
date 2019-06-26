@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using StockportGovUK.AspNetCore.Gateways.Response;
 using StockportGovUK.NetStandard.Models.Enums;
+using StockportGovUK.NetStandard.Models.Models;
 using StockportGovUK.NetStandard.Models.Models.Fostering;
 using StockportGovUK.NetStandard.Models.Models.Fostering.Update;
 
@@ -35,10 +36,16 @@ namespace StockportGovUK.AspNetCore.Gateways.FosteringServiceGateway
             return await PatchAsync<ETaskStatus>(HttpClientName, $"{CaseEndpoint}/languages-spoken-in-your-home", model);
         }
 
+        public async Task<HttpResponse<ETaskStatus>> UpdateYourFosteringHistory(FosteringCaseYourFosteringHistoryUpdateModel model)
+        {
+            return await PatchAsync<ETaskStatus>(HttpClientName, $"{CaseEndpoint}/your-fostering-history", model);
+        }
+
         public async Task<HttpResponse<ETaskStatus>> UpdatePartnershipStatus(FosteringCasePartnershipStatusUpdateModel model)
         {
             return await PatchAsync<ETaskStatus>(HttpClientName, $"{CaseEndpoint}/partnership-status", model);
         }
+
 
         public async Task<HttpResponseMessage> UpdateFormStatus(FosteringCaseStatusUpdateModel model)
         {
