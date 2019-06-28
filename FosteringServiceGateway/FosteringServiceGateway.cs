@@ -46,6 +46,10 @@ namespace StockportGovUK.AspNetCore.Gateways.FosteringServiceGateway
             return await PatchAsync<ETaskStatus>(HttpClientName, $"{CaseEndpoint}/partnership-status", model);
         }
 
+        public async Task<HttpResponse<ETaskStatus>> UpdateYourHealthStatus(FosteringCaseHealthUpdateModel model)
+        {
+            return await PatchAsync<ETaskStatus>(HttpClientName, $"{CaseEndpoint}/health-status", model);
+        }
 
         public async Task<HttpResponseMessage> UpdateFormStatus(FosteringCaseStatusUpdateModel model)
         {
