@@ -29,5 +29,7 @@ namespace StockportGovUK.AspNetCore.Gateways.FosteringServiceGateway
         Task<HttpResponse<ETaskStatus>> UpdateInterestInFostering(FosteringCaseInterestInFosteringUpdateModel model);
 
         Task<HttpResponse<ETaskStatus>> UpdateHousehold(FosteringCaseHouseholdUpdateModel model);
+
+        Task<HttpResponse<ETaskStatus>> UpdateUnderSixteenLivingAwayFromHome(FosteringCaseUnderSixteenLivingAwayFromHomeUpdateModel model);
     }
 }
