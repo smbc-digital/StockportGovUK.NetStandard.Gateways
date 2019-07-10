@@ -61,9 +61,9 @@ namespace StockportGovUK.AspNetCore.Gateways.FosteringServiceGateway
             return await PatchAsync<ETaskStatus>(HttpClientName, $"{CaseEndpoint}/update-household", model);
         }
 
-        public async Task<HttpResponse<ETaskStatus>> UpdateUnderSixteenLivingAwayFromHome(FosteringCaseUnderSixteenLivingAwayFromHomeUpdateModel model) 
+        public async Task<HttpResponse<ETaskStatus>> UpdateChildrenLivingAwayFromHome(FosteringCaseChildrenLivingAwayFromHomeUpdateModel model) 
         {
-            return await PatchAsync<ETaskStatus>(HttpClientName, $"{CaseEndpoint}/under-sixteen-living-away-from-home", model);
+            return await PatchAsync<ETaskStatus>(HttpClientName, $"{CaseEndpoint}/children-living-away-from-home", model);
         }
 
         public async Task<HttpResponseMessage> UpdateFormStatus(FosteringCaseStatusUpdateModel model)
