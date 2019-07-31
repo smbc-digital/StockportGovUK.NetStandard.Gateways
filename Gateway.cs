@@ -54,5 +54,24 @@ namespace StockportGovUK.AspNetCore.Gateways
 
             return response;
         }
+
+        public async Task<HttpResponse<T>> PostAsync<T>(string name, string url, object content)
+        {
+            var stringContent = new StringContent(JsonConvert.SerializeObject(content), Encoding.UTF8, "application/json");
+
+            var client = _clientFactory.CreateClient(name);
+            var result = await client.PostAsync(url, stringContent);
+            var response = await HttpResponse<T>.Get(result);
+
+            return response;
+        }
+
+        public async Task<HttpResponseMessage> PostAsync(string name, string url, object content)
+        {
+            var stringContent = new StringContent(JsonConvert.SerializeObject(content), Encoding.UTF8, "application/json");
+
+            var client = _clientFactory.CreateClient(name);
+            return await client.PostAsync(url, stringContent);
+        }
     }
 }

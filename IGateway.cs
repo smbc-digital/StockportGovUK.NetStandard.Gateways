@@ -13,5 +13,9 @@ namespace StockportGovUK.AspNetCore.Gateways
         Task<HttpResponseMessage> PatchAsync(string name, string url, object content);
 
         Task<HttpResponse<T>> PatchAsync<T>(string name, string url, object content);
+
+        Task<HttpResponse<T>> PostAsync<T>(string name, string url, object content);
+
+        Task<HttpResponseMessage> PostAsync(string name, string url, object content);
     }
 }
