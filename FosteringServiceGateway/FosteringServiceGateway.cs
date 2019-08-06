@@ -4,14 +4,17 @@ using StockportGovUK.AspNetCore.Gateways.Response;
 using StockportGovUK.NetStandard.Models.Enums;
 using StockportGovUK.NetStandard.Models.Models;
 using StockportGovUK.NetStandard.Models.Models.Fostering;
-using StockportGovUK.NetStandard.Models.Models.Fostering.Update;
+using StockportGovUK.NetStandard.Models.Models.Fostering.HomeVisit;
+using StockportGovUK.NetStandard.Models.Models.Fostering.Application;
 
 namespace StockportGovUK.AspNetCore.Gateways.FosteringServiceGateway
 {
     public class FosteringServiceGateway : Gateway, IFosteringServiceGateway
     {
         private const string HttpClientName = "fosteringServiceGateway";
-        private const string CaseEndpoint = "api/v1/Fostering";
+        private const string CaseEndpoint = "api/v1/Case";
+        private const string HomeVisitEndpoint = "api/v1/HomeVisit";
+        private const string ApplicationEndpoint = "api/v1/Application";
 
         public FosteringServiceGateway(IHttpClientFactory clientFactory) : base(clientFactory)
         {
@@ -24,61 +27,66 @@ namespace StockportGovUK.AspNetCore.Gateways.FosteringServiceGateway
 
         public async Task<HttpResponse<ETaskStatus>> UpdateAboutYourself(FosteringCaseAboutYourselfUpdateModel model)
         {
-            return await PatchAsync<ETaskStatus>(HttpClientName, $"{CaseEndpoint}/about-yourself", model);
+            return await PatchAsync<ETaskStatus>(HttpClientName, $"{HomeVisitEndpoint}/about-yourself", model);
         }
 
         public async Task<HttpResponse<ETaskStatus>> UpdateYourEmploymentDetails(FosteringCaseYourEmploymentDetailsUpdateModel model)
         {
-            return await PatchAsync<ETaskStatus>(HttpClientName, $"{CaseEndpoint}/your-employment-details", model);
+            return await PatchAsync<ETaskStatus>(HttpClientName, $"{HomeVisitEndpoint}/your-employment-details", model);
         }
 
         public async Task<HttpResponse<ETaskStatus>> UpdateLanguagesSpokenInYourHome(FosteringCaseLanguagesSpokenInYourHomeUpdateModel model) {
-            return await PatchAsync<ETaskStatus>(HttpClientName, $"{CaseEndpoint}/languages-spoken-in-your-home", model);
+            return await PatchAsync<ETaskStatus>(HttpClientName, $"{HomeVisitEndpoint}/languages-spoken-in-your-home", model);
         }
 
         public async Task<HttpResponse<ETaskStatus>> UpdateYourFosteringHistory(FosteringCaseYourFosteringHistoryUpdateModel model)
         {
-            return await PatchAsync<ETaskStatus>(HttpClientName, $"{CaseEndpoint}/your-fostering-history", model);
+            return await PatchAsync<ETaskStatus>(HttpClientName, $"{HomeVisitEndpoint}/your-fostering-history", model);
         }
 
         public async Task<HttpResponse<ETaskStatus>> UpdatePartnershipStatus(FosteringCasePartnershipStatusUpdateModel model)
         {
-            return await PatchAsync<ETaskStatus>(HttpClientName, $"{CaseEndpoint}/partnership-status", model);
+            return await PatchAsync<ETaskStatus>(HttpClientName, $"{HomeVisitEndpoint}/partnership-status", model);
         }
 
         public async Task<HttpResponse<ETaskStatus>> UpdateYourHealthStatus(FosteringCaseHealthUpdateModel model)
         {
-            return await PatchAsync<ETaskStatus>(HttpClientName, $"{CaseEndpoint}/health-status", model);
+            return await PatchAsync<ETaskStatus>(HttpClientName, $"{HomeVisitEndpoint}/health-status", model);
         }
 
         public async Task<HttpResponse<ETaskStatus>> UpdateInterestInFostering(FosteringCaseInterestInFosteringUpdateModel model)
         {
-            return await PatchAsync<ETaskStatus>(HttpClientName, $"{CaseEndpoint}/interest-in-fostering", model);
+            return await PatchAsync<ETaskStatus>(HttpClientName, $"{HomeVisitEndpoint}/interest-in-fostering", model);
         }
 
         public async Task<HttpResponse<ETaskStatus>> UpdateHousehold(FosteringCaseHouseholdUpdateModel model)
         {
-            return await PatchAsync<ETaskStatus>(HttpClientName, $"{CaseEndpoint}/update-household", model);
+            return await PatchAsync<ETaskStatus>(HttpClientName, $"{HomeVisitEndpoint}/update-household", model);
         }
 
         public async Task<HttpResponse<ETaskStatus>> UpdateChildrenLivingAwayFromHome(FosteringCaseChildrenLivingAwayFromHomeUpdateModel model) 
         {
-            return await PatchAsync<ETaskStatus>(HttpClientName, $"{CaseEndpoint}/children-living-away-from-home", model);
+            return await PatchAsync<ETaskStatus>(HttpClientName, $"{HomeVisitEndpoint}/children-living-away-from-home", model);
+        }
+
+        public async Task<HttpResponseMessage> UpdateFormStatus(NetStandard.Models.Models.Fostering.HomeVisit.FosteringCaseStatusUpdateModel model)
+        {
+            return await PatchAsync(HttpClientName, $"{HomeVisitEndpoint}/update-form-status", model);
         }
 
         public async Task<HttpResponse<ETaskStatus>> UpdateReferences(FosteringCaseReferenceUpdateModel model)
         {
-            return await PatchAsync<ETaskStatus>(HttpClientName, $"{CaseEndpoint}/references", model);
-        }
-
-        public async Task<HttpResponseMessage> UpdateFormStatus(FosteringCaseStatusUpdateModel model)
-        {
-            return await PatchAsync(HttpClientName, $"{CaseEndpoint}/update-form-status", model);
+            return await PatchAsync<ETaskStatus>(HttpClientName, $"{ApplicationEndpoint}/references", model);
         }
 
         public async Task<HttpResponse<ETaskStatus>> UpdateGpDetails(FosteringCaseGpDetailsUpdateModel model)
         {
-            return await PatchAsync<ETaskStatus>(HttpClientName, $"{CaseEndpoint}/gp-details", model);
+            return await PatchAsync<ETaskStatus>(HttpClientName, $"{ApplicationEndpoint}/gp-details", model);
+        }
+
+        public async Task<HttpResponseMessage> UpdateFormStatus(NetStandard.Models.Models.Fostering.Application.FosteringCaseStatusUpdateModel model)
+        {
+            return await PatchAsync(HttpClientName, $"{ApplicationEndpoint}/update-form-status", model);
         }
     }
 }

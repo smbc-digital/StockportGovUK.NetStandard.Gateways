@@ -9,7 +9,6 @@ namespace StockportGovUK.AspNetCore.Gateways.InthubGateway
 
         public InthubGateway(IHttpClientFactory clientFactory) : base(clientFactory)
         {
-
         }
 
         public async Task<HttpResponseMessage> UnmatchFosteringCase(string reference)

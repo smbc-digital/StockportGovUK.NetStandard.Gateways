@@ -4,7 +4,8 @@ using StockportGovUK.AspNetCore.Gateways.Response;
 using StockportGovUK.NetStandard.Models.Enums;
 using StockportGovUK.NetStandard.Models.Models;
 using StockportGovUK.NetStandard.Models.Models.Fostering;
-using StockportGovUK.NetStandard.Models.Models.Fostering.Update;
+using StockportGovUK.NetStandard.Models.Models.Fostering.Application;
+using StockportGovUK.NetStandard.Models.Models.Fostering.HomeVisit;
 
 namespace StockportGovUK.AspNetCore.Gateways.FosteringServiceGateway
 {
@@ -20,7 +21,9 @@ namespace StockportGovUK.AspNetCore.Gateways.FosteringServiceGateway
        
         Task<HttpResponse<ETaskStatus>> UpdatePartnershipStatus(FosteringCasePartnershipStatusUpdateModel model);
 
-        Task<HttpResponseMessage> UpdateFormStatus(FosteringCaseStatusUpdateModel model);
+        Task<HttpResponseMessage> UpdateFormStatus(NetStandard.Models.Models.Fostering.HomeVisit.FosteringCaseStatusUpdateModel model);
+
+        Task<HttpResponseMessage> UpdateFormStatus(NetStandard.Models.Models.Fostering.Application.FosteringCaseStatusUpdateModel model);
 
         Task<HttpResponse<ETaskStatus>> UpdateYourFosteringHistory(FosteringCaseYourFosteringHistoryUpdateModel model);
 
