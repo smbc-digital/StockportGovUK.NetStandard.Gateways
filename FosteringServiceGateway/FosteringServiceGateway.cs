@@ -71,7 +71,7 @@ namespace StockportGovUK.AspNetCore.Gateways.FosteringServiceGateway
 
         public async Task<HttpResponseMessage> UpdateFormStatus(NetStandard.Models.Models.Fostering.HomeVisit.FosteringCaseStatusUpdateModel model)
         {
-            return await PatchAsync(HttpClientName, $"{HomeVisitEndpoint}/update-form-status", model);
+            return await PatchAsync(HttpClientName, $"{HomeVisitEndpoint}/status", model);
         }
 
         public async Task<HttpResponse<ETaskStatus>> UpdateReferences(FosteringCaseReferenceUpdateModel model)
@@ -86,7 +86,7 @@ namespace StockportGovUK.AspNetCore.Gateways.FosteringServiceGateway
 
         public async Task<HttpResponseMessage> UpdateFormStatus(NetStandard.Models.Models.Fostering.Application.FosteringCaseStatusUpdateModel model)
         {
-            return await PatchAsync(HttpClientName, $"{ApplicationEndpoint}/update-form-status", model);
+            return await PatchAsync(HttpClientName, $"{ApplicationEndpoint}/status", model);
         }
     }
 }
