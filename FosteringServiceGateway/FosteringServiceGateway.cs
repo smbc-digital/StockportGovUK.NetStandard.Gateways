@@ -89,6 +89,11 @@ namespace StockportGovUK.AspNetCore.Gateways.FosteringServiceGateway
             return await PatchAsync<ETaskStatus>(HttpClientName, $"{ApplicationEndpoint}/address-history", model);
         }
 
+        public async Task<HttpResponse<ETaskStatus>> UpdateCouncillorsOrEmployees(FosteringCaseCouncillorsUpdateModel model)
+        {
+            return await PatchAsync<ETaskStatus>(HttpClientName, $"{ApplicationEndpoint}/councillors-details", model);
+        }
+
         public async Task<HttpResponseMessage> UpdateFormStatus(NetStandard.Models.Models.Fostering.Application.FosteringCaseStatusUpdateModel model)
         {
             return await PatchAsync(HttpClientName, $"{ApplicationEndpoint}/status", model);
