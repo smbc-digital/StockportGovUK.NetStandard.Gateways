@@ -7,6 +7,7 @@ namespace StockportGovUK.AspNetCore.Gateways.BinsService
     public interface IBinsServiceGateway : IGateway
     {
         Task<HttpResponse<T>> GetCollectionsAsync<T>(string uprn);
+
         Task<HttpResponse<T>> GetCalendarAsync<T>(string uprn);
     }
 }
