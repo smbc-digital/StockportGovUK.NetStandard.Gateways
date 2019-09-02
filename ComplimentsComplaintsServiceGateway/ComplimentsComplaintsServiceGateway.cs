@@ -1,7 +1,7 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using StockportGovUK.AspNetCore.Gateways.Response;
-using StockportGovUK.NetStandard.Models.Models;
+using StockportGovUK.NetStandard.Models.Models.ComplimentsComplaints;
 
 namespace StockportGovUK.AspNetCore.Gateways.ComplimentsComplaintsServiceGateway
 {
