@@ -6,6 +6,6 @@ namespace StockportGovUK.AspNetCore.Gateways.ComplimentsComplaintsServiceGateway
 {
     public interface IComplimentsComplaintsServiceGateway
     {
-        Task<HttpResponse<ComplimentsComplaintsResponse>> SubmitCompliment(ComplimentDetails model);
+        Task<HttpResponse<CreateCaseResponse>> SubmitCompliment(ComplimentDetails model);
     }
 }
