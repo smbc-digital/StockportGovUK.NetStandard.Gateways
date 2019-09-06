@@ -12,7 +12,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.5" />
     <!-- Package Reference should allways be Version="0.3.2-*" so that we have the latest version of the package -->
-    <PackageReference Include="StockportGovUK.NetStandard.Models" Version="0.3.2-prerelease90" />
+    <PackageReference Include="StockportGovUK.NetStandard.Models" Version="0.3.2-*" />
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
     <PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
   </ItemGroup>
