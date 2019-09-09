@@ -8,7 +8,7 @@ namespace StockportGovUK.AspNetCore.Gateways.ComplimentsComplaintsServiceGateway
     public class ComplimentsComplaintsServiceGateway : Gateway, IComplimentsComplaintsServiceGateway
     {
         private const string HttpClientName = "complimentsComplaintsGateway";
-        private const string ComplimentEndpoint = "api/v1/Compliment";
+        private const string ComplimentEndpoint = "api/v1/Compliments";
 
         public ComplimentsComplaintsServiceGateway(IHttpClientFactory clientFactory) : base(clientFactory)
         {
