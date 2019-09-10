@@ -1,6 +1,7 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using StockportGovUK.AspNetCore.Gateways.Response;
+using StockportGovUk.NetStandard.Models.ParkingEnforcement;
 
 namespace StockportGovUK.AspNetCore.Gateways.ParkingEnforcement
 {
@@ -14,7 +15,7 @@ namespace StockportGovUK.AspNetCore.Gateways.ParkingEnforcement
         public async Task<HttpResponseMessage> CreateCase(ParkingEnforcementRequest request)
         {
             var url = $"/api/v1/Home";
-            return await PostAsync(url);
+            return await PostAsync(url, request);
         }
     }
 }
