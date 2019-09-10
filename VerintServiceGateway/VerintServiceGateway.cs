@@ -22,7 +22,7 @@ namespace StockportGovUK.AspNetCore.Gateways.VerintServiceGateway
 
         public async Task<HttpResponse<CreateCaseResponse>> CreateCase(Case crmCase)
         {
-            return await PostAsync<CreateCaseResponse>(HttpClientName, $"{CaseEndpoint}/create-case", crmCase);
+            return await PostAsync<CreateCaseResponse>(HttpClientName, $"{CaseEndpoint}", crmCase);
         } 
 
         public async Task<HttpResponseMessage> UpdateCaseIntegrationFormField(IntegrationFormFieldsUpdateModel content)
