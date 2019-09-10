@@ -61,7 +61,10 @@ We have always had need to use Gateways within our applications and had so many 
 Using a micro service architechture we wanted an easy way for services to expose their endpoints to any of our other services. In place or remembering the exact URL for a specific endpoint these gateways provide that information for the developer.
 
 Within your application configuration you define the base URL for your service, allowing you to overide it per environment if you want to point to a test system.
+
 This config is then used within the Gateway pacakge to route the request to the correct endpoint.
+
+### Earlier versions (<=prerelease 148) ### 
 ```json
 "HttpClientConfiguration": [
     {
@@ -71,19 +74,55 @@ This config is then used within the Gateway pacakge to route the request to the 
 ]
 ```
 
-```c#
-private const string CaseEndpoint = "api/v1/Case";
 
-public async Task<HttpResponse<Case>> GetCase(string caseRef)
+### Later versions (>=prerelease 149) ### 
+Gateways moved away from using named clients and used typed clients instead, this solved some issues with named gateways not being automatically registered with DI
+
+Config changes to the following, please note that the gateway type needs to be the fully realised assembly name.
+```json
 {
-    return await GetAsync<Case>(HttpClientName, $"{CaseEndpoint}?caseId={caseRef}");
+  "HttpClientConfiguration": [
+      {
+        "iGatewayType": "StockportGovUK.AspNetCore.Gateways.YourGatewayNamespace.IYourGatewayName",
+        "gatewayType": "StockportGovUK.AspNetCore.Gateways.YourGatewayNamespace.YourGatewayName,StockportGovUK.AspNetCore.Gateways",
+        "baseUrl": "https://www.BaseServiceUrlHere.co.uk"
+      }
+  ]
 }
+```
+Adding resilient clients (i.e. with circuit breaker) is now done via the gateways package (rather than through [polly](https://github.com/smbc-digital/StockportGovUK.AspNetCore.Polly). To enable this behaviour add the following to startup.
+
+```C#
+services.AddResilientHttpClients<IGateway, Gateway>(Configuration);
+```
+
+To use a gateway simply inject that gateway into the consumer.
+```C#
+public HomeController(IYourGatewayName gateway)
+```
+
+New gateways are constructed slightly differently, the following pattern is a gateway and example get request
+
+```c#
+    public class MyNewGateway : Gateway, IMyNewGateway
+    {
+        public MyNewGateway(HttpClient httpClient) : base(httpClient) 
+        {
+        }
+
+        public async Task<HttpResponseMessage> DoSomethingAsync(string data)
+        {
+            var url = $"/api/v1/endpoint/{data}";
+            return await GetAsync(url);
+        }
 ```
 
 ## Installation
 ```bash
 $ dotnet add package StockportGovUK.AspNetCore.Gateways
 ```
+
+
 
 ## License
 [MIT](https://tldrlegal.com/license/mit-license)
