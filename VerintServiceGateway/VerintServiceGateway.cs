@@ -8,7 +8,7 @@ namespace StockportGovUK.AspNetCore.Gateways.VerintServiceGateway
 {
     public class VerintServiceGateway : Gateway, IVerintServiceGateway
     {
-        //private const string HttpClientName = "verintServiceGateway";
+        private const string HttpClientName = "verintServiceGateway";
         private const string CaseEndpoint = "api/v1/Case";
 
         public VerintServiceGateway(HttpClient httpClient) : base(httpClient)
