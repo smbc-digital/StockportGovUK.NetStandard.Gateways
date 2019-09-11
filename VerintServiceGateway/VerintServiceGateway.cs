@@ -8,26 +8,26 @@ namespace StockportGovUK.AspNetCore.Gateways.VerintServiceGateway
 {
     public class VerintServiceGateway : Gateway, IVerintServiceGateway
     {
-        private const string HttpClientName = "verintServiceGateway";
+        //private const string HttpClientName = "verintServiceGateway";
         private const string CaseEndpoint = "api/v1/Case";
 
-        public VerintServiceGateway(IHttpClientFactory clientFactory) : base(clientFactory)
+        public VerintServiceGateway(HttpClient httpClient) : base(httpClient)
         {
         }
 
         public async Task<HttpResponse<Case>> GetCase(string caseRef)
         {
-            return await GetAsync<Case>(HttpClientName, $"{CaseEndpoint}?caseId={caseRef}");
+            return await GetAsync<Case>($"{CaseEndpoint}?caseId={caseRef}");
         }
 
         public async Task<HttpResponse<CreateCaseResponse>> CreateCase(Case crmCase)
         {
-            return await PostAsync<CreateCaseResponse>(HttpClientName, $"{CaseEndpoint}", crmCase);
+            return await PostAsync<CreateCaseResponse>($"{CaseEndpoint}", crmCase);
         } 
 
         public async Task<HttpResponseMessage> UpdateCaseIntegrationFormField(IntegrationFormFieldsUpdateModel content)
         {
-            return await PatchAsync(HttpClientName, $"{CaseEndpoint}/integration-form-fields", content);
+            return await PatchAsync($"{CaseEndpoint}/integration-form-fields", content);
         }
     }
 }
