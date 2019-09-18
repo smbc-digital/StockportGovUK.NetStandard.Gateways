@@ -15,14 +15,14 @@ namespace StockportGovUK.AspNetCore.Gateways.ComplimentsComplaintsServiceGateway
         {
         }
 
-        public async Task<HttpResponse<CreateCaseResponse>> SubmitCompliment(ComplimentDetails model)
+        public async Task<HttpResponse<string>> SubmitCompliment(ComplimentDetails model)
         {
-            return await PostAsync<CreateCaseResponse>($"{ComplimentEndpoint}/submit-compliment", model);
+            return await PostAsync<string>($"{ComplimentEndpoint}/submit-compliment", model);
         }
 
-        public async Task<HttpResponse<CreateCaseResponse>> SubmitComplaint(ComplaintDetails model)
+        public async Task<HttpResponse<string>> SubmitComplaint(ComplaintDetails model)
         {
-            return await PostAsync<CreateCaseResponse>($"{ComplaintEndpoint}/submit-complaint", model);
-        }
+            return await PostAsync<string>($"{ComplaintEndpoint}/submit-complaint", model);
+        }7
     }
 }
