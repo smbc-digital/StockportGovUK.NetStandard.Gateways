@@ -7,13 +7,13 @@ namespace StockportGovUK.AspNetCore.Gateways.InthubGateway
     {
         private const string HttpClientName = "inthubGateway";
 
-        public InthubGateway(IHttpClientFactory clientFactory) : base(clientFactory)
+        public InthubGateway(HttpClient client) : base(client)
         {
         }
 
         public async Task<HttpResponseMessage> UnmatchFosteringCase(string reference)
         {
-            return await PostAsync(HttpClientName, "api/v2/fostering/unmatch", reference);
+            return await PostAsync("api/v2/fostering/unmatch", reference);
         }
     }
 }

@@ -23,7 +23,6 @@ namespace StockportGovUK.AspNetCore.Gateways
             {
                 if(string.IsNullOrEmpty(config["name"]))
                 {
-                    // TODO: Create new custom exception type 
                     throw new Exception("Name for HttpClient not specified");
                 }
                 
@@ -51,11 +50,17 @@ namespace StockportGovUK.AspNetCore.Gateways
                 {
                     throw new Exception("Gateway Type for HttpClient not specified");
                 }
+
+                var addPollyPolicies = true;
+                var addPollyPoliciesConfig = config["addPollyPolicies"];
+                if(!string.IsNullOrEmpty(addPollyPoliciesConfig))
+                {
+                    bool.TryParse(addPollyPoliciesConfig, out addPollyPolicies);
+                }
                 
-                AddResilientHttpClients(services, config["gatewayType"], config["iGatewayType"], c => 
+                AddResilientHttpClients(services, config["gatewayType"], config["iGatewayType"], addPollyPolicies, c => 
                 {
                     c.BaseAddress = string.IsNullOrEmpty(config["baseUrl"]) ? null : new Uri(config["baseUrl"]);
-
                     c.DefaultRequestHeaders.Authorization = string.IsNullOrEmpty(config["authToken"])
                         ? null 
                         : new AuthenticationHeaderValue("Bearer", config["authToken"]);
@@ -80,7 +85,7 @@ namespace StockportGovUK.AspNetCore.Gateways
         }
 
 
-        private static void AddResilientHttpClients(IServiceCollection services, string gatewayType, string iGatewayType, Action<HttpClient> config)
+        private static void AddResilientHttpClients(IServiceCollection services, string gatewayType, string iGatewayType, bool addPollyPolicies, Action<HttpClient> config)
         {
             var reflectedType = typeof(HttpClientFactoryServiceCollectionExtensions);
             if(reflectedType==null)
@@ -104,8 +109,11 @@ namespace StockportGovUK.AspNetCore.Gateways
 
             MethodInfo invokeableMethod = reflectedMethod.MakeGenericMethod(iClientType, clientType);
             var invokedMethod = (IHttpClientBuilder)invokeableMethod.Invoke(null, new object[] { services, config });
-            invokedMethod.AddPolicyHandler(ServiceCollectionExtensions.GetDefaultRetryPolicy());
-            invokedMethod.AddPolicyHandler(ServiceCollectionExtensions.GetDefaultCircuitBreakerPolicy());
+            if(addPollyPolicies)
+            {
+                invokedMethod.AddPolicyHandler(ServiceCollectionExtensions.GetDefaultRetryPolicy());
+                invokedMethod.AddPolicyHandler(ServiceCollectionExtensions.GetDefaultCircuitBreakerPolicy());
+            }
         }
 
         public static IAsyncPolicy<HttpResponseMessage> GetDefaultRetryPolicy()

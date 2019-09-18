@@ -90,6 +90,18 @@ Config changes to the following, please note that the gateway type needs to be t
   ]
 }
 ```
+For the purposes of debugging you can prevent the addition of resilient features but still registers gateways from config by setting "addPollyPolicies" to "false".
+```json
+{
+  "HttpClientConfiguration": [
+      {
+        ...
+        "addPollyPolicies": "false"
+      }
+  ]
+}
+```
+
 Adding resilient clients (i.e. with circuit breaker) is now done via the gateways package (rather than through [polly](https://github.com/smbc-digital/StockportGovUK.AspNetCore.Polly). To enable this behaviour add the following to startup.
 
 ```C#
