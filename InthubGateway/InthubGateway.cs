@@ -5,8 +5,6 @@ namespace StockportGovUK.AspNetCore.Gateways.InthubGateway
 {
     public class InthubGateway : Gateway, IInthubGateway
     {
-        private const string HttpClientName = "inthubGateway";
-
         public InthubGateway(HttpClient client) : base(client)
         {
         }
