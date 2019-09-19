@@ -19,9 +19,9 @@
   </ItemGroup>
 
 <!-- Include this to reference a local version of the dll during dev -->
-<!-- <ItemGroup>
+ <!--<ItemGroup>
   <Reference Include="StockportGovUK.NetStandard.Models">
-    <HintPath>c:\code\Microservices\Libraries\StockportGovUK.NetStandard.Models\StockportGovUK.NetStandard.Models.dll</HintPath>
+    <HintPath>c:\code\Other\StockportGovUK.NetStandard.Models\bin\Debug\netcoreapp2.2\StockportGovUK.NetStandard.Models.dll</HintPath>
   </Reference>
 </ItemGroup> -->
 

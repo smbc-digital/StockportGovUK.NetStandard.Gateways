@@ -1,6 +1,5 @@
 using System.Net.Http;
 using System.Threading.Tasks;
-using StockportGovUK.AspNetCore.Gateways.Response;
 using StockportGovUK.NetStandard.Models.Models.ComplimentsComplaints;
 
 namespace StockportGovUK.AspNetCore.Gateways.ComplimentsComplaintsServiceGateway
@@ -15,14 +14,14 @@ namespace StockportGovUK.AspNetCore.Gateways.ComplimentsComplaintsServiceGateway
         {
         }
 
-        public async Task<HttpResponse<string>> SubmitCompliment(ComplimentDetails model)
+        public async Task<HttpResponseMessage> SubmitCompliment(ComplimentDetails model)
         {
-            return await PostAsync<string>($"{ComplimentEndpoint}/submit-compliment", model);
+            return await PostAsync($"{ComplimentEndpoint}/submit-compliment", model);
         }
 
-        public async Task<HttpResponse<string>> SubmitComplaint(ComplaintDetails model)
+        public async Task<HttpResponseMessage> SubmitComplaint(ComplaintDetails model)
         {
-            return await PostAsync<string>($"{ComplaintEndpoint}/submit-complaint", model);
+            return await PostAsync($"{ComplaintEndpoint}/submit-complaint", model);
         }
     }
 }
