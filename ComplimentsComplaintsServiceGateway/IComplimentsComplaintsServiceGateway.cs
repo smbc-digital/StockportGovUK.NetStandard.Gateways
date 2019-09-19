@@ -1,13 +1,15 @@
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using StockportGovUK.AspNetCore.Gateways.Response;
 using StockportGovUK.NetStandard.Models.Models.ComplimentsComplaints;
 
 namespace StockportGovUK.AspNetCore.Gateways.ComplimentsComplaintsServiceGateway
 {
     public interface IComplimentsComplaintsServiceGateway
     {
-        Task<HttpResponseMessage> SubmitCompliment(ComplimentDetails model);
+        Task<HttpResponse<string>> SubmitCompliment(ComplimentDetails model);
 
-        Task<HttpResponseMessage> SubmitComplaint(ComplaintDetails model);
+        Task<HttpResponse<string>> SubmitComplaint(ComplaintDetails model);
     }
 }
