@@ -9,6 +9,7 @@ namespace StockportGovUK.AspNetCore.Gateways.ComplimentsComplaintsServiceGateway
     {
         private const string HttpClientName = "complimentsComplaintsGateway";
         private const string ComplimentEndpoint = "api/v1/Compliments";
+        private const string FeedbackEndpoint = "api/v1/Feedback";
 
         public ComplimentsComplaintsServiceGateway(HttpClient httpClient) : base(httpClient)
         {
@@ -17,6 +18,11 @@ namespace StockportGovUK.AspNetCore.Gateways.ComplimentsComplaintsServiceGateway
         public async Task<HttpResponse<CreateCaseResponse>> SubmitCompliment(ComplimentDetails model)
         {
             return await PostAsync<CreateCaseResponse>($"{ComplimentEndpoint}/submit-compliment", model);
+        }
+
+        public async Task<HttpResponse<CreateCaseResponse>> SubmitFeedback(FeedbackDetails model)
+        {
+            return await PostAsync<CreateCaseResponse>($"{FeebackEndpoint}/submit-feedback", model);
         }
     }
 }
