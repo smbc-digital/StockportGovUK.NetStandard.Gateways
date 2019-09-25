@@ -11,9 +11,10 @@ namespace StockportGovUK.AspNetCore.Gateways.FosteringServiceGateway
 {
     public class FosteringServiceGateway : Gateway, IFosteringServiceGateway
     {
-        private const string HttpClientName = "fosteringServiceGateway";
         private const string CaseEndpoint = "api/v1/Case";
+
         private const string HomeVisitEndpoint = "api/v1/HomeVisit";
+
         private const string ApplicationEndpoint = "api/v1/Application";
 
         public FosteringServiceGateway(HttpClient client) : base(client)
