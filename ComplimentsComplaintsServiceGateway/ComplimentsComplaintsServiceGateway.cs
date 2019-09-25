@@ -29,7 +29,7 @@ namespace StockportGovUK.AspNetCore.Gateways.ComplimentsComplaintsServiceGateway
 
         public async Task<HttpResponse<string>> SubmitFeedback(FeedbackDetails model)
         {
-            return await PostAsync<string>($"{FeebackEndpoint}/submit-feedback", model);
+            return await PostAsync<string>($"{FeedbackEndpoint}/submit-feedback", model);
         }
     }
 }
