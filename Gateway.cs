@@ -18,12 +18,6 @@ namespace StockportGovUK.AspNetCore.Gateways
             _client = client;
         }
 
-        public Gateway(HttpClient client, string authHeader)
-        {
-            _client = client;
-            _client.DefaultRequestHeaders.Authorization = AuthenticationHeaderValue.Parse(authHeader);
-        }
-
         public async Task<HttpResponseMessage> GetAsync(string url)
         {
             try
