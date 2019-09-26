@@ -1,5 +1,6 @@
 using System;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,12 @@ namespace StockportGovUK.AspNetCore.Gateways
         public Gateway(HttpClient client)
         {
             _client = client;
+        }
+
+        public Gateway(HttpClient client, string authHeader)
+        {
+            _client = client;
+            _client.DefaultRequestHeaders.Authorization = AuthenticationHeaderValue.Parse(authHeader);
         }
 
         public async Task<HttpResponseMessage> GetAsync(string url)
@@ -117,9 +124,39 @@ namespace StockportGovUK.AspNetCore.Gateways
             }
         }
 
+        public async Task<HttpResponseMessage> DeleteAsync(string url)
+        {
+            try
+            {
+                return await _client.DeleteAsync(url);
+            }
+            catch(Exception ex)
+            {
+                throw new GatewayException($"{GetType().Name} => {MethodBase.GetCurrentMethod().Name}({url}) - failed with the following error: '{ex.Message}'", ex);
+            }
+        }
+
+        public async Task<HttpResponse<T>> DeleteAsync<T>(string url)
+        {
+            try
+            {
+                var result = await _client.DeleteAsync(url);
+                return await HttpResponse<T>.Get(result);    
+            }
+            catch(Exception ex)
+            {
+                throw new GatewayException($"{GetType().Name} => {MethodBase.GetCurrentMethod().Name}<{nameof(T)}>({url}) - failed with the following error: '{ex.Message}'", ex);
+            }
+        }
+
         private StringContent GetStringContent(object content)
         {
             return new StringContent(JsonConvert.SerializeObject(content), Encoding.UTF8, "application/json");
+        }
+
+        public void ChangeAuthenticationHeader(string authHeader)
+        {
+            _client.DefaultRequestHeaders.Authorization = AuthenticationHeaderValue.Parse(authHeader);
         }
     }
 }

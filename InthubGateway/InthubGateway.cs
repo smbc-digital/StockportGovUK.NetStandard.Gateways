@@ -9,6 +9,10 @@ namespace StockportGovUK.AspNetCore.Gateways.InthubGateway
         {
         }
 
+        public InthubGateway(HttpClient client, string authHeader) : base(client, authHeader)
+        {
+        }
+
         public async Task<HttpResponseMessage> UnmatchFosteringCase(string reference)
         {
             return await PostAsync("api/v2/fostering/unmatch", reference);

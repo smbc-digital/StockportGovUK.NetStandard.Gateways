@@ -63,7 +63,7 @@ namespace StockportGovUK.AspNetCore.Gateways
                     c.BaseAddress = string.IsNullOrEmpty(config["baseUrl"]) ? null : new Uri(config["baseUrl"]);
                     c.DefaultRequestHeaders.Authorization = string.IsNullOrEmpty(config["authToken"])
                         ? null 
-                        : new AuthenticationHeaderValue("Bearer", config["authToken"]);
+                        : AuthenticationHeaderValue.Parse(config["authToken"]);
                 });
             }
         }
