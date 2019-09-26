@@ -55,6 +55,18 @@ namespace StockportGovUK.AspNetCore.Gateways
             }
         }
 
+        public async Task<HttpResponseMessage> PatchAsync(string url, object content, bool encodeContent)
+        {
+            try
+            {
+                return await _client.PatchAsync(url, encodeContent ? GetStringContent(content) : (HttpContent)content);
+            }
+            catch (Exception ex)
+            {
+                throw new GatewayException($"{GetType().Name} => {MethodBase.GetCurrentMethod().Name}({url}) - failed with the following error: '{ex.Message}'", ex);
+            }
+        }
+
         public async Task<HttpResponse<T>> PatchAsync<T>(string url, object content)
         {
             try
@@ -68,6 +80,19 @@ namespace StockportGovUK.AspNetCore.Gateways
             }
         }
 
+        public async Task<HttpResponse<T>> PatchAsync<T>(string url, object content, bool encodeContent)
+        {
+            try
+            {
+                var result = await _client.PatchAsync(url, encodeContent ? GetStringContent(content) : (HttpContent)content);
+                return await HttpResponse<T>.Get(result);
+            }
+            catch (Exception ex)
+            {
+                throw new GatewayException($"{GetType().Name} => {MethodBase.GetCurrentMethod().Name}<{nameof(T)}>({url}) - failed with the following error: '{ex.Message}'", ex);
+            }
+        }
+
         public async Task<HttpResponseMessage> PostAsync(string url, object content)
         {
             try
@@ -75,6 +100,18 @@ namespace StockportGovUK.AspNetCore.Gateways
                 return await _client.PostAsync(url, GetStringContent(content));
             }
             catch(Exception ex)
+            {
+                throw new GatewayException($"{GetType().Name} => {MethodBase.GetCurrentMethod().Name}({url}) - failed with the following error: '{ex.Message}'", ex);
+            }
+        }
+
+        public async Task<HttpResponseMessage> PostAsync(string url, object content, bool encodeContent)
+        {
+            try
+            {
+                return await _client.PostAsync(url, encodeContent ? GetStringContent(content) : (HttpContent)content);
+            }
+            catch (Exception ex)
             {
                 throw new GatewayException($"{GetType().Name} => {MethodBase.GetCurrentMethod().Name}({url}) - failed with the following error: '{ex.Message}'", ex);
             }
@@ -93,6 +130,19 @@ namespace StockportGovUK.AspNetCore.Gateways
             }
         }
 
+        public async Task<HttpResponse<T>> PostAsync<T>(string url, object content, bool encodeContent)
+        {
+            try
+            {
+                var result = await _client.PostAsync(url, encodeContent ? GetStringContent(content) : (HttpContent)content);
+                return await HttpResponse<T>.Get(result);
+            }
+            catch (Exception ex)
+            {
+                throw new GatewayException($"{GetType().Name} => {MethodBase.GetCurrentMethod().Name}<{nameof(T)}>({url}) - failed with the following error: '{ex.Message}'", ex);
+            }
+        }
+
         public async Task<HttpResponseMessage> PutAsync(string url, HttpContent content)
         {
             try
@@ -105,6 +155,7 @@ namespace StockportGovUK.AspNetCore.Gateways
             }
         }
 
+
         public async Task<HttpResponse<T>> PutAsync<T>(string url, object content)
         {
             try
@@ -113,6 +164,19 @@ namespace StockportGovUK.AspNetCore.Gateways
                 return await HttpResponse<T>.Get(result);    
             }
             catch(Exception ex)
+            {
+                throw new GatewayException($"{GetType().Name} => {MethodBase.GetCurrentMethod().Name}<{nameof(T)}>({url}) - failed with the following error: '{ex.Message}'", ex);
+            }
+        }
+
+        public async Task<HttpResponse<T>> PutAsync<T>(string url, object content, bool encodeContent)
+        {
+            try
+            {
+                var result = await _client.PutAsync(url, encodeContent ? GetStringContent(content) : (HttpContent)content);
+                return await HttpResponse<T>.Get(result);
+            }
+            catch (Exception ex)
             {
                 throw new GatewayException($"{GetType().Name} => {MethodBase.GetCurrentMethod().Name}<{nameof(T)}>({url}) - failed with the following error: '{ex.Message}'", ex);
             }
