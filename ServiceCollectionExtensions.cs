@@ -43,28 +43,31 @@ namespace StockportGovUK.AspNetCore.Gateways
         {
             AddBaseHttpClient<TClient, TImplementation>(services);
 
-            var httpClientConfiguration = configuration.GetSection("HttpClientConfiguration").GetChildren();
-            foreach (var config in httpClientConfiguration)
-            {
-                if(string.IsNullOrEmpty(config["gatewayType"]) || string.IsNullOrEmpty(config["iGatewayType"]))
-                {
-                    throw new Exception("Gateway Type for HttpClient not specified");
-                }
+            var httpClientConfiguration = configuration.GetSection("HttpClientConfiguration")?.GetChildren();
 
-                var addPollyPolicies = true;
-                var addPollyPoliciesConfig = config["addPollyPolicies"];
-                if(!string.IsNullOrEmpty(addPollyPoliciesConfig))
+            if (httpClientConfiguration != null) {
+                foreach (var config in httpClientConfiguration)
                 {
-                    bool.TryParse(addPollyPoliciesConfig, out addPollyPolicies);
+                    if(string.IsNullOrEmpty(config["gatewayType"]) || string.IsNullOrEmpty(config["iGatewayType"]))
+                    {
+                        throw new Exception("Gateway Type for HttpClient not specified");
+                    }
+
+                    var addPollyPolicies = true;
+                    var addPollyPoliciesConfig = config["addPollyPolicies"];
+                    if(!string.IsNullOrEmpty(addPollyPoliciesConfig))
+                    {
+                        bool.TryParse(addPollyPoliciesConfig, out addPollyPolicies);
+                    }
+                    
+                    AddResilientHttpClients(services, config["gatewayType"], config["iGatewayType"], addPollyPolicies, c => 
+                    {
+                        c.BaseAddress = string.IsNullOrEmpty(config["baseUrl"]) ? null : new Uri(config["baseUrl"]);
+                        c.DefaultRequestHeaders.Authorization = string.IsNullOrEmpty(config["authToken"])
+                            ? null 
+                            : AuthenticationHeaderValue.Parse(config["authToken"]);
+                    });
                 }
-                
-                AddResilientHttpClients(services, config["gatewayType"], config["iGatewayType"], addPollyPolicies, c => 
-                {
-                    c.BaseAddress = string.IsNullOrEmpty(config["baseUrl"]) ? null : new Uri(config["baseUrl"]);
-                    c.DefaultRequestHeaders.Authorization = string.IsNullOrEmpty(config["authToken"])
-                        ? null 
-                        : AuthenticationHeaderValue.Parse(config["authToken"]);
-                });
             }
         }
         
