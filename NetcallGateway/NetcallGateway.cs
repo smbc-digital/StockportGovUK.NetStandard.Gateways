@@ -20,7 +20,7 @@ namespace StockportGovUK.AspNetCore.Gateways.Netcall
         
         public async Task<HttpResponseMessage> PauseRecordingFromExtensionAsync(string extension)
         {
-            return await GetAsync($"{NetcallEndpoint}/pauserecording/{extension}");
+            return await GetAsync($"{NetcallEndpoint}/pauserecording/{extension}?respond=true");
         }
 
         public async Task<HttpResponseMessage> ResumeRecordingAsync(string netcallUserId)
@@ -30,7 +30,7 @@ namespace StockportGovUK.AspNetCore.Gateways.Netcall
         
         public async Task<HttpResponseMessage> ResumeRecordingFromExtensionAsync(string extension)
         {
-            return await GetAsync($"{NetcallEndpoint}/resumerecording/{extension}");
+            return await GetAsync($"{NetcallEndpoint}/resumerecording/{extension}?respond=true");
         }
     }
 }

@@ -4,13 +4,12 @@
     <PackageId>StockportGovUK.AspNetCore.Gateways</PackageId>
     <Title>A package that provides base gateways using HttpClient</Title>
     <TargetFramework>netcoreapp2.2</TargetFramework>
-    <VersionPrefix>0.4.8</VersionPrefix>
+    <VersionPrefix>0.4.9</VersionPrefix>
     <Authors>Colin Lees, Jon Chiles, Jon Hadley</Authors>
     <Company>Stockport Council</Company>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.5" />
     <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="2.2.0" />
     <PackageReference Include="polly" Version="7.1.0" />
     <PackageReference Include="StockportGovUK.NetStandard.Models" Version="0.3.6-*" />
