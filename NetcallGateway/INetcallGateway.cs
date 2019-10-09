@@ -6,6 +6,11 @@ namespace StockportGovUK.AspNetCore.Gateways.Netcall
     public interface INetcallGateway : IGateway
     {
         Task<HttpResponseMessage> PauseRecordingAsync(string netcallUserId);
+
         Task<HttpResponseMessage> ResumeRecordingAsync(string netcallUserId);
+
+        Task<HttpResponseMessage> PauseRecordingFromExtensionAsync(string extension);
+
+        Task<HttpResponseMessage> ResumeRecordingFromExtensionAsync(string extension);
     }
 }
