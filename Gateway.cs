@@ -11,7 +11,7 @@ namespace StockportGovUK.AspNetCore.Gateways
 {
     public class Gateway : IGateway, ITypedGateway
     {
-        private readonly HttpClient _client;
+        protected readonly HttpClient _client;
 
         public Gateway(HttpClient client)
         {
