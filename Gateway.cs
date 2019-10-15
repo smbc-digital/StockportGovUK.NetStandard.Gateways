@@ -209,7 +209,12 @@ namespace StockportGovUK.AspNetCore.Gateways
 
         private StringContent GetStringContent(object content)
         {
-            return new StringContent(JsonConvert.SerializeObject(content), Encoding.UTF8, "application/json");
+            var serializedContent = JsonConvert.SerializeObject(content, Formatting.Indented, new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore
+            });
+                        
+            return new StringContent(serializedContent, Encoding.UTF8, "application/json");
         }
 
         public void ChangeAuthenticationHeader(string authHeader)
