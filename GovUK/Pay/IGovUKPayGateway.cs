@@ -5,6 +5,6 @@ namespace StockportGovUK.AspNetCore.Gateways.GovUK.Pay
 {
     public interface IGovUKPayGateway
     {
-        Task<HttpResponse<MandateSetupResponse>> SetupMandateAsync(MandateSetupRequest request);
+        Task<SimpleMandateSetupResponse> SetupMandateAsync(MandateSetupRequest request);
     }
 }
