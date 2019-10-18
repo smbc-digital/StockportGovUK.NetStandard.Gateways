@@ -1,6 +1,5 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
-using StockportGovUK.AspNetCore.Gateways.Response;
 
 namespace StockportGovUK.AspNetCore.Gateways.GovUK.Pay
 {
@@ -18,6 +17,14 @@ namespace StockportGovUK.AspNetCore.Gateways.GovUK.Pay
             var response = await PostAsync<GovUkMandateSetupResponse>(url, request);
             var simpleResponse = new SimpleMandateSetupResponse(response.ResponseContent);
             return simpleResponse;
+        }
+
+        public async Task<MandateStatusResponse> CheckMandateStatustAsync(string mandateId)
+        {
+            var url = $"{DD_ROOT}/mandates/{mandateId}";
+            var response = await GetAsync<GovUkMandateStatusResponse>(url);
+            var mandateStatusResponse = new MandateStatusResponse();
+            return mandateStatusResponse;
         }
     }
 }
