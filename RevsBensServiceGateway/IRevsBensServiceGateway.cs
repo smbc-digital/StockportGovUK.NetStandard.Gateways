@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace StockportGovUK.AspNetCore.Gateways.RevsBensServiceGateway
 {
     public interface IRevsBensServiceGateway
     {
+        Task<HttpResponseMessage> IsBenefitsClaimant(string personReference);
     }
 }
