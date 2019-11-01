@@ -87,7 +87,6 @@ namespace StockportGovUK.AspNetCore.Gateways
                 .AddPolicyHandler(GetDefaultCircuitBreakerPolicy());
         }
 
-
         private static void AddResilientHttpClients(IServiceCollection services, string gatewayType, string iGatewayType, bool addPollyPolicies, Action<HttpClient> config)
         {
             var reflectedType = typeof(HttpClientFactoryServiceCollectionExtensions);
@@ -123,7 +122,7 @@ namespace StockportGovUK.AspNetCore.Gateways
         {
             return HttpPolicyExtensions
                 .HandleTransientHttpError()
-                .WaitAndRetryAsync(2, retryAttempt =>
+                .WaitAndRetryAsync(5, retryAttempt =>
                     TimeSpan.FromSeconds(Math.Pow(2, retryAttempt))
                 );
         }
@@ -132,7 +131,7 @@ namespace StockportGovUK.AspNetCore.Gateways
         {
             return HttpPolicyExtensions
                 .HandleTransientHttpError()
-                .CircuitBreakerAsync(2, TimeSpan.FromSeconds(30));
+                .CircuitBreakerAsync(5, TimeSpan.FromSeconds(30));
         }
     }
 }
