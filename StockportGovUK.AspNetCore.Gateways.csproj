@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="CivicaServiceGateway\" />
     <Folder Include="VerintServiceGateway\Requests\" />
   </ItemGroup>
 </Project>

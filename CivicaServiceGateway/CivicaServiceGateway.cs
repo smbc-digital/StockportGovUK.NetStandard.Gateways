@@ -13,5 +13,10 @@ namespace StockportGovUK.AspNetCore.Gateways.CivicaServiceGateway
         {
             return await GetAsync($"api/v1/person/summary/{personReference}/benefits-claimant");
         }
+
+        public async Task<HttpResponseMessage> GetAllTransactionsForYear(string personReference, string accountReference, int year)
+        { 
+            return await GetAsync($"api/v2/council-tax/{personReference}/details/{accountReference}/transactions/{year}");
+        }
     }
 }

@@ -6,5 +6,7 @@ namespace StockportGovUK.AspNetCore.Gateways.CivicaServiceGateway
     public interface ICivicaServiceGateway
     {
         Task<HttpResponseMessage> IsBenefitsClaimant(string personReference);
+
+        Task<HttpResponseMessage> GetAllTransactionsForYear(string personReference, string accountReference, int year);
     }
 }
