@@ -5,7 +5,6 @@ namespace StockportGovUK.AspNetCore.Gateways.RevsBensServiceGateway
 {
     public class RevsBensServiceGateway : Gateway, IRevsBensServiceGateway
     {
-
         const string BaseEndpoint = "api/v1/";
 
         public RevsBensServiceGateway(HttpClient httpClient) : base(httpClient)
@@ -19,7 +18,7 @@ namespace StockportGovUK.AspNetCore.Gateways.RevsBensServiceGateway
 
         public async Task<HttpResponseMessage> GetBenefitDetails(string personReference)
         {
-            return await GetAsync($"{BaseEndpoint}/people/benefits/{personReference}/details");
+            return await GetAsync($"{BaseEndpoint}/people/{personReference}/benefits");
         }
     }
 }
