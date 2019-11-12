@@ -5,7 +5,7 @@ namespace StockportGovUK.AspNetCore.Gateways.RevsBensServiceGateway
 {
     public class RevsBensServiceGateway : Gateway, IRevsBensServiceGateway
     {
-        const string BaseEndpoint = "api/v1/";
+        const string BaseEndpoint = "api/v1";
 
         public RevsBensServiceGateway(HttpClient httpClient) : base(httpClient)
         {
