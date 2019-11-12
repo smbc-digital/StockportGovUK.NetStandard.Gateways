@@ -6,7 +6,7 @@ namespace StockportGovUK.AspNetCore.Gateways.RevsBensServiceGateway
     public class RevsBensServiceGateway : Gateway, IRevsBensServiceGateway
     {
 
-        const string CaseEndpoint = "/api/v1";
+        const string BaseEndpoint = "api/v1/";
 
         public RevsBensServiceGateway(HttpClient httpClient) : base(httpClient)
         {
@@ -14,12 +14,12 @@ namespace StockportGovUK.AspNetCore.Gateways.RevsBensServiceGateway
 
         public async Task<HttpResponseMessage> IsBenefitsClaimant(string personReference)
         {
-            return await GetAsync($"api/v1/people/{personReference}/is-benefits-claimant");
+            return await GetAsync($"{BaseEndpoint}/people/{personReference}/is-benefits-claimant");
         }
 
         public async Task<HttpResponseMessage> GetBenefitDetails(string personReference)
         {
-            return await GetAsync($"{CaseEndpoint}/benefits/{personReference}/details");
+            return await GetAsync($"{BaseEndpoint}/people/benefits/{personReference}/details");
         }
     }
 }
