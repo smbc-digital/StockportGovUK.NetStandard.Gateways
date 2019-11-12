@@ -5,18 +5,25 @@ namespace StockportGovUK.AspNetCore.Gateways.RevsBensServiceGateway
 {
     public class RevsBensServiceGateway : Gateway, IRevsBensServiceGateway
     {
+        const string BaseEndpoint = "api/v1";
+
         public RevsBensServiceGateway(HttpClient httpClient) : base(httpClient)
         {
         }
 
         public async Task<HttpResponseMessage> IsBenefitsClaimant(string personReference)
         {
-            return await GetAsync($"api/v1/person/summary/{personReference}/benefits-claimant");
+            return await GetAsync($"{BaseEndpoint}/people/{personReference}/is-benefits-claimant");
+        }
+
+        public async Task<HttpResponseMessage> GetBenefitDetails(string personReference)
+        {
+            return await GetAsync($"{BaseEndpoint}/people/{personReference}/benefits");
         }
 
         public async Task<HttpResponseMessage> GetAllTransactionsForYear(string personReference, string accountReference, int year)
         {
-            return await GetAsync($"api/v1/person/{personReference}/details/{accountReference}/transactions/{year}");
+            return await GetAsync($"{BaseEndpoint}/person/{personReference}/details/{accountReference}/transactions/{year}");
         }
     }
 }

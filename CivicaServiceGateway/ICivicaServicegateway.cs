@@ -8,5 +8,7 @@ namespace StockportGovUK.AspNetCore.Gateways.CivicaServiceGateway
         Task<HttpResponseMessage> IsBenefitsClaimant(string personReference);
 
         Task<HttpResponseMessage> GetAllTransactionsForYear(string personReference, string accountReference, int year);
+
+        Task<HttpResponseMessage> GetBenefitDetails(string personReference);
     }
 }
