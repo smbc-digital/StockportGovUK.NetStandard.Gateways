@@ -21,9 +21,44 @@ namespace StockportGovUK.AspNetCore.Gateways.CivicaServiceGateway
             return await GetAsync($"{BaseEndpoint}/people/{personReference}/benefits");
         }
 
+        public async Task<HttpResponseMessage> GetAccounts(string personReference)
+        {
+            return await GetAsync($"{BaseEndpoint}/people/{personReference}/accounts");
+        }
+
+        public async Task<HttpResponseMessage> GetAccount(string personReference, string accountReference)
+        {
+            return await GetAsync($"{BaseEndpoint}/people/{personReference}/accounts/{accountReference}");
+        }
+
         public async Task<HttpResponseMessage> GetAllTransactionsForYear(string personReference, string accountReference, int year)
-        { 
-            return await GetAsync($"{BaseEndpoint}/person/{personReference}/details/{accountReference}/transactions/{year}");
+        {
+            return await GetAsync($"{BaseEndpoint}/people/{personReference}/accounts/{accountReference}/transactions/{year}");
+        }
+
+        public async Task<HttpResponseMessage> GetDocumentsWithAccountReference(string personReference, string accountReference)
+        {
+            return await GetAsync($"{BaseEndpoint}/people/{personReference}/accounts/{accountReference}/documents");
+        }
+
+        public async Task<HttpResponseMessage> GetDocuments(string personReference)
+        {
+            return await GetAsync($"{BaseEndpoint}/people/{personReference}/documents");
+        }
+
+        public async Task<HttpResponseMessage> GetPropertiesOwned(string personReference)
+        {
+            return await GetAsync($"{BaseEndpoint}/people/{personReference}/properties");
+        }
+
+        public async Task<HttpResponseMessage> GetCurrentProperty(string personReference)
+        {
+            return await GetAsync($"{BaseEndpoint}/people/{personReference}/properties/current");
+        }
+
+        public async Task<HttpResponseMessage> GetPaymentSchedule(string personReference, string year)
+        {
+            return await GetAsync($"{BaseEndpoint}/people/{personReference}/payments/{year}");
         }
     }
 }
