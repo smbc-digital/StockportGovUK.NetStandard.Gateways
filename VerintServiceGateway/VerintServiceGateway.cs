@@ -1,6 +1,8 @@
-﻿using System.Net.Http;
+﻿using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 using StockportGovUK.AspNetCore.Gateways.Response;
+using StockportGovUK.NetStandard.Models.Addresses;
 using StockportGovUK.NetStandard.Models.Models.Verint;
 using StockportGovUK.NetStandard.Models.Models.Verint.Update;
 
@@ -10,6 +12,7 @@ namespace StockportGovUK.AspNetCore.Gateways.VerintServiceGateway
     {
         private const string HttpClientName = "verintServiceGateway";
         private const string CaseEndpoint = "api/v1/Case";
+        private const string PropertyEndpoint = "api/v1/Propety";
 
         public VerintServiceGateway(HttpClient httpClient) : base(httpClient)
         {
@@ -28,6 +31,11 @@ namespace StockportGovUK.AspNetCore.Gateways.VerintServiceGateway
         public async Task<HttpResponseMessage> UpdateCaseIntegrationFormField(IntegrationFormFieldsUpdateModel content)
         {
             return await PatchAsync($"{CaseEndpoint}/integration-form-fields", content);
+        }
+
+        public async Task<HttpResponse<List<AddressSearchResult>>> SearchForPropertyByPostcode(string postcode)
+        {
+            return await GetAsync<List<AddressSearchResult>>($"{PropertyEndpoint}/search/{postcode}");
         }
     }
 }
