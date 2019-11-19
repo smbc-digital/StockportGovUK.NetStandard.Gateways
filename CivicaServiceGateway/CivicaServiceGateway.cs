@@ -11,6 +11,11 @@ namespace StockportGovUK.AspNetCore.Gateways.CivicaServiceGateway
         {
         }
 
+        public async Task<HttpResponseMessage> GetSessionId(string personReference)
+        {
+            return await GetAsync($"{BaseEndpoint}/people/{personReference}/session-id");
+        }
+
         public async Task<HttpResponseMessage> IsBenefitsClaimant(string personReference)
         {
             return await GetAsync($"{BaseEndpoint}/people/{personReference}/is-benefits-claimant");
