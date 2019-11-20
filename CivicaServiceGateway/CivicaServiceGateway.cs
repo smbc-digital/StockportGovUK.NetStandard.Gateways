@@ -21,9 +21,24 @@ namespace StockportGovUK.AspNetCore.Gateways.CivicaServiceGateway
             return await GetAsync($"{BaseEndpoint}/people/{personReference}/is-benefits-claimant");
         }
 
-        public async Task<HttpResponseMessage> GetBenefitDetails(string personReference)
+        public async Task<HttpResponseMessage> GetBenefits(string personReference)
         {
             return await GetAsync($"{BaseEndpoint}/people/{personReference}/benefits");
+        }
+
+        public async Task<HttpResponseMessage> GetBenefitDetails(string personReference, string claimReference, string placeReference)
+        {
+            return await GetAsync($"{BaseEndpoint}/people/{personReference}/benefits/{claimReference}/{placeReference}");
+        }
+
+        public async Task<HttpResponseMessage> GetHousingBenefitPaymentHistory(string personReference)
+        {
+            return await GetAsync($"{BaseEndpoint}/people/{personReference}/benefits/housing");
+        }
+
+        public async Task<HttpResponseMessage> GetCouncilTaxBenefitPaymentHistory(string personReference)
+        {
+            return await GetAsync($"{BaseEndpoint}/people/{personReference}/benefits/council-tax");
         }
 
         public async Task<HttpResponseMessage> GetAccounts(string personReference)
@@ -34,6 +49,11 @@ namespace StockportGovUK.AspNetCore.Gateways.CivicaServiceGateway
         public async Task<HttpResponseMessage> GetAccount(string personReference, string accountReference)
         {
             return await GetAsync($"{BaseEndpoint}/people/{personReference}/accounts/{accountReference}");
+        }
+
+        public async Task<HttpResponseMessage> GetAccountDetailsForYear(string personReference, string accountReference, int year)
+        {
+            return await GetAsync($"{BaseEndpoint}/people/{personReference}/accounts/{accountReference}/{year}");
         }
 
         public async Task<HttpResponseMessage> GetAllTransactionsForYear(string personReference, string accountReference, int year)

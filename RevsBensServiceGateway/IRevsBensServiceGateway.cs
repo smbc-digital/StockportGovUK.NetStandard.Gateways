@@ -9,6 +9,6 @@ namespace StockportGovUK.AspNetCore.Gateways.RevsBensServiceGateway
 
         Task<HttpResponseMessage> GetAllTransactionsForYear(string personReference, string accountReference, int year);
 
-        Task<HttpResponseMessage> GetBenefitDetails(string personReference);
+        Task<HttpResponseMessage> GetBenefits(string personReference);
     }
 }
