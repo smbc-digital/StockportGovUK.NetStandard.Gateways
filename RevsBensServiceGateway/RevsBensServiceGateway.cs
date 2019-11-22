@@ -21,9 +21,9 @@ namespace StockportGovUK.AspNetCore.Gateways.RevsBensServiceGateway
             return await GetAsync($"{BaseEndpoint}/people/{personReference}/benefits");
         }
 
-        public async Task<HttpResponseMessage> GetAllTransactionsForYear(string personReference, string accountReference, int year)
+        public async Task<HttpResponseMessage> GetCouncilTaxDetails(string personReference, string accountReference, int year)
         {
-            return await GetAsync($"{BaseEndpoint}/person/{personReference}/details/{accountReference}/transactions/{year}");
+            return await GetAsync($"{BaseEndpoint}/people/{personReference}/council-tax/{accountReference}/{year}");
         }
     }
 }
