@@ -17,5 +17,7 @@ namespace StockportGovUK.AspNetCore.Gateways.VerintServiceGateway
         Task<HttpResponse<string>> CreateCase(Case crmCase);
 
         Task<HttpResponse<List<AddressSearchResult>>> SearchForPropertyByPostcode(string postcode);
+
+        Task<HttpResponse<List<AddressSearchResult>>> GetStreetByReference(string street);
     }
 }
