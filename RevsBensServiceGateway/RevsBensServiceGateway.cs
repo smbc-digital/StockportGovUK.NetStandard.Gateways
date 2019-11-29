@@ -1,5 +1,6 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace StockportGovUK.AspNetCore.Gateways.RevsBensServiceGateway
 {
@@ -7,7 +8,7 @@ namespace StockportGovUK.AspNetCore.Gateways.RevsBensServiceGateway
     {
         const string BaseEndpoint = "api/v1";
 
-        public RevsBensServiceGateway(HttpClient httpClient) : base(httpClient)
+        public RevsBensServiceGateway(HttpClient httpClient, ILogger<Gateway> logger) : base(httpClient, logger)
         {
         }
 

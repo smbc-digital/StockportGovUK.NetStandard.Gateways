@@ -1,5 +1,6 @@
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace StockportGovUK.AspNetCore.Gateways.CivicaServiceGateway
 {
@@ -7,7 +8,7 @@ namespace StockportGovUK.AspNetCore.Gateways.CivicaServiceGateway
     {
         const string BaseEndpoint = "api/v1";
 
-        public CivicaServiceGateway(HttpClient client) : base(client)
+        public CivicaServiceGateway(HttpClient httpClient, ILogger<Gateway> logger) : base(httpClient, logger)
         {
         }
 

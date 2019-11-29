@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Polly;
 using Polly.Extensions.Http;
+using Polly.Fallback;
 
 namespace StockportGovUK.AspNetCore.Gateways
 {
@@ -76,15 +77,13 @@ namespace StockportGovUK.AspNetCore.Gateways
             where TImplementation : class, TClient
         {
             services.AddHttpClient<TClient, TImplementation>()
-                .AddPolicyHandler(GetDefaultRetryPolicy())
-                .AddPolicyHandler(GetDefaultCircuitBreakerPolicy());
+                .AddPolicies();
         }
 
         private static void AddHttpClients(IServiceCollection services, string name, Action<HttpClient> config)
         {
             services.AddHttpClient(name, config)
-                .AddPolicyHandler(GetDefaultRetryPolicy())
-                .AddPolicyHandler(GetDefaultCircuitBreakerPolicy());
+                .AddPolicies();
         }
 
         private static void AddResilientHttpClients(IServiceCollection services, string gatewayType, string iGatewayType, bool addPollyPolicies, Action<HttpClient> config)
@@ -113,16 +112,21 @@ namespace StockportGovUK.AspNetCore.Gateways
             var invokedMethod = (IHttpClientBuilder)invokeableMethod.Invoke(null, new object[] { services, config });
             if(addPollyPolicies)
             {
-                invokedMethod.AddPolicyHandler(ServiceCollectionExtensions.GetDefaultRetryPolicy());
-                invokedMethod.AddPolicyHandler(ServiceCollectionExtensions.GetDefaultCircuitBreakerPolicy());
+                invokedMethod.AddPolicies();
             }
+        }
+
+        public static void AddPolicies(this IHttpClientBuilder clientBuilder)
+        {
+            clientBuilder.AddPolicyHandler(GetDefaultRetryPolicy());
+            clientBuilder.AddPolicyHandler(GetDefaultCircuitBreakerPolicy());
         }
 
         public static IAsyncPolicy<HttpResponseMessage> GetDefaultRetryPolicy()
         {
             return HttpPolicyExtensions
                 .HandleTransientHttpError()
-                .WaitAndRetryAsync(5, retryAttempt =>
+                .WaitAndRetryAsync(3, retryAttempt =>
                     TimeSpan.FromSeconds(Math.Pow(2, retryAttempt))
                 );
         }
@@ -131,7 +135,7 @@ namespace StockportGovUK.AspNetCore.Gateways
         {
             return HttpPolicyExtensions
                 .HandleTransientHttpError()
-                .CircuitBreakerAsync(5, TimeSpan.FromSeconds(30));
+                .CircuitBreakerAsync(3, TimeSpan.FromSeconds(30));
         }
     }
 }

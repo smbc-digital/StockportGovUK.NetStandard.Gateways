@@ -1,5 +1,6 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace StockportGovUK.AspNetCore.Gateways.GovUK.Pay
 {
@@ -7,7 +8,7 @@ namespace StockportGovUK.AspNetCore.Gateways.GovUK.Pay
     {
 
         private const string DD_ROOT = "v1/directdebit";
-        public GovUKPayGateway(HttpClient client) : base(client)
+        public GovUKPayGateway(HttpClient httpClient, ILogger<Gateway> logger) : base(httpClient, logger)
         {
         }
 

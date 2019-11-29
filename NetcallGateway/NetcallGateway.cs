@@ -1,5 +1,6 @@
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace StockportGovUK.AspNetCore.Gateways.Netcall
 {
@@ -8,7 +9,7 @@ namespace StockportGovUK.AspNetCore.Gateways.Netcall
         
         private const string NetcallEndpoint = "/services/simplegcc";
 
-        public NetcallGateway(HttpClient httpClient) : base(httpClient) 
+        public NetcallGateway(HttpClient httpClient, ILogger<Gateway> logger) : base(httpClient, logger)
         {
 
         }

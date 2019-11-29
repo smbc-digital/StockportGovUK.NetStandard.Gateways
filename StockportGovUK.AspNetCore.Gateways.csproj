@@ -4,7 +4,7 @@
     <PackageId>StockportGovUK.AspNetCore.Gateways</PackageId>
     <Title>A package that provides base gateways using HttpClient</Title>
     <TargetFramework>netcoreapp2.2</TargetFramework>
-    <VersionPrefix>0.8.3</VersionPrefix>
+    <VersionPrefix>0.9.0</VersionPrefix>
     <Authors>Colin Lees, Jon Chiles, Jon Hadley</Authors>
     <Company>Stockport Council</Company>
   </PropertyGroup>

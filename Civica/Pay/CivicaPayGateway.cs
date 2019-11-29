@@ -1,6 +1,7 @@
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using StockportGovUK.AspNetCore.Gateways.Response;
 using StockportGovUK.NetStandard.Models.Civica.Pay.Request;
 using StockportGovUK.NetStandard.Models.Civica.Pay.Response;
@@ -12,7 +13,7 @@ namespace StockportGovUK.AspNetCore.Gateways.Civica.Pay
 
         public const string PAYMENT_URL = "{0}/estore/default/Remote/Fetch?basketreference={1}&baskettoken={2}";            
 
-        public CivicaPayGateway(HttpClient httpClient) : base(httpClient) 
+        public CivicaPayGateway(HttpClient httpClient, ILogger<Gateway> logger) : base(httpClient, logger)
         {
         }
 

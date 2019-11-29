@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using StockportGovUK.AspNetCore.Gateways.Response;
 using StockportGovUK.NetStandard.Models.Addresses;
 using StockportGovUK.NetStandard.Models.Models.Verint;
@@ -16,7 +17,7 @@ namespace StockportGovUK.AspNetCore.Gateways.VerintServiceGateway
         private const string StreetEndpoint = "api/v1/Street";
 
 
-        public VerintServiceGateway(HttpClient httpClient) : base(httpClient)
+        public VerintServiceGateway(HttpClient httpClient, ILogger<Gateway> logger) : base(httpClient, logger)
         {
         }
 
