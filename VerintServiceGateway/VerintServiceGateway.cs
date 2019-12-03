@@ -41,9 +41,9 @@ namespace StockportGovUK.AspNetCore.Gateways.VerintServiceGateway
             return await GetAsync<List<AddressSearchResult>>($"{PropertyEndpoint}/search/{postcode}");
         }
 
-        public async Task<HttpResponse<List<NetStandard.Models.Models.Verint.Street>>> GetStreetByReference(string street)
+        public async Task<HttpResponse<List<AddressSearchResult>>> GetStreetByReference(string street)
         {
-            return await GetAsync<List<NetStandard.Models.Models.Verint.Street>>($"{StreetEndpoint}/streetsearch/{street}");
+            return await GetAsync<List<AddressSearchResult>>($"{StreetEndpoint}/streetsearch/{street}");
         }
     }
 }

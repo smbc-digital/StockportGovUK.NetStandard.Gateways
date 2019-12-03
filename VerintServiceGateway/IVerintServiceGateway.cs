@@ -18,6 +18,6 @@ namespace StockportGovUK.AspNetCore.Gateways.VerintServiceGateway
 
         Task<HttpResponse<List<AddressSearchResult>>> SearchForPropertyByPostcode(string postcode);
 
-        Task<HttpResponse<List<NetStandard.Models.Models.Verint.Street>>> GetStreetByReference(string street);
+        Task<HttpResponse<List<AddressSearchResult>>> GetStreetByReference(string street);
     }
 }
