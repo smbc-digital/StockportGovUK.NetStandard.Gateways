@@ -4,8 +4,8 @@
     <PackageId>StockportGovUK.AspNetCore.Gateways</PackageId>
     <Title>A package that provides base gateways using HttpClient</Title>
     <TargetFramework>netcoreapp2.2</TargetFramework>
-    <VersionPrefix>0.9.3</VersionPrefix>
-    <Authors>Colin Lees, Jon Chiles, Jon Hadley</Authors>
+    <VersionPrefix>0.9.4</VersionPrefix>
+      <Authors>Colin Lees, Jon Chiles, Jon Hadley</Authors>
     <Company>Stockport Council</Company>
   </PropertyGroup>
 
@@ -18,4 +18,10 @@
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
     <PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
   </ItemGroup>
+
+  <!-- <ItemGroup>
+    <Reference Include="StockportGovUK.NetStandard.Models">
+      <HintPath>C:\Code\Microservices\Libraries\StockportGovUk.NetStandard.Models\bin\Debug\netcoreapp2.2\StockportGovUK.NetStandard.Models.dll</HintPath>
+    </Reference>
+  </ItemGroup> -->
 </Project>

@@ -20,11 +20,11 @@ namespace StockportGovUK.AspNetCore.Gateways.GovUK.Pay
             return simpleResponse;
         }
 
-        public async Task<MandateStatusResponse> CheckMandateStatustAsync(string mandateId)
+        public async Task<SimpleMandateStatusResponse> CheckMandateStatusAsync(string mandateId)
         {
             var url = $"{DD_ROOT}/mandates/{mandateId}";
             var response = await GetAsync<GovUkMandateStatusResponse>(url);
-            var mandateStatusResponse = new MandateStatusResponse();
+            var mandateStatusResponse = new SimpleMandateStatusResponse(response.ResponseContent);
             return mandateStatusResponse;
         }
     }

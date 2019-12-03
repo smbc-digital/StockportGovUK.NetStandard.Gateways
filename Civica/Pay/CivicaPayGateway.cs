@@ -103,5 +103,12 @@ namespace StockportGovUK.AspNetCore.Gateways.Civica.Pay
             var response = await GetAsync<CatalogueItemListResponse>(url);
             return response;
         }
+
+        public async Task<HttpResponse<BasketSecurityDetailsResponse>> GetBasketSecurityDetails(BasketSecurityDetailsRequest request)
+        {
+            var url = $"{ApiRoot}/BasketApi/RetrieveBasketSecurityDetails";
+            var response = await PostAsync<BasketSecurityDetailsResponse>(url, request);
+            return response;
+        }
     }
 }

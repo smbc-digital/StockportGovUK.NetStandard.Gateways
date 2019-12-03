@@ -6,6 +6,6 @@ namespace StockportGovUK.AspNetCore.Gateways.GovUK.Pay
     {
         Task<SimpleMandateSetupResponse> SetupMandateAsync(MandateSetupRequest request);
 
-        Task<MandateStatusResponse> CheckMandateStatustAsync(string mandateId);
+        Task<SimpleMandateStatusResponse> CheckMandateStatusAsync(string mandateId);
     }
 }

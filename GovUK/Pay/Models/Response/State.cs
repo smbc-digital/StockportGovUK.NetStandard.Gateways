@@ -1,6 +1,7 @@
 namespace StockportGovUK.AspNetCore.Gateways.GovUK.Pay
 {
-    public class MandateStatusResponse
+    public class State
     {
+        public string status { get; set; }
     }
 }
