@@ -18,7 +18,7 @@ namespace StockportGovUK.AspNetCore.Gateways.CivicaServiceGateway
         Task<HttpResponseMessage> GetDocumentsWithAccountReference(string personReference, string accountReference);
         Task<HttpResponseMessage> GetDocuments(string personReference);
         Task<HttpResponseMessage> GetPropertiesOwned(string personReference);
-        Task<HttpResponseMessage> GetCurrentProperty(string personReference);
+        Task<HttpResponseMessage> GetCurrentProperty(string personReference, string accountReference);
         Task<HttpResponseMessage> GetPaymentSchedule(string personReference, int year);
     }
 }
