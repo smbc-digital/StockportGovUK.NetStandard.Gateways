@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Reflection;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
 using Polly;
 using Polly.Extensions.Http;
 using Polly.Fallback;
@@ -118,8 +121,9 @@ namespace StockportGovUK.AspNetCore.Gateways
 
         public static void AddPolicies(this IHttpClientBuilder clientBuilder)
         {
-            clientBuilder.AddPolicyHandler(GetDefaultRetryPolicy());
-            clientBuilder.AddPolicyHandler(GetDefaultCircuitBreakerPolicy());
+            clientBuilder
+                .AddPolicyHandler(GetDefaultRetryPolicy())
+                .AddPolicyHandler(GetDefaultCircuitBreakerPolicy());
         }
 
         public static IAsyncPolicy<HttpResponseMessage> GetDefaultRetryPolicy()

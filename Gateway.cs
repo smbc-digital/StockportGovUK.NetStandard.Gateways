@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -23,157 +24,518 @@ namespace StockportGovUK.AspNetCore.Gateways
             _logger = logger;
         }
 
+        public void ChangeAuthenticationHeader(string authHeader)
+        {
+            _client.DefaultRequestHeaders.Authorization = AuthenticationHeaderValue.Parse(authHeader);
+        }
+
         public async Task<HttpResponseMessage> GetAsync(string url)
-        {
-            Func<Task<HttpResponseMessage>> function = async () => await _client.GetAsync(url);
-
-            return await Invoke(function);
-        }
-
-        public async Task<HttpResponse<T>> GetAsync<T>(string url)
-        {
-            Func<Task<HttpResponseMessage>> function = async () => await _client.GetAsync(url);
-
-            var result =  await Invoke(function);
-
-            return await HttpResponse<T>.Get(result);
-        }
-
-        public async Task<HttpResponseMessage> PatchAsync(string url, object content)
-        {
-            Func<Task<HttpResponseMessage>> function = async () => await _client.PatchAsync(url, GetStringContent(content));
-
-            return await Invoke(function);
-        }
-
-        public async Task<HttpResponseMessage> PatchAsync(string url, object content, bool encodeContent)
-        {
-            Func<Task<HttpResponseMessage>> function = async () => await _client.PatchAsync(url, encodeContent ? GetStringContent(content) : (HttpContent)content);
-
-            return await Invoke(function);
-        }
-
-        public async Task<HttpResponse<T>> PatchAsync<T>(string url, object content)
-        {
-            Func<Task<HttpResponseMessage>> function = async () => await _client.PatchAsync(url, GetStringContent(content));
-
-            var result =  await Invoke(function);
-
-            return await HttpResponse<T>.Get(result);
-        }
-
-        public async Task<HttpResponse<T>> PatchAsync<T>(string url, object content, bool encodeContent)
-        {
-            Func<Task<HttpResponseMessage>> function = async () => await _client.PatchAsync(url, encodeContent ? GetStringContent(content) : (HttpContent)content);
-
-            var result =  await Invoke(function);
-
-            return await HttpResponse<T>.Get(result);
-        }
-
-        public async Task<HttpResponseMessage> PostAsync(string url, object content)
-        {
-            Func<Task<HttpResponseMessage>> function = async () => await _client.PostAsync(url, GetStringContent(content));
-
-            return await Invoke(function);
-        }
-
-        public async Task<HttpResponseMessage> PostAsync(string url, object content, bool encodeContent)
-        {
-            Func<Task<HttpResponseMessage>> function = async () => await _client.PostAsync(url, encodeContent ? GetStringContent(content) : (HttpContent)content);
-
-            return await Invoke(function);
-        }
-
-        public async Task<HttpResponse<T>> PostAsync<T>(string url, object content)
-        {
-            Func<Task<HttpResponseMessage>> function = async () => await _client.PostAsync(url, GetStringContent(content));
-
-            var result =  await Invoke(function);
-
-            return await HttpResponse<T>.Get(result);
-        }
-
-        public async Task<HttpResponse<T>> PostAsync<T>(string url, object content, bool encodeContent)
-        {
-            Func<Task<HttpResponseMessage>> function = async () => await _client.PostAsync(url, encodeContent ? GetStringContent(content) : (HttpContent)content);
-
-            var result =  await Invoke(function);
-
-            return await HttpResponse<T>.Get(result);
-        }
-
-        public async Task<HttpResponseMessage> PutAsync(string url, HttpContent content)
-        {
-            Func<Task<HttpResponseMessage>> function = async () => await _client.PutAsync(url, content);
-
-            return await Invoke(function);
-        }
-
-
-        public async Task<HttpResponse<T>> PutAsync<T>(string url, object content)
-        {
-            Func<Task<HttpResponseMessage>> function = async () => await _client.PutAsync(url, GetStringContent(content));
-
-            var result =  await Invoke(function);
-
-            return await HttpResponse<T>.Get(result);
-        }
-
-        public async Task<HttpResponse<T>> PutAsync<T>(string url, object content, bool encodeContent)
-        {
-            Func<Task<HttpResponseMessage>> function = async () => await _client.PutAsync(url, encodeContent ? GetStringContent(content) : (HttpContent)content);
-
-            var result =  await Invoke(function);
-
-            return await HttpResponse<T>.Get(result);
-        }
-
-        public async Task<HttpResponseMessage> DeleteAsync(string url)
-        {
-            Func<Task<HttpResponseMessage>> function = async () => await _client.DeleteAsync(url);
-
-            return await Invoke(function);
-        }
-
-        public async Task<HttpResponse<T>> DeleteAsync<T>(string url)
-        {
-            Func<Task<HttpResponseMessage>> function = async () => await _client.DeleteAsync(url);
-            
-            var result =  await Invoke(function);
-
-            return await HttpResponse<T>.Get(result);
-        }
-
-        private Task<HttpResponseMessage> Invoke(Func<Task<HttpResponseMessage>> function)
         {
             var errorMessage = string.Empty;
 
             try
             {
-                return function.Invoke();
+                return await _client.GetAsync(url);
             }
             catch (BrokenCircuitException<HttpResponseMessage> ex)
             {
-                errorMessage = $"{GetType().Name} => {MethodBase.GetCurrentMethod().Name}({((Polly.CircuitBreaker.BrokenCircuitException<System.Net.Http.HttpResponseMessage>)ex).Result.RequestMessage.RequestUri.AbsoluteUri}) - {ex.Message}";
-                _logger.LogWarning(errorMessage, ex);
+                errorMessage = $"{GetType().Name} => GetAsync({url}) - Circuit broken due to: '{ex.InnerException?.Message}'";
+                _logger.LogWarning(errorMessage, ex.Message);
             }
             catch (BrokenCircuitException ex)
             {
-                errorMessage = $"{GetType().Name} => {MethodBase.GetCurrentMethod().Name}({((Polly.CircuitBreaker.BrokenCircuitException<System.Net.Http.HttpResponseMessage>)ex).Result.RequestMessage.RequestUri.AbsoluteUri}) - {ex.Message}";
-                _logger.LogWarning(errorMessage, ex);
+                errorMessage = $"{GetType().Name} => GetAsync({url}) - Circuit broken due to: '{ex.InnerException?.Message}'";
+                _logger.LogWarning(errorMessage, ex.Message);
             }
             catch (Exception ex)
             {
-                errorMessage = $"{GetType().Name} => {MethodBase.GetCurrentMethod().Name}({((Polly.CircuitBreaker.BrokenCircuitException<System.Net.Http.HttpResponseMessage>)ex).Result.RequestMessage.RequestUri.AbsoluteUri}) - failed with the following error: '{ex.Message}'";
-                _logger.LogError(errorMessage, ex);
+                errorMessage = $"{GetType().Name} => GetAsync({url}) - failed with the following error: '{ex.Message}'";
+                _logger.LogError(errorMessage, ex.Message);
             }
 
-            return Task.FromResult(new HttpResponseMessage
+            return new HttpResponseMessage
             {
                 StatusCode = HttpStatusCode.InternalServerError,
                 ReasonPhrase = errorMessage
-            });
+            };
+        }
+
+        public async Task<HttpResponse<T>> GetAsync<T>(string url)
+        {
+            var errorMessage = string.Empty;
+
+            try
+            {
+                var result = await _client.GetAsync(url);
+
+                return await HttpResponse<T>.Get(result);
+            }
+            catch (BrokenCircuitException<HttpResponseMessage> ex)
+            {
+                errorMessage = $"{GetType().Name} => GetAsync<{nameof(T)}>({url}) - Circuit broken due to: '{ex.InnerException?.Message}'";
+                _logger.LogWarning(errorMessage, ex.Message);
+            }
+            catch (BrokenCircuitException ex)
+            {
+                errorMessage = $"{GetType().Name} => GetAsync<{nameof(T)}>({url}) - Circuit broken due to: '{ex.InnerException?.Message}'";
+                _logger.LogWarning(errorMessage, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                errorMessage = $"{GetType().Name} => GetAsync<{nameof(T)}>({url}) - failed with the following error: '{ex.Message}'";
+                _logger.LogError(errorMessage, ex.Message);
+            }
+
+            return new HttpResponse<T>
+            {
+                StatusCode = HttpStatusCode.InternalServerError,
+                ReasonPhrase = errorMessage
+            };
+        }
+
+        public async Task<HttpResponseMessage> PatchAsync(string url, object content)
+        {
+            var errorMessage = string.Empty;
+
+            try
+            {
+                var bodyContent = GetStringContent(content);
+
+                return await _client.PatchAsync(url, bodyContent);
+            }
+            catch (BrokenCircuitException<HttpResponseMessage> ex)
+            {
+                errorMessage = $"{GetType().Name} => PatchAsync({url}) - Circuit broken due to: '{ex.InnerException?.Message}'";
+                _logger.LogWarning(errorMessage, ex.Message);
+            }
+            catch (BrokenCircuitException ex)
+            {
+                errorMessage = $"{GetType().Name} => PatchAsync({url}) - Circuit broken due to: '{ex.InnerException?.Message}'";
+                _logger.LogWarning(errorMessage, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                errorMessage = $"{GetType().Name} => PatchAsync({url}) - failed with the following error: '{ex.Message}'";
+                _logger.LogError(errorMessage, ex.Message);
+            }
+
+            return new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.InternalServerError,
+                ReasonPhrase = errorMessage
+            };
+        }
+
+        public async Task<HttpResponseMessage> PatchAsync(string url, object content, bool encodeContent)
+        {
+            var errorMessage = string.Empty;
+
+            try
+            {
+                var bodyContent = encodeContent
+                    ? GetStringContent(content)
+                    : (HttpContent)content;
+
+                return await _client.PatchAsync(url, bodyContent);
+            }
+            catch (BrokenCircuitException<HttpResponseMessage> ex)
+            {
+                errorMessage = $"{GetType().Name} => PatchAsync({url}) - Circuit broken due to: '{ex.InnerException?.Message}'";
+                _logger.LogWarning(errorMessage, ex.Message);
+            }
+            catch (BrokenCircuitException ex)
+            {
+                errorMessage = $"{GetType().Name} => PatchAsync({url}) - Circuit broken due to: '{ex.InnerException?.Message}'";
+                _logger.LogWarning(errorMessage, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                errorMessage = $"{GetType().Name} => PatchAsync({url}) - failed with the following error: '{ex.Message}'";
+                _logger.LogError(errorMessage, ex.Message);
+            }
+
+            return new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.InternalServerError,
+                ReasonPhrase = errorMessage
+            };
+        }
+
+        public async Task<HttpResponse<T>> PatchAsync<T>(string url, object content)
+        {
+            var errorMessage = string.Empty;
+
+            try
+            {
+                var bodyContent = GetStringContent(content);
+                var result = await _client.PatchAsync(url, bodyContent);
+
+                return await HttpResponse<T>.Get(result);
+            }
+            catch (BrokenCircuitException<HttpResponseMessage> ex)
+            {
+                errorMessage = $"{GetType().Name} => PatchAsync<{nameof(T)}>({url}) - Circuit broken due to: '{ex.InnerException?.Message}'";
+                _logger.LogWarning(errorMessage, ex.Message);
+            }
+            catch (BrokenCircuitException ex)
+            {
+                errorMessage = $"{GetType().Name} => PatchAsync<{nameof(T)}>({url}) - Circuit broken due to: '{ex.InnerException?.Message}'";
+                _logger.LogWarning(errorMessage, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                errorMessage = $"{GetType().Name} => PatchAsync<{nameof(T)}>({url}) - failed with the following error: '{ex.Message}'";
+                _logger.LogError(errorMessage, ex.Message);
+            }
+
+            return new HttpResponse<T>
+            {
+                StatusCode = HttpStatusCode.InternalServerError,
+                ReasonPhrase = errorMessage
+            };
+        }
+
+        public async Task<HttpResponse<T>> PatchAsync<T>(string url, object content, bool encodeContent)
+        {
+            var errorMessage = string.Empty;
+
+            try
+            {
+                var bodyContent = encodeContent
+                    ? GetStringContent(content)
+                    : (HttpContent)content;
+
+                var result = await _client.PatchAsync(url, bodyContent);
+
+                return await HttpResponse<T>.Get(result);
+            }
+            catch (BrokenCircuitException<HttpResponseMessage> ex)
+            {
+                errorMessage = $"{GetType().Name} => PatchAsync<{nameof(T)}>({url}) - Circuit broken due to: '{ex.InnerException?.Message}'";
+                _logger.LogWarning(errorMessage, ex.Message);
+            }
+            catch (BrokenCircuitException ex)
+            {
+                errorMessage = $"{GetType().Name} => PatchAsync<{nameof(T)}>({url}) - Circuit broken due to: '{ex.InnerException?.Message}'";
+                _logger.LogWarning(errorMessage, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                errorMessage = $"{GetType().Name} => PatchAsync<{nameof(T)}>({url}) - failed with the following error: '{ex.Message}'";
+                _logger.LogError(errorMessage, ex.Message);
+            }
+
+            return new HttpResponse<T>
+            {
+                StatusCode = HttpStatusCode.InternalServerError,
+                ReasonPhrase = errorMessage
+            };
+        }
+
+        public async Task<HttpResponseMessage> PostAsync(string url, object content)
+        {
+            var errorMessage = string.Empty;
+
+            try
+            {
+                var bodyContent = GetStringContent(content);
+
+                return await _client.PostAsync(url, bodyContent);
+            }
+            catch (BrokenCircuitException<HttpResponseMessage> ex)
+            {
+                errorMessage = $"{GetType().Name} => PostAsync({url}) - Circuit broken due to: '{ex.InnerException?.Message}'";
+                _logger.LogWarning(errorMessage, ex.Message);
+            }
+            catch (BrokenCircuitException ex)
+            {
+                errorMessage = $"{GetType().Name} => PostAsync({url}) - Circuit broken due to: '{ex.InnerException?.Message}'";
+                _logger.LogWarning(errorMessage, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                errorMessage = $"{GetType().Name} => PostAsync({url}) - failed with the following error: '{ex.Message}'";
+                _logger.LogError(errorMessage, ex.Message);
+            }
+
+            return new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.InternalServerError,
+                ReasonPhrase = errorMessage
+            };
+        }
+
+        public async Task<HttpResponseMessage> PostAsync(string url, object content, bool encodeContent)
+        {
+            var errorMessage = string.Empty;
+
+            try
+            {
+                var bodyContent = encodeContent
+                    ? GetStringContent(content)
+                    : (HttpContent)content;
+
+                return await _client.PostAsync(url, bodyContent);
+            }
+            catch (BrokenCircuitException<HttpResponseMessage> ex)
+            {
+                errorMessage = $"{GetType().Name} => PostAsync({url}) - Circuit broken due to: '{ex.InnerException?.Message}'";
+                _logger.LogWarning(errorMessage, ex.Message);
+            }
+            catch (BrokenCircuitException ex)
+            {
+                errorMessage = $"{GetType().Name} => PostAsync({url}) - Circuit broken due to: '{ex.InnerException?.Message}'";
+                _logger.LogWarning(errorMessage, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                errorMessage = $"{GetType().Name} => PostAsync({url}) - failed with the following error: '{ex.Message}'";
+                _logger.LogError(errorMessage, ex.Message);
+            }
+
+            return new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.InternalServerError,
+                ReasonPhrase = errorMessage
+            };
+        }
+
+        public async Task<HttpResponse<T>> PostAsync<T>(string url, object content)
+        {
+            var errorMessage = string.Empty;
+
+            try
+            {
+                var bodyContent = GetStringContent(content);
+                var result = await _client.PostAsync(url, bodyContent);
+
+                return await HttpResponse<T>.Get(result);
+            }
+            catch (BrokenCircuitException<HttpResponseMessage> ex)
+            {
+                errorMessage = $"{GetType().Name} => PostAsync<{nameof(T)}>({url}) - Circuit broken due to: '{ex.InnerException?.Message}'";
+                _logger.LogWarning(errorMessage, ex.Message);
+            }
+            catch (BrokenCircuitException ex)
+            {
+                errorMessage = $"{GetType().Name} => PostAsync<{nameof(T)}>({url}) - Circuit broken due to: '{ex.InnerException?.Message}'";
+                _logger.LogWarning(errorMessage, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                errorMessage = $"{GetType().Name} => PostAsync<{nameof(T)}>({url}) - failed with the following error: '{ex.Message}'";
+                _logger.LogError(errorMessage, ex.Message);
+            }
+
+            return new HttpResponse<T>
+            {
+                StatusCode = HttpStatusCode.InternalServerError,
+                ReasonPhrase = errorMessage
+            };
+        }
+
+        public async Task<HttpResponse<T>> PostAsync<T>(string url, object content, bool encodeContent)
+        {
+            var errorMessage = string.Empty;
+
+            try
+            {
+                var bodyContent = encodeContent
+                    ? GetStringContent(content)
+                    : (HttpContent)content;
+
+                var result = await _client.PostAsync(url, bodyContent);
+
+                return await HttpResponse<T>.Get(result);
+            }
+            catch (BrokenCircuitException<HttpResponseMessage> ex)
+            {
+                errorMessage = $"{GetType().Name} => PostAsync<{nameof(T)}>({url}) - Circuit broken due to: '{ex.InnerException?.Message}'";
+                _logger.LogWarning(errorMessage, ex.Message);
+            }
+            catch (BrokenCircuitException ex)
+            {
+                errorMessage = $"{GetType().Name} => PostAsync<{nameof(T)}>({url}) - Circuit broken due to: '{ex.InnerException?.Message}'";
+                _logger.LogWarning(errorMessage, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                errorMessage = $"{GetType().Name} => PostAsync<{nameof(T)}>({url}) - failed with the following error: '{ex.Message}'";
+                _logger.LogError(errorMessage, ex.Message);
+            }
+
+            return new HttpResponse<T>
+            {
+                StatusCode = HttpStatusCode.InternalServerError,
+                ReasonPhrase = errorMessage
+            };
+        }
+
+        public async Task<HttpResponseMessage> PutAsync(string url, HttpContent content)
+        {
+            var errorMessage = string.Empty;
+
+            try
+            {
+                return await _client.PutAsync(url, content);
+            }
+            catch (BrokenCircuitException<HttpResponseMessage> ex)
+            {
+                errorMessage = $"{GetType().Name} => PutAsync({url}) - Circuit broken due to: '{ex.InnerException?.Message}'";
+                _logger.LogWarning(errorMessage, ex.Message);
+            }
+            catch (BrokenCircuitException ex)
+            {
+                errorMessage = $"{GetType().Name} => PutAsync({url}) - Circuit broken due to: '{ex.InnerException?.Message}'";
+                _logger.LogWarning(errorMessage, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                errorMessage = $"{GetType().Name} => PutAsync({url}) - failed with the following error: '{ex.Message}'";
+                _logger.LogError(errorMessage, ex.Message);
+            }
+
+            return new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.InternalServerError,
+                ReasonPhrase = errorMessage
+            };
+        }
+
+
+        public async Task<HttpResponse<T>> PutAsync<T>(string url, object content)
+        {
+            var errorMessage = string.Empty;
+
+            try
+            {
+                var bodyContent = GetStringContent(content);
+                var result = await _client.PutAsync(url, bodyContent);
+
+                return await HttpResponse<T>.Get(result);
+            }
+            catch (BrokenCircuitException<HttpResponseMessage> ex)
+            {
+                errorMessage = $"{GetType().Name} => PutAsync<{nameof(T)}>({url}) - Circuit broken due to: '{ex.InnerException?.Message}'";
+                _logger.LogWarning(errorMessage, ex.Message);
+            }
+            catch (BrokenCircuitException ex)
+            {
+                errorMessage = $"{GetType().Name} => PutAsync<{nameof(T)}>({url}) - Circuit broken due to: '{ex.InnerException?.Message}'";
+                _logger.LogWarning(errorMessage, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                errorMessage = $"{GetType().Name} => PutAsync<{nameof(T)}>({url}) - failed with the following error: '{ex.Message}'";
+                _logger.LogError(errorMessage, ex.Message);
+            }
+
+            return new HttpResponse<T>
+            {
+                StatusCode = HttpStatusCode.InternalServerError,
+                ReasonPhrase = errorMessage
+            };
+        }
+
+        public async Task<HttpResponse<T>> PutAsync<T>(string url, object content, bool encodeContent)
+        {
+            var errorMessage = string.Empty;
+
+            try
+            {
+                var bodyContent = encodeContent
+                    ? GetStringContent(content)
+                    : (HttpContent)content;
+
+                var result = await _client.PutAsync(url, bodyContent);
+
+                return await HttpResponse<T>.Get(result);
+            }
+            catch (BrokenCircuitException<HttpResponseMessage> ex)
+            {
+                errorMessage = $"{GetType().Name} => PutAsync<{nameof(T)}>({url}) - Circuit broken due to: '{ex.InnerException?.Message}'";
+                _logger.LogWarning(errorMessage, ex.Message);
+            }
+            catch (BrokenCircuitException ex)
+            {
+                errorMessage = $"{GetType().Name} => PutAsync<{nameof(T)}>({url}) - Circuit broken due to: '{ex.InnerException?.Message}'";
+                _logger.LogWarning(errorMessage, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                errorMessage = $"{GetType().Name} => PutAsync<{nameof(T)}>({url}) - failed with the following error: '{ex.Message}'";
+                _logger.LogError(errorMessage, ex.Message);
+            }
+
+            return new HttpResponse<T>
+            {
+                StatusCode = HttpStatusCode.InternalServerError,
+                ReasonPhrase = errorMessage
+            };
+        }
+
+        public async Task<HttpResponseMessage> DeleteAsync(string url)
+        {
+            var errorMessage = string.Empty;
+
+            try
+            {
+                return await _client.DeleteAsync(url);
+            }
+            catch (BrokenCircuitException<HttpResponseMessage> ex)
+            {
+                errorMessage = $"{GetType().Name} => DeleteAsync({url}) - Circuit broken due to: '{ex.InnerException?.Message}'";
+                _logger.LogWarning(errorMessage, ex.Message);
+            }
+            catch (BrokenCircuitException ex)
+            {
+                errorMessage = $"{GetType().Name} => DeleteAsync({url}) - Circuit broken due to: '{ex.InnerException?.Message}'";
+                _logger.LogWarning(errorMessage, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                errorMessage = $"{GetType().Name} => DeleteAsync({url}) - failed with the following error: '{ex.Message}'";
+                _logger.LogError(errorMessage, ex.Message);
+            }
+
+            return new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.InternalServerError,
+                ReasonPhrase = errorMessage
+            };
+        }
+
+        public async Task<HttpResponse<T>> DeleteAsync<T>(string url)
+        {
+            var errorMessage = string.Empty;
+
+            try
+            {
+                var result = await _client.DeleteAsync(url);
+
+                return await HttpResponse<T>.Get(result);
+            }
+            catch (BrokenCircuitException<HttpResponseMessage> ex)
+            {
+                errorMessage = $"{GetType().Name} => DeleteAsync<{nameof(T)}>({url}) - Circuit broken due to: '{ex.InnerException?.Message}'";
+                _logger.LogWarning(errorMessage, ex.Message);
+            }
+            catch (BrokenCircuitException ex)
+            {
+                errorMessage = $"{GetType().Name} => DeleteAsync<{nameof(T)}>({url}) - Circuit broken due to: '{ex.InnerException?.Message}'";
+                _logger.LogWarning(errorMessage, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                errorMessage = $"{GetType().Name} => DeleteAsync<{nameof(T)}>({url}) - failed with the following error: '{ex.Message}'";
+                _logger.LogError(errorMessage, ex.Message);
+            }
+
+            return new HttpResponse<T>
+            {
+                StatusCode = HttpStatusCode.InternalServerError,
+                ReasonPhrase = errorMessage
+            };
         }
 
         private StringContent GetStringContent(object content)
@@ -182,13 +544,8 @@ namespace StockportGovUK.AspNetCore.Gateways
             {
                 NullValueHandling = NullValueHandling.Ignore
             });
-                        
-            return new StringContent(serializedContent, Encoding.UTF8, "application/json");
-        }
 
-        public void ChangeAuthenticationHeader(string authHeader)
-        {
-            _client.DefaultRequestHeaders.Authorization = AuthenticationHeaderValue.Parse(authHeader);
+            return new StringContent(serializedContent, Encoding.UTF8, "application/json");
         }
     }
 }
