@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <PackageId>StockportGovUK.AspNetCore.Gateways</PackageId>
     <Title>A package that provides base gateways using HttpClient</Title>
