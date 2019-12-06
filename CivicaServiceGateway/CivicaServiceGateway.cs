@@ -86,5 +86,10 @@ namespace StockportGovUK.AspNetCore.Gateways.CivicaServiceGateway
         {
             return await GetAsync($"{BaseEndpoint}/people/{personReference}/payments/{year}");
         }
+
+        public async Task<HttpResponseMessage> GetAvailability()
+        {
+            return await GetAsync($"{BaseEndpoint}/availability");
+        }
     }
 }

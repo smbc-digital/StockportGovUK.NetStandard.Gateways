@@ -26,5 +26,10 @@ namespace StockportGovUK.AspNetCore.Gateways.RevsBensServiceGateway
         {
             return await GetAsync($"{BaseEndpoint}/people/{personReference}/council-tax/{accountReference}/{year}");
         }
+
+        public async Task<HttpResponseMessage> GetCivicaAvailability()
+        {
+            return await GetAsync($"{BaseEndpoint}/availability/civica");
+        }
     }
 }
