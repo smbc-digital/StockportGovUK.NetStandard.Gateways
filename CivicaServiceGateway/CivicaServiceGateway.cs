@@ -72,6 +72,11 @@ namespace StockportGovUK.AspNetCore.Gateways.CivicaServiceGateway
             return await GetAsync($"{BaseEndpoint}/people/{personReference}/documents");
         }
 
+        public async Task<HttpResponseMessage> GetDocumentForAccount(string personReference, string accountReference, string documentId)
+        {
+            return await GetAsync($"{BaseEndpoint}/people/{personReference}/account/{accountReference}/documents/{documentId}");
+        }
+
         public async Task<HttpResponseMessage> GetPropertiesOwned(string personReference)
         {
             return await GetAsync($"{BaseEndpoint}/people/{personReference}/properties");

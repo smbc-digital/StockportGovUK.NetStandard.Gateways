@@ -12,5 +12,7 @@ namespace StockportGovUK.AspNetCore.Gateways.RevsBensServiceGateway
         Task<HttpResponseMessage> GetBenefits(string personReference);
 
         Task<HttpResponseMessage> GetCivicaAvailability();
+
+        Task<HttpResponseMessage> GetDocumentForAccount(string personReference, string accountReference, string documentId);
     }
 }
