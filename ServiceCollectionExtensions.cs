@@ -71,7 +71,7 @@ namespace StockportGovUK.NetStandard.Gateways
                 }
             }
         }
-
+        
         private static void AddBaseHttpClient<TClient, TImplementation>(this IServiceCollection services)
             where TClient : class
             where TImplementation : class, TClient
