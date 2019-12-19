@@ -1,4 +1,4 @@
-<h1 align="center">StockportGovUK.AspNetCore.Gateways</h1>
+<h1 align="center">StockportGovUK.NetStandard.Gateways</h1>
 
 <div align="center">
   :computer::door::rainbow:
@@ -13,19 +13,19 @@
 <br />
 
 <div align="center">
-  ![Nuget](https://img.shields.io/nuget/dt/StockportGovUK.AspNetCore.Gateways.svg?style=flat-square)
-  ![Nuget](https://img.shields.io/nuget/v/StockportGovUK.AspNetCore.Gateways.svg?style=flat-square)
+  ![Nuget](https://img.shields.io/nuget/dt/StockportGovUK.NetStandard.Gateways.svg?style=flat-square)
+  ![Nuget](https://img.shields.io/nuget/v/StockportGovUK.NetStandard.Gateways.svg?style=flat-square)
   ![Stability](https://img.shields.io/badge/stability-stable-green.svg?style=flat-square)
 </div>
 
 <div align="center">
   <h3>
     External Links
-    <a href="https://github.com/smbc-digital/StockportGovUK.AspNetCore.Gateways">
+    <a href="https://github.com/smbc-digital/StockportGovUK.NetStandard.Gateways">
       GitHub
     </a>
     <span> | </span>
-    <a href="https://www.nuget.org/packages/StockportGovUK.AspNetCore.Gateways/">
+    <a href="https://www.nuget.org/packages/StockportGovUK.NetStandard.Gateways/">
       NuGet
     </a>
   </h3>
