@@ -75,7 +75,7 @@ namespace StockportGovUK.NetStandard.Gateways.Civica.Pay
         {
             var url = $"{ApiRoot}/BasketApi/CreateImmediatePaymentBasket";
             var response = await PostAsync<CreateImmediateBasketResponse>(url, request);
-            if(response.ResponseContent.ResponseCode == "99999")
+            if(response.ResponseContent.ResponseCode != "00000")
             {
                 response.StatusCode = HttpStatusCode.BadRequest;
             }
