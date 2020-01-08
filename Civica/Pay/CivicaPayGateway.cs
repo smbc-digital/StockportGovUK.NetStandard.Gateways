@@ -1,18 +1,19 @@
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using StockportGovUK.AspNetCore.Gateways.Response;
+using Microsoft.Extensions.Logging;
+using StockportGovUK.NetStandard.Gateways.Response;
 using StockportGovUK.NetStandard.Models.Civica.Pay.Request;
 using StockportGovUK.NetStandard.Models.Civica.Pay.Response;
 
-namespace StockportGovUK.AspNetCore.Gateways.Civica.Pay
+namespace StockportGovUK.NetStandard.Gateways.Civica.Pay
 {
     public class CivicaPayGateway : Gateway, ICivicaPayGateway
     {
 
-        public const string PAYMENT_URL = "{0}/estore/default/Remote/Fetch?basketreference={1}&baskettoken={2}";            
+        public const string PAYMENT_URL = "{0}/estore/default/Remote/Fetch?basketreference={1}&baskettoken={2}&callingapptxnreference={3}&backsitename=Stockport%20Homepage&backurl=https://www.stockport.gov.uk";            
 
-        public CivicaPayGateway(HttpClient httpClient) : base(httpClient) 
+        public CivicaPayGateway(HttpClient httpClient, ILogger<Gateway> logger) : base(httpClient, logger)
         {
         }
 
@@ -29,9 +30,9 @@ namespace StockportGovUK.AspNetCore.Gateways.Civica.Pay
                 return "StockportEstore/TransportableBasket/api";
             }
         }
-        public string GetPaymentUrl(string basketReference, string basketToken)
+        public string GetPaymentUrl(string basketReference, string basketToken, string reference)
         {
-            return string.Format(PAYMENT_URL , EStoreRoot, basketReference, basketToken);            
+            return string.Format(PAYMENT_URL , EStoreRoot, basketReference, basketToken, reference);            
         }
         
         public async Task<HttpResponse<CreateBasketResponse>> CreateBasketAsync(CreateBasketRequest request)
@@ -74,7 +75,7 @@ namespace StockportGovUK.AspNetCore.Gateways.Civica.Pay
         {
             var url = $"{ApiRoot}/BasketApi/CreateImmediatePaymentBasket";
             var response = await PostAsync<CreateImmediateBasketResponse>(url, request);
-            if(response.ResponseContent.ResponseCode == "99999")
+            if(response.ResponseContent.ResponseCode != "00000")
             {
                 response.StatusCode = HttpStatusCode.BadRequest;
             }
@@ -100,6 +101,13 @@ namespace StockportGovUK.AspNetCore.Gateways.Civica.Pay
         {
             var url = $"{ApiRoot}/CatalogueApi/GetCatalogueItemList{request.ToQueryString()}";
             var response = await GetAsync<CatalogueItemListResponse>(url);
+            return response;
+        }
+
+        public async Task<HttpResponse<BasketSecurityDetailsResponse>> GetBasketSecurityDetails(BasketSecurityDetailsRequest request)
+        {
+            var url = $"{ApiRoot}/BasketApi/RetrieveBasketSecurityDetails";
+            var response = await PostAsync<BasketSecurityDetailsResponse>(url, request);
             return response;
         }
     }

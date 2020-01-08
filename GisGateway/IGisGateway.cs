@@ -1,8 +1,8 @@
 using System.Net.Http;
 using System.Threading.Tasks;
-using StockportGovUK.AspNetCore.Gateways.Response;
+using StockportGovUK.NetStandard.Gateways.Response;
 
-namespace StockportGovUK.AspNetCore.Gateways.Gis
+namespace StockportGovUK.NetStandard.Gateways.Gis
 {
     public interface IGisGateway : IGateway
     {

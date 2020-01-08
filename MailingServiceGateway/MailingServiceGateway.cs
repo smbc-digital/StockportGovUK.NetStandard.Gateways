@@ -1,14 +1,15 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
-using StockportGovUK.AspNetCore.Gateways.Response;
+using Microsoft.Extensions.Logging;
+using StockportGovUK.NetStandard.Gateways.Response;
 using StockportGovUK.NetStandard.Models.Models.Mail;
 
-namespace StockportGovUK.AspNetCore.Gateways.MailingServiceGateway
+namespace StockportGovUK.NetStandard.Gateways.MailingServiceGateway
 {
     public class MailingServiceGateway : Gateway, IMailingServiceGateway
     {
         private const string MailingEndpoint = "api/mail";
-        public MailingServiceGateway(HttpClient client) : base(client)
+        public MailingServiceGateway(HttpClient httpClient, ILogger<Gateway> logger) : base(httpClient, logger)
         {
         }
 

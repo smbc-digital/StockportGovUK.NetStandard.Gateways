@@ -1,7 +1,7 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace StockportGovUK.AspNetCore.Gateways.InthubGateway
+namespace StockportGovUK.NetStandard.Gateways.InthubGateway
 {
     public interface IInthubGateway
     {

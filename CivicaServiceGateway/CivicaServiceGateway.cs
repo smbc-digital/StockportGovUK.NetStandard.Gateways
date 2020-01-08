@@ -1,14 +1,20 @@
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
-namespace StockportGovUK.AspNetCore.Gateways.CivicaServiceGateway
+namespace StockportGovUK.NetStandard.Gateways.CivicaServiceGateway
 {
     public class CivicaServiceGateway : Gateway, ICivicaServiceGateway
     {
         const string BaseEndpoint = "api/v1";
 
-        public CivicaServiceGateway(HttpClient client) : base(client)
+        public CivicaServiceGateway(HttpClient httpClient, ILogger<Gateway> logger) : base(httpClient, logger)
         {
+        }
+
+        public async Task<HttpResponseMessage> GetSessionId(string personReference)
+        {
+            return await GetAsync($"{BaseEndpoint}/people/{personReference}/session-id");
         }
 
         public async Task<HttpResponseMessage> IsBenefitsClaimant(string personReference)
@@ -16,9 +22,24 @@ namespace StockportGovUK.AspNetCore.Gateways.CivicaServiceGateway
             return await GetAsync($"{BaseEndpoint}/people/{personReference}/is-benefits-claimant");
         }
 
-        public async Task<HttpResponseMessage> GetBenefitDetails(string personReference)
+        public async Task<HttpResponseMessage> GetBenefits(string personReference)
         {
             return await GetAsync($"{BaseEndpoint}/people/{personReference}/benefits");
+        }
+
+        public async Task<HttpResponseMessage> GetBenefitDetails(string personReference, string claimReference, string placeReference)
+        {
+            return await GetAsync($"{BaseEndpoint}/people/{personReference}/benefits/{claimReference}/{placeReference}");
+        }
+
+        public async Task<HttpResponseMessage> GetHousingBenefitPaymentHistory(string personReference)
+        {
+            return await GetAsync($"{BaseEndpoint}/people/{personReference}/benefits/housing");
+        }
+
+        public async Task<HttpResponseMessage> GetCouncilTaxBenefitPaymentHistory(string personReference)
+        {
+            return await GetAsync($"{BaseEndpoint}/people/{personReference}/benefits/council-tax");
         }
 
         public async Task<HttpResponseMessage> GetAccounts(string personReference)
@@ -29,6 +50,11 @@ namespace StockportGovUK.AspNetCore.Gateways.CivicaServiceGateway
         public async Task<HttpResponseMessage> GetAccount(string personReference, string accountReference)
         {
             return await GetAsync($"{BaseEndpoint}/people/{personReference}/accounts/{accountReference}");
+        }
+
+        public async Task<HttpResponseMessage> GetAccountDetailsForYear(string personReference, string accountReference, int year)
+        {
+            return await GetAsync($"{BaseEndpoint}/people/{personReference}/accounts/{accountReference}/{year}");
         }
 
         public async Task<HttpResponseMessage> GetAllTransactionsForYear(string personReference, string accountReference, int year)
@@ -51,14 +77,19 @@ namespace StockportGovUK.AspNetCore.Gateways.CivicaServiceGateway
             return await GetAsync($"{BaseEndpoint}/people/{personReference}/properties");
         }
 
-        public async Task<HttpResponseMessage> GetCurrentProperty(string personReference)
+        public async Task<HttpResponseMessage> GetCurrentProperty(string personReference, string accountReference)
         {
-            return await GetAsync($"{BaseEndpoint}/people/{personReference}/properties/current");
+            return await GetAsync($"{BaseEndpoint}/people/{personReference}/accounts/{accountReference}/properties/current");
         }
 
-        public async Task<HttpResponseMessage> GetPaymentSchedule(string personReference, string year)
+        public async Task<HttpResponseMessage> GetPaymentSchedule(string personReference, int year)
         {
             return await GetAsync($"{BaseEndpoint}/people/{personReference}/payments/{year}");
+        }
+
+        public async Task<HttpResponseMessage> GetAvailability()
+        {
+            return await GetAsync($"{BaseEndpoint}/availability");
         }
     }
 }

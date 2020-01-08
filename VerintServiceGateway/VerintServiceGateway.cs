@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using StockportGovUK.AspNetCore.Gateways.Response;
+using Microsoft.Extensions.Logging;
+using StockportGovUK.NetStandard.Gateways.Response;
 using StockportGovUK.NetStandard.Models.Addresses;
 using StockportGovUK.NetStandard.Models.Models.Verint;
 using StockportGovUK.NetStandard.Models.Models.Verint.Update;
 
-namespace StockportGovUK.AspNetCore.Gateways.VerintServiceGateway
+namespace StockportGovUK.NetStandard.Gateways.VerintServiceGateway
 {
     public class VerintServiceGateway : Gateway, IVerintServiceGateway
     {
@@ -14,8 +15,9 @@ namespace StockportGovUK.AspNetCore.Gateways.VerintServiceGateway
         private const string CaseEndpoint = "api/v1/Case";
         private const string PropertyEndpoint = "api/v1/Property";
         private const string OrganisationEndpoint = "api/v1/Organisation";
+        private const string StreetEndpoint = "api/v1/Street";
 
-        public VerintServiceGateway(HttpClient httpClient) : base(httpClient)
+        public VerintServiceGateway(HttpClient httpClient, ILogger<Gateway> logger) : base(httpClient, logger)
         {
         }
 
@@ -39,9 +41,14 @@ namespace StockportGovUK.AspNetCore.Gateways.VerintServiceGateway
             return await GetAsync<List<AddressSearchResult>>($"{PropertyEndpoint}/search/{postcode}");
         }
 
-        public async Task<HttpResponse<List<Organisation>>> SearchForOrganisation(string organisation)
+        public async Task<HttpResponse<List<Organisation>>> SearchForOrganisationByName(string organisation)
         {
             return await GetAsync<List<Organisation>>($"{OrganisationEndpoint}/search/{organisation}");
+        }
+
+        public async Task<HttpResponse<List<AddressSearchResult>>> GetStreetByReference(string street)
+        {
+            return await GetAsync<List<AddressSearchResult>>($"{StreetEndpoint}/streetsearch/{street}");
         }
     }
 }

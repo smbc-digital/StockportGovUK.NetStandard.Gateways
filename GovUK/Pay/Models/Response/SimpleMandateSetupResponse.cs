@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace StockportGovUK.AspNetCore.Gateways.GovUK.Pay
+namespace StockportGovUK.NetStandard.Gateways.GovUK.Pay
 {
     
     public class SimpleMandateSetupResponse

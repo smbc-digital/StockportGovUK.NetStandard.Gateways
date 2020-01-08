@@ -1,4 +1,4 @@
-<h1 align="center">StockportGovUK.AspNetCore.Gateways</h1>
+<h1 align="center">StockportGovUK.NetStandard.Gateways</h1>
 
 <div align="center">
   :computer::door::rainbow:
@@ -13,19 +13,19 @@
 <br />
 
 <div align="center">
-  ![Nuget](https://img.shields.io/nuget/dt/StockportGovUK.AspNetCore.Gateways.svg?style=flat-square)
-  ![Nuget](https://img.shields.io/nuget/v/StockportGovUK.AspNetCore.Gateways.svg?style=flat-square)
-  ![Stability](https://img.shields.io/badge/stability-stable-green.svg?style=flat-square)
+  <img src="https://img.shields.io/nuget/dt/StockportGovUK.NetStandard.Gateways.svg?style=flat-square" />
+  <img src="https://img.shields.io/nuget/v/StockportGovUK.NetStandard.Gateways.svg?style=flat-square" />
+  <img src="https://img.shields.io/badge/stability-stable-green.svg?style=flat-square" />
 </div>
 
 <div align="center">
   <h3>
     External Links
-    <a href="https://github.com/smbc-digital/StockportGovUK.AspNetCore.Gateways">
+    <a href="https://github.com/smbc-digital/StockportGovUK.NetStandard.Gateways">
       GitHub
     </a>
     <span> | </span>
-    <a href="https://www.nuget.org/packages/StockportGovUK.AspNetCore.Gateways/">
+    <a href="https://www.nuget.org/packages/StockportGovUK.NetStandard.Gateways/">
       NuGet
     </a>
   </h3>
@@ -83,8 +83,8 @@ Config changes to the following, please note that the gateway type needs to be t
 {
   "HttpClientConfiguration": [
       {
-        "iGatewayType": "StockportGovUK.AspNetCore.Gateways.YourGatewayNamespace.IYourGatewayName",
-        "gatewayType": "StockportGovUK.AspNetCore.Gateways.YourGatewayNamespace.YourGatewayName,StockportGovUK.AspNetCore.Gateways",
+        "iGatewayType": "StockportGovUK.NetStandard.Gateways.YourGatewayNamespace.IYourGatewayName",
+        "gatewayType": "StockportGovUK.NetStandard.Gateways.YourGatewayNamespace.YourGatewayName,StockportGovUK.NetStandard.Gateways",
         "baseUrl": "https://www.BaseServiceUrlHere.co.uk"
       }
   ]
@@ -102,7 +102,7 @@ For the purposes of debugging you can prevent the addition of resilient features
 }
 ```
 
-Adding resilient clients (i.e. with circuit breaker) is now done via the gateways package (rather than through [polly](https://github.com/smbc-digital/StockportGovUK.AspNetCore.Polly). To enable this behaviour add the following to startup.
+Adding resilient clients (i.e. with circuit breaker) is now done via the gateways package (rather than through [polly](https://github.com/smbc-digital/StockportGovUK.NetStandard.Polly). To enable this behaviour add the following to startup.
 
 ```C#
 services.AddResilientHttpClients<IGateway, Gateway>(Configuration);
@@ -131,7 +131,7 @@ New gateways are constructed slightly differently, the following pattern is a ga
 
 ## Installation
 ```bash
-$ dotnet add package StockportGovUK.AspNetCore.Gateways
+$ dotnet add package StockportGovUK.NetStandard.Gateways
 ```
 
 

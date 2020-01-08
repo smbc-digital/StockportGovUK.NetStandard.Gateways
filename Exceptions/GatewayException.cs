@@ -2,7 +2,7 @@ using System;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
 
-namespace StockportGovUK.AspNetCore.Gateways
+namespace StockportGovUK.NetStandard.Gateways
 {
     public class GatewayException : System.Exception
     {

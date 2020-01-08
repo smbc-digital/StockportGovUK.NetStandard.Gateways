@@ -1,9 +1,10 @@
 using System.Net.Http;
 using System.Threading.Tasks;
-using StockportGovUK.AspNetCore.Gateways.Response;
+using Microsoft.Extensions.Logging;
+using StockportGovUK.NetStandard.Gateways.Response;
 using StockportGovUK.NetStandard.Models.Models.ComplimentsComplaints;
 
-namespace StockportGovUK.AspNetCore.Gateways.ComplimentsComplaintsServiceGateway
+namespace StockportGovUK.NetStandard.Gateways.ComplimentsComplaintsServiceGateway
 {
     public class ComplimentsComplaintsServiceGateway : Gateway, IComplimentsComplaintsServiceGateway
     {
@@ -12,7 +13,7 @@ namespace StockportGovUK.AspNetCore.Gateways.ComplimentsComplaintsServiceGateway
         private const string FeedbackEndpoint = "api/v1/Feedback";
         private const string ComplaintEndpoint = "api/v1/Complaints";
 
-        public ComplimentsComplaintsServiceGateway(HttpClient httpClient) : base(httpClient)
+        public ComplimentsComplaintsServiceGateway(HttpClient httpClient, ILogger<Gateway> logger) : base(httpClient, logger)
         {
         }
 

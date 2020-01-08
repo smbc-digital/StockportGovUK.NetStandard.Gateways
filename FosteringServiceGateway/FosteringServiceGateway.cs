@@ -1,13 +1,14 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
-using StockportGovUK.AspNetCore.Gateways.Response;
+using StockportGovUK.NetStandard.Gateways.Response;
 using StockportGovUK.NetStandard.Models.Enums;
 using StockportGovUK.NetStandard.Models.Models;
 using StockportGovUK.NetStandard.Models.Models.Fostering;
 using StockportGovUK.NetStandard.Models.Models.Fostering.HomeVisit;
 using StockportGovUK.NetStandard.Models.Models.Fostering.Application;
+using Microsoft.Extensions.Logging;
 
-namespace StockportGovUK.AspNetCore.Gateways.FosteringServiceGateway
+namespace StockportGovUK.NetStandard.Gateways.FosteringServiceGateway
 {
     public class FosteringServiceGateway : Gateway, IFosteringServiceGateway
     {
@@ -17,7 +18,7 @@ namespace StockportGovUK.AspNetCore.Gateways.FosteringServiceGateway
 
         private const string ApplicationEndpoint = "api/v1/Application";
 
-        public FosteringServiceGateway(HttpClient client) : base(client)
+        public FosteringServiceGateway(HttpClient httpClient, ILogger<Gateway> logger) : base(httpClient, logger)
         {
         }
 

@@ -1,13 +1,14 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
-namespace StockportGovUK.AspNetCore.Gateways.RevsBensServiceGateway
+namespace StockportGovUK.NetStandard.Gateways.RevsBensServiceGateway
 {
     public class RevsBensServiceGateway : Gateway, IRevsBensServiceGateway
     {
         const string BaseEndpoint = "api/v1";
 
-        public RevsBensServiceGateway(HttpClient httpClient) : base(httpClient)
+        public RevsBensServiceGateway(HttpClient httpClient, ILogger<Gateway> logger) : base(httpClient, logger)
         {
         }
 
@@ -16,14 +17,24 @@ namespace StockportGovUK.AspNetCore.Gateways.RevsBensServiceGateway
             return await GetAsync($"{BaseEndpoint}/people/{personReference}/is-benefits-claimant");
         }
 
-        public async Task<HttpResponseMessage> GetBenefitDetails(string personReference)
+        public async Task<HttpResponseMessage> GetBenefits(string personReference)
         {
             return await GetAsync($"{BaseEndpoint}/people/{personReference}/benefits");
         }
 
-        public async Task<HttpResponseMessage> GetAllTransactionsForYear(string personReference, string accountReference, int year)
+        public async Task<HttpResponseMessage> GetCouncilTaxDetails(string personReference, string accountReference, int year)
         {
-            return await GetAsync($"{BaseEndpoint}/person/{personReference}/details/{accountReference}/transactions/{year}");
+            return await GetAsync($"{BaseEndpoint}/people/{personReference}/council-tax/{accountReference}/{year}");
+        }
+
+        public async Task<HttpResponseMessage> GetCivicaAvailability()
+        {
+            return await GetAsync($"{BaseEndpoint}/availability/civica");
+        }
+
+        public async Task<HttpResponseMessage> GetDocumentForAccount(string personReference, string accountReference, string documentId)
+        {
+            return await GetAsync($"{BaseEndpoint}/people/{personReference}/council-tax/{accountReference}/documents/{documentId}");
         }
     }
 }

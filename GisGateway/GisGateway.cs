@@ -1,14 +1,14 @@
 using System.Net.Http;
 using System.Threading.Tasks;
-using StockportGovUK.AspNetCore.Gateways.Response;
+using Microsoft.Extensions.Logging;
 
-namespace StockportGovUK.AspNetCore.Gateways.Gis
+namespace StockportGovUK.NetStandard.Gateways.Gis
 {
     public class GisGateway : Gateway, IGisGateway
     {
         private const string HttpClientName = "gisGateway";
 
-        public GisGateway(HttpClient client) : base(client)
+        public GisGateway(HttpClient httpClient, ILogger<Gateway> logger) : base(httpClient, logger)
         {
         }
 

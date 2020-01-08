@@ -1,14 +1,14 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Polly;
+using Polly.Extensions.Http;
+using System;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Reflection;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Polly;
-using Polly.Extensions.Http;
 
-namespace StockportGovUK.AspNetCore.Gateways
+namespace StockportGovUK.NetStandard.Gateways
 {
     public static class ServiceCollectionExtensions
     {
@@ -21,17 +21,17 @@ namespace StockportGovUK.AspNetCore.Gateways
             var httpClientConfiguration = configuration.GetSection("HttpClientConfiguration").GetChildren();
             foreach (var config in httpClientConfiguration)
             {
-                if(string.IsNullOrEmpty(config["name"]))
+                if (string.IsNullOrEmpty(config["name"]))
                 {
                     throw new Exception("Name for HttpClient not specified");
                 }
-                
-                AddHttpClients(services, config["name"], c => 
+
+                AddHttpClients(services, config["name"], c =>
                 {
                     c.BaseAddress = string.IsNullOrEmpty(config["baseUrl"]) ? null : new Uri(config["baseUrl"]);
 
                     c.DefaultRequestHeaders.Authorization = string.IsNullOrEmpty(config["authToken"])
-                        ? null 
+                        ? null
                         : new AuthenticationHeaderValue("Bearer", config["authToken"]);
                 });
             }
@@ -45,26 +45,27 @@ namespace StockportGovUK.AspNetCore.Gateways
 
             var httpClientConfiguration = configuration.GetSection("HttpClientConfiguration")?.GetChildren();
 
-            if (httpClientConfiguration != null) {
+            if (httpClientConfiguration != null)
+            {
                 foreach (var config in httpClientConfiguration)
                 {
-                    if(string.IsNullOrEmpty(config["gatewayType"]) || string.IsNullOrEmpty(config["iGatewayType"]))
+                    if (string.IsNullOrEmpty(config["gatewayType"]) || string.IsNullOrEmpty(config["iGatewayType"]))
                     {
                         throw new Exception("Gateway Type for HttpClient not specified");
                     }
 
                     var addPollyPolicies = true;
                     var addPollyPoliciesConfig = config["addPollyPolicies"];
-                    if(!string.IsNullOrEmpty(addPollyPoliciesConfig))
+                    if (!string.IsNullOrEmpty(addPollyPoliciesConfig))
                     {
                         bool.TryParse(addPollyPoliciesConfig, out addPollyPolicies);
                     }
-                    
-                    AddResilientHttpClients(services, config["gatewayType"], config["iGatewayType"], addPollyPolicies, c => 
+
+                    AddResilientHttpClients(services, config["gatewayType"], config["iGatewayType"], addPollyPolicies, c =>
                     {
                         c.BaseAddress = string.IsNullOrEmpty(config["baseUrl"]) ? null : new Uri(config["baseUrl"]);
                         c.DefaultRequestHeaders.Authorization = string.IsNullOrEmpty(config["authToken"])
-                            ? null 
+                            ? null
                             : AuthenticationHeaderValue.Parse(config["authToken"]);
                     });
                 }
@@ -76,53 +77,54 @@ namespace StockportGovUK.AspNetCore.Gateways
             where TImplementation : class, TClient
         {
             services.AddHttpClient<TClient, TImplementation>()
-                .AddPolicyHandler(GetDefaultRetryPolicy())
-                .AddPolicyHandler(GetDefaultCircuitBreakerPolicy());
+                .AddPolicies();
         }
 
         private static void AddHttpClients(IServiceCollection services, string name, Action<HttpClient> config)
         {
             services.AddHttpClient(name, config)
-                .AddPolicyHandler(GetDefaultRetryPolicy())
-                .AddPolicyHandler(GetDefaultCircuitBreakerPolicy());
+                .AddPolicies();
         }
 
         private static void AddResilientHttpClients(IServiceCollection services, string gatewayType, string iGatewayType, bool addPollyPolicies, Action<HttpClient> config)
         {
             var reflectedType = typeof(HttpClientFactoryServiceCollectionExtensions);
-            if(reflectedType==null)
+            if (reflectedType == null)
             {
                 throw new Exception("Reflected type was null");
             }
 
             var reflectedMethod = reflectedType
                             .GetMethods()
-                            .Where(_ => _.Name=="AddHttpClient" 
-                                && _.IsGenericMethod 
+                            .Where(_ => _.Name == "AddHttpClient"
+                                && _.IsGenericMethod
                                 && _.IsStatic
-                                && _.GetGenericArguments().Count()==2 
-                                && _.GetParameters().Count()==2
+                                && _.GetGenericArguments().Count() == 2
+                                && _.GetParameters().Count() == 2
                             )
                             .Skip(1)
                             .First();
 
-            var clientType = Type.GetType(gatewayType);   
+            var clientType = Type.GetType(gatewayType);
             var iClientType = clientType.GetInterface(iGatewayType);
 
             MethodInfo invokeableMethod = reflectedMethod.MakeGenericMethod(iClientType, clientType);
             var invokedMethod = (IHttpClientBuilder)invokeableMethod.Invoke(null, new object[] { services, config });
-            if(addPollyPolicies)
+            if (addPollyPolicies)
             {
-                invokedMethod.AddPolicyHandler(ServiceCollectionExtensions.GetDefaultRetryPolicy());
-                invokedMethod.AddPolicyHandler(ServiceCollectionExtensions.GetDefaultCircuitBreakerPolicy());
+                invokedMethod.AddPolicies();
             }
         }
+
+        public static void AddPolicies(this IHttpClientBuilder clientBuilder) => clientBuilder
+                .AddPolicyHandler(GetDefaultRetryPolicy())
+                .AddPolicyHandler(GetDefaultCircuitBreakerPolicy());
 
         public static IAsyncPolicy<HttpResponseMessage> GetDefaultRetryPolicy()
         {
             return HttpPolicyExtensions
                 .HandleTransientHttpError()
-                .WaitAndRetryAsync(5, retryAttempt =>
+                .WaitAndRetryAsync(3, retryAttempt =>
                     TimeSpan.FromSeconds(Math.Pow(2, retryAttempt))
                 );
         }
@@ -131,7 +133,7 @@ namespace StockportGovUK.AspNetCore.Gateways
         {
             return HttpPolicyExtensions
                 .HandleTransientHttpError()
-                .CircuitBreakerAsync(5, TimeSpan.FromSeconds(30));
+                .CircuitBreakerAsync(3, TimeSpan.FromSeconds(30));
         }
     }
 }

@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
-using StockportGovUK.AspNetCore.Gateways.Response;
+using StockportGovUK.NetStandard.Gateways.Response;
 
-namespace StockportGovUK.AspNetCore.Gateways
+namespace StockportGovUK.NetStandard.Gateways
 {
     interface ITypedGateway
     {

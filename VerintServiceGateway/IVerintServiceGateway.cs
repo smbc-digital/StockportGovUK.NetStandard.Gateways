@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using StockportGovUK.AspNetCore.Gateways.Response;
+using StockportGovUK.NetStandard.Gateways.Response;
 using StockportGovUK.NetStandard.Models.Addresses;
 using StockportGovUK.NetStandard.Models.Models.Verint;
 using StockportGovUK.NetStandard.Models.Models.Verint.Update;
 
-namespace StockportGovUK.AspNetCore.Gateways.VerintServiceGateway
+namespace StockportGovUK.NetStandard.Gateways.VerintServiceGateway
 {
     public interface IVerintServiceGateway
     {
@@ -17,5 +17,9 @@ namespace StockportGovUK.AspNetCore.Gateways.VerintServiceGateway
         Task<HttpResponse<string>> CreateCase(Case crmCase);
 
         Task<HttpResponse<List<AddressSearchResult>>> SearchForPropertyByPostcode(string postcode);
+
+        Task<HttpResponse<List<AddressSearchResult>>> GetStreetByReference(string street);
+
+        Task<HttpResponse<List<Organisation>>> SearchForOrganisationByName(string organisation);
     }
 }

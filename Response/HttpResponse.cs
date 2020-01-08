@@ -5,7 +5,7 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace StockportGovUK.AspNetCore.Gateways.Response
+namespace StockportGovUK.NetStandard.Gateways.Response
 {
     public class HttpResponse<T>
     {

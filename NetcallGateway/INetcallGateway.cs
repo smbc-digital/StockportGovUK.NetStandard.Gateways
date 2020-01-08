@@ -1,7 +1,7 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace StockportGovUK.AspNetCore.Gateways.Netcall
+namespace StockportGovUK.NetStandard.Gateways.Netcall
 {
     public interface INetcallGateway : IGateway
     {

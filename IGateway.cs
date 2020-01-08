@@ -1,7 +1,7 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace StockportGovUK.AspNetCore.Gateways
+namespace StockportGovUK.NetStandard.Gateways
 {
     public interface IGateway
     {

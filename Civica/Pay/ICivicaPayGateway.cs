@@ -1,9 +1,9 @@
 using System.Threading.Tasks;
-using StockportGovUK.AspNetCore.Gateways.Response;
+using StockportGovUK.NetStandard.Gateways.Response;
 using StockportGovUK.NetStandard.Models.Civica.Pay.Request;
 using StockportGovUK.NetStandard.Models.Civica.Pay.Response;
 
-namespace StockportGovUK.AspNetCore.Gateways.Civica.Pay
+namespace StockportGovUK.NetStandard.Gateways.Civica.Pay
 {
     public interface ICivicaPayGateway
     {
@@ -19,6 +19,8 @@ namespace StockportGovUK.AspNetCore.Gateways.Civica.Pay
 
         Task<HttpResponse<CatalogueItemListResponse>> GetCatalogueItemsAsync(CatalogueItemListRequest request);
 
-        string GetPaymentUrl(string basketReference, string basketToken);
+        Task<HttpResponse<BasketSecurityDetailsResponse>> GetBasketSecurityDetails(BasketSecurityDetailsRequest request);
+
+        string GetPaymentUrl(string basketReference, string basketToken, string reference);
     }
 }

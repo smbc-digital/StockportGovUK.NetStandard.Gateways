@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
-using StockportGovUK.AspNetCore.Gateways.Response;
+using StockportGovUK.NetStandard.Gateways.Response;
 using StockportGovUK.NetStandard.Models.Models.Mail;
 
-namespace StockportGovUK.AspNetCore.Gateways.MailingServiceGateway
+namespace StockportGovUK.NetStandard.Gateways.MailingServiceGateway
 {
     public interface IMailingServiceGateway
     {

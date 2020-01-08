@@ -1,10 +1,9 @@
 using System.Net.Http;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using StockportGovUK.AspNetCore.Gateways.Response;
+using StockportGovUK.NetStandard.Gateways.Response;
 using StockportGovUK.NetStandard.Models.Models.ComplimentsComplaints;
 
-namespace StockportGovUK.AspNetCore.Gateways.ComplimentsComplaintsServiceGateway
+namespace StockportGovUK.NetStandard.Gateways.ComplimentsComplaintsServiceGateway
 {
     public interface IComplimentsComplaintsServiceGateway
     {
