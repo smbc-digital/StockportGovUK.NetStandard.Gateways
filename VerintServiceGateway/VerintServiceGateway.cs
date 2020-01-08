@@ -13,6 +13,7 @@ namespace StockportGovUK.AspNetCore.Gateways.VerintServiceGateway
         private const string HttpClientName = "verintServiceGateway";
         private const string CaseEndpoint = "api/v1/Case";
         private const string PropertyEndpoint = "api/v1/Property";
+        private const string OrganisationEndpoint = "api/v1/Organisation";
 
         public VerintServiceGateway(HttpClient httpClient) : base(httpClient)
         {
@@ -36,6 +37,11 @@ namespace StockportGovUK.AspNetCore.Gateways.VerintServiceGateway
         public async Task<HttpResponse<List<AddressSearchResult>>> SearchForPropertyByPostcode(string postcode)
         {
             return await GetAsync<List<AddressSearchResult>>($"{PropertyEndpoint}/search/{postcode}");
+        }
+
+        public async Task<HttpResponse<List<Organisation>>> SearchForOrganisation(string organisation)
+        {
+            return await GetAsync<List<Organisation>>($"{OrganisationEndpoint}/search/{organisation}");
         }
     }
 }
