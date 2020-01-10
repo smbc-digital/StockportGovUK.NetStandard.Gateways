@@ -10,5 +10,6 @@ namespace StockportGovUK.NetStandard.Gateways.ComplimentsComplaintsServiceGatewa
         Task<HttpResponse<string>> SubmitCompliment(ComplimentDetails model);
         Task<HttpResponse<string>> SubmitFeedback(FeedbackDetails model);
         Task<HttpResponse<string>> SubmitComplaint(ComplaintDetails model);
+        Task<HttpResponse<string>> SubmitForm(string url, object model);
     }
 }
