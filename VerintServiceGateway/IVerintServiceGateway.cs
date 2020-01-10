@@ -5,6 +5,7 @@ using StockportGovUK.NetStandard.Gateways.Response;
 using StockportGovUK.NetStandard.Models.Addresses;
 using StockportGovUK.NetStandard.Models.Models.Verint;
 using StockportGovUK.NetStandard.Models.Models.Verint.Update;
+using StockportGovUK.NetStandard.Models.Models.Verint.Lookup;
 
 namespace StockportGovUK.NetStandard.Gateways.VerintServiceGateway
 {
@@ -20,6 +21,6 @@ namespace StockportGovUK.NetStandard.Gateways.VerintServiceGateway
 
         Task<HttpResponse<List<AddressSearchResult>>> GetStreetByReference(string street);
 
-        Task<HttpResponse<List<Organisation>>> SearchForOrganisationByName(string organisation);
+        Task<HttpResponse<List<OrganisationSearchResult>>> SearchForOrganisationByName(string organisation);
     }
 }

@@ -6,6 +6,7 @@ using StockportGovUK.NetStandard.Gateways.Response;
 using StockportGovUK.NetStandard.Models.Addresses;
 using StockportGovUK.NetStandard.Models.Models.Verint;
 using StockportGovUK.NetStandard.Models.Models.Verint.Update;
+using StockportGovUK.NetStandard.Models.Models.Verint.Lookup;
 
 namespace StockportGovUK.NetStandard.Gateways.VerintServiceGateway
 {
@@ -41,9 +42,9 @@ namespace StockportGovUK.NetStandard.Gateways.VerintServiceGateway
             return await GetAsync<List<AddressSearchResult>>($"{PropertyEndpoint}/search/{postcode}");
         }
 
-        public async Task<HttpResponse<List<Organisation>>> SearchForOrganisationByName(string organisation)
+        public async Task<HttpResponse<List<OrganisationSearchResult>>> SearchForOrganisationByName(string organisation)
         {
-            return await GetAsync<List<Organisation>>($"{OrganisationEndpoint}/search/{organisation}");
+            return await GetAsync<List<OrganisationSearchResult>>($"{OrganisationEndpoint}/search/{organisation}");
         }
 
         public async Task<HttpResponse<List<AddressSearchResult>>> GetStreetByReference(string street)
