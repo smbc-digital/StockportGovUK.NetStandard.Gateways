@@ -31,5 +31,10 @@ namespace StockportGovUK.NetStandard.Gateways.ComplimentsComplaintsServiceGatewa
         {
             return await PostAsync<string>($"{FeedbackEndpoint}/submit-feedback", model);
         }
+
+        public async Task<HttpResponse<string>> SubmitForm(string url, object model)
+        {
+            return await PostAsync<string>($"{url}", model);
+        }
     }
 }
