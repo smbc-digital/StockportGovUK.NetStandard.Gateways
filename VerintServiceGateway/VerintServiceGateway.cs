@@ -6,6 +6,7 @@ using StockportGovUK.NetStandard.Gateways.Response;
 using StockportGovUK.NetStandard.Models.Addresses;
 using StockportGovUK.NetStandard.Models.Models.Verint;
 using StockportGovUK.NetStandard.Models.Models.Verint.Update;
+using StockportGovUK.NetStandard.Models.Models.Verint.Lookup;
 
 namespace StockportGovUK.NetStandard.Gateways.VerintServiceGateway
 {
@@ -14,8 +15,8 @@ namespace StockportGovUK.NetStandard.Gateways.VerintServiceGateway
         private const string HttpClientName = "verintServiceGateway";
         private const string CaseEndpoint = "api/v1/Case";
         private const string PropertyEndpoint = "api/v1/Property";
+        private const string OrganisationEndpoint = "api/v1/Organisation";
         private const string StreetEndpoint = "api/v1/Street";
-
 
         public VerintServiceGateway(HttpClient httpClient, ILogger<Gateway> logger) : base(httpClient, logger)
         {
@@ -39,6 +40,11 @@ namespace StockportGovUK.NetStandard.Gateways.VerintServiceGateway
         public async Task<HttpResponse<List<AddressSearchResult>>> SearchForPropertyByPostcode(string postcode)
         {
             return await GetAsync<List<AddressSearchResult>>($"{PropertyEndpoint}/search/{postcode}");
+        }
+
+        public async Task<HttpResponse<List<OrganisationSearchResult>>> SearchForOrganisationByName(string organisation)
+        {
+            return await GetAsync<List<OrganisationSearchResult>>($"{OrganisationEndpoint}/search/{organisation}");
         }
 
         public async Task<HttpResponse<List<AddressSearchResult>>> GetStreetByReference(string street)
