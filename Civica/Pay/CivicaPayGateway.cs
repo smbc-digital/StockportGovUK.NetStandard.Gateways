@@ -24,17 +24,31 @@ namespace StockportGovUK.NetStandard.Gateways.Civica.Pay
             }
         }
 
+        public string EStoreTestRoot
+        {
+            get
+            {
+                return $"{base._client.BaseAddress}StockportEstoreTest";
+            }
+        }
+
         public string ApiRoot {
             get
             {
                 return "StockportEstore/TransportableBasket/api";
             }
         }
+
         public string GetPaymentUrl(string basketReference, string basketToken, string reference)
         {
             return string.Format(PAYMENT_URL , EStoreRoot, basketReference, basketToken, reference);            
         }
-        
+
+        public string GetTestPaymentUrl(string basketReference, string basketToken, string reference)
+        {
+            return string.Format(PAYMENT_URL, EStoreTestRoot, basketReference, basketToken, reference);
+        }
+
         public async Task<HttpResponse<CreateBasketResponse>> CreateBasketAsync(CreateBasketRequest request)
         {
             var url = $"{ApiRoot}/BasketApi/Create";

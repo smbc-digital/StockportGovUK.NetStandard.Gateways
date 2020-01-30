@@ -22,5 +22,6 @@ namespace StockportGovUK.NetStandard.Gateways.Civica.Pay
         Task<HttpResponse<BasketSecurityDetailsResponse>> GetBasketSecurityDetails(BasketSecurityDetailsRequest request);
 
         string GetPaymentUrl(string basketReference, string basketToken, string reference);
+        string GetTestPaymentUrl(string basketReference, string basketToken, string reference);
     }
 }
