@@ -9,14 +9,14 @@ using StockportGovUK.NetStandard.Models.Civica.Pay.Response;
 
 namespace StockportGovUK.NetStandard.Gateways.Civica.Pay
 {
-    public class CivicaPayGateway : Gateway, ICivicaPayGateway
+    public class CivicaPayTestGateway : Gateway, ICivicaPayGateway
     {
 
         public const string PAYMENT_URL = "{0}/estore/default/Remote/Fetch?basketreference={1}&baskettoken={2}&callingapptxnreference={3}&backsitename=Stockport%20Homepage&backurl=https://www.stockport.gov.uk";
         private readonly ILogger _logger;
 
 
-        public CivicaPayGateway(HttpClient httpClient, ILogger<Gateway> logger) : base(httpClient, logger)
+        public CivicaPayTestGateway(HttpClient httpClient, ILogger<Gateway> logger) : base(httpClient, logger)
         {
             _logger = logger;
         }
@@ -24,14 +24,14 @@ namespace StockportGovUK.NetStandard.Gateways.Civica.Pay
         public string EStoreRoot {
             get
             {
-                return $"{base._client.BaseAddress}StockportEstore";
+                return $"{base._client.BaseAddress}StockportEstoreTest";
             }
         }
 
         public string ApiRoot {
             get
             {
-                return "StockportEstore/TransportableBasket/api";
+                return "StockportEstoreTest/TransportableBasket/api";
             }
         }
 
