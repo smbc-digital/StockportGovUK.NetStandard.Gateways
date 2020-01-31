@@ -10,7 +10,7 @@ namespace StockportGovUK.NetStandard.Gateways.Civica.Pay
         Task<HttpResponse<CreateBasketResponse>> CreateBasketAsync(CreateBasketRequest request);
 
         Task<HttpResponse<AddItemResponse>> AddItemAsync(AddItemRequest request);
-        
+
         Task<HttpResponse<RemoveItemResponse>> RemoveItemAsync(RemoveItemRequest request);
 
         Task<HttpResponse<CreateImmediateBasketResponse>> CreateImmediateBasketAsync(CreateImmediateBasketRequest request);
@@ -22,6 +22,5 @@ namespace StockportGovUK.NetStandard.Gateways.Civica.Pay
         Task<HttpResponse<BasketSecurityDetailsResponse>> GetBasketSecurityDetails(BasketSecurityDetailsRequest request);
 
         string GetPaymentUrl(string basketReference, string basketToken, string reference);
-        string GetTestPaymentUrl(string basketReference, string basketToken, string reference);
     }
 }
