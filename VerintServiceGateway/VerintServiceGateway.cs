@@ -34,7 +34,7 @@ namespace StockportGovUK.NetStandard.Gateways.VerintServiceGateway
 
         public async Task<HttpResponseMessage> UpdateCaseIntegrationFormField(IntegrationFormFieldsUpdateModel content)
         {
-            return await PatchAsync($"{CaseEndpoint}/integration-form-fields", content);
+            return await PatchAsync(content);
         }
 
         public async Task<HttpResponse<List<AddressSearchResult>>> SearchForPropertyByPostcode(string postcode)

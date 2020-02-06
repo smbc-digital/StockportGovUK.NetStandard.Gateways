@@ -91,7 +91,7 @@ namespace StockportGovUK.NetStandard.Gateways
             };
         }
 
-        public async Task<HttpResponseMessage> PatchAsync(string url, object content)
+        public async Task<HttpResponseMessage> PatchAsync(object content)
         {
             var errorMessage = string.Empty;
 
@@ -107,17 +107,17 @@ namespace StockportGovUK.NetStandard.Gateways
             }
             catch (BrokenCircuitException<HttpResponseMessage> ex)
             {
-                errorMessage = $"{GetType().Name} => PatchAsync({url}) - Circuit broken due to: '{ex.InnerException?.Message}'";
+                errorMessage = $"{GetType().Name} => PatchAsync() - Circuit broken due to: '{ex.InnerException?.Message}'";
                 _logger.LogWarning(errorMessage, ex.Message);
             }
             catch (BrokenCircuitException ex)
             {
-                errorMessage = $"{GetType().Name} => PatchAsync({url}) - Circuit broken due to: '{ex.InnerException?.Message}'";
+                errorMessage = $"{GetType().Name} => PatchAsync() - Circuit broken due to: '{ex.InnerException?.Message}'";
                 _logger.LogWarning(errorMessage, ex.Message);
             }
             catch (Exception ex)
             {
-                errorMessage = $"{GetType().Name} => PatchAsync({url}) - failed with the following error: '{ex.Message}'";
+                errorMessage = $"{GetType().Name} => PatchAsync() - failed with the following error: '{ex.Message}'";
                 _logger.LogError(errorMessage, ex.Message);
             }
 
@@ -128,7 +128,7 @@ namespace StockportGovUK.NetStandard.Gateways
             };
         }
 
-        public async Task<HttpResponseMessage> PatchAsync(string url, object content, bool encodeContent)
+        public async Task<HttpResponseMessage> PatchAsync(object content, bool encodeContent)
         {
             var errorMessage = string.Empty;
 
@@ -146,17 +146,17 @@ namespace StockportGovUK.NetStandard.Gateways
             }
             catch (BrokenCircuitException<HttpResponseMessage> ex)
             {
-                errorMessage = $"{GetType().Name} => PatchAsync({url}) - Circuit broken due to: '{ex.InnerException?.Message}'";
+                errorMessage = $"{GetType().Name} => PatchAsync() - Circuit broken due to: '{ex.InnerException?.Message}'";
                 _logger.LogWarning(errorMessage, ex.Message);
             }
             catch (BrokenCircuitException ex)
             {
-                errorMessage = $"{GetType().Name} => PatchAsync({url}) - Circuit broken due to: '{ex.InnerException?.Message}'";
+                errorMessage = $"{GetType().Name} => PatchAsync() - Circuit broken due to: '{ex.InnerException?.Message}'";
                 _logger.LogWarning(errorMessage, ex.Message);
             }
             catch (Exception ex)
             {
-                errorMessage = $"{GetType().Name} => PatchAsync({url}) - failed with the following error: '{ex.Message}'";
+                errorMessage = $"{GetType().Name} => PatchAsync() - failed with the following error: '{ex.Message}'";
                 _logger.LogError(errorMessage, ex.Message);
             }
 

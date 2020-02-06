@@ -9,9 +9,9 @@ namespace StockportGovUK.NetStandard.Gateways
 
         Task<HttpResponseMessage> PutAsync(string url, HttpContent content);
 
-        Task<HttpResponseMessage> PatchAsync(string url, object content);
+        Task<HttpResponseMessage> PatchAsync(object content);
 
-        Task<HttpResponseMessage> PatchAsync(string url, object content, bool encodeContent);
+        Task<HttpResponseMessage> PatchAsync(object content, bool encodeContent);
 
         Task<HttpResponseMessage> PostAsync(string url, object content);
 
