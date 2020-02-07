@@ -91,7 +91,7 @@ namespace StockportGovUK.NetStandard.Gateways
             };
         }
 
-        public async Task<HttpResponseMessage> PatchAsync(object content)
+        public async Task<HttpResponseMessage> PatchAsync(string url, object content)
         {
             var errorMessage = string.Empty;
 
@@ -101,6 +101,7 @@ namespace StockportGovUK.NetStandard.Gateways
 
                 return await _client.SendAsync(new HttpRequestMessage
                 {
+                    RequestUri = new Uri(url),
                     Method = new HttpMethod("PATCH"),
                     Content = bodyContent
                 });
@@ -128,7 +129,7 @@ namespace StockportGovUK.NetStandard.Gateways
             };
         }
 
-        public async Task<HttpResponseMessage> PatchAsync(object content, bool encodeContent)
+        public async Task<HttpResponseMessage> PatchAsync(string url, object content, bool encodeContent)
         {
             var errorMessage = string.Empty;
 
@@ -140,6 +141,7 @@ namespace StockportGovUK.NetStandard.Gateways
 
                 return await _client.SendAsync(new HttpRequestMessage
                 {
+                    RequestUri = new Uri(url),
                     Method = new HttpMethod("PATCH"),
                     Content = bodyContent
                 });
