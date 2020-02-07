@@ -1,5 +1,6 @@
 using System.Net.Http;
 using System.Threading.Tasks;
+using StockportGovUK.NetStandard.Gateways.Response;
 
 namespace StockportGovUK.NetStandard.Gateways
 {
@@ -12,6 +13,8 @@ namespace StockportGovUK.NetStandard.Gateways
         Task<HttpResponseMessage> PatchAsync(object content);
 
         Task<HttpResponseMessage> PatchAsync(object content, bool encodeContent);
+
+        Task<HttpResponse<T>> PatchAsync<T>(string url, object content, bool encodeContent);
 
         Task<HttpResponseMessage> PostAsync(string url, object content);
 
