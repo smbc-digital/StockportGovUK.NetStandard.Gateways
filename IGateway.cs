@@ -8,6 +8,7 @@ namespace StockportGovUK.NetStandard.Gateways
     {
         Task<HttpResponseMessage> GetAsync(string url);
         Task<HttpResponseMessage> PutAsync(string url, HttpContent content);
+        Task<HttpResponseMessage> PatchAsync(object content);
         Task<HttpResponseMessage> PatchAsync(string url, object content);
         Task<HttpResponseMessage> PatchAsync(string url, object content, bool encodeContent);
         Task<HttpResponse<T>> PatchAsync<T>(string url, object content);
