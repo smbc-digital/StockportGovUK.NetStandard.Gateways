@@ -140,7 +140,7 @@ namespace StockportGovUK.NetStandard.Gateways
                 {
                     Method = new HttpMethod("PATCH"),
                     Content = bodyContent,
-                    RequestUri = new Uri(url)
+                    RequestUri = new Uri($"{_client.BaseAddress}{url}")
                 });
             }
             catch (BrokenCircuitException<HttpResponseMessage> ex)
@@ -178,7 +178,7 @@ namespace StockportGovUK.NetStandard.Gateways
 
                 return await _client.SendAsync(new HttpRequestMessage
                 {
-                    RequestUri = new Uri(url),
+                    RequestUri = new Uri($"{_client.BaseAddress}{url}"),
                     Method = new HttpMethod("PATCH"),
                     Content = bodyContent
                 });
@@ -215,7 +215,7 @@ namespace StockportGovUK.NetStandard.Gateways
                 var bodyContent = GetStringContent(content);
                 var result = await _client.SendAsync(new HttpRequestMessage
                 {
-                    RequestUri = new Uri(url),
+                    RequestUri = new Uri($"{_client.BaseAddress}{url}"),
                     Method = new HttpMethod("PATCH"),
                     Content = bodyContent
                 });
@@ -257,7 +257,7 @@ namespace StockportGovUK.NetStandard.Gateways
 
                 var result = await _client.SendAsync(new HttpRequestMessage
                 {
-                    RequestUri = new Uri(url),
+                    RequestUri = new Uri($"{_client.BaseAddress}{url}"),
                     Method = new HttpMethod("PATCH"),
                     Content = bodyContent
                 });
