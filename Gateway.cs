@@ -418,7 +418,6 @@ namespace StockportGovUK.NetStandard.Gateways
             };
         }
 
-
         public async Task<HttpResponse<T>> PutAsync<T>(string url, object content)
         {
             var errorMessage = string.Empty;
