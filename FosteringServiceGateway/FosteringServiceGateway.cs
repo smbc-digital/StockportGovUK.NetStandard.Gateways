@@ -73,7 +73,7 @@ namespace StockportGovUK.NetStandard.Gateways.FosteringServiceGateway
 
         public async Task<HttpResponseMessage> UpdateFormStatus(NetStandard.Models.Models.Fostering.HomeVisit.FosteringCaseStatusUpdateModel model)
         {
-            return await PatchAsync(model);
+            return await PatchAsync($"{HomeVisitEndpoint}/status", model);
         }
 
         public async Task<HttpResponse<ETaskStatus>> UpdateReferences(FosteringCaseReferenceUpdateModel model)
@@ -98,7 +98,7 @@ namespace StockportGovUK.NetStandard.Gateways.FosteringServiceGateway
 
         public async Task<HttpResponseMessage> UpdateFormStatus(NetStandard.Models.Models.Fostering.Application.FosteringCaseStatusUpdateModel model)
         {
-            return await PatchAsync(model);
+            return await PatchAsync($"{ApplicationEndpoint}/status", model);
         }
     }
 }
