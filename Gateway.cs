@@ -176,6 +176,7 @@ namespace StockportGovUK.NetStandard.Gateways
                 var bodyContent = GetStringContent(content);
                 var result = await _client.SendAsync(new HttpRequestMessage
                 {
+                    RequestUri = new Uri(url),
                     Method = new HttpMethod("PATCH"),
                     Content = bodyContent
                 });
@@ -217,6 +218,7 @@ namespace StockportGovUK.NetStandard.Gateways
 
                 var result = await _client.SendAsync(new HttpRequestMessage
                 {
+                    RequestUri = new Uri(url),
                     Method = new HttpMethod("PATCH"),
                     Content = bodyContent
                 });
