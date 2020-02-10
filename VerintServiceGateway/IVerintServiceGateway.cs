@@ -15,6 +15,8 @@ namespace StockportGovUK.NetStandard.Gateways.VerintServiceGateway
 
         Task<HttpResponseMessage> UpdateCaseIntegrationFormField(IntegrationFormFieldsUpdateModel content);
 
+        Task<HttpResponse<int>> UpdateCaseDescription(Case crmCase);
+
         Task<HttpResponse<string>> CreateCase(Case crmCase);
 
         Task<HttpResponse<List<AddressSearchResult>>> SearchForPropertyByPostcode(string postcode);
