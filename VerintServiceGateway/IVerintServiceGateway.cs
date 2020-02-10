@@ -15,7 +15,7 @@ namespace StockportGovUK.NetStandard.Gateways.VerintServiceGateway
 
         Task<HttpResponseMessage> UpdateCaseIntegrationFormField(IntegrationFormFieldsUpdateModel content);
 
-        Task<HttpResponse<int>> UpdateCaseDescription(Case crmCase);
+        Task<HttpResponse<int>> UpdateCaseDescription(Case crmCase, bool toBeAppended);
 
         Task<HttpResponse<string>> CreateCase(Case crmCase);
 
