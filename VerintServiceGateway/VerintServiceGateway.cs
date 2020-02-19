@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using StockportGovUK.NetStandard.Gateways.Response;
 using StockportGovUK.NetStandard.Models.Addresses;
-using StockportGovUK.NetStandard.Models.Models.Verint;
-using StockportGovUK.NetStandard.Models.Models.Verint.Update;
-using StockportGovUK.NetStandard.Models.Models.Verint.Lookup;
+using StockportGovUK.NetStandard.Models.Verint;
+using StockportGovUK.NetStandard.Models.Verint.Lookup;
+using StockportGovUK.NetStandard.Models.Verint.Update;
 
 namespace StockportGovUK.NetStandard.Gateways.VerintServiceGateway
 {
@@ -55,6 +55,11 @@ namespace StockportGovUK.NetStandard.Gateways.VerintServiceGateway
         public async Task<HttpResponse<List<AddressSearchResult>>> GetStreetByReference(string street)
         {
             return await GetAsync<List<AddressSearchResult>>($"{StreetEndpoint}/streetsearch/{street}");
+        }
+
+        public async Task<HttpResponseMessage> AddNoteWithAttachments(NoteWithAttachments model)
+        {
+            return await PostAsync($"{CaseEndpoint}/add-note-with-attachments", model);
         }
     }
 }

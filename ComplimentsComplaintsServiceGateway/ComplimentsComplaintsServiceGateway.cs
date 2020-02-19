@@ -2,7 +2,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using StockportGovUK.NetStandard.Gateways.Response;
-using StockportGovUK.NetStandard.Models.Models.ComplimentsComplaints;
+using StockportGovUK.NetStandard.Models.ComplimentsComplaints;
 
 namespace StockportGovUK.NetStandard.Gateways.ComplimentsComplaintsServiceGateway
 {

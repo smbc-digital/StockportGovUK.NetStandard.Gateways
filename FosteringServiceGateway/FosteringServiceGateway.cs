@@ -2,11 +2,11 @@
 using System.Threading.Tasks;
 using StockportGovUK.NetStandard.Gateways.Response;
 using StockportGovUK.NetStandard.Models.Enums;
-using StockportGovUK.NetStandard.Models.Models;
-using StockportGovUK.NetStandard.Models.Models.Fostering;
-using StockportGovUK.NetStandard.Models.Models.Fostering.HomeVisit;
-using StockportGovUK.NetStandard.Models.Models.Fostering.Application;
+using StockportGovUK.NetStandard.Models.Fostering;
+using StockportGovUK.NetStandard.Models.Fostering.HomeVisit;
+using StockportGovUK.NetStandard.Models.Fostering.Application;
 using Microsoft.Extensions.Logging;
+using StockportGovUK.NetStandard.Models;
 
 namespace StockportGovUK.NetStandard.Gateways.FosteringServiceGateway
 {
@@ -71,7 +71,7 @@ namespace StockportGovUK.NetStandard.Gateways.FosteringServiceGateway
             return await PatchAsync<ETaskStatus>($"{HomeVisitEndpoint}/children-living-away-from-home", model);
         }
 
-        public async Task<HttpResponseMessage> UpdateFormStatus(NetStandard.Models.Models.Fostering.HomeVisit.FosteringCaseStatusUpdateModel model)
+        public async Task<HttpResponseMessage> UpdateFormStatus(Models.Fostering.HomeVisit.FosteringCaseStatusUpdateModel model)
         {
             return await PatchAsync($"{HomeVisitEndpoint}/status", model);
         }
@@ -96,7 +96,7 @@ namespace StockportGovUK.NetStandard.Gateways.FosteringServiceGateway
             return await PatchAsync<ETaskStatus>($"{ApplicationEndpoint}/councillors-details", model);
         }
 
-        public async Task<HttpResponseMessage> UpdateFormStatus(NetStandard.Models.Models.Fostering.Application.FosteringCaseStatusUpdateModel model)
+        public async Task<HttpResponseMessage> UpdateFormStatus(Models.Fostering.Application.FosteringCaseStatusUpdateModel model)
         {
             return await PatchAsync($"{ApplicationEndpoint}/status", model);
         }

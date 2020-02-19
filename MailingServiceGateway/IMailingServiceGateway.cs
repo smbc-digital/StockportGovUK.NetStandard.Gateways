@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using StockportGovUK.NetStandard.Gateways.Response;
-using StockportGovUK.NetStandard.Models.Models.Mail;
+using StockportGovUK.NetStandard.Models.Mail;
 
 namespace StockportGovUK.NetStandard.Gateways.MailingServiceGateway
 {
