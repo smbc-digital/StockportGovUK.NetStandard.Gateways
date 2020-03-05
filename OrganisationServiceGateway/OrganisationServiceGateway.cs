@@ -6,7 +6,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using StockportGovUK.NetStandard.Models.Verint.Lookup;
 
-namespace StockportGovUK.NetStandard.Gateways.StreetServiceGateway
+namespace StockportGovUK.NetStandard.Gateways.OrganisationServiceGateway
 {
     public class OrganisationServiceGateway : Gateway, IOrganisationServiceGateway
     {
@@ -16,7 +16,7 @@ namespace StockportGovUK.NetStandard.Gateways.StreetServiceGateway
 
         public async Task<HttpResponse<IEnumerable<OrganisationSearchResult>>> SearchAsync(OrganisationSearch model)
         {
-            return await GetAsync<IEnumerable<OrganisationSearchResult>>($"api/v1/Street/{model.OrganisationProvider}/{model.SearchTerm}");
+            return await GetAsync<IEnumerable<OrganisationSearchResult>>($"api/v1/Organisation/{model.OrganisationProvider}/{model.SearchTerm}");
         }
     }
 }
