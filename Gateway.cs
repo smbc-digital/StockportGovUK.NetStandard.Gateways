@@ -27,7 +27,7 @@ namespace StockportGovUK.NetStandard.Gateways
             _client.DefaultRequestHeaders.Authorization = AuthenticationHeaderValue.Parse(authHeader);
         }
 
-        private T Invoke<T>(Func<string, T> function, string url)
+        private T Invoke<T>(Func<string, T> function, string url, string requestType)
         {
             try
             {
@@ -37,25 +37,25 @@ namespace StockportGovUK.NetStandard.Gateways
             {
                 var errorMessage = string.IsNullOrEmpty(ex.Message) ? ex.InnerException?.Message : ex.Message;
                 _logger.LogWarning(ex, errorMessage);
-                throw new Exception($"{GetType().Name} => GetAsync({url}) - Circuit broken due to: '{errorMessage}'", ex);
+                throw new Exception($"{GetType().Name} => {requestType}({url}) - Circuit broken due to: '{errorMessage}'", ex);
             }
             catch (BrokenCircuitException ex)
             {
                 var errorMessage = string.IsNullOrEmpty(ex.Message) ? ex.InnerException?.Message : ex.Message;
                 _logger.LogWarning(ex, errorMessage);
-                throw new Exception($"{GetType().Name} => GetAsync({url}) - Circuit broken due to: '{errorMessage}'", ex);
+                throw new Exception($"{GetType().Name} => {requestType}({url}) - Circuit broken due to: '{errorMessage}'", ex);
             }
             catch (Exception ex)
             {
                 var errorMessage = string.IsNullOrEmpty(ex.Message) ? ex.InnerException?.Message : ex.Message;
                 _logger.LogWarning(ex, errorMessage);
-                throw new Exception($"{GetType().Name} => GetAsync({url}) - failed with the following error:: '{errorMessage}'", ex);
+                throw new Exception($"{GetType().Name} => {requestType}({url}) - failed with the following error:: '{errorMessage}'", ex);
             }
         }
 
         public async Task<HttpResponseMessage> GetAsync(string url)
         {
-            return await Invoke<Task<HttpResponseMessage>>(async requestUrl => await _client.GetAsync(requestUrl), url);
+            return await Invoke<Task<HttpResponseMessage>>(async requestUrl => await _client.GetAsync(requestUrl), url, "GetAsync");
         }
 
         public async Task<HttpResponse<T>> GetAsync<T>(string url)
@@ -65,7 +65,7 @@ namespace StockportGovUK.NetStandard.Gateways
                 var result = await _client.GetAsync(requestUrl);
 
                 return await HttpResponse<T>.Get(result);
-            }, url);
+            }, url,"GetAsync");
         }
 
         // TODO: Should this be here? How does it work? Magnets.
@@ -80,7 +80,7 @@ namespace StockportGovUK.NetStandard.Gateways
                     Method = new HttpMethod("PATCH"),
                     Content = bodyContent
                 });
-            }, _client.BaseAddress.ToString());
+            }, _client.BaseAddress.ToString(), "PatchAsync");
         }
 
         public async Task<HttpResponseMessage> PatchAsync(string url, object content)
@@ -95,7 +95,7 @@ namespace StockportGovUK.NetStandard.Gateways
                     Content = bodyContent,
                     RequestUri = new Uri($"{_client.BaseAddress}{url}")
                 });
-            }, url);
+            }, url, "PatchAsync");
         }
 
         public async Task<HttpResponseMessage> PatchAsync(string url, object content, bool encodeContent)
@@ -112,7 +112,7 @@ namespace StockportGovUK.NetStandard.Gateways
                     Method = new HttpMethod("PATCH"),
                     Content = bodyContent
                 });
-            }, url);
+            }, url, "PatchAsync");
         }
 
         public async Task<HttpResponse<T>> PatchAsync<T>(string url, object content)
@@ -129,7 +129,7 @@ namespace StockportGovUK.NetStandard.Gateways
                 });
 
                 return await HttpResponse<T>.Get(result);
-            }, url);
+            }, url, "PatchAsync");
         }
 
         public async Task<HttpResponse<T>> PatchAsync<T>(string url, object content, bool encodeContent)
@@ -148,7 +148,7 @@ namespace StockportGovUK.NetStandard.Gateways
                 });
 
                 return await HttpResponse<T>.Get(result);
-            }, url);
+            }, url, "PatchAsync");
         }
 
         public async Task<HttpResponseMessage> PostAsync(string url, object content)
@@ -158,7 +158,7 @@ namespace StockportGovUK.NetStandard.Gateways
             return await Invoke<Task<HttpResponseMessage>>(async requestUrl =>
             {
                 return await _client.PostAsync(url, bodyContent);
-            }, url);
+            }, url, "PostAsync");
         }
 
         public async Task<HttpResponseMessage> PostAsync(string url, object content, bool encodeContent)
@@ -170,7 +170,7 @@ namespace StockportGovUK.NetStandard.Gateways
             return await Invoke<Task<HttpResponseMessage>>(async requestUrl =>
             {
                 return await _client.PostAsync(url, bodyContent);
-            }, url);
+            }, url, "PostAsync");
         }
 
         public async Task<HttpResponse<T>> PostAsync<T>(string url, object content)
@@ -182,7 +182,7 @@ namespace StockportGovUK.NetStandard.Gateways
                 var result = await _client.PostAsync(url, bodyContent);
 
                 return await HttpResponse<T>.Get(result);
-            }, url);
+            }, url, "PostAsync");
         }
 
         public async Task<HttpResponse<T>> PostAsync<T>(string url, object content, bool encodeContent)
@@ -196,7 +196,7 @@ namespace StockportGovUK.NetStandard.Gateways
                 var result = await _client.PostAsync(url, bodyContent);
 
                 return await HttpResponse<T>.Get(result);
-            }, url);
+            }, url, "PostAsync");
         }
 
         public async Task<HttpResponseMessage> PutAsync(string url, HttpContent content)
@@ -204,7 +204,7 @@ namespace StockportGovUK.NetStandard.Gateways
             return await Invoke<Task<HttpResponseMessage>>(async requestUrl =>
             {
                 return await _client.PutAsync(url, content);
-            }, url);
+            }, url, "PutAsync");
         }
 
         public async Task<HttpResponse<T>> PutAsync<T>(string url, object content)
@@ -216,7 +216,7 @@ namespace StockportGovUK.NetStandard.Gateways
                 var result = await _client.PutAsync(url, bodyContent);
 
                 return await HttpResponse<T>.Get(result);
-            }, url);
+            }, url, "PutAsync");
         }
 
         public async Task<HttpResponse<T>> PutAsync<T>(string url, object content, bool encodeContent)
@@ -229,12 +229,12 @@ namespace StockportGovUK.NetStandard.Gateways
                 var result = await _client.PutAsync(url, bodyContent);
 
                 return await HttpResponse<T>.Get(result);
-            }, url);
+            }, url, "PutAsync");
         }
 
         public async Task<HttpResponseMessage> DeleteAsync(string url)
         {
-            return await Invoke<Task<HttpResponseMessage>>(async requestUrl => await _client.DeleteAsync(requestUrl), url);
+            return await Invoke<Task<HttpResponseMessage>>(async requestUrl => await _client.DeleteAsync(requestUrl), url, "DeleteAsync");
         }
 
         public async Task<HttpResponse<T>> DeleteAsync<T>(string url)
@@ -244,7 +244,7 @@ namespace StockportGovUK.NetStandard.Gateways
                 var result = await _client.DeleteAsync(requestUrl);
 
                 return await HttpResponse<T>.Get(result);
-            }, url);
+            }, url, "DeleteAsync");
         }
 
         private StringContent GetStringContent(object content)
