@@ -27,7 +27,7 @@ namespace StockportGovUK.NetStandard.Gateways
             _client.DefaultRequestHeaders.Authorization = AuthenticationHeaderValue.Parse(authHeader);
         }
 
-        private T Invoke<T>(Func<string, T> function, string url, string requestType)
+        public T Invoke<T>(Func<string, T> function, string url, string requestType)
         {
             try
             {
@@ -37,13 +37,13 @@ namespace StockportGovUK.NetStandard.Gateways
             {
                 var errorMessage = string.IsNullOrEmpty(ex.Message) ? ex.InnerException?.Message : ex.Message;
                 _logger.LogWarning(ex, errorMessage);
-                throw new Exception($"{GetType().Name} => {requestType}({url}) - Circuit broken due to: '{errorMessage}'", ex);
+                throw new BrokenCircuitException($"{GetType().Name} => {requestType}({url}) - Circuit broken due to: '{errorMessage}'", ex);
             }
             catch (BrokenCircuitException ex)
             {
                 var errorMessage = string.IsNullOrEmpty(ex.Message) ? ex.InnerException?.Message : ex.Message;
                 _logger.LogWarning(ex, errorMessage);
-                throw new Exception($"{GetType().Name} => {requestType}({url}) - Circuit broken due to: '{errorMessage}'", ex);
+                throw new BrokenCircuitException($"{GetType().Name} => {requestType}({url}) - Circuit broken due to: '{errorMessage}'", ex);
             }
             catch (Exception ex)
             {

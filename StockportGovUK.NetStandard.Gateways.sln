@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29123.88
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockportGovUK.NetStandard.Gateways", "StockportGovUK.NetStandard.Gateways.csproj", "{AA6584B8-8FE3-4D22-A0AD-68F4FAAE3FC0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StockportGovUK.NetStandard.Gateways", "StockportGovUK.NetStandard.Gateways.csproj", "{AA6584B8-8FE3-4D22-A0AD-68F4FAAE3FC0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{7BE206A8-8FB9-49DC-84EE-90AC4D5C76B8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockportGovUK.NetStandard.Gateways.tests", "..\StockportGovUK.NetStandard.Gateways.tests\StockportGovUK.NetStandard.Gateways.tests.csproj", "{863C597D-E775-4ADE-8098-CFB3B2600119}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +19,16 @@ Global
 		{AA6584B8-8FE3-4D22-A0AD-68F4FAAE3FC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AA6584B8-8FE3-4D22-A0AD-68F4FAAE3FC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AA6584B8-8FE3-4D22-A0AD-68F4FAAE3FC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{863C597D-E775-4ADE-8098-CFB3B2600119}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{863C597D-E775-4ADE-8098-CFB3B2600119}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{863C597D-E775-4ADE-8098-CFB3B2600119}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{863C597D-E775-4ADE-8098-CFB3B2600119}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{863C597D-E775-4ADE-8098-CFB3B2600119} = {7BE206A8-8FB9-49DC-84EE-90AC4D5C76B8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {61265743-A1FB-4EE6-B1CD-07412973FF67}
