@@ -29,7 +29,7 @@ namespace StockportGovUK.NetStandard.Gateways.Tests.Unit
         }
 
         [Fact]
-        public async void Invoke_ShouldReturnResponse()
+        public async void Invoke_ShouldCallHttpClient()
         {
             // Arrange
             _mockHttpMessageHandler
@@ -46,7 +46,7 @@ namespace StockportGovUK.NetStandard.Gateways.Tests.Unit
                 .Verifiable();
 
             // Act
-            await _gateway.Invoke<Task<HttpResponseMessage>>(async requestUrl => await _httpClient.GetAsync(It.IsAny<string>()), It.IsAny<string>(), It.IsAny<string>());
+            await _gateway.InvokeAsync<HttpResponseMessage>(async requestUrl => await _httpClient.GetAsync(It.IsAny<string>()), It.IsAny<string>(), It.IsAny<string>());
 
             // Assert
             _mockHttpMessageHandler
@@ -60,36 +60,131 @@ namespace StockportGovUK.NetStandard.Gateways.Tests.Unit
         }
 
         [Fact]
-        public void Invoke_BrokenCircuitException()
+        public void Invoke_GivenHttpClientThrowsBrokenCircuitExceptionTyped_ShouldThrowBrokenCircuitException()
         {
-            //    //// Arrange
-            //    //_mockHttpMessageHandler
-            //    //    .Protected()
-            //    //    .Setup<Task<HttpResponseMessage>>(
-            //    //        "SendAsync",
-            //    //          ItExpr.IsAny<HttpRequestMessage>(),
-            //    //        ItExpr.IsAny<CancellationToken>()
-            //    //    )
-            //    //    .Throws(new BrokenCircuitException($"Test Invoke_BrokenCircuitException - Circuit broken"))
-            //    //    .Verifiable();
+            // Arrange
+            _mockHttpMessageHandler
+                .Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>()
+                )
+                .Throws(new BrokenCircuitException<HttpResponseMessage>(new HttpResponseMessage()));
 
-
-            //    //// Act
-            //    //await _gateway.Invoke<Task<HttpResponseMessage>>(async requestUrl => await _httpClient.GetAsync(It.IsAny<string>()), It.IsAny<string>(), It.IsAny<string>());
-
-
-            //    //// Assert
-            //    //_mockHttpMessageHandler
-            //    //    .Protected()
-            //    //    .Verify(
-            //    //        "SendAsync",
-            //    //        Times.Once(),
-            //    //        ItExpr.IsAny<HttpRequestMessage>(),
-            //    //        ItExpr.IsAny<CancellationToken>()
-            //    //    );
-
-            var ex = Assert.ThrowsAsync<BrokenCircuitException<HttpResponseMessage>>(() => _gateway.Invoke<Task<HttpResponseMessage>>(async requestUrl => await _httpClient.GetAsync(It.IsAny<string>()), It.IsAny<string>(), It.IsAny<string>()));
-            Assert.Contains(ex.Result.Message.ToString(), "Circuit broken due to");
+            Assert.ThrowsAsync<BrokenCircuitException>(() => _gateway.InvokeAsync<HttpResponseMessage>(requestUrl => _httpClient.GetAsync(It.IsAny<string>()), It.IsAny<string>(), It.IsAny<string>()));
         }
+
+        [Fact]
+        public void Invoke_GivenHttpClientThrowsBrokenCircuitException_ShouldThrowBrokenCircuitException()
+        {
+            // Arrange
+            _mockHttpMessageHandler
+                .Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>()
+                )
+                .Throws(new BrokenCircuitException());
+
+            Assert.ThrowsAsync<BrokenCircuitException>(() => _gateway.InvokeAsync<HttpResponseMessage>(requestUrl => _httpClient.GetAsync(It.IsAny<string>()), It.IsAny<string>(), It.IsAny<string>()));
+        }
+
+        [Fact]
+        public void Invoke_GivenHttpClientThrowsException_ShouldThrowException()
+        {
+            // Arrange
+            _mockHttpMessageHandler
+               .Protected()
+               .Setup<Task<HttpResponseMessage>>(
+                   "SendAsync",
+                   ItExpr.IsAny<HttpRequestMessage>(),
+                   ItExpr.IsAny<CancellationToken>()
+               )
+               .Throws(new Exception());
+
+            //Assert
+            Assert.ThrowsAsync<Exception>(() => _gateway.InvokeAsync<HttpResponseMessage>(requestUrl => _httpClient.GetAsync(It.IsAny<string>()), It.IsAny<string>(), It.IsAny<string>()));
+        }
+
+        [Fact]
+        public async void Invoke_GivenHttpClientThrowsBrokenCircuitTypedException_ShouldDisplayErrorMessage()
+        {
+            // Arrange
+            const string Url = "https://text.stockport.gov.uk/testmessage";
+            const string RequestType = "testType";
+
+            _mockHttpMessageHandler
+                .Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>()
+                )
+                .Throws(new BrokenCircuitException<HttpResponseMessage>(new HttpResponseMessage()));
+
+            //Act
+            var ex = await Assert.ThrowsAsync<BrokenCircuitException>(() => _gateway.InvokeAsync<HttpResponseMessage>(requestUrl => _httpClient.GetAsync(It.IsAny<string>()), Url, RequestType));
+
+            //Assert
+            Assert.Contains(Url, ex.Message);
+            Assert.Contains(RequestType, ex.Message);
+            Assert.Contains("Circuit broken due to:", ex.Message);
+        }
+
+        [Fact]
+        public async void Invoke_GivenHttpClientThrowsBrokenCircuitException_ShouldDisplayErrorMessage()
+        {
+            // Arrange
+            const string Url = "https://text.stockport.gov.uk/testmessage";
+            const string RequestType = "testType";
+
+            _mockHttpMessageHandler
+                .Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>()
+                )
+                .Throws(new BrokenCircuitException());
+
+            //Act
+            var ex = await Assert.ThrowsAsync<BrokenCircuitException>(() => _gateway.InvokeAsync<HttpResponseMessage>(requestUrl => _httpClient.GetAsync(It.IsAny<string>()), Url, RequestType));
+
+            //Assert
+            Assert.Contains(Url, ex.Message);
+            Assert.Contains(RequestType, ex.Message);
+            Assert.Contains("Circuit broken due to:", ex.Message);
+        }
+
+        [Fact]
+        public async void Invoke_GivenHttpClientThrowsException_ShouldDisplayErrorMessage()
+        {
+            // Arrange
+            const string Url = "https://text.stockport.gov.uk/testmessage";
+            const string RequestType = "testType";
+
+            _mockHttpMessageHandler
+                .Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>()
+                )
+                .Throws(new Exception());
+
+            //Act
+            var ex = await Assert.ThrowsAsync<Exception>(() => _gateway.InvokeAsync<HttpResponseMessage>(requestUrl => _httpClient.GetAsync(It.IsAny<string>()), Url, RequestType));
+
+            //Assert
+            Assert.Contains(Url, ex.Message);
+            Assert.Contains(RequestType, ex.Message);
+            Assert.Contains("failed with the following error:", ex.Message);
+        }
+
+        //Create test method to make sure the invoke function is called.
+
+        //Create test method to make sure the requestType is correct
     }
 }
