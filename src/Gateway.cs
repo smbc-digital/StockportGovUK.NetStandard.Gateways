@@ -1,5 +1,4 @@
 using System;
-using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -13,21 +12,21 @@ namespace StockportGovUK.NetStandard.Gateways
 {
     public class Gateway : IGateway, ITypedGateway
     {
-        protected readonly HttpClient _client;
+        protected readonly HttpClient Client;
         private readonly ILogger<Gateway> _logger;
 
         public Gateway(HttpClient client, ILogger<Gateway> logger)
         {
-            _client = client;
+            Client = client;
             _logger = logger;
         }
 
         public void ChangeAuthenticationHeader(string authHeader)
         {
-            _client.DefaultRequestHeaders.Authorization = AuthenticationHeaderValue.Parse(authHeader);
+            Client.DefaultRequestHeaders.Authorization = AuthenticationHeaderValue.Parse(authHeader);
         }
 
-        public async Task<T> InvokeAsync<T>(Func<string, Task<T>> function, string url, string requestType)
+        private async Task<T> InvokeAsync<T>(Func<string, Task<T>> function, string url, string requestType)
         {
             try
             {
@@ -55,47 +54,27 @@ namespace StockportGovUK.NetStandard.Gateways
 
         public async Task<HttpResponseMessage> GetAsync(string url)
         {
-            return await InvokeAsync<HttpResponseMessage>(async requestUrl => await _client.GetAsync(requestUrl), url, "GetAsync");
+            return await InvokeAsync(async req => await Client.GetAsync(url), url, "GetAsync");
         }
 
         public async Task<HttpResponse<T>> GetAsync<T>(string url)
         {
-            return await InvokeAsync<HttpResponse<T>>(async requestUrl =>
+            return await InvokeAsync(async req =>
             {
-                var result = await _client.GetAsync(requestUrl);
+                var result = await Client.GetAsync(url);
 
                 return await HttpResponse<T>.Get(result);
             }, url, "GetAsync");
         }
 
-        // TODO: Should this be here? How does it work? Magnets.
         public async Task<HttpResponseMessage> PatchAsync(object content)
         {
-            var bodyContent = GetStringContent(content);
-
-            return await InvokeAsync<HttpResponseMessage>(async requestUrl =>
-            {
-                return await _client.SendAsync(new HttpRequestMessage
-                {
-                    Method = new HttpMethod("PATCH"),
-                    Content = bodyContent
-                });
-            }, _client.BaseAddress.ToString(), "PatchAsync");
+            return await PatchAsync(string.Empty, content, false);
         }
 
         public async Task<HttpResponseMessage> PatchAsync(string url, object content)
         {
-            var bodyContent = GetStringContent(content);
-
-            return await InvokeAsync<HttpResponseMessage>(async requestUrl =>
-            {
-                return await _client.SendAsync(new HttpRequestMessage
-                {
-                    Method = new HttpMethod("PATCH"),
-                    Content = bodyContent,
-                    RequestUri = new Uri($"{_client.BaseAddress}{url}")
-                });
-            }, url, "PatchAsync");
+            return await PatchAsync(url, content, false);
         }
 
         public async Task<HttpResponseMessage> PatchAsync(string url, object content, bool encodeContent)
@@ -104,32 +83,17 @@ namespace StockportGovUK.NetStandard.Gateways
                 ? GetStringContent(content)
                 : (HttpContent)content;
 
-            return await InvokeAsync<HttpResponseMessage>(async requestUrl =>
+            return await InvokeAsync(async req => await Client.SendAsync(new HttpRequestMessage
             {
-                return await _client.SendAsync(new HttpRequestMessage
-                {
-                    RequestUri = new Uri($"{_client.BaseAddress}{url}"),
-                    Method = new HttpMethod("PATCH"),
-                    Content = bodyContent
-                });
-            }, url, "PatchAsync");
+                RequestUri = new Uri($"{Client.BaseAddress}{(!string.IsNullOrEmpty(url) && url.StartsWith("/") ? url.Substring(1) : url)}"),
+                Method = new HttpMethod("PATCH"),
+                Content = bodyContent
+            }), url, "PatchAsync");
         }
 
         public async Task<HttpResponse<T>> PatchAsync<T>(string url, object content)
         {
-            var bodyContent = GetStringContent(content);
-
-            return await InvokeAsync<HttpResponse<T>>(async requestUrl =>
-            {
-                var result = await _client.SendAsync(new HttpRequestMessage
-                {
-                    RequestUri = new Uri($"{_client.BaseAddress}{url}"),
-                    Method = new HttpMethod("PATCH"),
-                    Content = bodyContent
-                });
-
-                return await HttpResponse<T>.Get(result);
-            }, url, "PatchAsync");
+            return await PatchAsync<T>(url, content, false);
         }
 
         public async Task<HttpResponse<T>> PatchAsync<T>(string url, object content, bool encodeContent)
@@ -138,11 +102,11 @@ namespace StockportGovUK.NetStandard.Gateways
                    ? GetStringContent(content)
                    : (HttpContent)content;
 
-            return await InvokeAsync<HttpResponse<T>>(async requestUrl =>
+            return await InvokeAsync(async req =>
             {
-                var result = await _client.SendAsync(new HttpRequestMessage
+                var result = await Client.SendAsync(new HttpRequestMessage
                 {
-                    RequestUri = new Uri($"{_client.BaseAddress}{url}"),
+                    RequestUri = new Uri($@"{Client.BaseAddress}{(!string.IsNullOrEmpty(url) && url.StartsWith("/") ? url.Substring(1) : url)}"),
                     Method = new HttpMethod("PATCH"),
                     Content = bodyContent
                 });
@@ -153,12 +117,7 @@ namespace StockportGovUK.NetStandard.Gateways
 
         public async Task<HttpResponseMessage> PostAsync(string url, object content)
         {
-            var bodyContent = GetStringContent(content);
-
-            return await InvokeAsync<HttpResponseMessage>(async requestUrl =>
-            {
-                return await _client.PostAsync(url, bodyContent);
-            }, url, "PostAsync");
+            return await PostAsync(url, content, false);
         }
 
         public async Task<HttpResponseMessage> PostAsync(string url, object content, bool encodeContent)
@@ -167,22 +126,12 @@ namespace StockportGovUK.NetStandard.Gateways
                     ? GetStringContent(content)
                     : (HttpContent)content;
 
-            return await InvokeAsync<HttpResponseMessage>(async requestUrl =>
-            {
-                return await _client.PostAsync(url, bodyContent);
-            }, url, "PostAsync");
+            return await InvokeAsync(async req => await Client.PostAsync(url, bodyContent), url, "PostAsync");
         }
 
         public async Task<HttpResponse<T>> PostAsync<T>(string url, object content)
         {
-            var bodyContent = GetStringContent(content);
-
-            return await InvokeAsync<HttpResponse<T>>(async requestUrl =>
-            {
-                var result = await _client.PostAsync(url, bodyContent);
-
-                return await HttpResponse<T>.Get(result);
-            }, url, "PostAsync");
+            return await PostAsync<T>(url, content, false);
         }
 
         public async Task<HttpResponse<T>> PostAsync<T>(string url, object content, bool encodeContent)
@@ -191,9 +140,9 @@ namespace StockportGovUK.NetStandard.Gateways
                    ? GetStringContent(content)
                    : (HttpContent)content;
 
-            return await InvokeAsync<HttpResponse<T>>(async requestUrl =>
+            return await InvokeAsync(async req =>
             {
-                var result = await _client.PostAsync(url, bodyContent);
+                var result = await Client.PostAsync(url, bodyContent);
 
                 return await HttpResponse<T>.Get(result);
             }, url, "PostAsync");
@@ -201,22 +150,12 @@ namespace StockportGovUK.NetStandard.Gateways
 
         public async Task<HttpResponseMessage> PutAsync(string url, HttpContent content)
         {
-            return await InvokeAsync<HttpResponseMessage>(async requestUrl =>
-            {
-                return await _client.PutAsync(url, content);
-            }, url, "PutAsync");
+            return await InvokeAsync(async req => await Client.PutAsync(url, content), url, "PutAsync");
         }
 
         public async Task<HttpResponse<T>> PutAsync<T>(string url, object content)
         {
-            var bodyContent = GetStringContent(content);
-
-            return await InvokeAsync<HttpResponse<T>>(async requestUrl =>
-            {
-                var result = await _client.PutAsync(url, bodyContent);
-
-                return await HttpResponse<T>.Get(result);
-            }, url, "PutAsync");
+            return await PutAsync<T>(url, content, false);
         }
 
         public async Task<HttpResponse<T>> PutAsync<T>(string url, object content, bool encodeContent)
@@ -225,8 +164,8 @@ namespace StockportGovUK.NetStandard.Gateways
                     ? GetStringContent(content)
                     : (HttpContent)content;
 
-            return await InvokeAsync<HttpResponse<T>>(async requestUrl => {
-                var result = await _client.PutAsync(url, bodyContent);
+            return await InvokeAsync(async req => {
+                var result = await Client.PutAsync(url, bodyContent);
 
                 return await HttpResponse<T>.Get(result);
             }, url, "PutAsync");
@@ -234,14 +173,14 @@ namespace StockportGovUK.NetStandard.Gateways
 
         public async Task<HttpResponseMessage> DeleteAsync(string url)
         {
-            return await InvokeAsync<HttpResponseMessage>(async requestUrl => await _client.DeleteAsync(requestUrl), url, "DeleteAsync");
+            return await InvokeAsync(async req => await Client.DeleteAsync(url), url, "DeleteAsync");
         }
 
         public async Task<HttpResponse<T>> DeleteAsync<T>(string url)
         {
-            return await InvokeAsync<HttpResponse<T>>(async requestUrl =>
+            return await InvokeAsync(async req =>
             {
-                var result = await _client.DeleteAsync(requestUrl);
+                var result = await Client.DeleteAsync(url);
 
                 return await HttpResponse<T>.Get(result);
             }, url, "DeleteAsync");

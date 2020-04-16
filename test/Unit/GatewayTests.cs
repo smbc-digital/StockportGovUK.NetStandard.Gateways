@@ -16,22 +16,24 @@ namespace StockportGovUK.NetStandard.Gateways.Tests.Unit
         private readonly Gateway _gateway;
         private readonly Mock<ILogger<Gateway>> _mockLogger = new Mock<ILogger<Gateway>>();
         private readonly Mock<HttpMessageHandler> _mockHttpMessageHandler = new Mock<HttpMessageHandler>(MockBehavior.Strict);
-        private readonly HttpClient _httpClient;
+        private const string BaseAddress = "https://test.stockport.gov.uk";
+        private const string TestUrl = "/test/endpoint";
 
         public GatewayTests()
         {
-            _httpClient = new HttpClient(_mockHttpMessageHandler.Object)
+            var httpClient = new HttpClient(_mockHttpMessageHandler.Object)
             {
-                BaseAddress = new Uri("https://test.stockport.gov.uk")
+                BaseAddress = new Uri(BaseAddress)
             };
 
-            _gateway = new Gateway(_httpClient, _mockLogger.Object);
+            _gateway = new Gateway(httpClient, _mockLogger.Object);
         }
 
         [Fact]
-        public async void Invoke_ShouldCallHttpClient()
+        public async void ChangeAuthenticationHeader_ShouldChangeAuthenticationHeader()
         {
             // Arrange
+            const string testHeader = "TestHeader";
             _mockHttpMessageHandler
                 .Protected()
                 .Setup<Task<HttpResponseMessage>>(
@@ -46,7 +48,37 @@ namespace StockportGovUK.NetStandard.Gateways.Tests.Unit
                 .Verifiable();
 
             // Act
-            await _gateway.InvokeAsync<HttpResponseMessage>(async requestUrl => await _httpClient.GetAsync(It.IsAny<string>()), It.IsAny<string>(), It.IsAny<string>());
+            _gateway.ChangeAuthenticationHeader(testHeader);
+            await _gateway.GetAsync(It.IsAny<string>());
+
+            // Assert
+            _mockHttpMessageHandler
+                .Protected()
+                .Verify(
+                    "SendAsync",
+                    Times.Once(),
+                    ItExpr.Is<HttpRequestMessage>(req =>
+                        req.Headers.Authorization.ToString() == testHeader),
+                    ItExpr.IsAny<CancellationToken>()
+                );
+        }
+
+        [Fact]
+        public async void Invoke_ShouldCallHttpClient()
+        {
+            // Arrange
+            _mockHttpMessageHandler
+                .Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>()
+                )
+                .ReturnsAsync(new HttpResponseMessage())
+                .Verifiable();
+
+            // Act
+            await _gateway.GetAsync(It.IsAny<string>());
 
             // Assert
             _mockHttpMessageHandler
@@ -72,7 +104,7 @@ namespace StockportGovUK.NetStandard.Gateways.Tests.Unit
                 )
                 .Throws(new BrokenCircuitException<HttpResponseMessage>(new HttpResponseMessage()));
 
-            Assert.ThrowsAsync<BrokenCircuitException>(() => _gateway.InvokeAsync<HttpResponseMessage>(requestUrl => _httpClient.GetAsync(It.IsAny<string>()), It.IsAny<string>(), It.IsAny<string>()));
+            Assert.ThrowsAsync<BrokenCircuitException>(() => _gateway.GetAsync(It.IsAny<string>()));
         }
 
         [Fact]
@@ -88,7 +120,7 @@ namespace StockportGovUK.NetStandard.Gateways.Tests.Unit
                 )
                 .Throws(new BrokenCircuitException());
 
-            Assert.ThrowsAsync<BrokenCircuitException>(() => _gateway.InvokeAsync<HttpResponseMessage>(requestUrl => _httpClient.GetAsync(It.IsAny<string>()), It.IsAny<string>(), It.IsAny<string>()));
+            Assert.ThrowsAsync<BrokenCircuitException>(() => _gateway.GetAsync(It.IsAny<string>()));
         }
 
         [Fact]
@@ -105,16 +137,13 @@ namespace StockportGovUK.NetStandard.Gateways.Tests.Unit
                .Throws(new Exception());
 
             //Assert
-            Assert.ThrowsAsync<Exception>(() => _gateway.InvokeAsync<HttpResponseMessage>(requestUrl => _httpClient.GetAsync(It.IsAny<string>()), It.IsAny<string>(), It.IsAny<string>()));
+            Assert.ThrowsAsync<Exception>(() => _gateway.GetAsync(TestUrl));
         }
 
         [Fact]
         public async void Invoke_GivenHttpClientThrowsBrokenCircuitTypedException_ShouldDisplayErrorMessage()
         {
             // Arrange
-            const string Url = "https://text.stockport.gov.uk/testmessage";
-            const string RequestType = "testType";
-
             _mockHttpMessageHandler
                 .Protected()
                 .Setup<Task<HttpResponseMessage>>(
@@ -125,11 +154,11 @@ namespace StockportGovUK.NetStandard.Gateways.Tests.Unit
                 .Throws(new BrokenCircuitException<HttpResponseMessage>(new HttpResponseMessage()));
 
             //Act
-            var ex = await Assert.ThrowsAsync<BrokenCircuitException>(() => _gateway.InvokeAsync<HttpResponseMessage>(requestUrl => _httpClient.GetAsync(It.IsAny<string>()), Url, RequestType));
+            var ex = await Assert.ThrowsAsync<BrokenCircuitException>(() => _gateway.GetAsync(TestUrl));
 
             //Assert
-            Assert.Contains(Url, ex.Message);
-            Assert.Contains(RequestType, ex.Message);
+            Assert.Contains(TestUrl, ex.Message);
+            Assert.Contains("GetAsync", ex.Message);
             Assert.Contains("Circuit broken due to:", ex.Message);
         }
 
@@ -137,9 +166,6 @@ namespace StockportGovUK.NetStandard.Gateways.Tests.Unit
         public async void Invoke_GivenHttpClientThrowsBrokenCircuitException_ShouldDisplayErrorMessage()
         {
             // Arrange
-            const string Url = "https://text.stockport.gov.uk/testmessage";
-            const string RequestType = "testType";
-
             _mockHttpMessageHandler
                 .Protected()
                 .Setup<Task<HttpResponseMessage>>(
@@ -150,11 +176,11 @@ namespace StockportGovUK.NetStandard.Gateways.Tests.Unit
                 .Throws(new BrokenCircuitException());
 
             //Act
-            var ex = await Assert.ThrowsAsync<BrokenCircuitException>(() => _gateway.InvokeAsync<HttpResponseMessage>(requestUrl => _httpClient.GetAsync(It.IsAny<string>()), Url, RequestType));
+            var ex = await Assert.ThrowsAsync<BrokenCircuitException>(() => _gateway.GetAsync(TestUrl));
 
             //Assert
-            Assert.Contains(Url, ex.Message);
-            Assert.Contains(RequestType, ex.Message);
+            Assert.Contains(TestUrl, ex.Message);
+            Assert.Contains("GetAsync", ex.Message);
             Assert.Contains("Circuit broken due to:", ex.Message);
         }
 
@@ -162,9 +188,6 @@ namespace StockportGovUK.NetStandard.Gateways.Tests.Unit
         public async void Invoke_GivenHttpClientThrowsException_ShouldDisplayErrorMessage()
         {
             // Arrange
-            const string Url = "https://text.stockport.gov.uk/testmessage";
-            const string RequestType = "testType";
-
             _mockHttpMessageHandler
                 .Protected()
                 .Setup<Task<HttpResponseMessage>>(
@@ -175,16 +198,480 @@ namespace StockportGovUK.NetStandard.Gateways.Tests.Unit
                 .Throws(new Exception());
 
             //Act
-            var ex = await Assert.ThrowsAsync<Exception>(() => _gateway.InvokeAsync<HttpResponseMessage>(requestUrl => _httpClient.GetAsync(It.IsAny<string>()), Url, RequestType));
+            var ex = await Assert.ThrowsAsync<Exception>(() => _gateway.GetAsync(TestUrl));
 
             //Assert
-            Assert.Contains(Url, ex.Message);
-            Assert.Contains(RequestType, ex.Message);
+            Assert.Contains(TestUrl, ex.Message);
+            Assert.Contains("GetAsync", ex.Message);
             Assert.Contains("failed with the following error:", ex.Message);
         }
 
-        //Create test method to make sure the invoke function is called.
+        [Fact]
+        public async void GetAsync_ShouldCallHttpClient()
+        {
+            // Arrange
+            _mockHttpMessageHandler
+                .Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>()
+                )
+                .ReturnsAsync(new HttpResponseMessage
+                {
+                    StatusCode = HttpStatusCode.OK
+                })
+                .Verifiable();
 
-        //Create test method to make sure the requestType is correct
+            // Act
+            await _gateway.GetAsync(TestUrl);
+
+            // Assert
+            _mockHttpMessageHandler
+                .Protected()
+                .Verify(
+                    "SendAsync",
+                    Times.Once(),
+                    ItExpr.Is<HttpRequestMessage>(req =>
+                        req.RequestUri == new Uri($"{BaseAddress}{TestUrl}")),
+                    ItExpr.IsAny<CancellationToken>()
+                );
+        }
+
+        [Fact]
+        public async void GetAsync_GivenExceptionThrown_ShouldReturnExceptionWithCorrectRequestType()
+        {
+            // Arrange
+            _mockHttpMessageHandler
+                .Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>()
+                )
+                .Throws(new Exception());
+
+            //Act
+            var ex = await Assert.ThrowsAsync<Exception>(() => _gateway.GetAsync(TestUrl));
+
+            //Assert
+            Assert.Contains("GetAsync", ex.Message);
+        }
+
+        [Fact]
+        public async void GetAsyncTyped_ShouldCallHttpClient()
+        {
+            // Arrange
+            _mockHttpMessageHandler
+                .Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>()
+                )
+                .ReturnsAsync(new HttpResponseMessage
+                {
+                    StatusCode = HttpStatusCode.OK
+                })
+                .Verifiable();
+
+            // Act
+            await _gateway.GetAsync<HttpResponseMessage>(TestUrl);
+
+            // Assert
+            _mockHttpMessageHandler
+                .Protected()
+                .Verify(
+                    "SendAsync",
+                    Times.Once(),
+                    ItExpr.Is<HttpRequestMessage>(req =>
+                        req.RequestUri == new Uri($"{BaseAddress}{TestUrl}")),
+                    ItExpr.IsAny<CancellationToken>()
+                );
+        }
+
+        [Fact]
+        public async void GetAsyncTyped_GivenExceptionThrown_ShouldReturnExceptionWithCorrectRequestType()
+        {
+            // Arrange
+            _mockHttpMessageHandler
+                .Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>()
+                )
+                .Throws(new Exception());
+
+            //Act
+            var ex = await Assert.ThrowsAsync<Exception>(() => _gateway.GetAsync<HttpResponseMessage>(TestUrl));
+
+            //Assert
+            Assert.Contains("GetAsync", ex.Message);
+        }
+
+        [Fact]
+        public async void PatchAsync_ShouldCallHttpClient()
+        {
+            // Arrange
+            _mockHttpMessageHandler
+                .Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>()
+                )
+                .ReturnsAsync(new HttpResponseMessage
+                {
+                    StatusCode = HttpStatusCode.OK
+                })
+                .Verifiable();
+
+            // Act
+            await _gateway.PatchAsync(TestUrl, It.IsAny<object>(), It.IsAny<bool>());
+
+            // Assert
+            _mockHttpMessageHandler
+                .Protected()
+                .Verify(
+                    "SendAsync",
+                    Times.Once(),
+                    ItExpr.Is<HttpRequestMessage>(req =>
+                        req.RequestUri == new Uri($"{BaseAddress}{TestUrl}")),
+                    ItExpr.IsAny<CancellationToken>()
+                );
+        }
+
+        [Fact]
+        public async void PatchAsync_GivenExceptionThrown_ShouldReturnExceptionWithCorrectRequestType()
+        {
+            // Arrange
+            _mockHttpMessageHandler
+                .Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>()
+                )
+                .Throws(new Exception());
+
+            //Act
+            var ex = await Assert.ThrowsAsync<Exception>(() => _gateway.PatchAsync(It.IsAny<string>(), It.IsAny<object>(), It.IsAny<bool>()));
+
+            //Assert
+            Assert.Contains("PatchAsync", ex.Message);
+        }
+
+        [Fact]
+        public async void PatchAsyncTyped_ShouldCallHttpClient()
+        {
+            // Arrange
+            _mockHttpMessageHandler
+                .Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>()
+                )
+                .ReturnsAsync(new HttpResponseMessage
+                {
+                    StatusCode = HttpStatusCode.OK
+                })
+                .Verifiable();
+
+            // Act
+            await _gateway.PatchAsync<HttpResponseMessage>(TestUrl, It.IsAny<object>(), It.IsAny<bool>());
+
+            // Assert
+            _mockHttpMessageHandler
+                .Protected()
+                .Verify(
+                    "SendAsync",
+                    Times.Once(),
+                    ItExpr.Is<HttpRequestMessage>(req =>
+                        req.RequestUri == new Uri($"{BaseAddress}{TestUrl}")),
+                    ItExpr.IsAny<CancellationToken>()
+                );
+        }
+
+        [Fact]
+        public async void PatchAsyncTyped_GivenExceptionThrown_ShouldReturnExceptionWithCorrectRequestType()
+        {
+            // Arrange
+            _mockHttpMessageHandler
+                .Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>()
+                )
+                .Throws(new Exception());
+
+            //Act
+            var ex = await Assert.ThrowsAsync<Exception>(() => _gateway.PatchAsync<HttpResponseMessage>(It.IsAny<string>(), It.IsAny<object>(), It.IsAny<bool>()));
+
+            //Assert
+            Assert.Contains("PatchAsync", ex.Message);
+        }
+
+        [Fact]
+        public async void PostAsync_ShouldCallHttpClient()
+        {
+            // Arrange
+            _mockHttpMessageHandler
+                .Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>()
+                )
+                .ReturnsAsync(new HttpResponseMessage
+                {
+                    StatusCode = HttpStatusCode.OK
+                })
+                .Verifiable();
+
+            // Act
+            await _gateway.PostAsync(TestUrl, It.IsAny<object>(), It.IsAny<bool>());
+
+            // Assert
+            _mockHttpMessageHandler
+                .Protected()
+                .Verify(
+                    "SendAsync",
+                    Times.Once(),
+                    ItExpr.Is<HttpRequestMessage>(req =>
+                        req.RequestUri == new Uri($"{BaseAddress}{TestUrl}")),
+                    ItExpr.IsAny<CancellationToken>()
+                );
+        }
+
+        [Fact]
+        public async void PostAsync_GivenExceptionThrown_ShouldReturnExceptionWithCorrectRequestType()
+        {
+            // Arrange
+            _mockHttpMessageHandler
+                .Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>()
+                )
+                .Throws(new Exception());
+
+            //Act
+            var ex = await Assert.ThrowsAsync<Exception>(() => _gateway.PostAsync(TestUrl, It.IsAny<object>(), It.IsAny<bool>()));
+
+            //Assert
+            Assert.Contains("PostAsync", ex.Message);
+        }
+
+        [Fact]
+        public async void PostAsyncTyped_ShouldCallHttpClient()
+        {
+            // Arrange
+            _mockHttpMessageHandler
+                .Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>()
+                )
+                .ReturnsAsync(new HttpResponseMessage
+                {
+                    StatusCode = HttpStatusCode.OK
+                })
+                .Verifiable();
+
+            // Act
+            await _gateway.PostAsync<HttpResponseMessage>(TestUrl, It.IsAny<object>(), It.IsAny<bool>());
+
+            // Assert
+            _mockHttpMessageHandler
+                .Protected()
+                .Verify(
+                    "SendAsync",
+                    Times.Once(),
+                    ItExpr.Is<HttpRequestMessage>(req =>
+                        req.RequestUri == new Uri($"{BaseAddress}{TestUrl}")),
+                    ItExpr.IsAny<CancellationToken>()
+                );
+        }
+
+        [Fact]
+        public async void PostAsyncTyped_GivenExceptionThrown_ShouldReturnExceptionWithCorrectRequestType()
+        {
+            // Arrange
+            _mockHttpMessageHandler
+                .Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>()
+                )
+                .Throws(new Exception());
+
+            //Act
+            var ex = await Assert.ThrowsAsync<Exception>(() => _gateway.PostAsync<HttpResponseMessage>(TestUrl, It.IsAny<object>(), It.IsAny<bool>()));
+
+            //Assert
+            Assert.Contains("PostAsync", ex.Message);
+        }
+    
+        [Fact]
+        public async void PutAsync_ShouldCallHttpClient()
+        {
+            // Arrange
+            _mockHttpMessageHandler
+                .Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>()
+                )
+                .ReturnsAsync(new HttpResponseMessage
+                {
+                    StatusCode = HttpStatusCode.OK
+                })
+                .Verifiable();
+
+            // Act
+            await _gateway.PutAsync(TestUrl, It.IsAny<HttpContent>());
+
+            // Assert
+            _mockHttpMessageHandler
+                .Protected()
+                .Verify(
+                    "SendAsync",
+                    Times.Once(),
+                    ItExpr.Is<HttpRequestMessage>(req =>
+                        req.RequestUri == new Uri($"{BaseAddress}{TestUrl}")),
+                    ItExpr.IsAny<CancellationToken>()
+                );
+        }
+
+        [Fact]
+        public async void PutAsync_GivenExceptionThrown_ShouldReturnExceptionWithCorrectRequestType()
+        {
+            // Arrange
+            _mockHttpMessageHandler
+                .Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>()
+                )
+                .Throws(new Exception());
+
+            //Act
+            var ex = await Assert.ThrowsAsync<Exception>(() => _gateway.PutAsync(TestUrl, It.IsAny<HttpContent>()));
+
+            //Assert
+            Assert.Contains("PutAsync", ex.Message);
+        }
+
+        [Fact]
+        public async void PutAsyncTyped_ShouldCallHttpClient()
+        {
+            // Arrange
+            _mockHttpMessageHandler
+                .Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>()
+                )
+                .ReturnsAsync(new HttpResponseMessage
+                {
+                    StatusCode = HttpStatusCode.OK
+                })
+                .Verifiable();
+
+            // Act
+            await _gateway.PutAsync<HttpResponseMessage>(TestUrl, It.IsAny<HttpContent>(), It.IsAny<bool>());
+
+            // Assert
+            _mockHttpMessageHandler
+                .Protected()
+                .Verify(
+                    "SendAsync",
+                    Times.Once(),
+                    ItExpr.Is<HttpRequestMessage>(req =>
+                        req.RequestUri == new Uri($"{BaseAddress}{TestUrl}")),
+                    ItExpr.IsAny<CancellationToken>()
+                );
+        }
+
+        [Fact]
+        public async void PutAsyncTyped_GivenExceptionThrown_ShouldReturnExceptionWithCorrectRequestType()
+        {
+            // Arrange
+            _mockHttpMessageHandler
+                .Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>()
+                )
+                .Throws(new Exception());
+
+            //Act
+            var ex = await Assert.ThrowsAsync<Exception>(() => _gateway.PutAsync<HttpResponseMessage>(TestUrl, It.IsAny<HttpContent>(), It.IsAny<bool>()));
+
+            //Assert
+            Assert.Contains("PutAsync", ex.Message);
+        }
+
+        [Fact]
+        public async void DeleteAsyncTyped_ShouldCallHttpClient()
+        {
+            // Arrange
+            _mockHttpMessageHandler
+                .Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>()
+                )
+                .ReturnsAsync(new HttpResponseMessage
+                {
+                    StatusCode = HttpStatusCode.OK
+                })
+                .Verifiable();
+
+            // Act
+            await _gateway.DeleteAsync<HttpResponseMessage>(TestUrl);
+
+            // Assert
+            _mockHttpMessageHandler
+                .Protected()
+                .Verify(
+                    "SendAsync",
+                    Times.Once(),
+                    ItExpr.Is<HttpRequestMessage>(req =>
+                        req.RequestUri == new Uri($"{BaseAddress}{TestUrl}")),
+                    ItExpr.IsAny<CancellationToken>()
+                );
+        }
+
+        [Fact]
+        public async void DeleteAsyncTyped_GivenExceptionThrown_ShouldReturnExceptionWithCorrectRequestType()
+        {
+            // Arrange
+            _mockHttpMessageHandler
+                .Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>()
+                )
+                .Throws(new Exception());
+
+            //Act
+            var ex = await Assert.ThrowsAsync<Exception>(() => _gateway.DeleteAsync<HttpResponseMessage>(TestUrl));
+
+            //Assert
+            Assert.Contains("DeleteAsync", ex.Message);
+        }
     }
 }

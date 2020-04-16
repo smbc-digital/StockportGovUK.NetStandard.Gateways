@@ -6,7 +6,7 @@ namespace StockportGovUK.NetStandard.Gateways.CivicaServiceGateway
 {
     public class CivicaServiceGateway : Gateway, ICivicaServiceGateway
     {
-        const string BaseEndpoint = "api/v1";
+        private const string BaseEndpoint = "api/v1";
 
         public CivicaServiceGateway(HttpClient httpClient, ILogger<Gateway> logger) : base(httpClient, logger)
         {

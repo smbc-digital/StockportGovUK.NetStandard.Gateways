@@ -24,7 +24,7 @@ namespace StockportGovUK.NetStandard.Gateways.Civica.Pay
         public string EStoreRoot {
             get
             {
-                return $"{base._client.BaseAddress}StockportEstore";
+                return $"{base.Client.BaseAddress}StockportEstore";
             }
         }
 
