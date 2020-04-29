@@ -117,7 +117,7 @@ namespace StockportGovUK.NetStandard.Gateways
 
         public async Task<HttpResponseMessage> PostAsync(string url, object content)
         {
-            return await PostAsync(url, content, false);
+            return await PostAsync(url, content, true);
         }
 
         public async Task<HttpResponseMessage> PostAsync(string url, object content, bool encodeContent)
@@ -131,7 +131,7 @@ namespace StockportGovUK.NetStandard.Gateways
 
         public async Task<HttpResponse<T>> PostAsync<T>(string url, object content)
         {
-            return await PostAsync<T>(url, content, false);
+            return await PostAsync<T>(url, content, true);
         }
 
         public async Task<HttpResponse<T>> PostAsync<T>(string url, object content, bool encodeContent)
