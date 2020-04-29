@@ -34,7 +34,7 @@ namespace StockportGovUK.NetStandard.Gateways.VerintServiceGateway
 
         public async Task<HttpResponse<int>> UpdateCaseDescription(Case crmCase)
         {
-            return await PostAsync<int>($"{CaseEndpoint}/updatecasedescription", crmCase);
+            return await PostAsync<int>($"{CaseEndpoint}/updatecasedescription", crmCase, true);
         }
 
         public async Task<HttpResponseMessage> UpdateCaseIntegrationFormField(IntegrationFormFieldsUpdateModel content)
@@ -59,7 +59,7 @@ namespace StockportGovUK.NetStandard.Gateways.VerintServiceGateway
 
         public async Task<HttpResponseMessage> AddNoteWithAttachments(NoteWithAttachments model)
         {
-            return await PostAsync($"{CaseEndpoint}/add-note-with-attachments", model);
+            return await PostAsync($"{CaseEndpoint}/add-note-with-attachments", model, true);
         }
     }
 }
