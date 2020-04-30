@@ -69,12 +69,12 @@ namespace StockportGovUK.NetStandard.Gateways
 
         public async Task<HttpResponseMessage> PatchAsync(object content)
         {
-            return await PatchAsync(string.Empty, content, false);
+            return await PatchAsync(string.Empty, content, true);
         }
 
         public async Task<HttpResponseMessage> PatchAsync(string url, object content)
         {
-            return await PatchAsync(url, content, false);
+            return await PatchAsync(url, content, true);
         }
 
         public async Task<HttpResponseMessage> PatchAsync(string url, object content, bool encodeContent)
@@ -93,7 +93,7 @@ namespace StockportGovUK.NetStandard.Gateways
 
         public async Task<HttpResponse<T>> PatchAsync<T>(string url, object content)
         {
-            return await PatchAsync<T>(url, content, false);
+            return await PatchAsync<T>(url, content, true);
         }
 
         public async Task<HttpResponse<T>> PatchAsync<T>(string url, object content, bool encodeContent)
