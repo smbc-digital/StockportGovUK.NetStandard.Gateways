@@ -136,9 +136,17 @@ namespace StockportGovUK.NetStandard.Gateways
 
         public async Task<HttpResponse<T>> PostAsync<T>(string url, object content, bool encodeContent)
         {
-            var bodyContent = encodeContent
-                   ? GetStringContent(content)
-                   : (HttpContent)content;
+            HttpContent bodyContent;
+            
+            if(encodeContent)
+            {
+                _logger.LogInformation("Gateway.PostAsync: Using StringContent");
+                bodyContent = GetStringContent(content);
+            }
+            else{
+                _logger.LogInformation("Gateway.PostAsync: Using HttpContent");
+                bodyContent = (HttpContent)content;
+            }
 
             return await InvokeAsync(async req =>
             {
