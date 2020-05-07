@@ -35,19 +35,16 @@ namespace StockportGovUK.NetStandard.Gateways
             catch (BrokenCircuitException<HttpResponseMessage> ex)
             {
                 var errorMessage = string.IsNullOrEmpty(ex.Message) ? ex.InnerException?.Message : ex.Message;
-                _logger.LogWarning(ex, errorMessage);
                 throw new BrokenCircuitException($"{GetType().Name} => {requestType}({url}) - Circuit broken due to: '{errorMessage}'", ex);
             }
             catch (BrokenCircuitException ex)
             {
                 var errorMessage = string.IsNullOrEmpty(ex.Message) ? ex.InnerException?.Message : ex.Message;
-                _logger.LogWarning(ex, errorMessage);
                 throw new BrokenCircuitException($"{GetType().Name} => {requestType}({url}) - Circuit broken due to: '{errorMessage}'", ex);
             }
             catch (Exception ex)
             {
                 var errorMessage = string.IsNullOrEmpty(ex.Message) ? ex.InnerException?.Message : ex.Message;
-                _logger.LogWarning(ex, errorMessage);
                 throw new Exception($"{GetType().Name} => {requestType}({url}) - failed with the following error: '{errorMessage}'", ex);
             }
         }
@@ -79,8 +76,8 @@ namespace StockportGovUK.NetStandard.Gateways
 
         public async Task<HttpResponseMessage> PatchAsync(string url, object content, bool encodeContent)
         {
-            var bodyContent = encodeContent
-                ? GetStringContent(content)
+            HttpContent bodyContent = encodeContent
+                ? GetHttpContent(content)
                 : (HttpContent)content;
 
             return await InvokeAsync(async req => await Client.SendAsync(new HttpRequestMessage
@@ -98,9 +95,9 @@ namespace StockportGovUK.NetStandard.Gateways
 
         public async Task<HttpResponse<T>> PatchAsync<T>(string url, object content, bool encodeContent)
         {
-            var bodyContent = encodeContent
-                   ? GetStringContent(content)
-                   : (HttpContent)content;
+            HttpContent bodyContent = encodeContent
+                ? GetHttpContent(content)
+                : (HttpContent)content;
 
             return await InvokeAsync(async req =>
             {
@@ -123,8 +120,8 @@ namespace StockportGovUK.NetStandard.Gateways
         public async Task<HttpResponseMessage> PostAsync(string url, object content, bool encodeContent)
         {
             var bodyContent = encodeContent
-                    ? GetStringContent(content)
-                    : (HttpContent)content;
+                ? GetHttpContent(content)
+                : (HttpContent)content;
 
             return await InvokeAsync(async req => await Client.PostAsync(url, bodyContent), url, "PostAsync");
         }
@@ -136,17 +133,9 @@ namespace StockportGovUK.NetStandard.Gateways
 
         public async Task<HttpResponse<T>> PostAsync<T>(string url, object content, bool encodeContent)
         {
-            HttpContent bodyContent;
-            
-            if(encodeContent)
-            {
-                _logger.LogInformation("Gateway.PostAsync: Using StringContent");
-                bodyContent = GetStringContent(content);
-            }
-            else{
-                _logger.LogInformation("Gateway.PostAsync: Using HttpContent");
-                bodyContent = (HttpContent)content;
-            }
+            HttpContent bodyContent = encodeContent
+                ? GetHttpContent(content)
+                : (HttpContent)content;
 
             return await InvokeAsync(async req =>
             {
@@ -163,14 +152,14 @@ namespace StockportGovUK.NetStandard.Gateways
 
         public async Task<HttpResponse<T>> PutAsync<T>(string url, object content)
         {
-            return await PutAsync<T>(url, content, false);
+            return await PutAsync<T>(url, content, true);
         }
 
         public async Task<HttpResponse<T>> PutAsync<T>(string url, object content, bool encodeContent)
         {
-            var bodyContent = encodeContent
-                    ? GetStringContent(content)
-                    : (HttpContent)content;
+            HttpContent bodyContent = encodeContent
+                ? GetHttpContent(content)
+                : (HttpContent)content;
 
             return await InvokeAsync(async req => {
                 var result = await Client.PutAsync(url, bodyContent);
@@ -194,14 +183,16 @@ namespace StockportGovUK.NetStandard.Gateways
             }, url, "DeleteAsync");
         }
 
-        private StringContent GetStringContent(object content)
+        private HttpContent GetHttpContent(object content)
         {
             var serializedContent = JsonConvert.SerializeObject(content, Formatting.Indented, new JsonSerializerSettings
             {
                 NullValueHandling = NullValueHandling.Ignore
             });
 
-            return new StringContent(serializedContent, Encoding.UTF8, "application/json");
+            var response = new StringContent(serializedContent, Encoding.UTF8, "application/json");
+
+            return (HttpContent)response;
         }
     }
 }
