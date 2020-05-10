@@ -128,11 +128,18 @@ namespace StockportGovUK.NetStandard.Gateways
 
         public async Task<HttpResponse<T>> PostAsync<T>(string url, object content)
         {
-            return await PostAsync<T>(url, content, true);
+            var bodyContent = GetHttpContent(content);
+
+            return await InvokeAsync(async req =>
+            {
+                var result = await Client.PostAsync(url, bodyContent);
+                return await HttpResponse<T>.Get(result);
+            }, url, "PostAsync");
         }
 
         public async Task<HttpResponse<T>> PostAsync<T>(string url, object content, bool encodeContent)
         {
+
             HttpContent bodyContent = encodeContent
                 ? GetHttpContent(content)
                 : (HttpContent)content;
@@ -140,7 +147,6 @@ namespace StockportGovUK.NetStandard.Gateways
             return await InvokeAsync(async req =>
             {
                 var result = await Client.PostAsync(url, bodyContent);
-
                 return await HttpResponse<T>.Get(result);
             }, url, "PostAsync");
         }
