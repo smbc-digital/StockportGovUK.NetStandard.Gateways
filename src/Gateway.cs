@@ -100,6 +100,15 @@ namespace StockportGovUK.NetStandard.Gateways
         public async Task<HttpResponseMessage> PutAsync(string url, HttpContent content)
             => await InvokeAsync(async req => await Client.PutAsync(url, content), url, "PutAsync");
 
+        public async Task<HttpResponseMessage> PutAsync(string url, object content, bool encodeContent)
+        {
+            var bodyContent = encodeContent
+                ? GetHttpContent(content)
+                : (HttpContent)content;
+
+            return await InvokeAsync(async req => await Client.PutAsync(url, bodyContent), url, "PutAsync");
+        }
+
         public async Task<HttpResponse<T>> PutAsync<T>(string url, object content)
             => await PutAsync<T>(url, content, true);
 
