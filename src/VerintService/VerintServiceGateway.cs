@@ -1,0 +1,47 @@
+﻿using System.Collections.Generic;
+using System.Net.Http;
+using System.Threading.Tasks;
+using StockportGovUK.NetStandard.Gateways.Response;
+using StockportGovUK.NetStandard.Models.Addresses;
+using StockportGovUK.NetStandard.Models.Verint;
+using StockportGovUK.NetStandard.Models.Verint.Lookup;
+using StockportGovUK.NetStandard.Models.Verint.Update;
+
+namespace StockportGovUK.NetStandard.Gateways.VerintService
+{
+    public class VerintServiceGateway : Gateway, IVerintServiceGateway
+    {
+        private const string CaseEndpoint = "api/v1/Case";
+        private const string PropertyEndpoint = "api/v1/Property";
+        private const string OrganisationEndpoint = "api/v1/Organisation";
+        private const string StreetEndpoint = "api/v1/Street";
+
+        public VerintServiceGateway(HttpClient httpClient) : base(httpClient)
+        {
+        }
+
+        public async Task<HttpResponse<Case>> GetCase(string caseRef)
+            => await GetAsync<Case>($"{CaseEndpoint}?caseId={caseRef}");
+
+        public async Task<HttpResponse<string>> CreateCase(Case crmCase)
+            => await PostAsync<string>($"{CaseEndpoint}", crmCase);
+
+        public async Task<HttpResponse<int>> UpdateCaseDescription(Case crmCase)
+            => await PostAsync<int>($"{CaseEndpoint}/updatecasedescription", crmCase);
+
+        public async Task<HttpResponseMessage> UpdateCaseIntegrationFormField(IntegrationFormFieldsUpdateModel content)
+            => await PatchAsync(content);
+
+        public async Task<HttpResponse<List<AddressSearchResult>>> SearchForPropertyByPostcode(string postcode)
+            => await GetAsync<List<AddressSearchResult>>($"{PropertyEndpoint}/search/{postcode}");
+
+        public async Task<HttpResponse<List<OrganisationSearchResult>>> SearchForOrganisationByName(string organisation)
+            => await GetAsync<List<OrganisationSearchResult>>($"{OrganisationEndpoint}/search/{organisation}");
+
+        public async Task<HttpResponse<List<AddressSearchResult>>> GetStreetByReference(string street)
+            => await GetAsync<List<AddressSearchResult>>($"{StreetEndpoint}/streetsearch/{street}");
+
+        public async Task<HttpResponseMessage> AddNoteWithAttachments(NoteWithAttachments model)
+            => await PostAsync($"{CaseEndpoint}/add-note-with-attachments", model);
+    }
+}

@@ -5,6 +5,7 @@ namespace StockportGovUK.NetStandard.Gateways
 {
     public interface IGateway
     {
+        void ChangeAuthenticationHeader(string authHeader);
         Task<HttpResponseMessage> GetAsync(string url);
         Task<HttpResponseMessage> PutAsync(string url, HttpContent content);
         Task<HttpResponseMessage> PatchAsync(object content);
@@ -13,6 +14,5 @@ namespace StockportGovUK.NetStandard.Gateways
         Task<HttpResponseMessage> PostAsync(string url, object content);
         Task<HttpResponseMessage> PostAsync(string url, object content, bool encodeContent);
         Task<HttpResponseMessage> DeleteAsync(string url);
-        void ChangeAuthenticationHeader(string authHeader);
     }
 }
