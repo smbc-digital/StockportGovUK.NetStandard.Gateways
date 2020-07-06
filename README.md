@@ -64,48 +64,18 @@ Within your application configuration you define the base URL for your service, 
 
 This config is then used within the Gateway pacakge to route the request to the correct endpoint.
 
-### Earlier versions (<=prerelease 148) ### 
 ```json
-"HttpClientConfiguration": [
-    {
-        "name": "serviceGateway",
-        "baseUrl": "http://service.stockport.gov.uk/"
-    }
-]
-```
-
-
-### Later versions (>=prerelease 149) ### 
-Gateways moved away from using named clients and used typed clients instead, this solved some issues with named gateways not being automatically registered with DI
-
-Config changes to the following, please note that the gateway type needs to be the fully realised assembly name.
-```json
-{
-  "HttpClientConfiguration": [
-      {
-        "iGatewayType": "StockportGovUK.NetStandard.Gateways.YourGatewayNamespace.IYourGatewayName",
-        "gatewayType": "StockportGovUK.NetStandard.Gateways.YourGatewayNamespace.YourGatewayName,StockportGovUK.NetStandard.Gateways",
-        "baseUrl": "https://www.BaseServiceUrlHere.co.uk"
-      }
-  ]
-}
-```
-For the purposes of debugging you can prevent the addition of resilient features but still registers gateways from config by setting "addPollyPolicies" to "false".
-```json
-{
-  "HttpClientConfiguration": [
-      {
-        ...
-        "addPollyPolicies": "false"
-      }
-  ]
+"IGatewayConfig": {
+  "BaseUrl": "http://service.stockport.gov.uk/",
+  "AuthToken": "TestToken",
+  "EnablePollyPolicies": "false"
 }
 ```
 
 Adding resilient clients (i.e. with circuit breaker) is now done via the gateways package (rather than through [polly](https://github.com/smbc-digital/StockportGovUK.NetStandard.Polly). To enable this behaviour add the following to startup.
 
 ```C#
-services.AddResilientHttpClients<IGateway, Gateway>(Configuration);
+services.AddHttpClient<IGateway, Gateway>(Configuration);
 ```
 
 To use a gateway simply inject that gateway into the consumer.
@@ -133,8 +103,6 @@ New gateways are constructed slightly differently, the following pattern is a ga
 ```bash
 $ dotnet add package StockportGovUK.NetStandard.Gateways
 ```
-
-
 
 ## License
 [MIT](https://tldrlegal.com/license/mit-license)
