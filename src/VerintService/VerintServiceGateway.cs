@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using StockportGovUK.NetStandard.Gateways.Response;
 using StockportGovUK.NetStandard.Models.Addresses;
+using StockportGovUK.NetStandard.Models.Models.Verint.VerintOnlineForm;
 using StockportGovUK.NetStandard.Models.Verint;
 using StockportGovUK.NetStandard.Models.Verint.Lookup;
 using StockportGovUK.NetStandard.Models.Verint.Update;
@@ -12,6 +13,7 @@ namespace StockportGovUK.NetStandard.Gateways.VerintService
     public class VerintServiceGateway : Gateway, IVerintServiceGateway
     {
         private const string CaseEndpoint = "api/v1/Case";
+        private const string VerintOnlineFormEndpoint = "api/v1/VerintOnlineForm";
         private const string PropertyEndpoint = "api/v1/Property";
         private const string OrganisationEndpoint = "api/v1/Organisation";
         private const string StreetEndpoint = "api/v1/Street";
@@ -25,6 +27,9 @@ namespace StockportGovUK.NetStandard.Gateways.VerintService
 
         public async Task<HttpResponse<string>> CreateCase(Case crmCase)
             => await PostAsync<string>($"{CaseEndpoint}", crmCase);
+
+        public async Task<HttpResponse<VerintOnlineFormResponse>> CreateVerintOnlineFormCase(VerintOnlineFormRequest verintOnlineFormRequest)
+            => await PostAsync<VerintOnlineFormResponse>($"{VerintOnlineFormEndpoint}", verintOnlineFormRequest);
 
         public async Task<HttpResponse<int>> UpdateCaseDescription(Case crmCase)
             => await PostAsync<int>($"{CaseEndpoint}/updatecasedescription", crmCase);
