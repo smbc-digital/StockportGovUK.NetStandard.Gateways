@@ -10,7 +10,7 @@ namespace StockportGovUK.NetStandard.Gateways.Netcall
         
         private const string NETCALL_ENDPOINT = "/api/liberty/2/partitions/{0}/acd/callrecordings";
 
-        public ConverseGateway(HttpClient httpClient, ILogger<Gateway> logger) : base(httpClient, logger)
+        public ConverseGateway(HttpClient httpClient) : base(httpClient)
         {
 
         }
