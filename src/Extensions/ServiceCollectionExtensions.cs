@@ -34,7 +34,7 @@ namespace StockportGovUK.NetStandard.Gateways.Extensions
 
             return services.AddHttpClient<TInterface, TImplementation>(c =>
                 {
-                    c.BaseAddress = new Uri(clientConfig.BaseUrl);
+                    c.BaseAddress = string.IsNullOrEmpty(clientConfig.BaseUrl) ? null : new Uri(clientConfig.BaseUrl);
                     c.DefaultRequestHeaders.Authorization = string.IsNullOrEmpty(clientConfig?.AuthToken)
                         ? null
                         : AuthenticationHeaderValue.Parse(clientConfig.AuthToken);
@@ -46,11 +46,11 @@ namespace StockportGovUK.NetStandard.Gateways.Extensions
 
         private static T If<T>(this T t, bool cond, Func<T, T> builder) => cond ? builder(t) : t;
 
-        private static IAsyncPolicy<HttpResponseMessage> GetWaitAndRetryForeverPolicy() => HttpPolicyExtensions
+        public static IAsyncPolicy<HttpResponseMessage> GetWaitAndRetryForeverPolicy() => HttpPolicyExtensions
                 .HandleTransientHttpError()
                 .WaitAndRetryForeverAsync(retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)));
 
-        private static IAsyncPolicy<HttpResponseMessage> GetCircuitBreakerPolicy() => HttpPolicyExtensions
+        public static IAsyncPolicy<HttpResponseMessage> GetCircuitBreakerPolicy() => HttpPolicyExtensions
                 .HandleTransientHttpError()
                 .CircuitBreakerAsync(2, TimeSpan.FromSeconds(30));
     }
