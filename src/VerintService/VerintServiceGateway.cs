@@ -46,6 +46,9 @@ namespace StockportGovUK.NetStandard.Gateways.VerintService
         public async Task<HttpResponse<List<AddressSearchResult>>> GetStreetByReference(string street)
             => await GetAsync<List<AddressSearchResult>>($"{StreetEndpoint}/streetsearch/{street}");
 
+        public async Task<HttpResponse<AddressSearchResult>> GetStreet(string reference)
+            => await GetAsync<AddressSearchResult>($"{StreetEndpoint}/{reference}");
+
         public async Task<HttpResponseMessage> AddNoteWithAttachments(NoteWithAttachments model)
             => await PostAsync($"{CaseEndpoint}/add-note-with-attachments", model);
     }
