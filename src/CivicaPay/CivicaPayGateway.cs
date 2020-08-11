@@ -9,17 +9,15 @@ namespace StockportGovUK.NetStandard.Gateways.CivicaPay
 {
     public class CivicaPayGateway : Gateway, ICivicaPayGateway
     {
-        private const string ApiRoot = "StockportEstore/TransportableBasket/api";
-        private const string PaymentUrl = "{0}/estore/default/Remote/Fetch?basketreference={1}&baskettoken={2}&callingapptxnreference={3}&backsitename=Stockport%20Homepage&backurl=https://www.stockport.gov.uk";
+        private const string ApiRoot = "TransportableBasket/api";
+        private const string PaymentUrl = "{0}estore/default/Remote/Fetch?basketreference={1}&baskettoken={2}&callingapptxnreference={3}&backsitename=Stockport%20Homepage&backurl=https://www.stockport.gov.uk";
 
         public CivicaPayGateway(HttpClient httpClient) : base(httpClient)
         {
         }
 
-        private string EStoreRoot => $"{Client.BaseAddress}StockportEstore";
-
         public string GetPaymentUrl(string basketReference, string basketToken, string reference)
-            => string.Format(PaymentUrl , EStoreRoot, basketReference, basketToken, reference);
+            => string.Format(PaymentUrl, base.Client.BaseAddress, basketReference, basketToken, reference);
 
         public async Task<HttpResponse<CreateBasketResponse>> CreateBasketAsync(CreateBasketRequest request)
         {
