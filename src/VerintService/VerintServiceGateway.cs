@@ -7,6 +7,7 @@ using StockportGovUK.NetStandard.Models.Models.Verint.VerintOnlineForm;
 using StockportGovUK.NetStandard.Models.Verint;
 using StockportGovUK.NetStandard.Models.Verint.Lookup;
 using StockportGovUK.NetStandard.Models.Verint.Update;
+using Address = StockportGovUK.NetStandard.Models.Verint.Address;
 
 namespace StockportGovUK.NetStandard.Gateways.VerintService
 {
@@ -40,11 +41,17 @@ namespace StockportGovUK.NetStandard.Gateways.VerintService
         public async Task<HttpResponse<List<AddressSearchResult>>> SearchForPropertyByPostcode(string postcode)
             => await GetAsync<List<AddressSearchResult>>($"{PropertyEndpoint}/search/{postcode}");
 
+        public async Task<HttpResponse<Address>> GetPropertyByUprn(string uprn)
+            => await GetAsync<Address>($"{PropertyEndpoint}/{uprn}");
+
         public async Task<HttpResponse<List<OrganisationSearchResult>>> SearchForOrganisationByName(string organisation)
             => await GetAsync<List<OrganisationSearchResult>>($"{OrganisationEndpoint}/search/{organisation}");
 
         public async Task<HttpResponse<List<AddressSearchResult>>> GetStreetByReference(string street)
             => await GetAsync<List<AddressSearchResult>>($"{StreetEndpoint}/streetsearch/{street}");
+
+        public async Task<HttpResponse<List<AddressSearchResult>>> GetStreetByUsrn(string usrn)
+            => await GetAsync<List<AddressSearchResult>>($"{StreetEndpoint}/usrnsearch/{usrn}");
 
         public async Task<HttpResponse<AddressSearchResult>> GetStreet(string reference)
             => await GetAsync<AddressSearchResult>($"{StreetEndpoint}/{reference}");

@@ -7,6 +7,7 @@ using StockportGovUK.NetStandard.Models.Models.Verint.VerintOnlineForm;
 using StockportGovUK.NetStandard.Models.Verint;
 using StockportGovUK.NetStandard.Models.Verint.Lookup;
 using StockportGovUK.NetStandard.Models.Verint.Update;
+using Address = StockportGovUK.NetStandard.Models.Verint.Address;
 
 namespace StockportGovUK.NetStandard.Gateways.VerintService
 {
@@ -18,7 +19,9 @@ namespace StockportGovUK.NetStandard.Gateways.VerintService
         Task<HttpResponse<string>> CreateCase(Case crmCase);
         Task<HttpResponse<VerintOnlineFormResponse>> CreateVerintOnlineFormCase(VerintOnlineFormRequest verintOnlineFormRequest);
         Task<HttpResponse<List<AddressSearchResult>>> SearchForPropertyByPostcode(string postcode);
+        Task<HttpResponse<Address>> GetPropertyByUprn(string uprn);
         Task<HttpResponse<List<AddressSearchResult>>> GetStreetByReference(string street);
+        Task<HttpResponse<List<AddressSearchResult>>> GetStreetByUsrn(string usrn);
         Task<HttpResponse<AddressSearchResult>> GetStreet(string reference);
         Task<HttpResponse<List<OrganisationSearchResult>>> SearchForOrganisationByName(string organisation);
         Task<HttpResponseMessage> AddNoteWithAttachments(NoteWithAttachments model);
