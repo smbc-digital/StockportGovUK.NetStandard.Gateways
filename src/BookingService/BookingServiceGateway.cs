@@ -30,7 +30,7 @@ namespace StockportGovUK.NetStandard.Gateways.BookingService
             => await PostAsync<Guid>(ReservationEndpoint, model);
 
         public async Task<HttpResponseMessage> Confirmation(ConfirmationRequest model)
-            => await PostAsync(ConfirmationEndpoint, model);
+            => await PatchAsync(ConfirmationEndpoint, model);
 
         private string queryString(AvailabilityRequest model) =>
             $"?{nameof(model.AppointmentId)}={model.AppointmentId}&{nameof(model.StartDate)}={model.StartDate:s}&{nameof(model.EndDate)}={model.EndDate:s}{OptionalResourcesQueryString(model.OptionalResources, nameof(model.OptionalResources))}";
