@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using StockportGovUK.NetStandard.Gateways.Response;
 using StockportGovUK.NetStandard.Models.Booking.Request;
 using StockportGovUK.NetStandard.Models.Booking.Response;
-using StockportGovUK.NetStandard.Models.Models.Booking.Request;
 
 namespace StockportGovUK.NetStandard.Gateways.BookingService
 {
