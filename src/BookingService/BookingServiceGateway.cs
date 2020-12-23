@@ -14,6 +14,7 @@ namespace StockportGovUK.NetStandard.Gateways.BookingService
         private const string AvailabilityEndpoint = "api/v1/Availability";
         private const string ConfirmationEndpoint = "api/v1/Confirmation";
         private const string ReservationEndpoint = "api/v1/Reservation";
+        private const string LocationEndpoint = "api/v1/Location";
         private const string NextAvailabilityAction = "/next-availability";
 
         public BookingServiceGateway(HttpClient httpClient) : base(httpClient)
@@ -31,6 +32,9 @@ namespace StockportGovUK.NetStandard.Gateways.BookingService
 
         public async Task<HttpResponseMessage> Confirmation(ConfirmationRequest model) =>
             await PatchAsync(ConfirmationEndpoint, model);
+
+        public async Task<HttpResponse<string>> GetLocation(Guid appointmentId) =>
+            await GetAsync<string>($"{LocationEndpoint}?appointmentId={appointmentId}");
 
         private string queryString(AvailabilityRequest model) =>
             $"?{nameof(model.AppointmentId)}={model.AppointmentId}&{nameof(model.StartDate)}={model.StartDate:s}&{nameof(model.EndDate)}={model.EndDate:s}{OptionalResourcesQueryString(model.OptionalResources, nameof(model.OptionalResources))}";
