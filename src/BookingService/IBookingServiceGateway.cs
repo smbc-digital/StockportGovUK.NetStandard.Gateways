@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using StockportGovUK.NetStandard.Gateways.Response;
 using StockportGovUK.NetStandard.Models.Booking.Request;
 using StockportGovUK.NetStandard.Models.Booking.Response;
+using StockportGovUK.NetStandard.Models.Models.Booking.Request;
 
 namespace StockportGovUK.NetStandard.Gateways.BookingService
 {
@@ -18,6 +19,6 @@ namespace StockportGovUK.NetStandard.Gateways.BookingService
 
         Task<HttpResponseMessage> Confirmation(ConfirmationRequest model);
 
-        Task<HttpResponse<string>> GetLocation(Guid appointmentId);
+        Task<HttpResponse<string>> GetLocation(LocationRequest model);
     }
 }
