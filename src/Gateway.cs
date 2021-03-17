@@ -21,6 +21,7 @@ namespace StockportGovUK.NetStandard.Gateways
         public void ChangeAuthenticationHeader(string authHeader)
             => Client.DefaultRequestHeaders.Authorization = AuthenticationHeaderValue.Parse(authHeader);
 
+        
         public async Task<HttpResponseMessage> GetAsync(string url)
             => await InvokeAsync(async req => await Client.GetAsync(url), url, "GetAsync");
 
@@ -80,6 +81,26 @@ namespace StockportGovUK.NetStandard.Gateways
 
             return await InvokeAsync(async req => await Client.PostAsync(url, bodyContent), url, "PostAsync");
         }
+
+        public async Task<HttpResponseMessage> PostAsync(string url, object content, string key, string value)
+        {
+
+            var bodyContent = GetHttpContent(content);
+                
+
+            HttpRequestMessage message = new HttpRequestMessage
+            {
+                RequestUri = new Uri(url),
+                Content = bodyContent,
+                Method = HttpMethod.Post
+            };
+
+            message.Headers.Add(key, value);
+
+            return await Client.SendAsync(message);
+        }
+
+
 
         public async Task<HttpResponse<T>> PostAsync<T>(string url, object content)
             => await InvokeAsync(async req => await HttpResponse<T>.Get(await Client.PostAsync(url, GetHttpContent(content))), url, "PostAsync");
