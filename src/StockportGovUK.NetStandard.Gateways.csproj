@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
     <Title>A package that provides base gateways using HttpClient</Title>
-    <VersionPrefix>6.0.3</VersionPrefix>
+    <VersionPrefix>6.0.5</VersionPrefix>
     <Authors>Colin Lees, Jon Chiles, Jon Hadley</Authors>
     <Company>Stockport Council</Company>
   </PropertyGroup>
