@@ -86,7 +86,6 @@ namespace StockportGovUK.NetStandard.Gateways
         {
 
             var bodyContent = GetHttpContent(content);
-                
 
             HttpRequestMessage message = new HttpRequestMessage
             {
