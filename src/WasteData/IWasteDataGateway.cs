@@ -6,6 +6,6 @@ namespace StockportGovUK.NetStandard.Gateways.WasteData
 {
     public interface IWasteDataGateway
     {
-        Task<HttpResponse<PropertyWasteData>> Get(string uprn);
+        Task<HttpResponse<PropertyWasteData>> Get(long uprn);
     }
 }

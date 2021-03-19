@@ -11,7 +11,7 @@ namespace StockportGovUK.NetStandard.Gateways.WasteData
 
         public WasteDataGateway(HttpClient httpClient) : base(httpClient) { }
 
-        public async Task<HttpResponse<PropertyWasteData>> Get(string uprn)
+        public async Task<HttpResponse<PropertyWasteData>> Get(long uprn)
             => await GetAsync<PropertyWasteData>($"{WasteDataEndpoint}?uprn={uprn}");
     }
 }
