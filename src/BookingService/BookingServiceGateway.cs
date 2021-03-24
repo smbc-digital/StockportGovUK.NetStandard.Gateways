@@ -15,6 +15,7 @@ namespace StockportGovUK.NetStandard.Gateways.BookingService
         private const string ConfirmationEndpoint = "api/v1/Confirmation";
         private const string ReservationEndpoint = "api/v1/Reservation";
         private const string LocationEndpoint = "api/v1/Location";
+        private const string CancellationEndpoint = "api/v1/Cancel";
         private const string NextAvailabilityAction = "/next-availability";
 
         public BookingServiceGateway(HttpClient httpClient) : base(httpClient)
@@ -32,6 +33,9 @@ namespace StockportGovUK.NetStandard.Gateways.BookingService
 
         public async Task<HttpResponseMessage> Confirmation(ConfirmationRequest model) =>
             await PatchAsync(ConfirmationEndpoint, model);
+
+        public async Task<HttpResponseMessage> Cancel(string id) =>
+            await DeleteAsync($"{CancellationEndpoint}/{id}");
 
         public async Task<HttpResponse<string>> GetLocation(LocationRequest model) =>
             await GetAsync<string>($"{LocationEndpoint}{locationQueryString(model)}");
