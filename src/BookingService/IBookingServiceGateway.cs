@@ -21,5 +21,6 @@ namespace StockportGovUK.NetStandard.Gateways.BookingService
         Task<HttpResponseMessage> Cancel(string id);
 
         Task<HttpResponse<string>> GetLocation(LocationRequest model);
+        Task<HttpResponse<BookingInformationResponse>> GetBooking(Guid Id);
     }
 }
