@@ -16,6 +16,7 @@ namespace StockportGovUK.NetStandard.Gateways.BookingService
         private const string ReservationEndpoint = "api/v1/Reservation";
         private const string LocationEndpoint = "api/v1/Location";
         private const string CancellationEndpoint = "api/v1/Cancel";
+        private const string BookingEndpoint = "api/v1/Booking";
         private const string NextAvailabilityAction = "/next-availability";
 
         public BookingServiceGateway(HttpClient httpClient) : base(httpClient)
@@ -52,5 +53,8 @@ namespace StockportGovUK.NetStandard.Gateways.BookingService
                 : optionalResources
                     .Select((_, index) => $"&{listOfType}[{index}].{nameof(BookingResource.Quantity)}={_.Quantity}&{listOfType}[{index}].{nameof(BookingResource.ResourceId)}={_.ResourceId}")
                     .Aggregate("", (acc, _) => $"{acc}{_}");
+
+        public async Task<HttpResponse<BookingInformationResponse>> GetBooking(Guid id) =>
+            await GetAsync<BookingInformationResponse>($"{BookingEndpoint}/{id}");
     }
 }
