@@ -14,12 +14,4 @@
     <PackageReference Include="Polly" Version="7.2.0" />
     <PackageReference Include="StockportGovUK.NetStandard.Models" Version="3.3.0" />
   </ItemGroup>
-  
-  <!-- To test dependencies locally-->
-  <!-- <ItemGroup>
-    <Reference Include="StockportGovUK.NetStandard.Models">
-      <HintPath>\your\file\path\here\StockportGovUK.NetStandard.Models.dll</HintPath>
-    </Reference>
-  </ItemGroup> -->
-
 </Project>
