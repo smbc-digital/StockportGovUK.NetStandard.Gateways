@@ -27,5 +27,6 @@ namespace StockportGovUK.NetStandard.Gateways.VerintService
         Task<HttpResponse<AddressSearchResult>> GetStreet(string reference);
         Task<HttpResponse<List<OrganisationSearchResult>>> SearchForOrganisationByName(string organisation);
         Task<HttpResponseMessage> AddNoteWithAttachments(NoteWithAttachments model);
+        Task<HttpResponseMessage> AddNote(NoteRequest model);
     }
 }
