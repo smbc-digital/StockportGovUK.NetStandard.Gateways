@@ -64,5 +64,8 @@ namespace StockportGovUK.NetStandard.Gateways.VerintService
 
         public async Task<HttpResponseMessage> AddNoteWithAttachments(NoteWithAttachments model)
             => await PostAsync($"{CaseEndpoint}/add-note-with-attachments", model);
+
+        public async Task<HttpResponseMessage> AddNote(NoteRequest model)
+            => await PostAsync($"{CaseEndpoint}/add-note", model);
     }
 }
