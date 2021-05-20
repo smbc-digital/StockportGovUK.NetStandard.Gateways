@@ -1,6 +1,7 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using StockportGovUK.NetStandard.Gateways.Response;
+using StockportGovUK.NetStandard.Models.Uniform;
 using StockportGovUK.NetStandard.Models.Verint;
 
 namespace StockportGovUK.NetStandard.Gateways.UniformService
@@ -14,10 +15,10 @@ namespace StockportGovUK.NetStandard.Gateways.UniformService
         {
         }
         
-        public async Task<HttpResponse<Case>> GetPestControlRequest(string id)
-            => await GetAsync<Case>($"{PestControlEndpoint}?reference={id}");
+        public async Task<HttpResponse<string>> GetPestControlRequest(string id)
+            => await GetAsync<string>($"{PestControlEndpoint}?reference={id}");
 
-        public async Task<HttpResponse<string>> CreatePestControlRequest(Case crmCase)
-            => await PostAsync<string>($"{PestControlEndpoint}", crmCase);
+        public async Task<HttpResponse<string>> CreatePestControlRequest(PestControlServiceRequest request)
+            => await PostAsync<string>($"{PestControlEndpoint}", request);
     }
 }
