@@ -29,11 +29,17 @@ namespace StockportGovUK.NetStandard.Gateways.VerintService
         public async Task<HttpResponse<string>> CreateCase(Case crmCase)
             => await PostAsync<string>($"{CaseEndpoint}", crmCase);
 
+        public async Task<HttpResponse<string>> CloseCase(CloseCaseRequest closeCaseRequest)
+            => await PatchAsync<string>($"{CaseEndpoint}/close-case", closeCaseRequest);
+
         public async Task<HttpResponse<VerintOnlineFormResponse>> CreateVerintOnlineFormCase(VerintOnlineFormRequest verintOnlineFormRequest)
             => await PostAsync<VerintOnlineFormResponse>($"{VerintOnlineFormEndpoint}", verintOnlineFormRequest);
 
         public async Task<HttpResponse<int>> UpdateCaseDescription(Case crmCase)
             => await PostAsync<int>($"{CaseEndpoint}/updatecasedescription", crmCase);
+
+        public async Task<HttpResponse<int>> UpdateCaseTitle(Case crmCase)
+            => await PostAsync<int>($"{CaseEndpoint}/update-case-title", crmCase);
 
         public async Task<HttpResponseMessage> UpdateCaseIntegrationFormField(IntegrationFormFieldsUpdateModel content)
             => await PatchAsync($"{CaseEndpoint}/integration-form-fields", content);
@@ -61,5 +67,8 @@ namespace StockportGovUK.NetStandard.Gateways.VerintService
 
         public async Task<HttpResponseMessage> AddNoteWithAttachments(NoteWithAttachments model)
             => await PostAsync($"{CaseEndpoint}/add-note-with-attachments", model);
+
+        public async Task<HttpResponseMessage> AddNote(NoteRequest model)
+            => await PostAsync($"{CaseEndpoint}/add-note", model);
     }
 }

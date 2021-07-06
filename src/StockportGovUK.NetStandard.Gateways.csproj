@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
     <Title>A package that provides base gateways using HttpClient</Title>
-    <VersionPrefix>6.0.5</VersionPrefix>
+    <VersionPrefix>8.0.1</VersionPrefix>
     <Authors>Colin Lees, Jon Chiles, Jon Hadley</Authors>
     <Company>Stockport Council</Company>
   </PropertyGroup>
@@ -14,5 +14,5 @@
     <PackageReference Include="Polly" Version="7.2.0" />
     <PackageReference Include="StockportGovUK.NetStandard.Models" Version="3.8.0-prerelease-116" />
   </ItemGroup>
-
+  
 </Project>

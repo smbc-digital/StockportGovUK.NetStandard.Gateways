@@ -15,6 +15,8 @@ namespace StockportGovUK.NetStandard.Gateways.BookingService
         private const string ConfirmationEndpoint = "api/v1/Confirmation";
         private const string ReservationEndpoint = "api/v1/Reservation";
         private const string LocationEndpoint = "api/v1/Location";
+        private const string CancellationEndpoint = "api/v1/Cancellation";
+        private const string BookingEndpoint = "api/v1/Booking";
         private const string NextAvailabilityAction = "/next-availability";
 
         public BookingServiceGateway(HttpClient httpClient) : base(httpClient)
@@ -33,6 +35,15 @@ namespace StockportGovUK.NetStandard.Gateways.BookingService
         public async Task<HttpResponseMessage> Confirmation(ConfirmationRequest model) =>
             await PatchAsync(ConfirmationEndpoint, model);
 
+        public async Task<HttpResponseMessage> Cancel(string id) =>
+            await DeleteAsync($"{CancellationEndpoint}/{id}");
+
+        public async Task<HttpResponseMessage> AddReference(AddReferenceRequest addReferenceRequest) =>
+            await PatchAsync($"{BookingEndpoint}/add-reference", addReferenceRequest);
+
+        public async Task<HttpResponseMessage> AddReferences(List<AddReferenceRequest> addReferenceRequests) =>
+            await PatchAsync($"{BookingEndpoint}/add-references", addReferenceRequests);
+
         public async Task<HttpResponse<string>> GetLocation(LocationRequest model) =>
             await GetAsync<string>($"{LocationEndpoint}{locationQueryString(model)}");
 
@@ -48,5 +59,8 @@ namespace StockportGovUK.NetStandard.Gateways.BookingService
                 : optionalResources
                     .Select((_, index) => $"&{listOfType}[{index}].{nameof(BookingResource.Quantity)}={_.Quantity}&{listOfType}[{index}].{nameof(BookingResource.ResourceId)}={_.ResourceId}")
                     .Aggregate("", (acc, _) => $"{acc}{_}");
+
+        public async Task<HttpResponse<BookingInformationResponse>> GetBooking(Guid id) =>
+            await GetAsync<BookingInformationResponse>($"{BookingEndpoint}/{id}");
     }
 }

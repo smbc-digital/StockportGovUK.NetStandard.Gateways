@@ -18,6 +18,7 @@ namespace StockportGovUK.NetStandard.Gateways.VerintService
         Task<HttpResponse<bool>> AddCaseFormField(AddCaseFormFieldRequest request);
         Task<HttpResponse<int>> UpdateCaseDescription(Case crmCase);
         Task<HttpResponse<string>> CreateCase(Case crmCase);
+        Task<HttpResponse<string>> CloseCase(CloseCaseRequest closeCaseRequest);
         Task<HttpResponse<VerintOnlineFormResponse>> CreateVerintOnlineFormCase(VerintOnlineFormRequest verintOnlineFormRequest);
         Task<HttpResponse<List<AddressSearchResult>>> SearchForPropertyByPostcode(string postcode);
         Task<HttpResponse<Address>> GetPropertyByUprn(string uprn);
@@ -26,5 +27,7 @@ namespace StockportGovUK.NetStandard.Gateways.VerintService
         Task<HttpResponse<AddressSearchResult>> GetStreet(string reference);
         Task<HttpResponse<List<OrganisationSearchResult>>> SearchForOrganisationByName(string organisation);
         Task<HttpResponseMessage> AddNoteWithAttachments(NoteWithAttachments model);
+        Task<HttpResponseMessage> AddNote(NoteRequest model);
+        Task<HttpResponse<int>> UpdateCaseTitle(Case crmCase);
     }
 }
