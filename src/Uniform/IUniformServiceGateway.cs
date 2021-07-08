@@ -1,5 +1,4 @@
 ﻿using StockportGovUK.NetStandard.Gateways.Response;
-using System.Net.Http;
 using System.Threading.Tasks;
 using StockportGovUK.NetStandard.Models.Uniform;
 

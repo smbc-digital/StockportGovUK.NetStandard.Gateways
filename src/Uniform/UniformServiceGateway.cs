@@ -1,9 +1,7 @@
 ﻿using StockportGovUK.NetStandard.Models.Uniform;
 using StockportGovUK.NetStandard.Gateways.Response;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using System.Text;
 
 namespace StockportGovUK.NetStandard.Gateways.Uniform
 {
