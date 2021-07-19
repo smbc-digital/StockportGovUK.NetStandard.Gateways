@@ -20,13 +20,31 @@ namespace StockportGovUK.NetStandard.Gateways.UniformService
             => await GetAsync<string>($"{PestControlEndpoint}?reference={id}");
 
         public async Task<HttpResponse<string>> CreatePestControlRequest(PestControlServiceRequest request)
-            => await PostAsync<string>($"{PestControlEndpoint}", request);
+            => await PostAsync<string>($"{PestControlEndpoint}/CreateCase", request);
+
+        public async Task<HttpResponse<string>> ResubmitPestControlRequest(string crmCaseId)
+            => await PostAsync<string>($"{PestControlEndpoint}/ResubmitCase", crmCaseId);
 
         public async Task<HttpResponse<string>> CreateNoiseNuisanceRequest(NoiseNuisanceServiceRequest request)
-            => await PostAsync<string>($"{NoiseNuisanceEndpoint}", request);
+            => await PostAsync<string>($"{NoiseNuisanceEndpoint}/CreateCase", request);
+
+        public async Task<HttpResponse<string>> ResubmitNoiseNuisanceRequest(string crmCaseId)
+           => await PostAsync<string>($"{NoiseNuisanceEndpoint}/ResubmitCase", crmCaseId);
 
         public async Task<HttpResponse<string>> CreateBonfireNuisanceRequest(BonfireNuisanceServiceRequest request)
-    => await PostAsync<string>($"{BonfireNuisanceEndpoint}", request);
+            => await PostAsync<string>($"{BonfireNuisanceEndpoint}/CreateCase", request);
+
+        public async Task<HttpResponse<string>> ResubmitBonfireNuisanceRequest(string crmCaseId)
+            => await PostAsync<string>($"{BonfireNuisanceEndpoint}/ResubmitCase", crmCaseId);
+
+
+
+
+
+
+
+
+
 
     }
 }
