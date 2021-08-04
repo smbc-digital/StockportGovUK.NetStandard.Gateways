@@ -12,7 +12,7 @@
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="2.2.0" />
     <PackageReference Include="Polly" Version="7.2.0" />
-    <PackageReference Include="StockportGovUK.NetStandard.Models" Version="3.8.1-prerelease-118" />
+    <PackageReference Include="StockportGovUK.NetStandard.Models" Version="3.8.1-prerelease-119" />
   </ItemGroup>
   
 </Project>
