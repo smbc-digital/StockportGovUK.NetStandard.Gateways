@@ -24,10 +24,10 @@ namespace StockportGovUK.NetStandard.Gateways.BookingService
         }
 
         public async Task<HttpResponse<List<AvailabilityDayResponse>>> GetAvailability(AvailabilityRequest model) => 
-            await GetAsync<List<AvailabilityDayResponse>>($"{AvailabilityEndpoint}{availabilityQueryString(model)}");
+            await GetAsync<List<AvailabilityDayResponse>>($"{AvailabilityEndpoint}{AvailabilityQueryString(model)}");
 
         public async Task<HttpResponse<AvailabilityDayResponse>> NextAvailability(AvailabilityRequest model) => 
-            await GetAsync<AvailabilityDayResponse>($"{AvailabilityEndpoint}{NextAvailabilityAction}{availabilityQueryString(model)}");
+            await GetAsync<AvailabilityDayResponse>($"{AvailabilityEndpoint}{NextAvailabilityAction}{AvailabilityQueryString(model)}");
 
         public async Task<HttpResponse<Guid>> Reserve(BookingRequest model) =>
             await PostAsync<Guid>(ReservationEndpoint, model);
@@ -41,16 +41,19 @@ namespace StockportGovUK.NetStandard.Gateways.BookingService
         public async Task<HttpResponseMessage> AddReference(AddReferenceRequest addReferenceRequest) =>
             await PatchAsync($"{BookingEndpoint}/add-reference", addReferenceRequest);
 
+        public async Task<HttpResponseMessage> AddFee(AddFeeRequest addFeeRequest) =>
+            await PatchAsync($"{BookingEndpoint}/add-fee", addFeeRequest);
+
         public async Task<HttpResponseMessage> AddReferences(List<AddReferenceRequest> addReferenceRequests) =>
             await PatchAsync($"{BookingEndpoint}/add-references", addReferenceRequests);
 
         public async Task<HttpResponse<string>> GetLocation(LocationRequest model) =>
-            await GetAsync<string>($"{LocationEndpoint}{locationQueryString(model)}");
+            await GetAsync<string>($"{LocationEndpoint}{LocationQueryString(model)}");
 
-        private string availabilityQueryString(AvailabilityRequest model) =>
+        private string AvailabilityQueryString(AvailabilityRequest model) =>
             $"?{nameof(model.AppointmentId)}={model.AppointmentId}&{nameof(model.StartDate)}={model.StartDate:s}&{nameof(model.EndDate)}={model.EndDate:s}{OptionalResourcesQueryString(model.OptionalResources, nameof(model.OptionalResources))}";
 
-        private string locationQueryString(LocationRequest model) =>
+        private string LocationQueryString(LocationRequest model) =>
             $"?{nameof(model.AppointmentId)}={model.AppointmentId}{OptionalResourcesQueryString(model.OptionalResources, nameof(model.OptionalResources))}";
 
         private string OptionalResourcesQueryString(List<BookingResource> optionalResources, string listOfType) =>
