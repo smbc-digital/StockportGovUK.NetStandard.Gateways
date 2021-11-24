@@ -7,7 +7,6 @@ namespace StockportGovUK.NetStandard.Gateways.GeoServer
     {
         public GeoServerGateway(HttpClient httpClient) : base(httpClient)
         {
-            
         }
 
         public async Task<HttpResponseMessage> GetCollectionCalendarAsync(string uprn)
