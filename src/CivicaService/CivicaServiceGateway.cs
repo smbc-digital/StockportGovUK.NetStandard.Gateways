@@ -61,5 +61,8 @@ namespace StockportGovUK.NetStandard.Gateways.CivicaService
 
         public async Task<HttpResponseMessage> GetAvailability()
             => await GetAsync($"{BaseEndpoint}/availability");
+
+        public async Task<HttpResponseMessage> GetAnonymousAvailability()
+            => await GetAsync($"{BaseEndpoint}/availability/get-anonymous-availability");
     }
 }
