@@ -22,5 +22,6 @@ namespace StockportGovUK.NetStandard.Gateways.CivicaService
         Task<HttpResponseMessage> GetCurrentProperty(string personReference, string accountReference);
         Task<HttpResponseMessage> GetPaymentSchedule(string personReference, int year);
         Task<HttpResponseMessage> GetAvailability();
+        Task<HttpResponseMessage> GetAnonymousAvailability();
     }
 }
