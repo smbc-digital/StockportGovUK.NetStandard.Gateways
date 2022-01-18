@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using StockportGovUK.NetStandard.Gateways.Response;
-using StockportGovUK.NetStandard.Models.BinCollection.Response;
+using StockportGovUK.NetStandard.Models;
 
 namespace StockportGovUK.NetStandard.Gateways.WasteCollection
 {
