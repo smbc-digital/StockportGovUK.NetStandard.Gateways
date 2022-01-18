@@ -11,6 +11,7 @@ namespace StockportGovUK.NetStandard.Gateways.UniformService
         private const string PestControlEndpoint = "api/v1/PestControl";
         private const string NoiseNuisanceEndpoint = "api/v1/NoiseNuisance";
         private const string BonfireNuisanceEndpoint = "api/v1/BonfireNuisance";
+        private const string HousingDisrepairEndpoint = "api/v1/HousingDisrepair";
 
         public UniformServiceGateway(HttpClient httpClient) : base(httpClient)
         {
@@ -23,7 +24,7 @@ namespace StockportGovUK.NetStandard.Gateways.UniformService
             => await PostAsync<string>($"{PestControlEndpoint}/CreateCase", request);
 
         public async Task<HttpResponse<string>> ResubmitPestControlRequest(string crmCaseId)
-            => await PostAsync<string>($"{PestControlEndpoint}/ResubmitCase", crmCaseId);
+            => await PostAsync<string>($"{PestControlEndpoint}/Resubmit", crmCaseId);
 
         public async Task<HttpResponse<string>> CreateNoiseNuisanceRequest(NoiseNuisanceServiceRequest request)
             => await PostAsync<string>($"{NoiseNuisanceEndpoint}/CreateCase", request);
@@ -37,8 +38,11 @@ namespace StockportGovUK.NetStandard.Gateways.UniformService
         public async Task<HttpResponse<string>> ResubmitBonfireNuisanceRequest(string crmCaseId)
             => await PostAsync<string>($"{BonfireNuisanceEndpoint}/ResubmitCase", crmCaseId);
 
+        public async Task<HttpResponse<string>> CreateHousingDisrepairServiceRequest(BonfireNuisanceServiceRequest request)
+           => await PostAsync<string>($"{HousingDisrepairEndpoint}/CreateCase", request);
 
-
+        public async Task<HttpResponse<string>> ResubmitHousingDisrepairServiceRequest(string crmCaseId)
+            => await PostAsync<string>($"{HousingDisrepairEndpoint}/ResubmitCase", crmCaseId);
 
 
 
