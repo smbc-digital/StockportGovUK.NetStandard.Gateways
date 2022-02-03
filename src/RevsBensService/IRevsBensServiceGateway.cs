@@ -7,7 +7,11 @@ namespace StockportGovUK.NetStandard.Gateways.RevsBensService
     {
         Task<HttpResponseMessage> IsBenefitsClaimant(string personReference);
 
+        Task<HttpResponseMessage> GetCurrentCouncilTaxAccountReference(string personReference);
+
         Task<HttpResponseMessage> GetCouncilTaxDetails(string personReference, string accountReference, int year);
+
+        Task<HttpResponseMessage> GetReducedCouncilTaxDetails(string personReference, string accountReference, int year);
 
         Task<HttpResponseMessage> GetBenefits(string personReference);
 
