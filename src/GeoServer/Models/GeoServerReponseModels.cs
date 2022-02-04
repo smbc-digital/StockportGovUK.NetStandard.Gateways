@@ -6,7 +6,7 @@ namespace StockportGovUK.NetStandard.Gateways.GeoServer.Models
     public class GeoServerResponseModel
     {
         [JsonProperty("features")]
-        public List<BinCalendarFeature> Features { get; set; }
+        public List<BinCalendarFeature> Features { get; set; }    
     }
 
     public class BinCalendarFeature
