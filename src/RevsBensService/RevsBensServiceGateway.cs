@@ -37,5 +37,8 @@ namespace StockportGovUK.NetStandard.Gateways.RevsBensService
 
         public async Task<HttpResponseMessage> GetDocumentForAccount(string personReference, string accountReference, string documentId)
             => await GetAsync($"{BaseEndpoint}/people/{personReference}/council-tax/{accountReference}/documents/{documentId}");
+
+        public async Task<HttpResponseMessage> GetDocumentsForPerson(string personReference)
+            => await GetAsync($"{BaseEndpoint}/people/{personReference}/council-tax/documents");
     }
 }
