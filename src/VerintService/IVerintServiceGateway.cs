@@ -29,5 +29,6 @@ namespace StockportGovUK.NetStandard.Gateways.VerintService
         Task<HttpResponseMessage> AddNoteWithAttachments(NoteWithAttachments model);
         Task<HttpResponseMessage> AddNote(NoteRequest model);
         Task<HttpResponse<int>> UpdateCaseTitle(Case crmCase);
+        Task<HttpResponse<int>> AppendToCaseTitle(string caseReference, string caseTitle);
     }
 }
