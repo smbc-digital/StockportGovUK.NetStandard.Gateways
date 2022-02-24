@@ -37,7 +37,7 @@ namespace StockportGovUK.NetStandard.Gateways.UniformService
         public async Task<HttpResponse<string>> ResubmitBonfireNuisanceRequest(string crmCaseId)
             => await PostAsync<string>($"{BonfireNuisanceEndpoint}/ResubmitCase", crmCaseId);
 
-        public async Task<HttpResponse<string>> CreateHousingDisrepairServiceRequest(BonfireNuisanceServiceRequest request)
+        public async Task<HttpResponse<string>> CreateHousingDisrepairServiceRequest(HousingDisrepairServiceRequest request)
            => await PostAsync<string>($"{HousingDisrepairEndpoint}/CreateCase", request);
 
         public async Task<HttpResponse<string>> ResubmitHousingDisrepairServiceRequest(string crmCaseId)
