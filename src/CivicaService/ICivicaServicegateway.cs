@@ -12,6 +12,7 @@ namespace StockportGovUK.NetStandard.Gateways.CivicaService
         Task<HttpResponseMessage> GetHousingBenefitPaymentHistory(string personReference);
         Task<HttpResponseMessage> GetCouncilTaxBenefitPaymentHistory(string personReference);
         Task<HttpResponseMessage> GetAccounts(string personReference);
+        Task<HttpResponseMessage> GetPerson(string personReference);
         Task<HttpResponseMessage> GetAccount(string personReference, string accountReference);
         Task<HttpResponseMessage> GetAccountDetailsForYear(string personReference, string accountReference, int year);
         Task<HttpResponseMessage> GetAllTransactionsForYear(string personReference, string accountReference, int year);

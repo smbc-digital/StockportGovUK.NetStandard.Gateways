@@ -32,6 +32,9 @@ namespace StockportGovUK.NetStandard.Gateways.CivicaService
         public async Task<HttpResponseMessage> GetAccounts(string personReference)
             => await GetAsync($"{BaseEndpoint}/people/{personReference}/accounts");
 
+        public async Task<HttpResponseMessage> GetPerson(string personReference)
+            => await GetAsync($"{BaseEndpoint}/people/{personReference}/person");
+
         public async Task<HttpResponseMessage> GetAccount(string personReference, string accountReference)
             => await GetAsync($"{BaseEndpoint}/people/{personReference}/accounts/{accountReference}");
 
