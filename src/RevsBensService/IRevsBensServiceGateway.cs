@@ -15,6 +15,8 @@ namespace StockportGovUK.NetStandard.Gateways.RevsBensService
 
         Task<HttpResponseMessage> GetBenefits(string personReference);
 
+        Task<HttpResponseMessage> GetPerson(string personReference);
+
         Task<HttpResponseMessage> GetCivicaAvailability();
 
         Task<HttpResponseMessage> GetCivicaBrokersAvailability();
