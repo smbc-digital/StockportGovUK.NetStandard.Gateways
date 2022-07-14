@@ -5,6 +5,7 @@ namespace StockportGovUK.NetStandard.Gateways.WiredPlus
 {
     public interface IWiredPlusGateway
     {
-        Task<HttpResponse<NewsletterSignupResponse>> CreateContact(NewletterSignUpReqest request);
+        Task<HttpResponse<NewsletterSignUpResponse>> CreateContact(NewsletterSignUpRequest request);
+        Task<HttpResponse<NewsletterSignUpResponse>> UpdateContact(NewsletterSignUpRequest request);
     }
 }
