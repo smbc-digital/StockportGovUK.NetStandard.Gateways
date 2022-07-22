@@ -5,7 +5,6 @@ namespace StockportGovUK.NetStandard.Gateways.Netcall
 {
     public class NetcallGateway : Gateway, INetcallGateway
     {
-
         private const string NetcallEndpoint = "/services/simplegcc";
 
         public NetcallGateway(HttpClient httpClient) : base(httpClient)
