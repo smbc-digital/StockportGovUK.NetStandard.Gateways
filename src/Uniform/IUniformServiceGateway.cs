@@ -2,7 +2,6 @@
 using StockportGovUK.NetStandard.Gateways.Models.Uniform;
 using StockportGovUK.NetStandard.Gateways.Response;
 
-
 namespace StockportGovUK.NetStandard.Gateways.Uniform
 {
     interface IUniformServiceGateway
