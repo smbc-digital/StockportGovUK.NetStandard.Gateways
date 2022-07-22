@@ -2,8 +2,9 @@ using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 using Polly.CircuitBreaker;
 using StockportGovUK.NetStandard.Gateways.Response;
 
@@ -13,20 +14,16 @@ namespace StockportGovUK.NetStandard.Gateways
     {
         protected readonly HttpClient Client;
 
-        public Gateway(HttpClient client)
-        {
-            Client = client;
-        }
+        public Gateway(HttpClient client) => Client = client;
 
         public void ChangeAuthenticationHeader(string authHeader)
             => Client.DefaultRequestHeaders.Authorization = AuthenticationHeaderValue.Parse(authHeader);
 
-        
         public async Task<HttpResponseMessage> GetAsync(string url)
-            => await InvokeAsync(async req => await Client.GetAsync(url), url, "GetAsync");
+            => await InvokeAsync(async req => await Client.GetAsync(url), url, nameof(GetAsync));
 
         public async Task<HttpResponse<T>> GetAsync<T>(string url)
-            => await InvokeAsync(async req => await HttpResponse<T>.Get(await Client.GetAsync(url)), url, "GetAsync");
+            => await InvokeAsync(async req => await HttpResponse<T>.Get(await Client.GetAsync(url)), url, nameof(GetAsync));
 
         public async Task<HttpResponseMessage> PatchAsync(object content)
             => await PatchAsync(string.Empty, content, true);
@@ -160,9 +157,10 @@ namespace StockportGovUK.NetStandard.Gateways
         }
 
         private static HttpContent GetHttpContent(object content)
-            => new StringContent(JsonConvert.SerializeObject(content, Formatting.Indented, new JsonSerializerSettings
-                {
-                    NullValueHandling = NullValueHandling.Ignore
-                }), Encoding.UTF8, "application/json");
+            => new StringContent(JsonSerializer.Serialize(content, new JsonSerializerOptions
+            {
+                WriteIndented = true,
+                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+            }), Encoding.UTF8, "application/json");
     }
 }
