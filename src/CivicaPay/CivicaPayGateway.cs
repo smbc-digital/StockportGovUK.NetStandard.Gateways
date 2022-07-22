@@ -1,9 +1,9 @@
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using StockportGovUK.NetStandard.Gateways.Models.Civica.Pay.Request;
+using StockportGovUK.NetStandard.Gateways.Models.Civica.Pay.Response;
 using StockportGovUK.NetStandard.Gateways.Response;
-using StockportGovUK.NetStandard.Models.Civica.Pay.Request;
-using StockportGovUK.NetStandard.Models.Civica.Pay.Response;
 
 namespace StockportGovUK.NetStandard.Gateways.CivicaPay
 {
@@ -22,7 +22,7 @@ namespace StockportGovUK.NetStandard.Gateways.CivicaPay
         public async Task<HttpResponse<CreateBasketResponse>> CreateBasketAsync(CreateBasketRequest request)
         {
             var response = await PostAsync<CreateBasketResponse>($"{ApiRoot}/BasketApi/Create", request);
-            if(response.ResponseContent.ResponseCode == "99999")
+            if (response.ResponseContent.ResponseCode == "99999")
             {
                 response.StatusCode = HttpStatusCode.BadRequest;
             }
@@ -33,7 +33,7 @@ namespace StockportGovUK.NetStandard.Gateways.CivicaPay
         public async Task<HttpResponse<AddItemResponse>> AddItemAsync(AddItemRequest request)
         {
             var response = await PostAsync<AddItemResponse>($"{ApiRoot}/BasketApi/AddItem", request);
-            if(response.ResponseContent.ResponseCode == "99999")
+            if (response.ResponseContent.ResponseCode == "99999")
             {
                 response.StatusCode = HttpStatusCode.BadRequest;
             }
@@ -44,7 +44,7 @@ namespace StockportGovUK.NetStandard.Gateways.CivicaPay
         public async Task<HttpResponse<RemoveItemResponse>> RemoveItemAsync(RemoveItemRequest request)
         {
             var response = await PostAsync<RemoveItemResponse>($"{ApiRoot}/BasketApi/RemoveItem", request);
-            if(response.ResponseContent.ResponseCode == "99999")
+            if (response.ResponseContent.ResponseCode == "99999")
             {
                 response.StatusCode = HttpStatusCode.BadRequest;
             }
@@ -55,7 +55,7 @@ namespace StockportGovUK.NetStandard.Gateways.CivicaPay
         public async Task<HttpResponse<CreateImmediateBasketResponse>> CreateImmediateBasketAsync(CreateImmediateBasketRequest request)
         {
             var response = await PostAsync<CreateImmediateBasketResponse>($"{ApiRoot}/BasketApi/CreateImmediatePaymentBasket", request);
-            if(response.ResponseContent.ResponseCode != "00000")
+            if (response.ResponseContent.ResponseCode != "00000")
             {
                 response.StatusCode = HttpStatusCode.BadRequest;
             }

@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using StockportGovUK.NetStandard.Gateways.Models.Booking.Request;
+using StockportGovUK.NetStandard.Gateways.Models.Booking.Response;
 using StockportGovUK.NetStandard.Gateways.Response;
-using StockportGovUK.NetStandard.Models.Booking.Request;
-using StockportGovUK.NetStandard.Models.Booking.Response;
 
 namespace StockportGovUK.NetStandard.Gateways.BookingService
 {
@@ -17,7 +17,7 @@ namespace StockportGovUK.NetStandard.Gateways.BookingService
         Task<HttpResponse<Guid>> Reserve(BookingRequest model);
 
         Task<HttpResponseMessage> Confirmation(ConfirmationRequest model);
-        
+
         Task<HttpResponseMessage> Cancel(string id);
 
         Task<HttpResponse<string>> GetLocation(LocationRequest model);
@@ -25,7 +25,7 @@ namespace StockportGovUK.NetStandard.Gateways.BookingService
         Task<HttpResponse<BookingInformationResponse>> GetBooking(Guid id);
 
         Task<HttpResponseMessage> AddReference(AddReferenceRequest addReferenceRequest);
-        
+
         Task<HttpResponseMessage> AddReferences(List<AddReferenceRequest> addReferenceRequests);
 
         Task<HttpResponseMessage> AddFee(AddFeeRequest addFeeRequest);

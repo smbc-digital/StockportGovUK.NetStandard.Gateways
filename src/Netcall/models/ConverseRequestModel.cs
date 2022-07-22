@@ -11,17 +11,19 @@ namespace StockportGovUK.NetStandard.Gateways.Netcall.Models
         public const string IDENTIFIERTYPE_EXTENSION = "extension";
         public const string IDENTIFIERTYPE_USERNAME = "username";
 
-        private string _IdentifierType;  
-        
-        private string _RecordingState;  
+        private string _IdentifierType;
+
+        private string _RecordingState;
 
         public string Identifier { get; set; }
 
-        public string IdentifierType { 
-            get { return _IdentifierType ; }
-            set {
-                
-                if(!value.Equals(IDENTIFIERTYPE_USERID) && !value.Equals(IDENTIFIERTYPE_EXTENSION) && !value.Equals(IDENTIFIERTYPE_USERNAME))
+        public string IdentifierType
+        {
+            get { return _IdentifierType; }
+            set
+            {
+
+                if (!value.Equals(IDENTIFIERTYPE_USERID) && !value.Equals(IDENTIFIERTYPE_EXTENSION) && !value.Equals(IDENTIFIERTYPE_USERNAME))
                 {
                     throw new ArgumentException("IdentifierType must be userid, extension or username");
                 }
@@ -30,11 +32,13 @@ namespace StockportGovUK.NetStandard.Gateways.Netcall.Models
             }
         }
 
-        public string RecordingState { 
-            get { return _RecordingState ; }
-            set {
-                
-                if(!value.Equals(RECORDINGSTATE_PAUSE) && !value.Equals(RECORDINGSTATE_RESUME))
+        public string RecordingState
+        {
+            get { return _RecordingState; }
+            set
+            {
+
+                if (!value.Equals(RECORDINGSTATE_PAUSE) && !value.Equals(RECORDINGSTATE_RESUME))
                 {
                     throw new ArgumentException("RecordingSate must be pause or resume");
                 }

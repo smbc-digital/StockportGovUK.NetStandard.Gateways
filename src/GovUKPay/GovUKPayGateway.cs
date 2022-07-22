@@ -5,7 +5,7 @@ using StockportGovUK.NetStandard.Gateways.GovUKPay.Models.Response;
 
 namespace StockportGovUK.NetStandard.Gateways.GovUKPay
 {
-    public class GovUKPayGateway: Gateway, IGovUKPayGateway
+    public class GovUKPayGateway : Gateway, IGovUKPayGateway
     {
 
         private const string DD_ROOT = "v1/directdebit";

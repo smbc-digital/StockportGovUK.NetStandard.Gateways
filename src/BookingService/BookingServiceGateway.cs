@@ -1,11 +1,11 @@
 using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using StockportGovUK.NetStandard.Gateways.Models.Booking.Request;
+using StockportGovUK.NetStandard.Gateways.Models.Booking.Response;
 using StockportGovUK.NetStandard.Gateways.Response;
-using StockportGovUK.NetStandard.Models.Booking.Request;
-using StockportGovUK.NetStandard.Models.Booking.Response;
 
 namespace StockportGovUK.NetStandard.Gateways.BookingService
 {
@@ -23,10 +23,10 @@ namespace StockportGovUK.NetStandard.Gateways.BookingService
         {
         }
 
-        public async Task<HttpResponse<List<AvailabilityDayResponse>>> GetAvailability(AvailabilityRequest model) => 
+        public async Task<HttpResponse<List<AvailabilityDayResponse>>> GetAvailability(AvailabilityRequest model) =>
             await GetAsync<List<AvailabilityDayResponse>>($"{AvailabilityEndpoint}{AvailabilityQueryString(model)}");
 
-        public async Task<HttpResponse<AvailabilityDayResponse>> NextAvailability(AvailabilityRequest model) => 
+        public async Task<HttpResponse<AvailabilityDayResponse>> NextAvailability(AvailabilityRequest model) =>
             await GetAsync<AvailabilityDayResponse>($"{AvailabilityEndpoint}{NextAvailabilityAction}{AvailabilityQueryString(model)}");
 
         public async Task<HttpResponse<Guid>> Reserve(BookingRequest model) =>

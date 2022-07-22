@@ -1,6 +1,6 @@
-﻿using System.Threading.Tasks;
-using System.Net.Http;
-using StockportGovUK.NetStandard.Models.TrackAReport.Requests;
+﻿using System.Net.Http;
+using System.Threading.Tasks;
+using StockportGovUK.NetStandard.Gateways.Models.TrackAReport.Requests;
 
 namespace StockportGovUK.NetStandard.Gateways.TrackAReport
 {

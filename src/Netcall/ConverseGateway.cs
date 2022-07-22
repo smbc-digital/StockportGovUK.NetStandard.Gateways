@@ -1,13 +1,12 @@
 using System.Net.Http;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
 using StockportGovUK.NetStandard.Gateways.Netcall.Models;
 
 namespace StockportGovUK.NetStandard.Gateways.Netcall
 {
     public class ConverseGateway : Gateway, IConverseGateway
     {
-        
+
         private const string NETCALL_ENDPOINT = "/api/liberty/2/partitions/{0}/acd/callrecordings";
 
         public ConverseGateway(HttpClient httpClient) : base(httpClient)
@@ -26,7 +25,7 @@ namespace StockportGovUK.NetStandard.Gateways.Netcall
 
             return await PutAsync(string.Format(NETCALL_ENDPOINT, pid), request, true);
         }
-        
+
         public async Task<HttpResponseMessage> PauseRecordingFromExtensionAsync(string pid, string extension)
         {
             var request = new ConverseRequestModel
@@ -50,7 +49,7 @@ namespace StockportGovUK.NetStandard.Gateways.Netcall
 
             return await PutAsync(string.Format(NETCALL_ENDPOINT, pid), request, true);
         }
-        
+
         public async Task<HttpResponseMessage> ResumeRecordingFromExtensionAsync(string pid, string extension)
         {
             var request = new ConverseRequestModel

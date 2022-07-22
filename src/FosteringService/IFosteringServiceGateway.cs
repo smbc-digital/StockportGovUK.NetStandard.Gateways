@@ -1,11 +1,11 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
+using StockportGovUK.NetStandard.Gateways.Enums;
+using StockportGovUK.NetStandard.Gateways.Models;
+using StockportGovUK.NetStandard.Gateways.Models.Fostering;
+using StockportGovUK.NetStandard.Gateways.Models.Fostering.Application;
+using StockportGovUK.NetStandard.Gateways.Models.Fostering.HomeVisit;
 using StockportGovUK.NetStandard.Gateways.Response;
-using StockportGovUK.NetStandard.Models;
-using StockportGovUK.NetStandard.Models.Enums;
-using StockportGovUK.NetStandard.Models.Fostering;
-using StockportGovUK.NetStandard.Models.Fostering.Application;
-using StockportGovUK.NetStandard.Models.Fostering.HomeVisit;
 
 namespace StockportGovUK.NetStandard.Gateways.FosteringService
 {

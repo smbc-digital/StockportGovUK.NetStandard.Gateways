@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using StockportGovUK.NetStandard.Gateways.Models.Addresses;
 using StockportGovUK.NetStandard.Gateways.Response;
-using StockportGovUK.NetStandard.Models.Addresses;
 
 namespace StockportGovUK.NetStandard.Gateways.AddressService
 {
