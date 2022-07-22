@@ -1,14 +1,13 @@
-﻿using System.Globalization;
-using System.Text.Json.Serialization;
+﻿using System;
+using System.Globalization;
 using System.Text.Json;
-using System;
+using System.Text.Json.Serialization;
 
 namespace StockportGovUK.NetStandard.Gateways.JsonConverters
 {
     public class DateTimeConverters
     {
         private const string frenchCanadaLocale = "yyyy-MM-dd HH:mm:ss";
-
 
         public class DateTimeJsonConverterFrenchCanada : JsonConverter<DateTime>
         {
