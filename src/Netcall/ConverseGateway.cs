@@ -6,7 +6,6 @@ namespace StockportGovUK.NetStandard.Gateways.Netcall
 {
     public class ConverseGateway : Gateway, IConverseGateway
     {
-
         private const string NETCALL_ENDPOINT = "/api/liberty/2/partitions/{0}/acd/callrecordings";
 
         public ConverseGateway(HttpClient httpClient) : base(httpClient)
