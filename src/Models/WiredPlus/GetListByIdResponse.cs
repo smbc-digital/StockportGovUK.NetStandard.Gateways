@@ -1,5 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
 using System.Text.Json.Serialization;
+using static StockportGovUK.NetStandard.Gateways.JsonConverters.DateTimeConverters;
 
 namespace StockportGovUK.NetStandard.Gateways.Models.WiredPlus
 {
@@ -15,13 +16,13 @@ namespace StockportGovUK.NetStandard.Gateways.Models.WiredPlus
         [JsonPropertyName("list_visibility")]
         public string ListVisibility { get; set; }
 
-        [DataType("Date")]
         [JsonPropertyName("create_date")]
-        public string CreatedDate { get; set; }
+        [JsonConverter(typeof(DateTimeJsonConverterFrenchCanada))]
+        public DateTime CreatedDate { get; set; }
 
-        [DataType("Date")]
         [JsonPropertyName("update_date")]
-        public string UpdatedDate { get; set; }
+        [JsonConverter(typeof(DateTimeJsonConverterFrenchCanada))]
+        public DateTime UpdatedDate { get; set; }
 
         [JsonPropertyName("contacts")]
         [JsonNumberHandling(JsonNumberHandling.AllowReadingFromString)]
