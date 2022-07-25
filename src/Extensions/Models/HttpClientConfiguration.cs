@@ -4,6 +4,7 @@
     {
         public string BaseUrl { get; set; }
         public string AuthToken { get; set; }
+        public string Scheme { get; set; }
         public bool EnablePollyPolicies { get; set; } = true;
     }
 }
