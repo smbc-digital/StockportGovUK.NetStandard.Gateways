@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using StockportGovUK.NetStandard.Gateways.Models.Addresses;
+using StockportGovUK.NetStandard.Gateways.Models.Verint;
+using StockportGovUK.NetStandard.Gateways.Models.Verint.Lookup;
+using StockportGovUK.NetStandard.Gateways.Models.Verint.Update;
+using StockportGovUK.NetStandard.Gateways.Models.Verint.VerintOnlineForm;
 using StockportGovUK.NetStandard.Gateways.Response;
-using StockportGovUK.NetStandard.Models.Addresses;
-using StockportGovUK.NetStandard.Models.Models.Verint.VerintOnlineForm;
-using StockportGovUK.NetStandard.Models.Verint;
-using StockportGovUK.NetStandard.Models.Verint.Lookup;
-using StockportGovUK.NetStandard.Models.Verint.Update;
-using Address = StockportGovUK.NetStandard.Models.Verint.Address;
+using Address = StockportGovUK.NetStandard.Gateways.Models.Verint.Address;
 
 namespace StockportGovUK.NetStandard.Gateways.VerintService
 {

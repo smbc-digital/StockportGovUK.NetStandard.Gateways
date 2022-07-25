@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
+using StockportGovUK.NetStandard.Gateways.Models.Civica.Pay.Request;
+using StockportGovUK.NetStandard.Gateways.Models.Civica.Pay.Response;
 using StockportGovUK.NetStandard.Gateways.Response;
-using StockportGovUK.NetStandard.Models.Civica.Pay.Request;
-using StockportGovUK.NetStandard.Models.Civica.Pay.Response;
 
 namespace StockportGovUK.NetStandard.Gateways.CivicaPay
 {

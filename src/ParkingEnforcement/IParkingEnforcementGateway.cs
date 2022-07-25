@@ -1,6 +1,6 @@
 using System.Net.Http;
 using System.Threading.Tasks;
-using StockportGovUk.NetStandard.Models.ParkingEnforcement;
+using StockportGovUk.NetStandard.Gateways.Models.ParkingEnforcement;
 
 namespace StockportGovUK.NetStandard.Gateways.ParkingEnforcement
 {

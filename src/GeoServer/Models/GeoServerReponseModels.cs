@@ -1,23 +1,23 @@
 using System.Collections.Generic;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace StockportGovUK.NetStandard.Gateways.GeoServer.Models
 {
     public class GeoServerResponseModel
     {
-        [JsonProperty("features")]
-        public List<BinCalendarFeature> Features { get; set; }    
+        [JsonPropertyName("features")]
+        public List<BinCalendarFeature> Features { get; set; }
     }
 
     public class BinCalendarFeature
     {
-        [JsonProperty("properties")]
-        public BinCalendarProperties Properties { get; set; } 
+        [JsonPropertyName("properties")]
+        public BinCalendarProperties Properties { get; set; }
     }
 
     public class BinCalendarProperties
     {
-        [JsonProperty("calendarcode")]
-        public string CalendarCode { get; set; } 
+        [JsonPropertyName("calendarcode")]
+        public string CalendarCode { get; set; }
     }
 }

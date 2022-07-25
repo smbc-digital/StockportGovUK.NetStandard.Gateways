@@ -2,12 +2,12 @@
 
 namespace StockportGovUK.NetStandard.Gateways.GovUKPay.Models.Response
 {
-    
+
     public class SimpleMandateSetupResponse
     {
         public SimpleMandateSetupResponse()
         {
-                
+
         }
 
         public SimpleMandateSetupResponse(GovUkMandateSetupResponse response)
