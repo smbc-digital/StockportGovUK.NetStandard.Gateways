@@ -6,6 +6,6 @@ namespace StockportGovUK.NetStandard.Gateways.GovUKPay.Models.Request
 
         public string return_url { get; set; }
 
-        public string description  { get; set; }
+        public string description { get; set; }
     }
 }

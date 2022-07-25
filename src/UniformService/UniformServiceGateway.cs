@@ -1,7 +1,7 @@
 using System.Net.Http;
 using System.Threading.Tasks;
+using StockportGovUK.NetStandard.Gateways.Models.Uniform;
 using StockportGovUK.NetStandard.Gateways.Response;
-using StockportGovUK.NetStandard.Models.Uniform;
 
 namespace StockportGovUK.NetStandard.Gateways.UniformService
 {
@@ -18,7 +18,7 @@ namespace StockportGovUK.NetStandard.Gateways.UniformService
         public UniformServiceGateway(HttpClient httpClient) : base(httpClient)
         {
         }
-        
+
         public async Task<HttpResponse<string>> GetPestControlRequest(string id)
             => await GetAsync<string>($"{PestControlEndpoint}?reference={id}");
 

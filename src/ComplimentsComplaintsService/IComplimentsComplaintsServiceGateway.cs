@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
+using StockportGovUK.NetStandard.Gateways.Models.ComplimentsComplaints;
 using StockportGovUK.NetStandard.Gateways.Response;
-using StockportGovUK.NetStandard.Models.ComplimentsComplaints;
 
 namespace StockportGovUK.NetStandard.Gateways.ComplimentsComplaintsService
 {

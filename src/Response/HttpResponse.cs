@@ -2,8 +2,8 @@
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text.Json;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 
 namespace StockportGovUK.NetStandard.Gateways.Response
 {
@@ -28,7 +28,7 @@ namespace StockportGovUK.NetStandard.Gateways.Response
             try
             {
                 var content = await responseMessage.Content.ReadAsStringAsync();
-                deserializedObject = JsonConvert.DeserializeObject<T>(content);
+                deserializedObject = JsonSerializer.Deserialize<T>(content);
             }
             catch (Exception)
             {

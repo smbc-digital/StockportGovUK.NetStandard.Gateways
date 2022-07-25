@@ -1,5 +1,6 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
+using StockportGovUK.NetStandard.Gateways.Models.WiredPlus;
 using StockportGovUK.NetStandard.Gateways.Response;
 
 namespace StockportGovUK.NetStandard.Gateways.WiredPlus
@@ -12,6 +13,7 @@ namespace StockportGovUK.NetStandard.Gateways.WiredPlus
 
         private const string CreateContactEndpoint = "v1/CreateContact";
         private const string UpdateContactEndpoint = "v1/UpdateContact";
+        private const string GetListByIdEndpoint = "v1/GetListById";
 
         public WiredPlusGateway(HttpClient httpClient) : base(httpClient) { }
 
@@ -49,7 +51,7 @@ namespace StockportGovUK.NetStandard.Gateways.WiredPlus
         public async Task<HttpResponse<NewsletterSignUpResponse>> UpdateContact(NewsletterSignUpRequest request)
         {
             var content = new MultipartFormDataContent();
-            
+
             content.AddIfNotNull(request.FirstName, "first_name");
             content.AddIfNotNull(request.LastName, "last_name");
             content.AddIfNotNull(request.Name, "name");
@@ -71,10 +73,19 @@ namespace StockportGovUK.NetStandard.Gateways.WiredPlus
             content.AddIfNotNull(request.OptIn.ToString(), "opt_in");
             content.AddIfNotNull(request.ContactListId.ToString(), "contact_list_id");
 
-            
+
             request.CustomValues.ForEach(_ => content.Add(new StringContent(_.Value), _.Key));
 
             return await PostAsync<NewsletterSignUpResponse>(UpdateContactEndpoint, content, false);
+        }
+
+        public async Task<HttpResponse<GetListByIdResponse>> GetListById(GetListByIdRequest request)
+        {
+            var content = new MultipartFormDataContent();
+
+            content.AddIfNotNull(request.Id.ToString(), "listid");
+
+            return await PostAsync<GetListByIdResponse>(GetListByIdEndpoint, content, false);
         }
     }
 
@@ -82,7 +93,7 @@ namespace StockportGovUK.NetStandard.Gateways.WiredPlus
     {
         public static void AddIfNotNull(this MultipartFormDataContent content, string value, string key)
         {
-            if(!string.IsNullOrEmpty(value))
+            if (!string.IsNullOrEmpty(value))
                 content.Add(new StringContent(value), key);
         }
     }

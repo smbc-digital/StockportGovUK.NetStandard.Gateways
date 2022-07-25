@@ -1,7 +1,6 @@
-﻿using StockportGovUK.NetStandard.Gateways.Response;
-using System.Threading.Tasks;
-using StockportGovUK.NetStandard.Models.Uniform;
-
+﻿using System.Threading.Tasks;
+using StockportGovUK.NetStandard.Gateways.Models.Uniform;
+using StockportGovUK.NetStandard.Gateways.Response;
 
 namespace StockportGovUK.NetStandard.Gateways.Uniform
 {
