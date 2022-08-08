@@ -157,10 +157,15 @@ namespace StockportGovUK.NetStandard.Gateways
         }
 
         private static HttpContent GetHttpContent(object content)
-            => new StringContent(JsonSerializer.Serialize(content, new JsonSerializerOptions
+        {
+            var options = new JsonSerializerOptions
             {
                 WriteIndented = true,
+                PropertyNameCaseInsensitive = true,
                 DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
-            }), Encoding.UTF8, "application/json");
+            };
+
+            return new StringContent(JsonSerializer.Serialize(content, options), Encoding.UTF8, "application/json");
+        }
     }
 }
