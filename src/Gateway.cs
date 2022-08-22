@@ -91,8 +91,6 @@ namespace StockportGovUK.NetStandard.Gateways
                 Method = HttpMethod.Post
             };
 
-            Client.Def
-
             message.Headers.Add(key, value);
 
             return await Client.SendAsync(message);
