@@ -17,5 +17,9 @@ namespace StockportGovUK.NetStandard.Gateways.Models.Booking.Request
         public List<BookingResource> OptionalResources { get; set; }
 
         public string AdditionalInformation { get; set; }
+
+        public List<AddReferenceRequest> ForeignReferences { get; set; }
+
+        public decimal FeePaid { get; set; }
     }
 }
