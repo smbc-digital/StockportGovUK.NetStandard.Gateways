@@ -68,7 +68,9 @@ This config is then used within the Gateway pacakge to route the request to the 
 "IGatewayConfig": {
   "BaseUrl": "http://service.stockport.gov.uk/",
   "AuthToken": "TestToken",
-  "EnablePollyPolicies": "false"
+  "EnablePollyPolicies": "false",
+  "ProxyUrl": "127.0.0.1", (Optional)
+  "ProxyPort":8080 (Optional)
 }
 ```
 
