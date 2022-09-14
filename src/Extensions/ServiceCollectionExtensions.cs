@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using Microsoft.Extensions.Configuration;
@@ -32,13 +33,17 @@ namespace StockportGovUK.NetStandard.Gateways.Extensions
                 throw new InvalidDataException($"Config section {typeof(TInterface).FullName.Split('.').Last()}Config not defined");
             }
 
-            return services.AddHttpClient<TInterface, TImplementation>(c =>
+            return services.AddHttpClient<TInterface, TImplementation>(client =>
                 {
-                    c.BaseAddress = string.IsNullOrEmpty(clientConfig.BaseUrl) ? null : new Uri(clientConfig.BaseUrl);
-                    c.DefaultRequestHeaders.Authorization = string.IsNullOrEmpty(clientConfig?.AuthToken)
+                    client.BaseAddress = string.IsNullOrEmpty(clientConfig.BaseUrl) ? null : new Uri(clientConfig.BaseUrl);
+                    client.DefaultRequestHeaders.Authorization = string.IsNullOrEmpty(clientConfig?.AuthToken)
                         ? null
                         : AuthenticationHeaderValue.Parse(clientConfig.AuthToken);
                 })
+                .If(!string.IsNullOrEmpty(clientConfig.ProxyUrl), builder => 
+                    builder.ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler() { 
+                        Proxy = new WebProxy(clientConfig.ProxyUrl, clientConfig.ProxyPort) // e,g, new WebProxy("172.16.0.166", 8080)
+                }))
                 .If(clientConfig.EnablePollyPolicies, builder => builder
                     .AddPolicyHandler(GetWaitAndRetryForeverPolicy())
                     .AddPolicyHandler(GetCircuitBreakerPolicy()));

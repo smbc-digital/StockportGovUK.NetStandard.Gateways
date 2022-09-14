@@ -19,6 +19,8 @@ namespace StockportGovUK.NetStandard.Gateways
         public void ChangeAuthenticationHeader(string authHeader)
             => Client.DefaultRequestHeaders.Authorization = AuthenticationHeaderValue.Parse(authHeader);
 
+        public void AddRequestHeader(string key, string value) => Client.DefaultRequestHeaders.Add(key, value);
+
         public async Task<HttpResponseMessage> GetAsync(string url)
             => await InvokeAsync(async req => await Client.GetAsync(url), url, nameof(GetAsync));
 
