@@ -2,6 +2,7 @@
 {
     public enum EBookingForeignReference
     {
+        Reference,
         VerintRef,
         UniformRef,
         ConfirmRef,
