@@ -29,5 +29,8 @@ namespace StockportGovUK.NetStandard.Gateways.BookingService
         Task<HttpResponseMessage> AddReferences(List<AddReferenceRequest> addReferenceRequests);
 
         Task<HttpResponseMessage> AddFee(AddFeeRequest addFeeRequest);
+
+        Task<HttpResponseMessage> UpdateAdditionalInformationMetaDataValues(
+            List<UpdateAdditionalInformationMetaDataValuesRequest> updateAdditionalInformationMetaDataValuesRequests);
     }
 }
