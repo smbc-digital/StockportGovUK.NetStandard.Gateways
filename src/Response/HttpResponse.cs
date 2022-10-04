@@ -3,7 +3,6 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace StockportGovUK.NetStandard.Gateways.Response
@@ -29,14 +28,7 @@ namespace StockportGovUK.NetStandard.Gateways.Response
             try
             {
                 var content = await responseMessage.Content.ReadAsStringAsync();
-                var options = new JsonSerializerOptions
-                {
-                    WriteIndented = true,
-                    PropertyNameCaseInsensitive = true,
-                    DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
-                };
-
-                deserializedObject = JsonSerializer.Deserialize<T>(content, options);
+                deserializedObject = JsonSerializer.Deserialize<T>(content);
             }
             catch (Exception)
             {
