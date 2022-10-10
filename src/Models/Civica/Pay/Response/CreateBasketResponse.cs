@@ -6,7 +6,7 @@
 
         public string BasketToken { get; set; }
 
-        public string Success { get; set; }
+        public bool Success { get; set; }
 
         public string ResponseCode { get; set; }
 
