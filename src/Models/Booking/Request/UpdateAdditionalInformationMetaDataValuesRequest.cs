@@ -22,8 +22,13 @@ namespace StockportGovUK.NetStandard.Gateways.Models.Booking.Request
         public AdditionalInformationMetaDataValue(string key, string value)
             => (Key, Value) = (key, value);
 
+        public AdditionalInformationMetaDataValue(string key, string value, string dropdownId)
+            => (Key, Value, DropdownId) = (key, value, dropdownId);
+
         public string Key { get; set; }
 
         public string Value { get; set; }
+
+        public string DropdownId { get; set; }
     }
 }
