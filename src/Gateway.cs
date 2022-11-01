@@ -2,9 +2,10 @@ using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
-using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Text.Json;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Polly.CircuitBreaker;
 using StockportGovUK.NetStandard.Gateways.Response;
 
@@ -160,14 +161,12 @@ namespace StockportGovUK.NetStandard.Gateways
 
         private static HttpContent GetHttpContent(object content)
         {
-            var options = new JsonSerializerOptions
+            var serialisedObject = JsonConvert.SerializeObject(content, Formatting.Indented, new JsonSerializerSettings
             {
-                WriteIndented = true,
-                PropertyNameCaseInsensitive = true,
-                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
-            };
+                NullValueHandling = NullValueHandling.Ignore
+            });
 
-            return new StringContent(JsonSerializer.Serialize(content, options), Encoding.UTF8, "application/json");
+            return new StringContent(serialisedObject, Encoding.UTF8, "application/json");
         }
     }
 }
