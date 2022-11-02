@@ -68,5 +68,8 @@ namespace StockportGovUK.NetStandard.Gateways.BookingService
 
         public async Task<HttpResponse<BookingInformationResponse>> GetBooking(Guid id) =>
             await GetAsync<BookingInformationResponse>($"{BookingEndpoint}/{id}");
+
+        public async Task<HttpResponse<List<BookingInformationResponse>>> GetBookingsByForeignReference(string foreignReference) =>
+            await GetAsync<List<BookingInformationResponse>>($"{BookingEndpoint}/{foreignReference}/bookings");
     }
 }
