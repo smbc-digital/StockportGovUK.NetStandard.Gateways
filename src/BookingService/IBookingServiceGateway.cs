@@ -24,6 +24,8 @@ namespace StockportGovUK.NetStandard.Gateways.BookingService
 
         Task<HttpResponse<BookingInformationResponse>> GetBooking(Guid id);
 
+        Task<HttpResponse<List<BookingInformationResponse>>> GetBookingsByForeignReference(string foreignReference);
+
         Task<HttpResponseMessage> AddReference(AddReferenceRequest addReferenceRequest);
 
         Task<HttpResponseMessage> AddReferences(List<AddReferenceRequest> addReferenceRequests);
