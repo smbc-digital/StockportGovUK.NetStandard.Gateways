@@ -7,6 +7,7 @@ namespace StockportGovUK.NetStandard.Gateways.Models.Verint
         [JsonConstructor]
         public CustomField() {}
 
+
         public CustomField(string fieldName, string fieldValue, bool active = true)
         {
             this.Name = fieldName;
