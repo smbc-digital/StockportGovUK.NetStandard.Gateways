@@ -155,7 +155,8 @@ namespace StockportGovUK.NetStandard.Gateways
             }
             catch (Exception ex)
             {
-                throw new BrokenCircuitException($"{GetType().Name} => {requestType}({Client.BaseAddress}{url}) - Circuit open", ex);
+                throw new BrokenCircuitException(
+                    $"{GetType().Name} => {requestType}({Client.BaseAddress}{url}) - request failed. InnerException.Mesage: {ex.Message} + {ex.InnerException}", ex);
             }
         }
 
