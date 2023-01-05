@@ -8,5 +8,7 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
         Task<HttpResponseMessage> GetVersionNumber();
 
         Task<HttpResponseMessage> GetContexts();
+
+        Task<HttpResponseMessage> GetByUsername(string username);
     }
 }
