@@ -200,6 +200,12 @@ namespace StockportGovUK.NetStandard.Gateways.Models.Verint
             }
         }
 
+        public void AddCaseFormFieldIfNotNullOrEmpty(string key, string value)
+        {
+            if (!string.IsNullOrEmpty(value))
+                CaseFormFields.Add(new CustomField(key, value));
+        }
+
         public string CustomAttributeValue(string customAttributeName)
         {
             return this.CustomAttributes.Where(x => x.Name.Equals(customAttributeName)).Select(x => x.Value).SingleOrDefault();
