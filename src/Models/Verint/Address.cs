@@ -14,6 +14,24 @@ namespace StockportGovUK.NetStandard.Gateways.Models.Verint
             this.Description = strDescription;
         }
 
+        public Address(Models.Addresses.Address address)
+        {
+            if(string.IsNullOrEmpty(address.PlaceRef))
+            {
+                AddressLine1 = address.AddressLine1;
+                AddressLine2 = address.AddressLine2;
+                AddressLine3 = address.Town;
+                Postcode = address.Postcode;
+            }
+            else
+            {
+                UPRN = address.PlaceRef;
+                Reference = address.PlaceRef;
+                Description = address.SelectedAddress;
+                Postcode = address.Postcode;
+            }
+        }
+
         public string Reference { get; set; }
 
         public string Description { get; set; }
