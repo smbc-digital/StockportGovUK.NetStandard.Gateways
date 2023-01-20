@@ -18,8 +18,12 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
 
         Task<HttpResponseMessage> GetActiveAndFutureSuspensionsForContext(Guid contextId);
 
+        Task<HttpResponseMessage> GetActiveSuspensionCountForContext(Guid contextId, DateTime date);
+
         Task<HttpResponseMessage> GetResourceModifiersForContext(Guid contextId);
 
         Task<HttpResponseMessage> GetActiveAndFutureResourceModifiersForContext(Guid contextId);
+
+        Task<HttpResponseMessage> GetActiveResourceModifierCountForContext(Guid contextId, DateTime date);
     }
 }
