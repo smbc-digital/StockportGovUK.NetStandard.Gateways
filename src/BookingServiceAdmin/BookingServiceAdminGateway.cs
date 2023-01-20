@@ -38,6 +38,6 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
             await GetAsync($"{ResourceEndpoint}/resource-modifiers/{contextId}");
 
         public async Task<HttpResponseMessage> GetActiveAndFutureResourceModifiersForContext(Guid contextId) =>
-            await GetAsync($"{SuspensionEndpoint}/resource-modifiers/{contextId}/active");
+            await GetAsync($"{ResourceEndpoint}/resource-modifiers/{contextId}/active");
     }
 }
