@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Http;
+using System.Reflection;
 using System.Threading.Tasks;
 using StockportGovUK.NetStandard.Gateways.Models.Booking.Request;
 
@@ -36,7 +37,7 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
             await GetAsync($"{SuspensionEndpoint}/{contextId}/active");
 
         public async Task<HttpResponseMessage> GetActiveSuspensionCountForContext(GetByDateRequest request) =>
-            await GetAsync($"{SuspensionEndpoint}/active/day-count");
+            await GetAsync($"{SuspensionEndpoint}/active/day-count/{GetByDateQueryString(request)}");
 
         public async Task<HttpResponseMessage> GetResourceModifiersForContext(Guid contextId) =>
             await GetAsync($"{ResourceEndpoint}/resource-modifiers/{contextId}");
@@ -45,6 +46,9 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
             await GetAsync($"{ResourceEndpoint}/resource-modifiers/{contextId}/active");
 
         public async Task<HttpResponseMessage> GetActiveResourceModifierCountForContext(GetByDateRequest request) =>
-            await GetAsync($"{ResourceEndpoint}/resource-modifiers/active/day-count");
+            await GetAsync($"{ResourceEndpoint}/resource-modifiers/active/day-count/{GetByDateQueryString(request)}");
+
+        private string GetByDateQueryString(GetByDateRequest request) =>
+            $"?{nameof(request.Id)}={request.Id}&{nameof(request.Date)}={request.Date:s}";
     }
 }
