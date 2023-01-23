@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using StockportGovUK.NetStandard.Gateways.Models.Booking.Request;
 
 namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
 {
@@ -18,12 +19,12 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
 
         Task<HttpResponseMessage> GetActiveAndFutureSuspensionsForContext(Guid contextId);
 
-        Task<HttpResponseMessage> GetActiveSuspensionCountForContext(Guid contextId, DateTime date);
+        Task<HttpResponseMessage> GetActiveSuspensionCountForContext(GetByDateRequest request);
 
         Task<HttpResponseMessage> GetResourceModifiersForContext(Guid contextId);
 
         Task<HttpResponseMessage> GetActiveAndFutureResourceModifiersForContext(Guid contextId);
 
-        Task<HttpResponseMessage> GetActiveResourceModifierCountForContext(Guid contextId, DateTime date);
+        Task<HttpResponseMessage> GetActiveResourceModifierCountForContext(GetByDateRequest request);
     }
 }

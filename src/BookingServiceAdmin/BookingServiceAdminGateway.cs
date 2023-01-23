@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using StockportGovUK.NetStandard.Gateways.Models.Booking.Request;
 
 namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
 {
@@ -34,8 +35,8 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
         public async Task<HttpResponseMessage> GetActiveAndFutureSuspensionsForContext(Guid contextId) =>
             await GetAsync($"{SuspensionEndpoint}/{contextId}/active");
 
-        public async Task<HttpResponseMessage> GetActiveSuspensionCountForContext(Guid contextId, DateTime date) =>
-            await GetAsync($"{SuspensionEndpoint}/{contextId}/active/{date}");
+        public async Task<HttpResponseMessage> GetActiveSuspensionCountForContext(GetByDateRequest request) =>
+            await GetAsync($"{SuspensionEndpoint}/active/day-count");
 
         public async Task<HttpResponseMessage> GetResourceModifiersForContext(Guid contextId) =>
             await GetAsync($"{ResourceEndpoint}/resource-modifiers/{contextId}");
@@ -43,7 +44,7 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
         public async Task<HttpResponseMessage> GetActiveAndFutureResourceModifiersForContext(Guid contextId) =>
             await GetAsync($"{ResourceEndpoint}/resource-modifiers/{contextId}/active");
 
-        public async Task<HttpResponseMessage> GetActiveResourceModifierCountForContext(Guid contextId, DateTime date) =>
-            await GetAsync($"{ResourceEndpoint}/resource-modifiers/{contextId}/active/{date}");
+        public async Task<HttpResponseMessage> GetActiveResourceModifierCountForContext(GetByDateRequest request) =>
+            await GetAsync($"{ResourceEndpoint}/resource-modifiers/active/day-count");
     }
 }
