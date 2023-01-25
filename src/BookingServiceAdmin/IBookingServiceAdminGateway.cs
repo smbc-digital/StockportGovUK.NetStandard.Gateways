@@ -5,7 +5,7 @@ using StockportGovUK.NetStandard.Gateways.Models.Booking.Request;
 
 namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
 {
-    public partial interface IBookingServiceAdminGateway
+    public interface IBookingServiceAdminGateway
     {
         #region Home
 
