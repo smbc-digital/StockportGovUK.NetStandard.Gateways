@@ -2,15 +2,11 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin.Context
+namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
 {
-    public class BookingServiceAdminContextGateway : Gateway, IBookingServiceAdminContextGateway
+    public partial class BookingServiceAdminGateway : Gateway, IBookingServiceAdminGateway
     {
         private const string ContextEndpoint = "api/v1/Context";
-
-        public BookingServiceAdminContextGateway(HttpClient httpClient) : base(httpClient)
-        {
-        }
 
         public async Task<HttpResponseMessage> GetContexts() =>
             await GetAsync($"{ContextEndpoint}");

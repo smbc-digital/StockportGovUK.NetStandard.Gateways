@@ -3,15 +3,11 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using StockportGovUK.NetStandard.Gateways.Models.Booking.Request;
 
-namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin.Suspension
+namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
 {
-    public class BookingServiceAdminSuspensionGateway : Gateway, IBookingServiceAdminSuspensionGateway
+    public partial class BookingServiceAdminGateway : Gateway, IBookingServiceAdminGateway
     {
         private const string SuspensionEndpoint = "api/v1/Suspension";
-
-        public BookingServiceAdminSuspensionGateway(HttpClient httpClient) : base(httpClient)
-        {
-        }
 
         public async Task<HttpResponseMessage> GetSuspensionsForContext(Guid contextId) =>
             await GetAsync($"{SuspensionEndpoint}/{contextId}");
@@ -20,6 +16,6 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin.Suspension
             await GetAsync($"{SuspensionEndpoint}/{contextId}/active");
 
         public async Task<HttpResponseMessage> GetActiveSuspensionCountForContext(GetByDateRequest request) =>
-            await GetAsync($"{SuspensionEndpoint}/active/day-count/{QueryStringGenerator.GetByDateQueryString(request)}");
+            await GetAsync($"{SuspensionEndpoint}/active/day-count/{GetByDateQueryString(request)}");
     }
 }
