@@ -7,13 +7,37 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
 {
     public interface IBookingServiceAdminGateway
     {
+        #region Home
+
         Task<HttpResponseMessage> GetVersionNumber();
+
+        #endregion
+
+        #region Booking
+
+        Task<HttpResponseMessage> GetDayBookingCountForContext(GetByDateRequest request);
+
+        #endregion
+
+        #region Context
 
         Task<HttpResponseMessage> GetContext(Guid contextId);
 
         Task<HttpResponseMessage> GetContexts();
 
-        Task<HttpResponseMessage> GetByUsername(string username);
+        #endregion
+
+        #region Resource
+
+        Task<HttpResponseMessage> GetResourceModifiersForContext(Guid contextId);
+
+        Task<HttpResponseMessage> GetActiveAndFutureResourceModifiersForContext(Guid contextId);
+
+        Task<HttpResponseMessage> GetActiveResourceModifierCountForContext(GetByDateRequest request);
+
+        #endregion
+
+        #region Suspension
 
         Task<HttpResponseMessage> GetSuspensionsForContext(Guid contextId);
 
@@ -21,10 +45,12 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
 
         Task<HttpResponseMessage> GetActiveSuspensionCountForContext(GetByDateRequest request);
 
-        Task<HttpResponseMessage> GetResourceModifiersForContext(Guid contextId);
+        #endregion
 
-        Task<HttpResponseMessage> GetActiveAndFutureResourceModifiersForContext(Guid contextId);
+        #region MyRegion
 
-        Task<HttpResponseMessage> GetActiveResourceModifierCountForContext(GetByDateRequest request);
+        Task<HttpResponseMessage> GetByUsername(string username);
+
+        #endregion
     }
 }
