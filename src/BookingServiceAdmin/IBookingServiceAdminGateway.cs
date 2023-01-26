@@ -13,6 +13,16 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
 
         #endregion
 
+        #region Appointment
+
+        Task<HttpResponseMessage> GetAppointments(Guid contextId, int subLevels);
+
+        Task<HttpResponseMessage> GetAppointment(Guid appointmentId, int subLevels);
+
+        Task<HttpResponseMessage> GetAppointment(Guid contextId);
+
+        #endregion
+
         #region Booking
 
         Task<HttpResponseMessage> GetDayBookingCountForContext(GetByDateRequest request);
