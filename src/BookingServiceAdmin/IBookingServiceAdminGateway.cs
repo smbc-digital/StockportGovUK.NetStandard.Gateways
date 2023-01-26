@@ -26,6 +26,8 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
         #region Booking
 
         Task<HttpResponseMessage> GetDayBookingCountForContext(GetByDateRequest request);
+        
+        Task<HttpResponseMessage> GetNewAndConfirmedBookings(Guid contextId);
 
         #endregion
 
