@@ -6,10 +6,10 @@ namespace StockportGovUK.NetStandard.Gateways.Models.Booking.Request
     {
         public Guid UserId { get; set; }
 
-        public ResourceRequest Resource { get; set; }
+        public Resource Resource { get; set; }
     }
 
-    public class ResourceRequest
+    public class Resource
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
