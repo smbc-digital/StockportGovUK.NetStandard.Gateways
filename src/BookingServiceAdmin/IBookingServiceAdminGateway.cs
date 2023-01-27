@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using StockportGovUK.NetStandard.Gateways.Models.Booking;
 using StockportGovUK.NetStandard.Gateways.Models.Booking.Request;
+using StockportGovUK.NetStandard.Gateways.Response;
 
 namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
 {
@@ -15,11 +18,13 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
 
         #region Appointment
 
-        Task<HttpResponseMessage> GetAppointments(Guid contextId, int subLevels);
+        Task<HttpResponse<List<Appointment>>> GetAppointments(Guid contextId, int subLevels);
 
-        Task<HttpResponseMessage> GetAppointment(Guid appointmentId, int subLevels);
+        Task<HttpResponse<Appointment>> GetAppointment(Guid contextId);
 
-        Task<HttpResponseMessage> GetAppointment(Guid contextId);
+        Task<HttpResponse<Appointment>> GetAppointment(Guid appointmentId, int subLevels);
+
+        Task<HttpResponse<Appointment>> Reserve(AppointmentRequest model);
 
         #endregion
 
@@ -41,11 +46,11 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
 
         #region Resource
 
-        Task<HttpResponseMessage> GetResourceModifiersForContext(Guid contextId);
+        Task<HttpResponse<List<ResourceModifier>>> GetResourceModifiersForContext(Guid contextId);
 
-        Task<HttpResponseMessage> GetActiveAndFutureResourceModifiersForContext(Guid contextId);
+        Task<HttpResponse<List<ResourceModifier>>> GetActiveAndFutureResourceModifiersForContext(Guid contextId);
 
-        Task<HttpResponseMessage> GetActiveResourceModifierCountForContext(GetByDateRequest request);
+        Task<HttpResponse<int>> GetActiveResourceModifierCountForContext(GetByDateRequest request);
 
         #endregion
 
