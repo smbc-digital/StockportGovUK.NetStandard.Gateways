@@ -1,7 +1,9 @@
 ﻿using System;
-using System.Net.Http;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using StockportGovUK.NetStandard.Gateways.Models.Booking;
 using StockportGovUK.NetStandard.Gateways.Models.Booking.Request;
+using StockportGovUK.NetStandard.Gateways.Response;
 
 namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
 {
@@ -9,13 +11,13 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
     {
         private const string ResourceEndpoint = "api/v1/Resource";
 
-        public async Task<HttpResponseMessage> GetResourceModifiersForContext(Guid contextId) =>
-            await GetAsync($"{ResourceEndpoint}/resource-modifiers/{contextId}");
+        public async Task<HttpResponse<List<ResourceModifier>>> GetResourceModifiersForContext(Guid contextId) =>
+            await GetAsync<List<ResourceModifier>>($"{ResourceEndpoint}/resource-modifiers/{contextId}");
 
-        public async Task<HttpResponseMessage> GetActiveAndFutureResourceModifiersForContext(Guid contextId) =>
-            await GetAsync($"{ResourceEndpoint}/resource-modifiers/{contextId}/active");
+        public async Task<HttpResponse<List<ResourceModifier>>> GetActiveAndFutureResourceModifiersForContext(Guid contextId) =>
+            await GetAsync<List<ResourceModifier>>($"{ResourceEndpoint}/resource-modifiers/{contextId}/active");
 
-        public async Task<HttpResponseMessage> GetActiveResourceModifierCountForContext(GetByDateRequest request) =>
-            await GetAsync($"{ResourceEndpoint}/resource-modifiers/active/day-count/{GetByDateQueryString(request)}");
+        public async Task<HttpResponse<int>> GetActiveResourceModifierCountForContext(GetByDateRequest request) =>
+            await GetAsync<int>($"{ResourceEndpoint}/resource-modifiers/active/day-count/{GetByDateQueryString(request)}");
     }
 }
