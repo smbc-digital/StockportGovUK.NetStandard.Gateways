@@ -14,11 +14,11 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
         public async Task<HttpResponse<List<Appointment>>> GetAppointments(Guid contextId, int subLevels) =>
             await GetAsync<List<Appointment>>($"{AppointmentEndpoint}/all-appointments/{contextId}/{subLevels}");
 
-        public async Task<HttpResponse<Appointment>> GetAppointment(Guid appointmentId, int subLevels) =>
-            await GetAsync<Appointment>($"{AppointmentEndpoint}/appointment-details/{appointmentId}/{subLevels}");
-
         public async Task<HttpResponse<Appointment>> GetAppointment(Guid contextId) =>
             await GetAsync<Appointment>($"{AppointmentEndpoint}/full-appointment-details/{contextId}");
+
+        public async Task<HttpResponse<Appointment>> GetAppointment(Guid appointmentId, int subLevels) =>
+            await GetAsync<Appointment>($"{AppointmentEndpoint}/appointment-details/{appointmentId}/{subLevels}");
 
         public async Task<HttpResponse<Appointment>> Reserve(AppointmentRequest model) =>
             await PostAsync<Appointment>(AppointmentEndpoint, model);
