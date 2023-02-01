@@ -34,6 +34,8 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
         
         Task<HttpResponseMessage> GetNewAndConfirmedBookings(Guid contextId);
 
+        Task<HttpResponseMessage> GetBooking(Guid contextId);
+
         #endregion
 
         #region Context
