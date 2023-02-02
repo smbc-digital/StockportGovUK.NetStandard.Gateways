@@ -1,4 +1,6 @@
+using StockportGovUK.NetStandard.Gateways.Models.Booking.Request;
 using System;
+using System.Collections.Generic;
 
 namespace StockportGovUK.NetStandard.Gateways.Models.Booking.Response
 {
@@ -16,7 +18,16 @@ namespace StockportGovUK.NetStandard.Gateways.Models.Booking.Response
             StartTime.Hours < 12 &&
             EndTime.Hours > 12;
         public string Location { get; set; }
-
         public bool IsCancelled { get; set; }
+        public string TicketNumber { get; set; }
+        public decimal? FeePaid { get; set; }
+        public DateTime Confirmed { get; set; }
+        public string AdditionalInformation { get; set; }
+        public DateTime DateModified { get; set; }
+        public DateTime DateCreated { get; set; }
+        public Customer Customer { get; set; }
+        public Guid? StatusId { get; set; }
+        public IEnumerable<BookingResource> BookingResources { get; set; }
+
     }
 }
