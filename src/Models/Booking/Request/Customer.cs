@@ -14,6 +14,7 @@ namespace StockportGovUK.NetStandard.Gateways.Models.Booking.Request
         public string Firstname { get; set; }
         [Required]
         public string Lastname { get; set; }
+        public string Name { get; set; }
 
         public string Address { get; set; }
 

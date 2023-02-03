@@ -21,7 +21,6 @@ namespace StockportGovUK.NetStandard.Gateways.Models.Booking.Response
         public bool IsCancelled { get; set; }
         public string TicketNumber { get; set; }
         public decimal? FeePaid { get; set; }
-        public DateTime Confirmed { get; set; }
         public string AdditionalInformation { get; set; }
         public DateTime DateModified { get; set; }
         public DateTime DateCreated { get; set; }
