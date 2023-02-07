@@ -8,4 +8,6 @@ public class BookingResource
     public Guid? ResourceId { get; set; }
     public int Quantity { get; set; }
     public Guid? BookingId { get; set; }
+    public string ResourceName { get; set; }
+
 }

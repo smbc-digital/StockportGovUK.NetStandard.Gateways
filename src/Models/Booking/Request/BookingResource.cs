@@ -10,5 +10,4 @@ public class BookingResource
 
     [Required]
     public int Quantity { get; set; }
-    public string ResourceName { get; set; }
 }
