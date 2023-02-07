@@ -22,8 +22,7 @@ namespace StockportGovUK.NetStandard.Gateways.Models.Booking
         public Guid? AppointmentId { get; set; }
         public string AppointmentName { get; set; }
         public Guid? CustomerId { get; set; }
-        public string CustomerName { get; set; }
-        public string CustomerAddress { get; set; }
+        public Customer Customer { get; set; }
         public Guid? StatusId { get; set; }
         public string StatusName { get; set; }
         public decimal? FeePaid { get; set; }
