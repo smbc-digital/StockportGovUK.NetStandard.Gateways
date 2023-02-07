@@ -15,7 +15,9 @@ namespace StockportGovUK.NetStandard.Gateways.UniformService
 
         private const string HousingDisrepairEndpoint = "api/v1/HousingDisrepair";
 
-        public UniformServiceGateway(HttpClient httpClient) : base(httpClient)
+		private const string TaxiLicenceEndpoint = "api/v1/TaxiLicensing";
+
+		public UniformServiceGateway(HttpClient httpClient) : base(httpClient)
         {
         }
 
@@ -45,5 +47,8 @@ namespace StockportGovUK.NetStandard.Gateways.UniformService
 
         public async Task<HttpResponse<string>> ResubmitHousingDisrepairServiceRequest(string crmCaseId)
             => await PostAsync<string>($"{HousingDisrepairEndpoint}/ResubmitCase", crmCaseId);
-    }
+
+		public async Task<HttpResponse<string>> CreateTaxiLicenceRequest(TaxiLicensingServiceRequest request)
+			=> await PostAsync<string>($"{TaxiLicenceEndpoint}", request);
+	}
 }
