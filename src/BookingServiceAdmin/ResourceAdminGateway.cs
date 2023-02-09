@@ -11,8 +11,8 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
     {
         private const string ResourceEndpoint = "api/v1/Resource";
 
-        public async Task<HttpResponse<List<Resource>>> GetResources(Guid contextId) =>
-            await GetAsync<List<Resource>>($"{ResourceEndpoint}/{contextId}");
+        public async Task<HttpResponse<IEnumerable<Resource>>> GetResources(Guid contextId) =>
+            await GetAsync<IEnumerable<Resource>>($"{ResourceEndpoint}/{contextId}");
 
         public async Task<HttpResponse<Resource>> GetResource(Guid resourceId) =>
             await GetAsync<Resource>($"{ResourceEndpoint}/resource-details/{resourceId}");

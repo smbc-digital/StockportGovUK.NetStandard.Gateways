@@ -11,11 +11,11 @@ public partial class BookingServiceAdminGateway : Gateway, IBookingServiceAdminG
 {
     private const string ResourceModifierEndpoint = "api/v1/ResourceModifier";
 
-    public async Task<HttpResponse<List<ResourceModifier>>> GetResourceModifiersForContext(Guid contextId) =>
-        await GetAsync<List<ResourceModifier>>($"{ResourceModifierEndpoint}/context/{contextId}");
+    public async Task<HttpResponse<IEnumerable<ResourceModifier>>> GetResourceModifiersForContext(Guid contextId) =>
+        await GetAsync<IEnumerable<ResourceModifier>>($"{ResourceModifierEndpoint}/context/{contextId}");
 
-    public async Task<HttpResponse<List<ResourceModifier>>> GetActiveAndFutureResourceModifiersForContext(Guid contextId) =>
-        await GetAsync<List<ResourceModifier>>($"{ResourceModifierEndpoint}/context/{contextId}/active");
+    public async Task<HttpResponse<IEnumerable<ResourceModifier>>> GetActiveAndFutureResourceModifiersForContext(Guid contextId) =>
+        await GetAsync<IEnumerable<ResourceModifier>>($"{ResourceModifierEndpoint}/context/{contextId}/active");
 
     public async Task<HttpResponse<int>> GetActiveResourceModifierCountForContext(GetByDateRequest request) =>
         await GetAsync<int>($"{ResourceModifierEndpoint}/context/active/day-count/{GetByDateQueryString(request)}");
