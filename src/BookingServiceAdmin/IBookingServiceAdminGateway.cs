@@ -50,10 +50,17 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
 
         #region Resource
 
+        Task<HttpResponse<List<Resource>>> GetResources(Guid contextId);
+        Task<HttpResponse<Resource>> GetResource(Guid resourceId);
+        Task<HttpResponse<Resource>> AddResource(ResourceRequest request);
+        Task<HttpResponse<Resource>> UpdateResource(ResourceRequest request);
+
+        #endregion
+
+        #region ResourceModifier
+
         Task<HttpResponse<List<ResourceModifier>>> GetResourceModifiersForContext(Guid contextId);
-
         Task<HttpResponse<List<ResourceModifier>>> GetActiveAndFutureResourceModifiersForContext(Guid contextId);
-
         Task<HttpResponse<int>> GetActiveResourceModifierCountForContext(GetByDateRequest request);
 
         #endregion
