@@ -19,18 +19,17 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
         #region Appointment
 
         Task<HttpResponse<List<Appointment>>> GetAppointments(Guid contextId, int subLevels);
-
         Task<HttpResponse<Appointment>> GetAppointment(Guid contextId);
-
         Task<HttpResponse<Appointment>> GetAppointment(Guid appointmentId, int subLevels);
-
-        Task<HttpResponse<Appointment>> Reserve(AppointmentRequest model);
+        Task<HttpResponse<Appointment>> AddAppointment(AppointmentRequest model);
+        Task<HttpResponse<Appointment>> UpdateAppointment(AppointmentRequest model);
+        Task<HttpResponse<Appointment>> UpdateAppointmentResources(AppointmentRequest model);
 
         #endregion
 
         #region Booking
 
-        Task<HttpResponseMessage> GetDayBookingCountForContext(GetByDateRequest request);
+        Task<HttpResponse<int>> GetDayBookingCountForContext(GetByDateRequest request);
         
         Task<HttpResponse<IEnumerable<Booking>>> GetNewAndConfirmedBookings(Guid contextId);
 
@@ -40,9 +39,12 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
 
         #region Context
 
-        Task<HttpResponseMessage> GetContext(Guid contextId);
-
-        Task<HttpResponseMessage> GetContexts();
+        Task<HttpResponse<IEnumerable<BasicContext>>> GetActiveContexts();
+        Task<HttpResponse<IEnumerable<BasicContext>>> GetContexts(bool showDisabled);
+        Task<HttpResponse<Context>> GetContext(Guid contextId);
+        Task<HttpResponse<Context>> UpdateContext(ContextRequest request);
+        Task<HttpResponse<Context>> AddContext(ContextRequest request);
+        Task<HttpResponseMessage> SetContextAvailability(ContextAvailabilityRequest request);
 
         #endregion
 
