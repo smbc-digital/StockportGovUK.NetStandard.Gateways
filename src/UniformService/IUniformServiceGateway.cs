@@ -16,5 +16,7 @@ namespace StockportGovUK.NetStandard.Gateways.UniformService
         Task<HttpResponse<string>> CreateHousingDisrepairServiceRequest(HousingDisrepairServiceRequest request);
         Task<HttpResponse<string>> ResubmitHousingDisrepairServiceRequest(string crmCaseId);
 		Task<HttpResponse<string>> CreateTaxiLicenceRequest(TaxiLicensingServiceRequest request);
+        Task<HttpResponse<string>> UpdateTaxiLicenceRequestWithPayment(TaxiLicensingUpdateRequest request);
+        Task<HttpResponse<string>> UpdateTaxiLicenceRequestWithDetails(TaxiLicensingUpdateRequest request);
 	}
 }
