@@ -19,39 +19,62 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
         #region Appointment
 
         Task<HttpResponse<List<Appointment>>> GetAppointments(Guid contextId, int subLevels);
-
         Task<HttpResponse<Appointment>> GetAppointment(Guid contextId);
-
         Task<HttpResponse<Appointment>> GetAppointment(Guid appointmentId, int subLevels);
-
-        Task<HttpResponse<Appointment>> Reserve(AppointmentRequest model);
+        Task<HttpResponse<Appointment>> AddAppointment(AppointmentRequest model);
+        Task<HttpResponse<Appointment>> UpdateAppointment(AppointmentRequest model);
+        Task<HttpResponse<Appointment>> UpdateAppointmentResources(AppointmentRequest model);
 
         #endregion
 
         #region Booking
 
-        Task<HttpResponseMessage> GetDayBookingCountForContext(GetByDateRequest request);
-        
+        Task<HttpResponse<int>> GetDayBookingCountForContext(GetByDateRequest request);
         Task<HttpResponse<IEnumerable<Booking>>> GetNewAndConfirmedBookings(Guid contextId);
-
         Task<HttpResponse<Booking>> GetBooking(Guid bookingId);
 
         #endregion
 
         #region Context
 
-        Task<HttpResponseMessage> GetContext(Guid contextId);
+        Task<HttpResponse<IEnumerable<BasicContext>>> GetActiveContexts();
+        Task<HttpResponse<IEnumerable<BasicContext>>> GetContexts(bool showDisabled);
+        Task<HttpResponse<Context>> GetContext(Guid contextId);
+        Task<HttpResponse<Context>> UpdateContext(ContextRequest request);
+        Task<HttpResponse<Context>> AddContext(ContextRequest request);
+        Task<HttpResponseMessage> SetContextAvailability(ContextAvailabilityRequest request);
 
-        Task<HttpResponseMessage> GetContexts();
+        #endregion
+
+        #region DailyPolicy
+
+        Task<HttpResponse<IEnumerable<DailyPolicy>>> GetDailyPolicies(Guid contextId);
+        Task<HttpResponse<DailyPolicy>> GetDailyPolicy(Guid policyId);
+        Task<HttpResponse<DailyPolicy>> AddDailyPolicy(DailyPolicyRequest request);
+
+        #endregion
+
+        #region Policy
+
+        Task<HttpResponse<IEnumerable<Policy>>> GetPolicies(Guid contextId);
+        Task<HttpResponse<Policy>> GetPolicy(Guid policyId);
+        Task<HttpResponse<Policy>> AddPolicy(PolicyRequest request);
 
         #endregion
 
         #region Resource
 
-        Task<HttpResponse<List<ResourceModifier>>> GetResourceModifiersForContext(Guid contextId);
+        Task<HttpResponse<IEnumerable<Resource>>> GetResources(Guid contextId);
+        Task<HttpResponse<Resource>> GetResource(Guid resourceId);
+        Task<HttpResponse<Resource>> AddResource(ResourceRequest request);
+        Task<HttpResponse<Resource>> UpdateResource(ResourceRequest request);
 
-        Task<HttpResponse<List<ResourceModifier>>> GetActiveAndFutureResourceModifiersForContext(Guid contextId);
+        #endregion
 
+        #region ResourceModifier
+
+        Task<HttpResponse<IEnumerable<ResourceModifier>>> GetResourceModifiersForContext(Guid contextId);
+        Task<HttpResponse<IEnumerable<ResourceModifier>>> GetActiveAndFutureResourceModifiersForContext(Guid contextId);
         Task<HttpResponse<int>> GetActiveResourceModifierCountForContext(GetByDateRequest request);
 
         #endregion
@@ -59,14 +82,20 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
         #region Suspension
 
         Task<HttpResponseMessage> GetSuspensionsForContext(Guid contextId);
-
         Task<HttpResponseMessage> GetActiveAndFutureSuspensionsForContext(Guid contextId);
-
         Task<HttpResponseMessage> GetActiveSuspensionCountForContext(GetByDateRequest request);
 
         #endregion
 
-        #region MyRegion
+        #region TimePeriodPolicy
+
+        Task<HttpResponse<IEnumerable<TimePeriodPolicy>>> GetTimePeriodPolicies(Guid contextId);
+        Task<HttpResponse<TimePeriodPolicy>> GetTimePeriodPolicy(Guid policyId);
+        Task<HttpResponse<TimePeriodPolicy>> AddTimePeriodPolicy(TimePeriodPolicyRequest request);
+
+        #endregion
+
+        #region User
 
         Task<HttpResponseMessage> GetByUsername(string username);
 

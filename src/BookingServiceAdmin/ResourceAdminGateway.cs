@@ -11,13 +11,16 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
     {
         private const string ResourceEndpoint = "api/v1/Resource";
 
-        public async Task<HttpResponse<List<ResourceModifier>>> GetResourceModifiersForContext(Guid contextId) =>
-            await GetAsync<List<ResourceModifier>>($"{ResourceEndpoint}/resource-modifiers/{contextId}");
+        public async Task<HttpResponse<IEnumerable<Resource>>> GetResources(Guid contextId) =>
+            await GetAsync<IEnumerable<Resource>>($"{ResourceEndpoint}/{contextId}");
 
-        public async Task<HttpResponse<List<ResourceModifier>>> GetActiveAndFutureResourceModifiersForContext(Guid contextId) =>
-            await GetAsync<List<ResourceModifier>>($"{ResourceEndpoint}/resource-modifiers/{contextId}/active");
+        public async Task<HttpResponse<Resource>> GetResource(Guid resourceId) =>
+            await GetAsync<Resource>($"{ResourceEndpoint}/resource-details/{resourceId}");
 
-        public async Task<HttpResponse<int>> GetActiveResourceModifierCountForContext(GetByDateRequest request) =>
-            await GetAsync<int>($"{ResourceEndpoint}/resource-modifiers/active/day-count/{GetByDateQueryString(request)}");
+        public async Task<HttpResponse<Resource>> AddResource(ResourceRequest request) =>
+            await PostAsync<Resource>($"{ResourceEndpoint}", request);
+
+        public async Task<HttpResponse<Resource>> UpdateResource(ResourceRequest request) =>
+            await PatchAsync<Resource>($"{ResourceEndpoint}", request);
     }
 }
