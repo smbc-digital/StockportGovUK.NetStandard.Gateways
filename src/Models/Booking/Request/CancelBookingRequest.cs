@@ -7,5 +7,4 @@ public class CancelBookingRequest
     public Guid BookingId { get; set; }
     public string Reason { get; set; }
     public Guid UserId { get; set; }
-    public DateTime DateCreated { get; set; }
 }
