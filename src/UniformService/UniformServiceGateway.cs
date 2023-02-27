@@ -21,6 +21,8 @@ namespace StockportGovUK.NetStandard.Gateways.UniformService
 
 		private const string TaxiLicenceEndpointWithDetails = "api/v1/TaxiLicensing/UpdateWithDetails";
 
+		private const string TaxiLicenceEndpointCheckIsOpen = "api/v1/TaxiLicensing/CheckIsOpen";
+
 		public UniformServiceGateway(HttpClient httpClient) : base(httpClient)
         {
         }
@@ -60,5 +62,8 @@ namespace StockportGovUK.NetStandard.Gateways.UniformService
 
 		public async Task<HttpResponse<string>> UpdateTaxiLicenceRequestWithDetails(TaxiLicensingUpdateRequest request)
 			=> await PostAsync<string>($"{TaxiLicenceEndpointWithDetails}", request);
+
+		public async Task<HttpResponse<string>> CheckTaxiLicenceRequestIsOpen(TaxiLicensingUpdateRequest request) 
+            => await PostAsync<string>($"{TaxiLicenceEndpointCheckIsOpen}", request);
 	}
 }
