@@ -58,10 +58,10 @@ namespace StockportGovUK.NetStandard.Gateways.UniformService
 			=> await PostAsync<string>($"{TaxiLicenceEndpoint}", request);
 
 		public async Task<HttpResponse<string>> UpdateTaxiLicenceRequestWithPayment(TaxiLicensingUpdateRequest request)
-			=> await PostAsync<string>($"{TaxiLicenceEndpointWithPayment}", request);
+			=> await PatchAsync<string>($"{TaxiLicenceEndpointWithPayment}", request);
 
 		public async Task<HttpResponse<string>> UpdateTaxiLicenceRequestWithDetails(TaxiLicensingUpdateRequest request)
-			=> await PostAsync<string>($"{TaxiLicenceEndpointWithDetails}", request);
+			=> await PatchAsync<string>($"{TaxiLicenceEndpointWithDetails}", request);
 
 		public async Task<HttpResponse<string>> CheckTaxiLicenceRequestIsOpen(TaxiLicensingUpdateRequest request)
 			=> await PostAsync<string>($"{TaxiLicenceEndpointCheckIsOpen}", request);
