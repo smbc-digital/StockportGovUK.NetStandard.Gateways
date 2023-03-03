@@ -39,6 +39,8 @@ namespace StockportGovUK.NetStandard.Gateways.Models.Booking
         public string BookingOfficer { get; set; }
         public bool DidNotAttend { get; set; }
         public DateTime? EmailReminderSentDateTime { get; set; }
+        public bool IsBookingTimedOut { get; set; }
+        public DateTime ConfirmationDeadline { get; set; }
         
         public IEnumerable<BookingResource> BookingResources { get; set; }
         public IEnumerable<ForeignReference> ForeignReferences { get; set; }
