@@ -32,7 +32,7 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
         Task<HttpResponse<int>> GetDayBookingCountForContext(GetByDateRequest request);
         Task<HttpResponse<IEnumerable<Booking>>> GetNewAndConfirmedBookings(Guid contextId);
         Task<HttpResponse<Booking>> GetBooking(Guid bookingId);
-        Task<HttpResponse<Note>> CancelBooking(CancelBookingRequest request);
+        Task<HttpResponse<Booking>> CancelBooking(CancelBookingRequest request);
 
         #endregion
 
