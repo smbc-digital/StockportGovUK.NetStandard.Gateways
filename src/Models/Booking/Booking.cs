@@ -41,11 +41,12 @@ namespace StockportGovUK.NetStandard.Gateways.Models.Booking
         public DateTime? EmailReminderSentDateTime { get; set; }
         public bool IsBookingTimedOut { get; set; }
         public DateTime ConfirmationDeadline { get; set; }
-        
+
         public IEnumerable<BookingResource> BookingResources { get; set; }
         public IEnumerable<ForeignReference> ForeignReferences { get; set; }
         public IEnumerable<MetaDataValue> MetaDataValues { get; set; }
         public IEnumerable<Note> Notes { get; set; }
+        public Status Statuses { get; set; }
 
         // These already existed and are used by Formbuilder and Services so leaving in until we plan in a refactor
         public string HashedId { get; set; }
