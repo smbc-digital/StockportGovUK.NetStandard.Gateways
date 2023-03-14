@@ -20,5 +20,10 @@ namespace StockportGovUK.NetStandard.Gateways.Models.Booking.Response
         public TimeSpan StartTime { get; set; }
         public TimeSpan EndTime { get; set; }
         public TimeSpan Duration => EndTime - StartTime;
+        public int AvailableAppointments{ get; set; }
+        public bool AllowBooking { get; set; }
+        public bool AllowOveriddenBooking { get; set; }
+
+
     }
 }
