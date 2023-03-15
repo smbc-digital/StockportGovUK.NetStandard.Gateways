@@ -35,7 +35,7 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
         Task<HttpResponse<Booking>> CancelBooking(CancelBookingRequest request);
         Task<HttpResponse<IEnumerable<Note>>> AddNote(AddNoteRequest request);
         Task<HttpResponse<IEnumerable<Status>>> GetStatuses();
-        Task<HttpResponse<Booking>> UpdateBookingStatusRequest(UpdateBookingStatus request);
+        Task<HttpResponse<Booking>> UpdateStatus(UpdateBookingStatusRequest request);
 
         #endregion
 
