@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace StockportGovUK.NetStandard.Gateways.Models.Booking.Request
 {
@@ -14,8 +15,10 @@ namespace StockportGovUK.NetStandard.Gateways.Models.Booking.Request
 
         public Guid BookingId { get; set; }
 
+        [Required(ErrorMessage = "Reference is required")]
         public string Reference { get; set; }
 
+        [Required(ErrorMessage = "Description is required")]
         public string Description { get; set; }
     }
 }
