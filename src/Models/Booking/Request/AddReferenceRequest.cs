@@ -18,7 +18,7 @@ namespace StockportGovUK.NetStandard.Gateways.Models.Booking.Request
         [Required(ErrorMessage = "Reference is required")]
         public string Reference { get; set; }
 
-        [Required(ErrorMessage = "Description is required")]
+        [Required(ErrorMessage = "Name is required")]
         public string Description { get; set; }
     }
 }
