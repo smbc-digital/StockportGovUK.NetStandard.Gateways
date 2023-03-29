@@ -11,7 +11,7 @@ public partial class BookingServiceAdminGateway : Gateway, IBookingServiceAdminG
     public async Task<HttpResponseMessage> ProcessConfirmationEmails(ProcessEmailsRequest request) =>
         await PostAsync($"{EmailEndpoint}/confirmation", request);
 
-    public async Task<HttpResponseMessage> ProcessReminderEmail(ProcessEmailsRequest request) =>
+    public async Task<HttpResponseMessage> ProcessReminderEmails(ProcessEmailsRequest request) =>
         await PostAsync($"{EmailEndpoint}/reminder", request);
 
     public async Task<HttpResponseMessage> ProcessCancellationEmails(ProcessEmailsRequest request) =>

@@ -61,7 +61,7 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
         #region Email
 
         Task<HttpResponseMessage> ProcessConfirmationEmails(ProcessEmailsRequest request);
-        Task<HttpResponseMessage> ProcessReminderEmail(ProcessEmailsRequest request);
+        Task<HttpResponseMessage> ProcessReminderEmails(ProcessEmailsRequest request);
         Task<HttpResponseMessage> ProcessCancellationEmails(ProcessEmailsRequest request);
         Task<HttpResponseMessage> ProcessRescheduleEmails(ProcessEmailsRequest request);
 
