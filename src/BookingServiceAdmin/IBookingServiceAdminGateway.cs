@@ -58,6 +58,15 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
 
         #endregion
 
+        #region Email
+
+        Task<HttpResponseMessage> ProcessConfirmationEmails(ProcessEmailsRequest request);
+        Task<HttpResponseMessage> ProcessReminderEmails(ProcessEmailsRequest request);
+        Task<HttpResponseMessage> ProcessCancellationEmails(ProcessEmailsRequest request);
+        Task<HttpResponseMessage> ProcessRescheduleEmails(ProcessEmailsRequest request);
+
+        #endregion
+
         #region Policy
 
         Task<HttpResponse<IEnumerable<Policy>>> GetPolicies(Guid contextId);
