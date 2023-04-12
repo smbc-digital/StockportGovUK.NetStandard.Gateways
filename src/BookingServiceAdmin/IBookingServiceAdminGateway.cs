@@ -92,6 +92,12 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
 
         #endregion
 
+        #region Search
+
+        Task<HttpResponse<IEnumerable<BookingSearchResult>>> SearchBookings(string contextId, string searchTerm);
+
+        #endregion
+
         #region Suspension
 
         Task<HttpResponseMessage> GetSuspensionsForContext(Guid contextId);
