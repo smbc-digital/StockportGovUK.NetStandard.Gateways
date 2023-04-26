@@ -10,5 +10,5 @@ public partial class BookingServiceAdminGateway : Gateway, IBookingServiceAdminG
     private const string SearchEndpoint = "api/v1/Search";
 
     public async Task<HttpResponse<IEnumerable<BookingSearchResult>>> SearchBookings(string contextId, string searchTerm) =>
-        await GetAsync<IEnumerable<BookingSearchResult>>($"{SearchEndpoint}/{contextId}/{searchTerm}");
+        await GetAsync<IEnumerable<BookingSearchResult>>($"{SearchEndpoint}/{contextId}?searchTerm={searchTerm}");
 }
