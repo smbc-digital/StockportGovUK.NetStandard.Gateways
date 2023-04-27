@@ -54,7 +54,7 @@ namespace StockportGovUK.NetStandard.Gateways.BookingService
             await GetAsync<string>($"{LocationEndpoint}{LocationQueryString(model)}");
 
         private string AvailabilityQueryString(AvailabilityRequest model) =>
-            $"?{nameof(model.AppointmentId)}={model.AppointmentId}&{nameof(model.StartDate)}={model.StartDate:s}&{nameof(model.EndDate)}={model.EndDate:s}&{nameof(model.AdminOverride)}={model.AdminOverride}{OptionalResourcesQueryString(model.OptionalResources, nameof(model.OptionalResources))}";
+            $"?{nameof(model.AppointmentId)}={model.AppointmentId}&{nameof(model.StartDate)}={model.StartDate:s}&{nameof(model.EndDate)}={model.EndDate:s}&{nameof(model.AdminOverride)}={model.AdminOverride}&{nameof(model.NumberOfConsecutiveAppointmentsRequired)}={model.NumberOfConsecutiveAppointmentsRequired}{OptionalResourcesQueryString(model.OptionalResources, nameof(model.OptionalResources))}";
 
         private string LocationQueryString(LocationRequest model) =>
             $"?{nameof(model.AppointmentId)}={model.AppointmentId}{OptionalResourcesQueryString(model.OptionalResources, nameof(model.OptionalResources))}";
