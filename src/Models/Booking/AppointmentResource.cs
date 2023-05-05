@@ -9,4 +9,5 @@ public class AppointmentResource
     public Guid AppointmentId { get; set; }
     public Guid ResourceId { get; set; }
     public int MaxQuantity { get; set; }
+    public string Name { get; set; }
 }
