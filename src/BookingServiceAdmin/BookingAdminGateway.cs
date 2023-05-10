@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 using StockportGovUK.NetStandard.Gateways.Models.Booking;
 using StockportGovUK.NetStandard.Gateways.Models.Booking.Request;
@@ -31,5 +32,8 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
 
         public async Task<HttpResponse<Booking>> UpdateStatus(UpdateBookingStatusRequest request) =>
            await PatchAsync<Booking>($"{BookingEndpoint}/update-status", request);
+
+        public async Task<HttpResponseMessage> UpdateCustomerForBooking(UpdateCustomerForBookingRequest request) =>
+            await PatchAsync($"{BookingEndpoint}/update-customer", request);
     }
 }
