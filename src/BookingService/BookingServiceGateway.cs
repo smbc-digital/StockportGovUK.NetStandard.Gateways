@@ -32,6 +32,9 @@ namespace StockportGovUK.NetStandard.Gateways.BookingService
         public async Task<HttpResponse<Guid>> Reserve(BookingRequest model) =>
             await PostAsync<Guid>(ReservationEndpoint, model);
 
+        public async Task<HttpResponse<Guid>> ReserveOverridden(BookingRequest model) =>
+            await PostAsync<Guid>($"{ReservationEndpoint}/reserve-overridden", model);
+
         public async Task<HttpResponseMessage> Confirmation(ConfirmationRequest model) =>
             await PatchAsync(ConfirmationEndpoint, model);
 

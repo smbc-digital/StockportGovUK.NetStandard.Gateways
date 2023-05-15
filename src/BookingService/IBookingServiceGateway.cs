@@ -16,6 +16,8 @@ namespace StockportGovUK.NetStandard.Gateways.BookingService
 
         Task<HttpResponse<Guid>> Reserve(BookingRequest model);
 
+        Task<HttpResponse<Guid>> ReserveOverridden(BookingRequest model);
+
         Task<HttpResponseMessage> Confirmation(ConfirmationRequest model);
 
         Task<HttpResponseMessage> Cancel(string id);
