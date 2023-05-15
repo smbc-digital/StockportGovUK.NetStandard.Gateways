@@ -44,6 +44,9 @@ namespace StockportGovUK.NetStandard.Gateways.BookingService
         public async Task<HttpResponseMessage> AddFee(AddFeeRequest addFeeRequest) =>
             await PatchAsync($"{BookingEndpoint}/add-fee", addFeeRequest);
 
+        public async Task<HttpResponseMessage> AddBookingDescription(AddBookingDescriptionRequest addBookingDescriptionRequest) =>
+            await PatchAsync($"{BookingEndpoint}/add-booking-description", addBookingDescriptionRequest);
+
         public async Task<HttpResponseMessage> AddReferences(List<AddReferenceRequest> addReferenceRequests) =>
             await PatchAsync($"{BookingEndpoint}/add-references", addReferenceRequests);
 
