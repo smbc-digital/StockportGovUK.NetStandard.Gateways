@@ -21,6 +21,7 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
         Task<HttpResponse<List<Appointment>>> GetAppointments(Guid contextId, int subLevels);
         Task<HttpResponse<Appointment>> GetAppointment(Guid contextId);
         Task<HttpResponse<Appointment>> GetAppointment(Guid appointmentId, int subLevels);
+        Task<HttpResponse<Appointment>> GetAppointmentResources(Guid appointmentId);
         Task<HttpResponse<Appointment>> AddAppointment(AppointmentRequest model);
         Task<HttpResponse<Appointment>> UpdateAppointment(AppointmentRequest model);
         Task<HttpResponse<Appointment>> UpdateAppointmentResources(AppointmentRequest model);
