@@ -20,6 +20,9 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
         public async Task<HttpResponse<Appointment>> GetAppointment(Guid appointmentId, int subLevels) =>
             await GetAsync<Appointment>($"{AppointmentEndpoint}/appointment-details/{appointmentId}/{subLevels}");
 
+        public async Task<HttpResponse<Appointment>> GetAppointmentResources(Guid appointmentId) =>
+            await GetAsync<Appointment>($"{AppointmentEndpoint}/resources/{appointmentId}");
+
         public async Task<HttpResponse<Appointment>> AddAppointment(AppointmentRequest model) =>
             await PostAsync<Appointment>(AppointmentEndpoint, model);
 
