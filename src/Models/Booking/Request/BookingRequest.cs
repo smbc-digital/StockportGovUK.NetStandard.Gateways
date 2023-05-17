@@ -16,6 +16,8 @@ namespace StockportGovUK.NetStandard.Gateways.Models.Booking.Request
         [Required]
         public Customer Customer { get; set; }
 
+        public string BookingOfficer { get; set; } = "Online form";
+
         public string AdditionalInformation { get; set; }
     }
 }
