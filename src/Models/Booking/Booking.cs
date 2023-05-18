@@ -44,6 +44,7 @@ namespace StockportGovUK.NetStandard.Gateways.Models.Booking
         public IEnumerable<BookingResource> BookingResources { get; set; }
         public IEnumerable<ForeignReference> ForeignReferences { get; set; }
         public IEnumerable<MetaDataValue> MetaDataValues { get; set; }
+        public IEnumerable<MetaDataCombined> MetaData { get; set; }
         public IEnumerable<Note> Notes { get; set; }
 
         // These already existed and are used by Formbuilder and Services so leaving in until we plan in a refactor
