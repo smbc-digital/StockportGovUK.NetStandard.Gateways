@@ -21,6 +21,9 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
         public async Task<HttpResponse<Booking>> GetBooking(Guid bookingId) =>
             await GetAsync<Booking>($"{BookingEndpoint}/{bookingId}");
 
+        public async Task<HttpResponse<IEnumerable<Booking>>> GetRelatedBookings(Guid groupId) =>
+            await GetAsync<IEnumerable<Booking>>($"{BookingEndpoint}/related/{groupId}");
+
         public async Task<HttpResponse<Booking>> CancelBooking(CancelBookingRequest request) =>
             await PatchAsync<Booking>($"{BookingEndpoint}/cancel", request);
 
