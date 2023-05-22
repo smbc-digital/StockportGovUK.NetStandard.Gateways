@@ -17,7 +17,7 @@ namespace StockportGovUK.NetStandard.Gateways.Models.Booking.Request
         [Required]
         public Guid AppointmentId { get; set; }
 
-        public int NumberOfConsecutiveAppointmentsRequired { get; set; }
+        public int NumberOfConsecutiveAppointmentsRequired { get; set; } = 1;
 
         public List<BookingResource> OptionalResources { get; set; }
 

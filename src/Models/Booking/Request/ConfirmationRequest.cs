@@ -21,5 +21,7 @@ namespace StockportGovUK.NetStandard.Gateways.Models.Booking.Request
         public List<AddReferenceRequest> ForeignReferences { get; set; }
 
         public decimal FeePaid { get; set; }
+
+        public bool WebAdminRequest { get; set; }
     }
 }

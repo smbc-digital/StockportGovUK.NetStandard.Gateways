@@ -71,6 +71,8 @@
         GenericHtmlReport,
         BaseHtmlTemplate,
         StockportCanFund,
+        TaxiVehicleLicenceTransferNewOwner,
         CarfRequest
+        
     }
 }

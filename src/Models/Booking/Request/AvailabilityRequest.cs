@@ -19,5 +19,11 @@ namespace StockportGovUK.NetStandard.Gateways.Models.Booking.Request
 
         [Required]
         public DateTime EndDate { get; set; }
+
+        /// <summary>
+        /// Specifies whether this request should return appointments that could be overidden by admins but would otherwise note be availble.
+        /// </summary>
+        /// <value></value>
+        public bool AdminOverride {get; set;} = false;
     }
 }

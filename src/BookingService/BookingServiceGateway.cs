@@ -32,6 +32,9 @@ namespace StockportGovUK.NetStandard.Gateways.BookingService
         public async Task<HttpResponse<Guid>> Reserve(BookingRequest model) =>
             await PostAsync<Guid>(ReservationEndpoint, model);
 
+        public async Task<HttpResponse<Guid>> ReserveOverridden(BookingRequest model) =>
+            await PostAsync<Guid>($"{ReservationEndpoint}/reserve-overridden", model);
+
         public async Task<HttpResponseMessage> Confirmation(ConfirmationRequest model) =>
             await PatchAsync(ConfirmationEndpoint, model);
 
@@ -44,6 +47,9 @@ namespace StockportGovUK.NetStandard.Gateways.BookingService
         public async Task<HttpResponseMessage> AddFee(AddFeeRequest addFeeRequest) =>
             await PatchAsync($"{BookingEndpoint}/add-fee", addFeeRequest);
 
+        public async Task<HttpResponseMessage> AddBookingDescription(AddBookingDescriptionRequest addBookingDescriptionRequest) =>
+            await PatchAsync($"{BookingEndpoint}/add-booking-description", addBookingDescriptionRequest);
+
         public async Task<HttpResponseMessage> AddReferences(List<AddReferenceRequest> addReferenceRequests) =>
             await PatchAsync($"{BookingEndpoint}/add-references", addReferenceRequests);
 
@@ -54,7 +60,7 @@ namespace StockportGovUK.NetStandard.Gateways.BookingService
             await GetAsync<string>($"{LocationEndpoint}{LocationQueryString(model)}");
 
         private string AvailabilityQueryString(AvailabilityRequest model) =>
-            $"?{nameof(model.AppointmentId)}={model.AppointmentId}&{nameof(model.StartDate)}={model.StartDate:s}&{nameof(model.EndDate)}={model.EndDate:s}{OptionalResourcesQueryString(model.OptionalResources, nameof(model.OptionalResources))}";
+            $"?{nameof(model.AppointmentId)}={model.AppointmentId}&{nameof(model.StartDate)}={model.StartDate:s}&{nameof(model.EndDate)}={model.EndDate:s}&{nameof(model.AdminOverride)}={model.AdminOverride}&{nameof(model.NumberOfConsecutiveAppointmentsRequired)}={model.NumberOfConsecutiveAppointmentsRequired}{OptionalResourcesQueryString(model.OptionalResources, nameof(model.OptionalResources))}";
 
         private string LocationQueryString(LocationRequest model) =>
             $"?{nameof(model.AppointmentId)}={model.AppointmentId}{OptionalResourcesQueryString(model.OptionalResources, nameof(model.OptionalResources))}";
