@@ -19,7 +19,5 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
 
         private string GetByDateQueryString(GetByDateRequest request) =>
             $"?{nameof(request.Id)}={request.Id}&{nameof(request.Date)}={request.Date:s}";
-
-        #endregion
     }
 }
