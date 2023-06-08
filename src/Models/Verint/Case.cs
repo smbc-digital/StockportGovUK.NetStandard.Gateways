@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using StockportGovUK.NetStandard.Gateways.Models.Enums;
 using StockportGovUK.NetStandard.Gateways.Models.Verint.Eforms;
+using StockportGovUK.NetStandard.Gateways.Models.Verint.Enums;
 
 namespace StockportGovUK.NetStandard.Gateways.Models.Verint
 {
@@ -95,7 +95,7 @@ namespace StockportGovUK.NetStandard.Gateways.Models.Verint
 
         public bool IsSMBCEmployee { get; set; }
 
-        public Channel Channel { get; set; }
+        public EChannel Channel { get; set; }
 
         public string CaseTitle { get; set; }
 

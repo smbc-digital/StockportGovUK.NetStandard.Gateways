@@ -29,6 +29,12 @@ namespace StockportGovUK.NetStandard.Gateways.VerintService
         public async Task<HttpResponse<string>> CreateCase(Case crmCase)
             => await PostAsync<string>($"{CaseEndpoint}", crmCase);
 
+        public async Task<HttpResponseMessage> LinkCase(LinkCaseRequest linkCaseRequest)
+            => await PatchAsync($"{CaseEndpoint}/link", linkCaseRequest);
+
+        public async Task<HttpResponseMessage> UnLinkCase(LinkCaseRequest unLinkCaseRequest)
+            => await PatchAsync($"{CaseEndpoint}/unlink", unLinkCaseRequest);
+
         public async Task<HttpResponse<string>> CloseCase(CloseCaseRequest closeCaseRequest)
             => await PatchAsync<string>($"{CaseEndpoint}/close-case", closeCaseRequest);
 
