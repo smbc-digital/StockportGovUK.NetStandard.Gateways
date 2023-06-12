@@ -21,7 +21,7 @@ namespace StockportGovUK.NetStandard.Gateways.VerintService
         Task<HttpResponseMessage> LinkCase(LinkCaseRequest linkCaseRequest);
         Task<HttpResponseMessage> UnLinkCase(LinkCaseRequest unLinkCaseRequest);
         Task<HttpResponse<string>> CloseCase(CloseCaseRequest closeCaseRequest);
-        Task<HttpResponse<string>> ReopenCase(ReopenCaseRequest reopenCaseRequest);
+        Task<HttpResponseMessage> ReopenCase(ReopenCaseRequest reopenCaseRequest);
         Task CleanupCase(string caseRef);
         Task<HttpResponse<VerintOnlineFormResponse>> CreateVerintOnlineFormCase(VerintOnlineFormRequest verintOnlineFormRequest);
         Task<HttpResponse<VerintOnlineFormResponse>> AttachVerintOnlineFormToCase(VerintOnlineFormRequest verintOnlineFormRequest);
