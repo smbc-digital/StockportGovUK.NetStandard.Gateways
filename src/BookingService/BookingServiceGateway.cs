@@ -41,6 +41,9 @@ namespace StockportGovUK.NetStandard.Gateways.BookingService
         public async Task<HttpResponseMessage> Cancel(string id) =>
             await DeleteAsync($"{CancellationEndpoint}/{id}");
 
+        public async Task<HttpResponseMessage> Cancel(Guid id) =>
+            await DeleteAsync($"{CancellationEndpoint}/{id}");
+
         public async Task<HttpResponseMessage> AddReference(AddReferenceRequest addReferenceRequest) =>
             await PatchAsync($"{BookingEndpoint}/add-reference", addReferenceRequest);
 
