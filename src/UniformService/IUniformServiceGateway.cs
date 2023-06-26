@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Net.Http;
+using System.Threading.Tasks;
 using StockportGovUK.NetStandard.Gateways.Models.Uniform;
 using StockportGovUK.NetStandard.Gateways.Response;
 
@@ -9,7 +10,8 @@ namespace StockportGovUK.NetStandard.Gateways.UniformService
 		Task<HttpResponse<string>> GetPestControlRequest(string id);
 		Task<HttpResponse<string>> CreatePestControlRequest(PestControlServiceRequest request);
 		Task<HttpResponse<string>> ResubmitPestControlRequest(string crmCaseId);
-		Task<HttpResponse<string>> CreateNoiseNuisanceRequest(NoiseNuisanceServiceRequest request);
+        Task<HttpResponseMessage> ClosePestControlRequest(PestControlCloseServiceRequest request);
+        Task<HttpResponse<string>> CreateNoiseNuisanceRequest(NoiseNuisanceServiceRequest request);
 		Task<HttpResponse<string>> ResubmitNoiseNuisanceRequest(string crmCaseId);
 		Task<HttpResponse<string>> CreateBonfireNuisanceRequest(BonfireNuisanceServiceRequest request);
 		Task<HttpResponse<string>> ResubmitBonfireNuisanceRequest(string crmCaseId);

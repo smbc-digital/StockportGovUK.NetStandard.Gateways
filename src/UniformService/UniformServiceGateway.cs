@@ -36,6 +36,9 @@ namespace StockportGovUK.NetStandard.Gateways.UniformService
 		public async Task<HttpResponse<string>> ResubmitPestControlRequest(string crmCaseId)
 			=> await PostAsync<string>($"{PestControlEndpoint}/Resubmit", crmCaseId);
 
+        public async Task<HttpResponseMessage> ClosePestControlRequest(PestControlCloseServiceRequest request)
+            => await PatchAsync($"{PestControlEndpoint}/close", request);
+
 		public async Task<HttpResponse<string>> CreateNoiseNuisanceRequest(NoiseNuisanceServiceRequest request)
 			=> await PostAsync<string>($"{NoiseNuisanceEndpoint}", request);
 
