@@ -38,8 +38,8 @@ namespace StockportGovUK.NetStandard.Gateways.VerintService
         public async Task<HttpResponse<string>> CloseCase(CloseCaseRequest closeCaseRequest)
             => await PatchAsync<string>($"{CaseEndpoint}/close-case", closeCaseRequest);
 
-        public async Task<HttpResponse<string>> ReopenCase(ReopenCaseRequest reopenCaseRequest)
-            => await PatchAsync<string>($"{CaseEndpoint}/reopen-case", reopenCaseRequest);
+        public async Task<HttpResponseMessage> ReopenCase(ReopenCaseRequest reopenCaseRequest)
+            => await PatchAsync($"{CaseEndpoint}/reopen-case", reopenCaseRequest);
 
         public async Task CleanupCase(string caseRef)
             => await PatchAsync<string>($"{CaseEndpoint}/cleanup", caseRef);
