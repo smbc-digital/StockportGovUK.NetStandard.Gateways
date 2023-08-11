@@ -8,12 +8,14 @@ namespace StockportGovUK.NetStandard.Gateways.WiredPlus
     public class WiredPlusGateway : Gateway, IWiredPlusGateway
     {
         // Base URL :  https://api.wiredplus.com/
-        // Usage Auth Tokem can be added in the gateway setup as per normal BUT needs to be a BASE64 encoded string of - https://www.base64encode.org/
+        // Usage Auth Token can be added in the gateway setup as per normal BUT needs to be a BASE64 encoded string of - https://www.base64encode.org/
         // {API_KEY_NAME}:{API_KEY}
 
         private const string CreateContactEndpoint = "v1/CreateContact";
         private const string UpdateContactEndpoint = "v1/UpdateContact";
         private const string GetListByIdEndpoint = "v1/GetListById";
+        private const string ResubscribeContactEndpoint = "v1/ResubscribeContact";
+        private const string GetContactByEmailEndpoint = "v1/GetContactByEmail";
 
         public WiredPlusGateway(HttpClient httpClient) : base(httpClient) { }
 
@@ -86,6 +88,24 @@ namespace StockportGovUK.NetStandard.Gateways.WiredPlus
             content.AddIfNotNull(request.Id.ToString(), "listid");
 
             return await PostAsync<GetListByIdResponse>(GetListByIdEndpoint, content, false);
+        }
+
+        public async Task<HttpResponse<object>> ResubscribeContact(NewsletterSignUpRequest request)
+        {
+            var content = new MultipartFormDataContent();
+            
+            content.AddIfNotNull(request.Email, "email");
+
+            return await PostAsync<object>(ResubscribeContactEndpoint, content, false);
+        }
+
+        public async Task<HttpResponse<NewsletterContactResponse>> GetContactByEmail(NewsletterSignUpRequest request)
+        {
+            var content = new MultipartFormDataContent();
+
+            content.AddIfNotNull(request.Email, "email");
+
+            return await PostAsync<NewsletterContactResponse>(GetContactByEmailEndpoint, content, false);
         }
     }
 
