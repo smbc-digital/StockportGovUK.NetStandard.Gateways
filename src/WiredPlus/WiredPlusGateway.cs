@@ -16,8 +16,12 @@ namespace StockportGovUK.NetStandard.Gateways.WiredPlus
         private const string GetListByIdEndpoint = "v1/GetListById";
         private const string ResubscribeContactEndpoint = "v1/ResubscribeContact";
         private const string GetContactByEmailEndpoint = "v1/GetContactByEmail";
+        private const string GetAccountInfoEndpoint = "v1/GetAccountInfo";
 
         public WiredPlusGateway(HttpClient httpClient) : base(httpClient) { }
+
+        public async Task<HttpResponse<object>> GetAccountInfo() =>
+            await GetAsync<object>(GetAccountInfoEndpoint);
 
         public async Task<HttpResponse<NewsletterSignUpResponse>> CreateContact(NewsletterSignUpRequest request)
         {
