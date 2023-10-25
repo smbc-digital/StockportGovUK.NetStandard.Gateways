@@ -59,6 +59,9 @@ namespace StockportGovUK.NetStandard.Gateways.BookingService
         public async Task<HttpResponseMessage> UpdateAdditionalInformationMetaDataValues(UpdateAdditionalInformationMetaDataValuesRequest updateAdditionalInformationMetaDataValuesRequest) =>
             await PatchAsync($"{BookingEndpoint}/update-additional-information-meta-data-values", updateAdditionalInformationMetaDataValuesRequest);
 
+        public async Task<HttpResponseMessage> RelateBookings(RelateBookingsRequest relateBookingsRequest) =>
+            await PatchAsync($"{BookingEndpoint}/relate-bookings", relateBookingsRequest);
+
         public async Task<HttpResponse<string>> GetLocation(LocationRequest model) =>
             await GetAsync<string>($"{LocationEndpoint}{LocationQueryString(model)}");
 
