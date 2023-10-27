@@ -14,6 +14,8 @@ namespace StockportGovUK.NetStandard.Gateways.Models.Booking.Request
         [Required]
         public Guid BookingId { get; set; }
 
+        public Guid GroupId { get; set; }
+
         public List<BookingResource> OptionalResources { get; set; }
 
         public string AdditionalInformation { get; set; }

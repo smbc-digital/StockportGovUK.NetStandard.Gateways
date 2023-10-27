@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace StockportGovUK.NetStandard.Gateways.Models.Booking.Request
 {
@@ -10,6 +11,7 @@ namespace StockportGovUK.NetStandard.Gateways.Models.Booking.Request
         public Customer(string firstName, string lastName, string address) =>
             (Firstname, Lastname, Address) = (firstName, lastName, address);
 
+        public Guid Id { get; set; }
         [Required]
         public string Firstname { get; set; }
         [Required]
