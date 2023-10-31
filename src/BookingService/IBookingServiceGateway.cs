@@ -20,6 +20,8 @@ namespace StockportGovUK.NetStandard.Gateways.BookingService
 
         Task<HttpResponseMessage> Confirmation(ConfirmationRequest model);
 
+        Task<HttpResponseMessage> Reschedule(RescheduleBookingRequest model);
+
         Task<HttpResponseMessage> Cancel(string id);
 
         Task<HttpResponseMessage> Cancel(Guid id);
