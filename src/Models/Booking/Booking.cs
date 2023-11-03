@@ -27,8 +27,10 @@ namespace StockportGovUK.NetStandard.Gateways.Models.Booking
         public string StatusName { get; set; }
         public decimal? FeePaid { get; set; }
         public Guid ContextId { get; set; }
+        public bool AllowCancellation { get; set; }
         public DateTime? LatestCancellationDate { get; set; }
         public bool? AllowLateCancellation { get; set; }
+        public bool AllowReschedule { get; set; }
         public DateTime? LatestRescheduleDate { get; set; }
         public bool? AllowLateReschedule { get; set; }
         public DateTime? ArrivedTime { get; set; }
