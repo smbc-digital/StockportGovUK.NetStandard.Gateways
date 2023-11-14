@@ -18,6 +18,6 @@ public class Address
     public double Northing { get; set; }
     public double Easting { get; set; }
     public string Uprn { get; set; }
-    public string SiteId { get; set; }
-    public string AccountSiteId { get; set; }
+    public int SiteId { get; set; }
+    public int AccountSiteId { get; set; }
 }
