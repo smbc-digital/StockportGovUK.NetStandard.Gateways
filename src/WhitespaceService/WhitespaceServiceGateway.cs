@@ -41,7 +41,7 @@ public class WhitespaceServiceGateway : Gateway, IWhitespaceServiceGateway
     public async Task<HttpResponse<SiteResponse>> GetSiteInfoByUprn(string uprn)
         => await GetAsync<SiteResponse>($"{SiteEndpoint}/site-info-uprn/{uprn}");
 
-    public async Task<HttpResponse<SiteIdResponse>> GetAccountSiteIIdByUprn(string uprn)
+    public async Task<HttpResponse<SiteIdResponse>> GetAccountSiteIdByUprn(string uprn)
         => await GetAsync<SiteIdResponse>($"{SiteEndpoint}/account-site-id-uprn/{uprn}");
 
     #endregion
