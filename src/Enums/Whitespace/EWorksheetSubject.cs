@@ -50,8 +50,11 @@ public enum EWorksheetSubject
 
 public static class WorksheetSubjectEnumExtension
 {
-    public static string ToDescriptionString(this EWorksheetSubject worksheetSubject)
+    public static string ToDescriptionString(this EWorksheetSubject? worksheetSubject)
     {
+        if (worksheetSubject is null)
+            return string.Empty;
+
         DescriptionAttribute[] attributes = (DescriptionAttribute[])worksheetSubject
                                                                     .GetType()
                                                                     .GetField(worksheetSubject.ToString())

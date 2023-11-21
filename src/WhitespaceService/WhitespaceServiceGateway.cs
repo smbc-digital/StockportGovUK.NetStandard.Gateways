@@ -38,8 +38,8 @@ public class WhitespaceServiceGateway : Gateway, IWhitespaceServiceGateway
 
     #region Site
 
-    public async Task<HttpResponse<SiteResponse>> GetSiteInfoByUprn(string uprn)
-        => await GetAsync<SiteResponse>($"{SiteEndpoint}/site-info-uprn/{uprn}");
+    public async Task<HttpResponse<SiteResponse>> GetSiteInfo(SiteInfoRequest request)
+        => await GetAsync<SiteResponse>($"{SiteEndpoint}/sites/{GetSiteInfoQueryString(request)}");
 
     public async Task<HttpResponse<SiteIdResponse>> GetAccountSiteIdByUprn(string uprn)
         => await GetAsync<SiteIdResponse>($"{SiteEndpoint}/account-site-id-uprn/{uprn}");
@@ -55,11 +55,8 @@ public class WhitespaceServiceGateway : Gateway, IWhitespaceServiceGateway
 
     #region Worksheet
 
-    public async Task<HttpResponse<WorksheetResponse>> GetSiteWorksheetsByUprn(string uprn)
-        => await GetAsync<WorksheetResponse>($"{WorksheetEndpoint}/uprn/{uprn}");
-
-    public async Task<HttpResponse<WorksheetResponse>> GetSiteWorksheetsWithFilterByUprn(string uprn)
-        => await GetAsync<WorksheetResponse>($"{WorksheetEndpoint}/uprn/{uprn}");
+    public async Task<HttpResponse<WorksheetResponse>> GetSiteWorksheets(SiteWorksheetsRequest request)
+        => await GetAsync<WorksheetResponse>($"{WorksheetEndpoint}/site-worksheets/{GetSiteWorksheetsQueryString(request)}");
 
     #endregion
 
@@ -67,6 +64,12 @@ public class WhitespaceServiceGateway : Gateway, IWhitespaceServiceGateway
 
     private string GetCollectionByUprnAndDateQueryString(CollectionRequest request) =>
         $"?{nameof(request.Uprn)}={request.Uprn}&{nameof(request.From)}={request.From:s}&{nameof(request.To)}={request.To:s}";
+
+    private string GetSiteInfoQueryString(SiteInfoRequest request) =>
+        $"?{nameof(request.Uprn)}={request.Uprn}&{nameof(request.AccountSiteId)}={request.AccountSiteId}";
+
+    private string GetSiteWorksheetsQueryString(SiteWorksheetsRequest request) =>
+        $"?{nameof(request.Uprn)}={request.Uprn}&{nameof(request.WorksheetSubject)}={request.WorksheetSubject}";
 
     private string GetInCabLogsByUprnQueryString(InCabLogRequest request) =>
         $"?{nameof(request.Uprn)}={request.Uprn}&{nameof(request.From)}={request.From:s}&{nameof(request.To)}={request.To:s}";
