@@ -1,4 +1,5 @@
 ﻿using System;
+using StockportGovUK.NetStandard.Gateways.Enums.Whitespace;
 
 namespace StockportGovUK.NetStandard.Gateways.Models.Whitespace;
 public class Worksheet
@@ -8,7 +9,7 @@ public class Worksheet
     public int AssignedToId { get; set; }
     public int AssignedToTypeId { get; set; }
     public string AssignedToName { get; set; }
-    public string Subject { get; set; }
+    public EWorksheetSubject? Subject { get; set; }
     public string Type { get; set; }
     public string Message { get; set; }
     public int ReportedByContactId { get; set; }

@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
+using System.Reflection;
 
 namespace StockportGovUK.NetStandard.Gateways.Enums.Whitespace;
 
@@ -61,5 +63,20 @@ public static class WorksheetSubjectEnumExtension
                                                                     .GetCustomAttributes(typeof(DescriptionAttribute), false);
         
         return attributes.Length > 0 ? attributes[0].Description : string.Empty;
+    }
+
+    public static EWorksheetSubject? ToEnumFromDescriptionString(this string worksheetSubject)
+    {
+        FieldInfo[] memberInfo = typeof(EWorksheetSubject).GetFields();
+
+        foreach (var item in memberInfo)
+        {
+            DescriptionAttribute[] attributes = (DescriptionAttribute[])item.GetCustomAttributes(typeof(DescriptionAttribute), false);
+
+            if (attributes is not null && attributes.Length > 0 && attributes[0].Description.Equals(worksheetSubject))
+                return (EWorksheetSubject)Enum.Parse(typeof(EWorksheetSubject), item.Name);
+        }
+
+        return null;
     }
 }
