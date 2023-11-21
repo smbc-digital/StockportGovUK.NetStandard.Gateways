@@ -58,6 +58,9 @@ public class WhitespaceServiceGateway : Gateway, IWhitespaceServiceGateway
     public async Task<HttpResponse<WorksheetResponse>> GetSiteWorksheetsByUprn(string uprn)
         => await GetAsync<WorksheetResponse>($"{WorksheetEndpoint}/uprn/{uprn}");
 
+    public async Task<HttpResponse<WorksheetResponse>> GetSiteWorksheetsWithFilterByUprn(string uprn)
+        => await GetAsync<WorksheetResponse>($"{WorksheetEndpoint}/uprn/{uprn}");
+
     #endregion
 
     #region Query String Generators
