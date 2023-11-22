@@ -29,20 +29,20 @@ public class WhitespaceServiceGateway : Gateway, IWhitespaceServiceGateway
         => await GetAsync<CollectionResponse>($"{CollectionEndpoint}{GetCollectionByUprnAndDateQueryString(request)}");
 
     public async Task<HttpResponse<InCabLogResponse>> GetInCabLogsByUsrn(InCabLogRequest request)
-        => await GetAsync<InCabLogResponse>($"{CollectionEndpoint}/in-cab-usrn/{GetInCabLogsByUsrnQueryString(request)}");
+        => await GetAsync<InCabLogResponse>($"{CollectionEndpoint}/in-cab-usrn{GetInCabLogsByUsrnQueryString(request)}");
 
     public async Task<HttpResponse<InCabLogResponse>> GetInCabLogsByUprn(InCabLogRequest request)
-        => await GetAsync<InCabLogResponse>($"{CollectionEndpoint}/in-cab-uprn/{GetInCabLogsByUprnQueryString(request)}");
+        => await GetAsync<InCabLogResponse>($"{CollectionEndpoint}/in-cab-uprn{GetInCabLogsByUprnQueryString(request)}");
 
     #endregion
 
     #region Site
 
     public async Task<HttpResponse<SiteResponse>> GetSiteInfo(SiteInfoRequest request)
-        => await GetAsync<SiteResponse>($"{SiteEndpoint}/sites/{GetSiteInfoQueryString(request)}");
+        => await GetAsync<SiteResponse>($"{SiteEndpoint}/sites{GetSiteInfoQueryString(request)}");
 
-    public async Task<HttpResponse<SiteIdResponse>> GetAccountSiteIdByUprn(string uprn)
-        => await GetAsync<SiteIdResponse>($"{SiteEndpoint}/account-site-id-uprn/{uprn}");
+    public async Task<HttpResponse<SiteIdResponse>> GetAccountSiteId(AccountSiteIdRequest request)
+        => await GetAsync<SiteIdResponse>($"{SiteEndpoint}/account-site-id{GetAccountSiteIdQueryString(request)}");
 
     #endregion
 
@@ -56,7 +56,7 @@ public class WhitespaceServiceGateway : Gateway, IWhitespaceServiceGateway
     #region Worksheet
 
     public async Task<HttpResponse<WorksheetResponse>> GetSiteWorksheets(SiteWorksheetsRequest request)
-        => await GetAsync<WorksheetResponse>($"{WorksheetEndpoint}/site-worksheets/{GetSiteWorksheetsQueryString(request)}");
+        => await GetAsync<WorksheetResponse>($"{WorksheetEndpoint}/site-worksheets{GetSiteWorksheetsQueryString(request)}");
 
     #endregion
 
@@ -67,6 +67,9 @@ public class WhitespaceServiceGateway : Gateway, IWhitespaceServiceGateway
 
     private string GetSiteInfoQueryString(SiteInfoRequest request) =>
         $"?{nameof(request.Uprn)}={request.Uprn}&{nameof(request.AccountSiteId)}={request.AccountSiteId}";
+
+    private string GetAccountSiteIdQueryString(AccountSiteIdRequest request) =>
+        $"?{nameof(request.Uprn)}={request.Uprn}&{nameof(request.SiteId)}={request.SiteId}";
 
     private string GetSiteWorksheetsQueryString(SiteWorksheetsRequest request) =>
         $"?{nameof(request.Uprn)}={request.Uprn}&{nameof(request.WorksheetSubject)}={request.WorksheetSubject}";

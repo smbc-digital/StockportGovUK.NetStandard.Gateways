@@ -8,7 +8,7 @@ public interface IWhitespaceServiceGateway
 {
     Task<HttpResponse<AddressResponse>> GetAddresses(string postcode);
     Task<HttpResponse<SiteResponse>> GetSiteInfo(SiteInfoRequest request);
-    Task<HttpResponse<SiteIdResponse>> GetAccountSiteIdByUprn(string uprn);
+    Task<HttpResponse<SiteIdResponse>> GetAccountSiteId(AccountSiteIdRequest request);
     Task<HttpResponse<CollectionResponse>> GetCollectionByUprnAndDate(CollectionRequest request);
     Task<HttpResponse<WorksheetResponse>> GetSiteWorksheets(SiteWorksheetsRequest request);
     Task<HttpResponse<StreetResponse>> GetStreets(string postcode);
