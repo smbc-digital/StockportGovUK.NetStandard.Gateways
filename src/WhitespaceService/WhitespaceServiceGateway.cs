@@ -28,11 +28,8 @@ public class WhitespaceServiceGateway : Gateway, IWhitespaceServiceGateway
     public async Task<HttpResponse<CollectionResponse>> GetCollectionByUprnAndDate(CollectionRequest request)
         => await GetAsync<CollectionResponse>($"{CollectionEndpoint}{GetCollectionByUprnAndDateQueryString(request)}");
 
-    public async Task<HttpResponse<InCabLogResponse>> GetInCabLogsByUsrn(InCabLogRequest request)
-        => await GetAsync<InCabLogResponse>($"{CollectionEndpoint}/in-cab-usrn{GetInCabLogsByUsrnQueryString(request)}");
-
-    public async Task<HttpResponse<InCabLogResponse>> GetInCabLogsByUprn(InCabLogRequest request)
-        => await GetAsync<InCabLogResponse>($"{CollectionEndpoint}/in-cab-uprn{GetInCabLogsByUprnQueryString(request)}");
+    public async Task<HttpResponse<InCabLogResponse>> GetInCabLogs(InCabLogRequest request)
+        => await GetAsync<InCabLogResponse>($"{CollectionEndpoint}/in-cab-logs{GetInCabLogsQueryString(request)}");
 
     #endregion
 
@@ -74,11 +71,8 @@ public class WhitespaceServiceGateway : Gateway, IWhitespaceServiceGateway
     private string GetSiteWorksheetsQueryString(SiteWorksheetsRequest request) =>
         $"?{nameof(request.Uprn)}={request.Uprn}&{nameof(request.WorksheetSubject)}={request.WorksheetSubject}";
 
-    private string GetInCabLogsByUprnQueryString(InCabLogRequest request) =>
-        $"?{nameof(request.Uprn)}={request.Uprn}&{nameof(request.From)}={request.From:s}&{nameof(request.To)}={request.To:s}";
-
-    private string GetInCabLogsByUsrnQueryString(InCabLogRequest request) =>
-        $"?{nameof(request.Usrn)}={request.Usrn}&{nameof(request.From)}={request.From:s}&{nameof(request.To)}={request.To:s}";
+    private string GetInCabLogsQueryString(InCabLogRequest request) =>
+        $"?{nameof(request.Uprn)}={request.Uprn}&{nameof(request.Usrn)}={request.Usrn}&{nameof(request.From)}={request.From:s}&{nameof(request.To)}={request.To:s}";
 
     #endregion
 }

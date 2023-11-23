@@ -12,6 +12,5 @@ public interface IWhitespaceServiceGateway
     Task<HttpResponse<CollectionResponse>> GetCollectionByUprnAndDate(CollectionRequest request);
     Task<HttpResponse<WorksheetResponse>> GetSiteWorksheets(SiteWorksheetsRequest request);
     Task<HttpResponse<StreetResponse>> GetStreets(string postcode);
-    Task<HttpResponse<InCabLogResponse>> GetInCabLogsByUsrn(InCabLogRequest request);
-    Task<HttpResponse<InCabLogResponse>> GetInCabLogsByUprn(InCabLogRequest request);
+    Task<HttpResponse<InCabLogResponse>> GetInCabLogs(InCabLogRequest request);
 }
