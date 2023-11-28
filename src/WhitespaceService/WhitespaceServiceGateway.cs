@@ -31,6 +31,9 @@ public class WhitespaceServiceGateway : Gateway, IWhitespaceServiceGateway
     public async Task<HttpResponse<InCabLogResponse>> GetInCabLogs(InCabLogRequest request)
         => await GetAsync<InCabLogResponse>($"{CollectionEndpoint}/in-cab-logs{GetInCabLogsQueryString(request)}");
 
+    public async Task<HttpResponse<AdHocRoundResponse>> GetCollectionSlots(CollectionSlotsRequest request)
+        => await GetAsync<AdHocRoundResponse>($"{CollectionEndpoint}/collection-slots{GetCollectionSlotsQueryString(request)}");
+
     #endregion
 
     #region Site
@@ -55,12 +58,18 @@ public class WhitespaceServiceGateway : Gateway, IWhitespaceServiceGateway
     public async Task<HttpResponse<WorksheetResponse>> GetSiteWorksheets(SiteWorksheetsRequest request)
         => await GetAsync<WorksheetResponse>($"{WorksheetEndpoint}/site-worksheets{GetSiteWorksheetsQueryString(request)}");
 
+    public async Task<HttpResponse<string>> CreateWorksheet(CreateWorksheetRequest request)
+        => await PostAsync<string>($"{WorksheetEndpoint}", request);
+
     #endregion
 
     #region Query String Generators
 
     private string GetCollectionByUprnAndDateQueryString(CollectionRequest request) =>
         $"?{nameof(request.Uprn)}={request.Uprn}&{nameof(request.From)}={request.From:s}&{nameof(request.To)}={request.To:s}";
+
+    private string GetCollectionSlotsQueryString(CollectionSlotsRequest request) =>
+        $"?{nameof(request.Uprn)}={request.Uprn}&{nameof(request.ServiceId)}={request.ServiceId}&{nameof(request.SearchToDate)}={request.SearchToDate:s}";
 
     private string GetSiteInfoQueryString(SiteInfoRequest request) =>
         $"?{nameof(request.Uprn)}={request.Uprn}&{nameof(request.AccountSiteId)}={request.AccountSiteId}";
