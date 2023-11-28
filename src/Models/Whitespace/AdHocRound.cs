@@ -1,4 +1,6 @@
-﻿namespace StockportGovUK.NetStandard.Gateways.Models.Whitespace;
+﻿using System;
+
+namespace StockportGovUK.NetStandard.Gateways.Models.Whitespace;
 
 public class AdHocRound
 {
@@ -11,8 +13,8 @@ public class AdHocRound
     public string ServiceName { get; set; }
     public string ScheduleName { get; set; }
     public string AdHocRoundNotes { get; set; }
-    public string AdHocRoundDate { get; set; }
-    public string AdHocRoundCompletedDate { get; set; }
+    public DateTime AdHocRoundDate { get; set; }
+    public DateTime? AdHocRoundCompletedDate { get; set; }
     public int SlotsFree { get; set; }
     public int SlotsTaken { get; set; }
 }
