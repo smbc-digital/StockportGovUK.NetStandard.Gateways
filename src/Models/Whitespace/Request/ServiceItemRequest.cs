@@ -2,6 +2,6 @@
 
 public class ServiceItemRequest
 {
-    public string ServiceItemId { get; set; }
+    public int ServiceItemId { get; set; }
     public int Quantity { get; set; }
 }

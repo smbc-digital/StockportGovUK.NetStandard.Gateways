@@ -2,6 +2,6 @@
 
 public class ServicePropertyRequest
 {
-    public string ServicePropertyId { get; set; }
+    public int ServicePropertyId { get; set; }
     public string ServicePropertyValue { get; set; }
 }
