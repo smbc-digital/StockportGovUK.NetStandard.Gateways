@@ -34,6 +34,9 @@ public class WhitespaceServiceGateway : Gateway, IWhitespaceServiceGateway
     public async Task<HttpResponse<AdHocRoundResponse>> GetCollectionSlots(CollectionSlotsRequest request)
         => await GetAsync<AdHocRoundResponse>($"{CollectionEndpoint}/collection-slots{GetCollectionSlotsQueryString(request)}");
 
+    public async Task<HttpResponse<SiteServiceResponse>> GetSiteCollections(SiteServiceRequest request)
+        => await GetAsync<SiteServiceResponse>($"{CollectionEndpoint}/site-collections{GetSiteCollectionsQueryString(request)}");
+
     #endregion
 
     #region Site
@@ -82,6 +85,9 @@ public class WhitespaceServiceGateway : Gateway, IWhitespaceServiceGateway
 
     private string GetInCabLogsQueryString(InCabLogRequest request) =>
         $"?{nameof(request.Uprn)}={request.Uprn}&{nameof(request.Usrn)}={request.Usrn}&{nameof(request.From)}={request.From:s}&{nameof(request.To)}={request.To:s}";
+
+    private string GetSiteCollectionsQueryString(SiteServiceRequest request) =>
+        $"?{nameof(request.Uprn)}={request.Uprn}&{nameof(request.SiteId)}={request.SiteId}";
 
     #endregion
 }
