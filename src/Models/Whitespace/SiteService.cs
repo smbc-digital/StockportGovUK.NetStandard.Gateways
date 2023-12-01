@@ -2,7 +2,6 @@ using System;
 
 namespace StockportGovUK.NetStandard.Gateways.Models.Whitespace;
 
-
 public class SiteService 
 {
     public int Id { get; set; }
