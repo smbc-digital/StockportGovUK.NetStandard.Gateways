@@ -50,7 +50,7 @@ public class SiteService
     public int SiteContractId { get; set; }
     public string ContractStatusCode { get; set; }
     public string EwcCode { get; set; }
-    public decimal ItemQuantity { get; set; }
+    public int ItemQuantity { get; set; }
     public int ItemId { get; set; }
     public DateTime? NextCollectionDate { get; set; }
 }
