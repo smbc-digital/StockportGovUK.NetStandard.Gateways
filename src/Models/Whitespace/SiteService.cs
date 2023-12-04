@@ -10,9 +10,9 @@ public class SiteService
     public int ServiceItemId { get; set; }
     public string ServiceItemName { get; set; }
     public string ServiceItemDescription { get; set; }
-    public int ServiceItemSerialNumber { get; set; }
-    public int ServiceItemChipNumber { get; set; }
-    public int ServiceItemUniqueNumber { get; set; }
+    public string ServiceItemSerialNumber { get; set; }
+    public string ServiceItemChipNumber { get; set; }
+    public string ServiceItemUniqueNumber { get; set; }
     public DateTime ValidFrom { get; set; }
     public DateTime ContractValidTo { get; set; }
     public DateTime ValidTo { get; set; }
@@ -29,8 +29,8 @@ public class SiteService
     public string ContractTypeName { get; set; }
     public string ContractTypeDescription { get; set; }
     public int Quantity { get; set; }
-    public int Charge { get; set; }
-    public int Cost { get; set; }
+    public double Charge { get; set; }
+    public double Cost { get; set; }
     public DateTime CssiValidFrom { get; set; }
     public DateTime CssiValidTo { get; set; }
     public string ProductCode;
@@ -50,7 +50,7 @@ public class SiteService
     public int SiteContractId { get; set; }
     public string ContractStatusCode { get; set; }
     public string EwcCode { get; set; }
-    public int ItemQuantity { get; set; }
+    public decimal ItemQuantity { get; set; }
     public int ItemId { get; set; }
-    public DateTime NextCollectionDate { get; set; }
+    public DateTime? NextCollectionDate { get; set; }
 }
