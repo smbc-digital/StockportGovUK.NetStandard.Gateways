@@ -15,7 +15,6 @@ public class CreateWorksheetRequest
     public string Message { get; set; }
     [Required]
     public DateTime StartDate { get; set; }
-    [Required]
     public IEnumerable<ServiceItemRequest> ServiceItems { get; set; }
     public IEnumerable<ServicePropertyRequest> ServiceProperties { get; set; }
     public int? AdHocRoundId { get; set; }
