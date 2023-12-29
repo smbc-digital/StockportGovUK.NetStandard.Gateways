@@ -11,6 +11,7 @@ public interface IWhitespaceServiceGateway
     Task<HttpResponse<InCabLogResponse>> GetInCabLogs(InCabLogRequest request);
     Task<HttpResponse<AdHocRoundResponse>> GetCollectionSlots(CollectionSlotsRequest request);
     Task<HttpResponse<SiteServiceResponse>> GetSiteCollections(SiteServiceRequest request);
+    Task<HttpResponse<ServiceItemResponse>> GetServiceItems(string serviceId);
     Task<HttpResponse<SiteResponse>> GetSiteInfo(SiteInfoRequest request);
     Task<HttpResponse<SiteIdResponse>> GetAccountSiteId(AccountSiteIdRequest request);
     Task<HttpResponse<StreetResponse>> GetStreets(string postcode);
