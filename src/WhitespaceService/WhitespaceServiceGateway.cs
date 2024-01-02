@@ -18,13 +18,6 @@ public class WhitespaceServiceGateway : Gateway, IWhitespaceServiceGateway
     {
     }
 
-    #region Home
-
-    public async Task<HttpResponse<ServiceItemResponse>> GetServiceItems(string serviceId)
-        => await GetAsync<ServiceItemResponse>($"{HomeEndpoint}/{serviceId}");
-
-    #endregion
-
     #region Address
 
     public async Task<HttpResponse<AddressResponse>> GetAddresses(string postcode)
@@ -72,6 +65,9 @@ public class WhitespaceServiceGateway : Gateway, IWhitespaceServiceGateway
 
     public async Task<HttpResponse<string>> CreateWorksheet(CreateWorksheetRequest request)
         => await PostAsync<string>($"{WorksheetEndpoint}", request);
+
+    public async Task<HttpResponse<ServiceItemResponse>> GetServiceItems(string serviceId)
+        => await GetAsync<ServiceItemResponse>($"{WorksheetEndpoint}/service-items/{serviceId}");
 
     #endregion
 
