@@ -16,4 +16,5 @@ public interface IWhitespaceServiceGateway
     Task<HttpResponse<StreetResponse>> GetStreets(string postcode);
     Task<HttpResponse<WorksheetResponse>> GetSiteWorksheets(SiteWorksheetsRequest request);
     Task<HttpResponse<string>> CreateWorksheet(CreateWorksheetRequest request);
+    Task<HttpResponse<ServiceItemResponse>> GetServiceItems(string serviceId);
 }

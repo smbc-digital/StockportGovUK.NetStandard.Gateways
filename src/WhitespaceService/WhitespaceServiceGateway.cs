@@ -8,10 +8,12 @@ namespace StockportGovUK.NetStandard.Gateways.WhitespaceService;
 public class WhitespaceServiceGateway : Gateway, IWhitespaceServiceGateway
 {
     private const string AddressEndpoint = "api/v1/Address";
-    private const string SiteEndpoint = "api/v1/Site";
     private const string CollectionEndpoint = "api/v1/Collection";
-    private const string WorksheetEndpoint = "api/v1/Worksheet";
+    private const string HomeEndpoint = "api/v1/Home";
+    private const string SiteEndpoint = "api/v1/Site";
     private const string StreetEndpoint = "api/v1/Street";
+    private const string WorksheetEndpoint = "api/v1/Worksheet";
+    
     public WhitespaceServiceGateway(HttpClient httpClient) : base(httpClient)
     {
     }
@@ -63,6 +65,9 @@ public class WhitespaceServiceGateway : Gateway, IWhitespaceServiceGateway
 
     public async Task<HttpResponse<string>> CreateWorksheet(CreateWorksheetRequest request)
         => await PostAsync<string>($"{WorksheetEndpoint}", request);
+
+    public async Task<HttpResponse<ServiceItemResponse>> GetServiceItems(string serviceId)
+        => await GetAsync<ServiceItemResponse>($"{WorksheetEndpoint}/service-items/{serviceId}");
 
     #endregion
 
