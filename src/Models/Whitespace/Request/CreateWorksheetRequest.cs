@@ -6,8 +6,8 @@ namespace StockportGovUK.NetStandard.Gateways.Models.Whitespace.Request;
 
 public class CreateWorksheetRequest
 {
-    [Required]
     public string Uprn { get; set; }
+    public string Usrn { get; set; }
     [Required]
     public int ServiceId { get; set; }
     [Required]
