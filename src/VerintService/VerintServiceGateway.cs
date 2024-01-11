@@ -53,6 +53,9 @@ namespace StockportGovUK.NetStandard.Gateways.VerintService
         public async Task<HttpResponse<int>> UpdateCaseDescription(Case crmCase)
             => await PostAsync<int>($"{CaseEndpoint}/updatecasedescription", crmCase);
 
+        public async Task<HttpResponse<int>> UpdateCaseQueue(Case crmCase)
+            => await PatchAsync<int>($"{CaseEndpoint}/update-case-queue", crmCase);
+
         public async Task<HttpResponse<int>> UpdateCaseTitle(Case crmCase)
             => await PatchAsync<int>($"{CaseEndpoint}/update-case-title", crmCase);
 
