@@ -9,7 +9,6 @@ public class WhitespaceServiceGateway : Gateway, IWhitespaceServiceGateway
 {
     private const string AddressEndpoint = "api/v1/Address";
     private const string CollectionEndpoint = "api/v1/Collection";
-    private const string HomeEndpoint = "api/v1/Home";
     private const string SiteEndpoint = "api/v1/Site";
     private const string StreetEndpoint = "api/v1/Street";
     private const string WorksheetEndpoint = "api/v1/Worksheet";
