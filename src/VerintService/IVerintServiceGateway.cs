@@ -26,6 +26,7 @@ namespace StockportGovUK.NetStandard.Gateways.VerintService
         Task CleanupCase(string caseRef);
         Task<HttpResponse<VerintOnlineFormResponse>> CreateVerintOnlineFormCase(VerintOnlineFormRequest verintOnlineFormRequest);
         Task<HttpResponse<VerintOnlineFormResponse>> AttachVerintOnlineFormToCase(VerintOnlineFormRequest verintOnlineFormRequest);
+        Task<HttpResponseMessage> UpdateVerintOnlineFormFormData(VerintOnlineFormUpdateRequest request);
         Task<HttpResponse<List<AddressSearchResult>>> SearchForPropertyByPostcode(string postcode);
         Task<HttpResponse<Address>> GetPropertyByUprn(string uprn);
         Task<HttpResponse<Address>> GetPropertyFromUprn(string uprn);
