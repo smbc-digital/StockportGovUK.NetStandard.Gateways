@@ -14,5 +14,5 @@ public class WasteOrchestrationServiceGateway : Gateway, IWasteOrchestrationServ
     }
 
     public async Task<HttpResponse<string>> ProcessWorksheetRequest(CreateWorksheetRequest request)
-        => await PostAsync<string>($"{HomeEndpoint}", request);
+        => await PostAsync<string>($"{HomeEndpoint}/process-worksheet", request);
 }
