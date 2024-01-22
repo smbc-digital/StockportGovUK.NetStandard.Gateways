@@ -10,7 +10,6 @@ public class CreateWorksheetRequest
     public string Usrn { get; set; }
     [Required]
     public int ServiceId { get; set; }
-    [Required]
     public string CaseReference { get; set; }
     public string Message { get; set; }
     [Required]
