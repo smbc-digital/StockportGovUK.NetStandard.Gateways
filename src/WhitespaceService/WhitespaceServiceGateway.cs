@@ -73,7 +73,7 @@ public class WhitespaceServiceGateway : Gateway, IWhitespaceServiceGateway
     #region Query String Generators
 
     private string GetCollectionByUprnAndDateQueryString(CollectionRequest request) =>
-        $"?{nameof(request.Uprn)}={request.Uprn}&{nameof(request.From)}={request.From:s}&{nameof(request.To)}={request.To:s}";
+        $"?{nameof(request.Uprn)}={request.Uprn}&{nameof(request.From)}={request.From:dd/MM/yyyy}&{nameof(request.To)}={request.To:dd/MM/yyyy}";
 
     private string GetCollectionSlotsQueryString(CollectionSlotsRequest request) =>
         $"?{nameof(request.Uprn)}={request.Uprn}&{nameof(request.ServiceId)}={request.ServiceId}&{nameof(request.SearchToDate)}={request.SearchToDate:s}";
