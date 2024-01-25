@@ -11,6 +11,7 @@ public class CreateWorksheetRequest
     [Required]
     public int ServiceId { get; set; }
     public string CaseReference { get; set; }
+    public string VerintOnlineFormReference { get; set; }
     public string Message { get; set; }
     [Required]
     public DateTime StartDate { get; set; }
