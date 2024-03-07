@@ -44,6 +44,9 @@ namespace StockportGovUK.NetStandard.Gateways.VerintService
         public async Task CleanupCase(string caseRef)
             => await PatchAsync<string>($"{CaseEndpoint}/cleanup", caseRef);
 
+        public async Task<HttpResponse<VerintOnlineForm>> GetVerintOnlineFormCase(string verintOnlineFormReference)
+            => await GetAsync<VerintOnlineForm>($"{VerintOnlineFormEndpoint}/{verintOnlineFormReference}");
+
         public async Task<HttpResponse<VerintOnlineFormResponse>> CreateVerintOnlineFormCase(VerintOnlineFormRequest verintOnlineFormRequest)
             => await PostAsync<VerintOnlineFormResponse>($"{VerintOnlineFormEndpoint}", verintOnlineFormRequest);
 
