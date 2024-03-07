@@ -79,6 +79,8 @@ namespace StockportGovUK.NetStandard.Gateways.Models.Verint
 
         public string CaseReference { get; set; }
 
+        public List<string> ExternalReferences { get; set; }
+
         public long InteractionReference { get; set; }
 
         public string Queue { get; set; }
