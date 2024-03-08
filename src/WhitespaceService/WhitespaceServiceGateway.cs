@@ -65,6 +65,12 @@ public class WhitespaceServiceGateway : Gateway, IWhitespaceServiceGateway
     public async Task<HttpResponse<string>> CreateWorksheet(CreateWorksheetRequest request)
         => await PostAsync<string>($"{WorksheetEndpoint}", request);
 
+    public async Task<HttpResponseMessage> CancelWorksheet(CancelWorksheetRequest request)
+        => await PatchAsync($"{WorksheetEndpoint}", request);
+
+    public async Task<HttpResponseMessage> AddWorksheetNote(AddWorksheetNoteRequest request)
+        => await PatchAsync($"{WorksheetEndpoint}/note", request);
+
     public async Task<HttpResponse<ServiceItemResponse>> GetServiceItems(string serviceId)
         => await GetAsync<ServiceItemResponse>($"{WorksheetEndpoint}/service-items/{serviceId}");
 

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Net.Http;
+using System.Threading.Tasks;
 using StockportGovUK.NetStandard.Gateways.Models.Whitespace.Request;
 using StockportGovUK.NetStandard.Gateways.Models.Whitespace.Response;
 using StockportGovUK.NetStandard.Gateways.Response;
@@ -16,6 +17,8 @@ public interface IWhitespaceServiceGateway
     Task<HttpResponse<StreetResponse>> GetStreets(string postcode);
     Task<HttpResponse<WorksheetResponse>> GetSiteWorksheets(SiteWorksheetsRequest request);
     Task<HttpResponse<string>> CreateWorksheet(CreateWorksheetRequest request);
+    Task<HttpResponseMessage> CancelWorksheet(CancelWorksheetRequest request);
+    Task<HttpResponseMessage> AddWorksheetNote(AddWorksheetNoteRequest request);
     Task<HttpResponse<ServiceItemResponse>> GetServiceItems(string serviceId);
     Task<HttpResponse<ServiceItemResponse>> GetWorksheetServiceItems(string serviceId, string uprn);
 }
