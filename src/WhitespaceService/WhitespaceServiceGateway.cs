@@ -79,7 +79,7 @@ public class WhitespaceServiceGateway : Gateway, IWhitespaceServiceGateway
 
     public async Task<HttpResponse<WorksheetResponse>> GetWorksheetDetails(string worksheetId)
         => await GetAsync<WorksheetResponse>($"{WorksheetEndpoint}/{worksheetId}");
-
+        
     #endregion
 
     #region Query String Generators
