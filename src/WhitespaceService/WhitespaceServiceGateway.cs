@@ -9,7 +9,6 @@ public class WhitespaceServiceGateway : Gateway, IWhitespaceServiceGateway
 {
     private const string AddressEndpoint = "api/v1/Address";
     private const string CollectionEndpoint = "api/v1/Collection";
-    private const string HomeEndpoint = "api/v1/Home";
     private const string SiteEndpoint = "api/v1/Site";
     private const string StreetEndpoint = "api/v1/Street";
     private const string WorksheetEndpoint = "api/v1/Worksheet";
@@ -66,15 +65,27 @@ public class WhitespaceServiceGateway : Gateway, IWhitespaceServiceGateway
     public async Task<HttpResponse<string>> CreateWorksheet(CreateWorksheetRequest request)
         => await PostAsync<string>($"{WorksheetEndpoint}", request);
 
+    public async Task<HttpResponseMessage> CancelWorksheet(CancelWorksheetRequest request)
+        => await PatchAsync($"{WorksheetEndpoint}", request);
+
+    public async Task<HttpResponseMessage> AddWorksheetNote(AddWorksheetNoteRequest request)
+        => await PatchAsync($"{WorksheetEndpoint}/note", request);
+
     public async Task<HttpResponse<ServiceItemResponse>> GetServiceItems(string serviceId)
         => await GetAsync<ServiceItemResponse>($"{WorksheetEndpoint}/service-items/{serviceId}");
 
+    public async Task<HttpResponse<ServiceItemResponse>> GetWorksheetServiceItems(string serviceId, string uprn)
+        => await GetAsync<ServiceItemResponse>($"{WorksheetEndpoint}/worksheet-service-items/{serviceId}/property/{uprn}");
+
+    public async Task<HttpResponse<WorksheetResponse>> GetWorksheetDetails(string worksheetId)
+        => await GetAsync<WorksheetResponse>($"{WorksheetEndpoint}/{worksheetId}");
+        
     #endregion
 
     #region Query String Generators
 
     private string GetCollectionByUprnAndDateQueryString(CollectionRequest request) =>
-        $"?{nameof(request.Uprn)}={request.Uprn}&{nameof(request.From)}={request.From:s}&{nameof(request.To)}={request.To:s}";
+        $"?{nameof(request.Uprn)}={request.Uprn}&{nameof(request.From)}={request.From:dd/MM/yyyy}&{nameof(request.To)}={request.To:dd/MM/yyyy}";
 
     private string GetCollectionSlotsQueryString(CollectionSlotsRequest request) =>
         $"?{nameof(request.Uprn)}={request.Uprn}&{nameof(request.ServiceId)}={request.ServiceId}&{nameof(request.SearchToDate)}={request.SearchToDate:s}";

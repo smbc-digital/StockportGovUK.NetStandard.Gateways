@@ -6,12 +6,12 @@ namespace StockportGovUK.NetStandard.Gateways.Models.Whitespace.Request;
 
 public class CreateWorksheetRequest
 {
-    [Required]
     public string Uprn { get; set; }
+    public string Usrn { get; set; }
     [Required]
     public int ServiceId { get; set; }
-    [Required]
     public string CaseReference { get; set; }
+    public string VerintOnlineFormReference { get; set; }
     public string Message { get; set; }
     [Required]
     public DateTime StartDate { get; set; }

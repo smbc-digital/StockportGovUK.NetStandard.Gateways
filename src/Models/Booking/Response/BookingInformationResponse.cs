@@ -8,6 +8,7 @@ namespace StockportGovUK.NetStandard.Gateways.Models.Booking.Response
     {
         public Guid Id { get; set; }
         public string AppointmentName { get; set; }
+        public Guid AppointmentId { get; set; }
         public bool CanCustomerCancel { get; set; }
         public bool CanAdminCancel { get; set; }
         public DateTime Date { get; set; }

@@ -44,14 +44,23 @@ namespace StockportGovUK.NetStandard.Gateways.VerintService
         public async Task CleanupCase(string caseRef)
             => await PatchAsync<string>($"{CaseEndpoint}/cleanup", caseRef);
 
+        public async Task<HttpResponse<VerintOnlineForm>> GetVerintOnlineFormCase(string verintOnlineFormReference)
+            => await GetAsync<VerintOnlineForm>($"{VerintOnlineFormEndpoint}/{verintOnlineFormReference}");
+
         public async Task<HttpResponse<VerintOnlineFormResponse>> CreateVerintOnlineFormCase(VerintOnlineFormRequest verintOnlineFormRequest)
             => await PostAsync<VerintOnlineFormResponse>($"{VerintOnlineFormEndpoint}", verintOnlineFormRequest);
 
         public async Task<HttpResponse<VerintOnlineFormResponse>> AttachVerintOnlineFormToCase(VerintOnlineFormRequest verintOnlineFormRequest)
             => await PostAsync<VerintOnlineFormResponse>($"{VerintOnlineFormEndpoint}/Attach", verintOnlineFormRequest);
 
+        public async Task<HttpResponseMessage> UpdateVerintOnlineFormFormData(VerintOnlineFormUpdateRequest request)
+            => await PatchAsync($"{VerintOnlineFormEndpoint}/update-form-data", request);
+
         public async Task<HttpResponse<int>> UpdateCaseDescription(Case crmCase)
             => await PostAsync<int>($"{CaseEndpoint}/updatecasedescription", crmCase);
+
+        public async Task<HttpResponse<int>> UpdateCaseQueue(Case crmCase)
+            => await PatchAsync<int>($"{CaseEndpoint}/update-case-queue", crmCase);
 
         public async Task<HttpResponse<int>> UpdateCaseTitle(Case crmCase)
             => await PatchAsync<int>($"{CaseEndpoint}/update-case-title", crmCase);

@@ -13,5 +13,8 @@ namespace StockportGovUK.NetStandard.Gateways.WasteCollection
 
         public async Task<HttpResponse<BinCollectionResponse>> Get(long uprn)
             => await GetAsync<BinCollectionResponse>($"{WasteDataEndpoint}/{uprn}");
+
+        public async Task<HttpResponse<BinCollectionResponse>> GetBinCollectionDates(string uprn)
+            => await GetAsync<BinCollectionResponse>($"{WasteDataEndpoint}/bin-collection-dates/{uprn}");
     }
 }

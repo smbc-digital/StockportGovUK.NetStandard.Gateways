@@ -23,5 +23,14 @@
         public bool HasDivider => !string.IsNullOrEmpty(Divider);
 
         public bool Exclusive { get; set; } = false;
+
+        public Option() { }
+
+        public Option(string text, string value, string conditionalElementId)
+        {
+            Text = text;
+            Value = value;
+            ConditionalElementId = conditionalElementId;
+        }
     }
 }

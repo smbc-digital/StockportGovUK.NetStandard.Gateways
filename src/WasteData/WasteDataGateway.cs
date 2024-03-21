@@ -1,5 +1,6 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
+using StockportGovUK.NetStandard.Gateways.Models.BinCollection.Response;
 using StockportGovUK.NetStandard.Gateways.Models.WasteDataService.Response;
 using StockportGovUK.NetStandard.Gateways.Response;
 
@@ -13,5 +14,8 @@ namespace StockportGovUK.NetStandard.Gateways.WasteData
 
         public async Task<HttpResponse<PropertyWasteData>> Get(long uprn)
             => await GetAsync<PropertyWasteData>($"{WasteDataEndpoint}?uprn={uprn}");
+
+        public async Task<HttpResponse<BinCollectionResponse>> GetCollectionDatesByUprn(string uprn)
+            => await GetAsync<BinCollectionResponse>($"{WasteDataEndpoint}/collection-dates?uprn={uprn}");
     }
 }

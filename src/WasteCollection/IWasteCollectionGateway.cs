@@ -7,5 +7,6 @@ namespace StockportGovUK.NetStandard.Gateways.WasteCollection
     public interface IWasteCollectionGateway
     {
         Task<HttpResponse<BinCollectionResponse>> Get(long uprn);
+        Task<HttpResponse<BinCollectionResponse>> GetBinCollectionDates(string uprn);
     }
 }
