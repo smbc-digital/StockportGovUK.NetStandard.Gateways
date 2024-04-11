@@ -7,7 +7,9 @@ namespace StockportGovUK.NetStandard.Gateways.UniformService
 {
 	public class UniformServiceGateway : Gateway, IUniformServiceGateway
 	{
-		private const string PestControlEndpoint = "api/v1/PestControl";
+        private const string CaseEndpoint = "api/v1/Case";
+
+        private const string PestControlEndpoint = "api/v1/PestControl";
 
 		private const string NoiseNuisanceEndpoint = "api/v1/NoiseNuisance";
 
@@ -68,5 +70,8 @@ namespace StockportGovUK.NetStandard.Gateways.UniformService
 
 		public async Task<HttpResponse<string>> CheckTaxiLicenceRequestIsOpen(TaxiLicensingUpdateRequest request)
 			=> await PostAsync<string>($"{TaxiLicenceEndpointCheckIsOpen}", request);
-	}
+
+        public async Task<HttpResponseMessage> CloseServiceRequest(CloseUniformServiceRequest request)
+            => await PatchAsync($"{CaseEndpoint}/close", request);
+    }
 }
