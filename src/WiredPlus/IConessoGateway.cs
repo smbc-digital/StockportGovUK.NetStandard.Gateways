@@ -2,7 +2,7 @@
 using StockportGovUK.NetStandard.Gateways.Response;
 using System.Threading.Tasks;
 
-namespace StockportGovUK.NetStandard.Gateways.Conesso
+namespace StockportGovUK.NetStandard.Gateways.WiredPlus
 {
     public interface IConessoGateway
     {

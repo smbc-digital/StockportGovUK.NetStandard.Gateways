@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using StockportGovUK.NetStandard.Gateways.Models.Conesso;
 using StockportGovUK.NetStandard.Gateways.Response;
 
-namespace StockportGovUK.NetStandard.Gateways.Conesso
+namespace StockportGovUK.NetStandard.Gateways.WiredPlus
 {
     public class ConessoGateway : Gateway, IConessoGateway
     {
@@ -14,7 +14,7 @@ namespace StockportGovUK.NetStandard.Gateways.Conesso
         private const string ContactEndpoint = "/v2/contacts";
         private const string ListEndpoint = "/v2/lists";
 
-        public ConessoGateway (HttpClient httpClient) : base(httpClient) { }
+        public ConessoGateway (HttpClient httpClient) : base(httpClient) {  }
 
         public async Task<HttpResponse<ContactResponse>> CreateContact(ContactRequest request)
         {
@@ -65,15 +65,6 @@ namespace StockportGovUK.NetStandard.Gateways.Conesso
             string url = ContactEndpoint + $"?filter[0][field]=email&filter[0][operator]=equals&filter[0][value]={emailAddress}";
 
             return await GetAsync<ContactResponse>(url);
-        }
-    }
-
-    public static class MultipartFormDataContentExtensions
-    {
-        public static void AddIfNotNull(this MultipartFormDataContent content, string value, string key)
-        {
-            if (!string.IsNullOrEmpty(value))
-                content.Add(new StringContent(value), key);
         }
     }
 }

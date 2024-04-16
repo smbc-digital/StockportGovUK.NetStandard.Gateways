@@ -112,13 +112,4 @@ namespace StockportGovUK.NetStandard.Gateways.WiredPlus
             return await PostAsync<NewsletterContactResponse>(GetContactByEmailEndpoint, content, false);
         }
     }
-
-    public static class MultipartFormDataContentExtensions
-    {
-        public static void AddIfNotNull(this MultipartFormDataContent content, string value, string key)
-        {
-            if (!string.IsNullOrEmpty(value))
-                content.Add(new StringContent(value), key);
-        }
-    }
 }
