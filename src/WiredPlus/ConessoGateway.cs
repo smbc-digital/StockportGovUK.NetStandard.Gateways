@@ -5,7 +5,7 @@ using StockportGovUK.NetStandard.Gateways.Response;
 
 namespace StockportGovUK.NetStandard.Gateways.WiredPlus
 {
-    public class ConessoGateway : Gateway, IConessoGateway
+    public class ConessoGateway : Gateway, IGateway, IConessoGateway
     {
         // Base URL :  https://api.wiredplus.com/
         // Usage Auth Token can be added in the gateway setup as per normal BUT needs to be a BASE64 encoded string of - https://www.base64encode.org/
@@ -19,7 +19,7 @@ namespace StockportGovUK.NetStandard.Gateways.WiredPlus
         public async Task<HttpResponse<ContactResponse>> CreateContact(ContactRequest request)
         {
             var content = new MultipartFormDataContent();
-
+            
             content.AddIfNotNull(request.Email, "email");
             content.AddIfNotNull(request.FirstName, "firstName");
             content.AddIfNotNull(request.LastName, "lastName");
