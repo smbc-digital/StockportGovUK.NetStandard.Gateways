@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace StockportGovUK.NetStandard.Gateways.WiredPlus
 {
-    public interface IConessoGateway
+    public interface IConessoGateway : IGateway
     {
         Task<HttpResponse<ContactResponse>> CreateContact(ContactRequest request);
         Task<HttpResponse<ContactResponse>> UpdateContact(ContactRequest request);
