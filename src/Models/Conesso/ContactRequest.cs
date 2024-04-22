@@ -28,6 +28,6 @@ namespace StockportGovUK.NetStandard.Gateways.Models.Conesso
         [Required]
         public string OptIn { get; set; }
         [Required]
-        public int ContactListId { get; set; }
+        public IEnumerable<int> ListIds { get; set; }
     }
 }

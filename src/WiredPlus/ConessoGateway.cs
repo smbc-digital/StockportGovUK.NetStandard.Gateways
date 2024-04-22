@@ -37,7 +37,7 @@ namespace StockportGovUK.NetStandard.Gateways.WiredPlus
             content.AddIfNotNull(request.Gender, "gender");
             content.AddIfNotNull(request.Tags, "tags");
             content.AddIfNotNull(request.OptIn, "optIn");
-            content.AddIfNotNull(request.ContactListId.ToString(), "listIds");
+            content.AddIfNotNull(request.ListIds.ToString(), "listIds");
 
             request.CustomValues.ForEach(_ => content.Add(new StringContent(_.Value), _.Key));
 
@@ -49,12 +49,38 @@ namespace StockportGovUK.NetStandard.Gateways.WiredPlus
             if (request.Id == null)
                 throw new HttpRequestException();
 
+            var content = new MultipartFormDataContent();
+
+            content.AddIfNotNull(request.Email, "email");
+            content.AddIfNotNull(request.FirstName, "firstName");
+            content.AddIfNotNull(request.LastName, "lastName");
+            content.AddIfNotNull(request.PhoneNumber, "phoneNumber");
+            content.AddIfNotNull(request.Company, "company");
+            content.AddIfNotNull(request.JobTitle, "jobTitle");
+            content.AddIfNotNull(request.Address, "address");
+            content.AddIfNotNull(request.Address2, "address2");
+            content.AddIfNotNull(request.City, "city");
+            content.AddIfNotNull(request.County, "county");
+            content.AddIfNotNull(request.Postcode, "postcode");
+            content.AddIfNotNull(request.CountryCode, "countryCode");
+            content.AddIfNotNull(request.Country, "country");
+            content.AddIfNotNull(request.Website, "website");
+            content.AddIfNotNull(request.Gender, "gender");
+            content.AddIfNotNull(request.Tags, "tags");
+            content.AddIfNotNull(request.OptIn, "optIn");
+            content.AddIfNotNull(request.ListIds.ToString(), "listIds");
+
             return await PutAsync<ContactResponse>(ContactEndpoint + $"/{request.Id}", new MultipartFormDataContent(), false);
         }
 
-        public async Task<HttpResponse<ListResponse>> GetListById(int listId)
+        public async Task<HttpResponse<List>> GetListById(int listId)
         {
-            return await GetAsync<ListResponse>(ListEndpoint + $"/{listId}");
+            return await GetAsync<List>(ListEndpoint + $"/{listId}");
+        }
+
+        public async Task<HttpResponse<ListResponse>> GetLists()
+        {
+            return await GetAsync<ListResponse>(ListEndpoint);
         }
 
         public async Task<HttpResponse<ContactResponse>> GetContactByEmail(string emailAddress)
