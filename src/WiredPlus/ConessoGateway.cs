@@ -46,7 +46,7 @@ namespace StockportGovUK.NetStandard.Gateways.WiredPlus
 
         public async Task<HttpResponse<ContactResponse>> UpdateContact(ContactRequest request)
         {
-            if (request.Id == null)
+            if (request.Id.Equals(default))
                 throw new HttpRequestException();
 
             var content = new MultipartFormDataContent();
