@@ -26,7 +26,7 @@ namespace StockportGovUK.NetStandard.Gateways.Models.Conesso
         public string Tags { get; set; }
         public List<KeyValuePair<string, string>> CustomValues { get; set; } = new List<KeyValuePair<string, string>>();
         [Required]
-        public string OptIn { get; set; }
+        public string OptInStatus { get; set; }
         [Required]
         public IEnumerable<int> ListIds { get; set; }
     }
