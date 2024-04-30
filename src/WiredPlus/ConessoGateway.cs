@@ -36,7 +36,7 @@ namespace StockportGovUK.NetStandard.Gateways.WiredPlus
             content.AddIfNotNull(request.Website, "website");
             content.AddIfNotNull(request.Gender, "gender");
             content.AddIfNotNull(request.Tags, "tags");
-            content.AddIfNotNull(request.OptIn, "optIn");
+            content.AddIfNotNull(request.OptInStatus, "optInStatus");
             content.AddIfNotNull(request.ListIds.ToString(), "listIds");
 
             request.CustomValues.ForEach(_ => content.Add(new StringContent(_.Value), _.Key));
