@@ -37,9 +37,13 @@ namespace StockportGovUK.NetStandard.Gateways.WiredPlus
             content.AddIfNotNull(request.Gender, "gender");
             content.AddIfNotNull(request.Tags, "tags");
             content.AddIfNotNull(request.OptInStatus, "optInStatus");
-            content.AddIfNotNull(request.ListIds.ToString(), "listIds");
-
+            
             request.CustomValues.ForEach(_ => content.Add(new StringContent(_.Value), _.Key));
+
+            foreach (var item in request.ListIds)
+            {
+                content.AddIfNotNull(item.ToString(), "listIds");
+            }
 
             return await PostAsync<ContactResponse>(ContactEndpoint, content, false);
         }
@@ -69,6 +73,13 @@ namespace StockportGovUK.NetStandard.Gateways.WiredPlus
             content.AddIfNotNull(request.Tags, "tags");
             content.AddIfNotNull(request.OptInStatus, "optInStatus");
             content.AddIfNotNull(request.ListIds.ToString(), "listIds");
+
+            request.CustomValues.ForEach(_ => content.Add(new StringContent(_.Value), _.Key));
+
+            foreach (var item in request.ListIds)
+            {
+                content.AddIfNotNull(item.ToString(), "listIds");
+            }
 
             return await PutAsync<ContactResponse>(ContactEndpoint + $"/{request.Id}", new MultipartFormDataContent(), false);
         }
