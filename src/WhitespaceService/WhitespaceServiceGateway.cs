@@ -65,6 +65,9 @@ public class WhitespaceServiceGateway : Gateway, IWhitespaceServiceGateway
     public async Task<HttpResponse<WorksheetResponse>> GetSiteWorksheets(SiteWorksheetsRequest request)
         => await GetAsync<WorksheetResponse>($"{WorksheetEndpoint}/site-worksheets{GetSiteWorksheetsQueryString(request)}");
 
+    public async Task<HttpResponse<WorksheetResponse>> GetOpenSiteWorksheets(string uprn)
+        => await GetAsync<WorksheetResponse>($"{WorksheetEndpoint}/open-site-worksheets/{uprn}");
+
     public async Task<HttpResponse<string>> CreateWorksheet(CreateWorksheetRequest request)
         => await PostAsync<string>($"{WorksheetEndpoint}", request);
 
