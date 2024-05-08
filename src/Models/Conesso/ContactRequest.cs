@@ -61,12 +61,11 @@ namespace StockportGovUK.NetStandard.Gateways.Models.Conesso
         [JsonProperty("customValues")]
         public List<KeyValuePair<string, string>> CustomValues { get; set; } = new List<KeyValuePair<string, string>>();
 
-        [Required]
         [JsonProperty("optInStatus")]
-        public string OptInStatus { get; set; }
+        public string OptInStatus { get; set; } = "subscribed";
 
         [Required]
         [JsonProperty("listIds")]
-        public IEnumerable<int> ListIds { get; set; }
+        public IEnumerable<int> ContactListIds { get; set; }
     }
 }
