@@ -19,33 +19,6 @@ namespace StockportGovUK.NetStandard.Gateways.WiredPlus
 
         public async Task<HttpResponse<ContactResponse>> CreateContact(ContactRequest request)
         {
-            //var content = new MultipartFormDataContent();
-            
-            //content.AddIfNotNull(request.Email, "email");
-            //content.AddIfNotNull(request.FirstName, "firstName");
-            //content.AddIfNotNull(request.LastName, "lastName");
-            //content.AddIfNotNull(request.PhoneNumber, "phoneNumber");
-            //content.AddIfNotNull(request.Company, "company");
-            //content.AddIfNotNull(request.JobTitle, "jobTitle");
-            //content.AddIfNotNull(request.Address, "address");
-            //content.AddIfNotNull(request.Address2, "address2");
-            //content.AddIfNotNull(request.City, "city");
-            //content.AddIfNotNull(request.County, "county");
-            //content.AddIfNotNull(request.Postcode, "postcode");
-            //content.AddIfNotNull(request.CountryCode, "countryCode");
-            //content.AddIfNotNull(request.Country, "country");
-            //content.AddIfNotNull(request.Website, "website");
-            //content.AddIfNotNull(request.Gender, "gender");
-            //content.AddIfNotNull(request.Tags, "tags");
-            //content.AddIfNotNull(request.OptInStatus, "optInStatus");
-            
-            //request.CustomValues.ForEach(_ => content.Add(new StringContent(_.Value), _.Key));
-
-            //foreach (var item in request.ListIds)
-            //{
-            //    content.AddIfNotNull(item.ToString(), "listIds");
-            //}
-
             return await PostAsync<ContactResponse>(ContactEndpoint, request, true);
         }
 
@@ -54,35 +27,7 @@ namespace StockportGovUK.NetStandard.Gateways.WiredPlus
             if (request.Id.Equals(default))
                 throw new HttpRequestException();
 
-            var content = new MultipartFormDataContent();
-
-            content.AddIfNotNull(request.Email, "email");
-            content.AddIfNotNull(request.FirstName, "firstName");
-            content.AddIfNotNull(request.LastName, "lastName");
-            content.AddIfNotNull(request.PhoneNumber, "phoneNumber");
-            content.AddIfNotNull(request.Company, "company");
-            content.AddIfNotNull(request.JobTitle, "jobTitle");
-            content.AddIfNotNull(request.Address, "address");
-            content.AddIfNotNull(request.Address2, "address2");
-            content.AddIfNotNull(request.City, "city");
-            content.AddIfNotNull(request.County, "county");
-            content.AddIfNotNull(request.Postcode, "postcode");
-            content.AddIfNotNull(request.CountryCode, "countryCode");
-            content.AddIfNotNull(request.Country, "country");
-            content.AddIfNotNull(request.Website, "website");
-            content.AddIfNotNull(request.Gender, "gender");
-            content.AddIfNotNull(request.Tags, "tags");
-            content.AddIfNotNull(request.OptInStatus, "optInStatus");
-            content.AddIfNotNull(request.ListIds.ToString(), "listIds");
-
-            request.CustomValues.ForEach(_ => content.Add(new StringContent(_.Value), _.Key));
-
-            foreach (var item in request.ListIds)
-            {
-                content.AddIfNotNull(item.ToString(), "listIds");
-            }
-
-            return await PutAsync<ContactResponse>(ContactEndpoint + $"/{request.Id}", new MultipartFormDataContent(), false);
+            return await PutAsync<ContactResponse>(ContactEndpoint + $"/{request.Id}", request, true);
         }
 
         public async Task<HttpResponse<List>> GetListById(int listId)
