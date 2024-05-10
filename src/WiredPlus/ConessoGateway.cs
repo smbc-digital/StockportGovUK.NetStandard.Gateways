@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using StockportGovUK.NetStandard.Gateways.Models.Conesso;
@@ -19,6 +20,8 @@ namespace StockportGovUK.NetStandard.Gateways.WiredPlus
 
         public async Task<HttpResponse<ContactResponse>> CreateContact(ContactRequest request)
         {
+            if (!request.ContactListIds.Any() && !request.ContactListId.Equals(default))
+                request.ContactListIds.Append(request.ContactListId);
             return await PostAsync<ContactResponse>(ContactEndpoint, request, true);
         }
 
@@ -26,6 +29,9 @@ namespace StockportGovUK.NetStandard.Gateways.WiredPlus
         {
             if (request.Id.Equals(default))
                 throw new HttpRequestException();
+
+            if (!request.ContactListIds.Any() && !request.ContactListId.Equals(default))
+                request.ContactListIds.Append(request.ContactListId);
 
             return await PutAsync<ContactResponse>(ContactEndpoint + $"/{request.Id}", request, true);
         }
