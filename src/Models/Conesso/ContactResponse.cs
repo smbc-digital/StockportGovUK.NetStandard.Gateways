@@ -7,6 +7,5 @@ namespace StockportGovUK.NetStandard.Gateways.Models.Conesso
         public IEnumerable<Contact> Data {  get; set; }
         public string Error { get; set; }
         public IEnumerable<IEnumerable<string>> Message { get; set; }
-
     }
 }

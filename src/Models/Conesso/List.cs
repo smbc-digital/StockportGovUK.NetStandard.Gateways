@@ -16,6 +16,6 @@ namespace StockportGovUK.NetStandard.Gateways.Models.Conesso
         public DateTime UpdatedAt { get; set; }
         public string UpdatedBy { get; set; }
         public string Status { get; set; }
-
+        public string Error { get; set; }
     }
 }
