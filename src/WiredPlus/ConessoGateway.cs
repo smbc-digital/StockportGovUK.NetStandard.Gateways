@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
@@ -54,6 +55,11 @@ namespace StockportGovUK.NetStandard.Gateways.WiredPlus
             string url = ContactEndpoint + $"?filter[0][field]=email&filter[0][operator]=equals&filter[0][value]={emailAddress}";
 
             return await GetAsync<ContactResponse>(url);
+        }
+
+        public async Task<HttpResponse<Contact>> GetContactById(int contactId)
+        {
+            return await GetAsync<Contact>(ContactEndpoint + $"/{contactId}");
         }
     }
 }
