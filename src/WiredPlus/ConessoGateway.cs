@@ -1,8 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
 using StockportGovUK.NetStandard.Gateways.Models.Conesso;
 using StockportGovUK.NetStandard.Gateways.Response;
 
@@ -10,10 +7,6 @@ namespace StockportGovUK.NetStandard.Gateways.WiredPlus
 {
     public class ConessoGateway : Gateway, IGateway, IConessoGateway
     {
-        // Base URL :  https://api.wiredplus.com/
-        // Usage Auth Token can be added in the gateway setup as per normal BUT needs to be a BASE64 encoded string of - https://www.base64encode.org/
-        // {API_KEY_NAME}:{API_KEY}
-
         private const string ContactEndpoint = "/v2/contacts";
         private const string ListEndpoint = "/v2/lists";
 
@@ -21,8 +14,6 @@ namespace StockportGovUK.NetStandard.Gateways.WiredPlus
 
         public async Task<HttpResponse<ContactResponse>> CreateContact(ContactRequest request)
         {
-            if (!request.ContactListIds.Any() && !request.ContactListId.Equals(default))
-                request.ContactListIds.Append(request.ContactListId);
             return await PostAsync<ContactResponse>(ContactEndpoint, request, true);
         }
 
@@ -31,20 +22,17 @@ namespace StockportGovUK.NetStandard.Gateways.WiredPlus
             if (request.Id.Equals(default))
                 throw new HttpRequestException();
 
-            if (!request.ContactListIds.Any() && !request.ContactListId.Equals(default))
-                request.ContactListIds.Append(request.ContactListId);
-
             return await PutAsync<ContactResponse>(ContactEndpoint + $"/{request.Id}", request, true);
         }
 
-        public async Task<HttpResponse<List>> GetListById(int listId)
+        public async Task<HttpResponse<ListResponse>> GetListById(int listId)
         {
-            return await GetAsync<List>(ListEndpoint + $"/{listId}");
+            return await GetAsync<ListResponse>(ListEndpoint + $"/{listId}");
         }
 
-        public async Task<HttpResponse<ListResponse>> GetLists()
+        public async Task<HttpResponse<ListsResponse>> GetLists()
         {
-            return await GetAsync<ListResponse>(ListEndpoint);
+            return await GetAsync<ListsResponse>(ListEndpoint);
         }
 
         public async Task<HttpResponse<ContactResponse>> GetContactByEmail(string emailAddress)
@@ -57,9 +45,9 @@ namespace StockportGovUK.NetStandard.Gateways.WiredPlus
             return await GetAsync<ContactResponse>(url);
         }
 
-        public async Task<HttpResponse<Contact>> GetContactById(int contactId)
+        public async Task<HttpResponse<ContactResponse>> GetContactById(int contactId)
         {
-            return await GetAsync<Contact>(ContactEndpoint + $"/{contactId}");
+            return await GetAsync<ContactResponse>(ContactEndpoint + $"/{contactId}");
         }
     }
 }
