@@ -35,14 +35,14 @@ namespace StockportGovUK.NetStandard.Gateways.WiredPlus
             return await GetAsync<ListsResponse>(ListEndpoint);
         }
 
-        public async Task<HttpResponse<ContactResponse>> GetContactByEmail(string emailAddress)
+        public async Task<HttpResponse<ContactsResponse>> GetContactByEmail(string emailAddress)
         {
             if (string.IsNullOrEmpty(emailAddress))
                 throw new HttpRequestException();
 
             string url = ContactEndpoint + $"?filter[0][field]=email&filter[0][operator]=equals&filter[0][value]={emailAddress}";
 
-            return await GetAsync<ContactResponse>(url);
+            return await GetAsync<ContactsResponse>(url);
         }
 
         public async Task<HttpResponse<ContactResponse>> GetContactById(int contactId)
