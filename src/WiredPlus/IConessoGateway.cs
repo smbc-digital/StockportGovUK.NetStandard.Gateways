@@ -10,7 +10,7 @@ namespace StockportGovUK.NetStandard.Gateways.WiredPlus
         Task<HttpResponse<ContactResponse>> UpdateContact(ContactRequest request);
         Task<HttpResponse<ListResponse>> GetListById(int listId);
         Task<HttpResponse<ListsResponse>> GetLists();
-        Task<HttpResponse<ContactResponse>> GetContactByEmail(string emailAddress);
+        Task<HttpResponse<ContactsResponse>> GetContactByEmail(string emailAddress);
         Task<HttpResponse<ContactResponse>> GetContactById(int contactId);
     }
 }
