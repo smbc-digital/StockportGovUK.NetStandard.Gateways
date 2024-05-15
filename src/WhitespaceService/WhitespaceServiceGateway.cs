@@ -51,6 +51,9 @@ public class WhitespaceServiceGateway : Gateway, IWhitespaceServiceGateway
     public async Task<HttpResponse<SiteIdResponse>> GetAccountSiteId(AccountSiteIdRequest request)
         => await GetAsync<SiteIdResponse>($"{SiteEndpoint}/account-site-id{GetAccountSiteIdQueryString(request)}");
 
+    public async Task<HttpResponse<SiteNotificationsResponse>> GetSiteNotifications(string uprn)
+        => await GetAsync<SiteNotificationsResponse>($"{SiteEndpoint}/notifications/{uprn}");
+
     #endregion
 
     #region Street
