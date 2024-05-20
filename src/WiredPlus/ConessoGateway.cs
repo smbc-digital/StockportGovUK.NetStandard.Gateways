@@ -32,7 +32,7 @@ namespace StockportGovUK.NetStandard.Gateways.WiredPlus
 
         public async Task<HttpResponse<ListsResponse>> GetLists()
         {
-            return await GetAsync<ListsResponse>(ListEndpoint);
+            return await GetAsync<ListsResponse>(ListEndpoint + "?showAll=true");
         }
 
         public async Task<HttpResponse<ContactsResponse>> GetContactByEmail(string emailAddress)
