@@ -1,4 +1,6 @@
-﻿using System.Net.Http;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 using StockportGovUK.NetStandard.Gateways.Models.Conesso;
 using StockportGovUK.NetStandard.Gateways.Response;
@@ -30,9 +32,9 @@ namespace StockportGovUK.NetStandard.Gateways.WiredPlus
             return await GetAsync<ListResponse>(ListEndpoint + $"/{listId}");
         }
 
-        public async Task<HttpResponse<ListsResponse>> GetLists()
+        public async Task<HttpResponse<List<ListResponse>>> GetLists()
         {
-            return await GetAsync<ListsResponse>(ListEndpoint + "?showAll=true");
+            return await GetAsync<List<ListResponse>>(ListEndpoint + "?showAll=true");
         }
 
         public async Task<HttpResponse<ContactsResponse>> GetContactByEmail(string emailAddress)
