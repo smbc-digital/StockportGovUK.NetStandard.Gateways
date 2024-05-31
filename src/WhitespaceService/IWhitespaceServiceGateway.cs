@@ -15,8 +15,10 @@ public interface IWhitespaceServiceGateway
     Task<HttpResponse<RoundIncidentResponse>> GetRoundIncidents(string uprn);
     Task<HttpResponse<SiteResponse>> GetSiteInfo(SiteInfoRequest request);
     Task<HttpResponse<SiteIdResponse>> GetAccountSiteId(AccountSiteIdRequest request);
+    Task<HttpResponse<SiteNotificationsResponse>> GetSiteNotifications(string uprn);
     Task<HttpResponse<StreetResponse>> GetStreets(string postcode);
     Task<HttpResponse<WorksheetResponse>> GetSiteWorksheets(SiteWorksheetsRequest request);
+    Task<HttpResponse<WorksheetResponse>> GetOpenSiteWorksheets(string uprn);
     Task<HttpResponse<string>> CreateWorksheet(CreateWorksheetRequest request);
     Task<HttpResponseMessage> CancelWorksheet(CancelWorksheetRequest request);
     Task<HttpResponseMessage> AddWorksheetNote(AddWorksheetNoteRequest request);

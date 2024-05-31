@@ -1,4 +1,8 @@
-﻿namespace StockportGovUK.NetStandard.Gateways.Extensions.Models
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace StockportGovUK.NetStandard.Gateways.Extensions.Models
 {
     public class HttpClientConfiguration
     {
@@ -8,5 +12,13 @@
         public bool EnablePollyPolicies { get; set; } = true;
         public string ProxyUrl { get; set; }
         public int ProxyPort { get; set; }
+        public IEnumerable<HeaderEntry> Headers { get; set; } = Enumerable.Empty<HeaderEntry>();
+
+    }
+
+    public class HeaderEntry
+    {
+        public string Key { get; set; }
+        public string Value { get; set; }
     }
 }

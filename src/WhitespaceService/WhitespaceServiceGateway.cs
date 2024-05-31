@@ -51,6 +51,9 @@ public class WhitespaceServiceGateway : Gateway, IWhitespaceServiceGateway
     public async Task<HttpResponse<SiteIdResponse>> GetAccountSiteId(AccountSiteIdRequest request)
         => await GetAsync<SiteIdResponse>($"{SiteEndpoint}/account-site-id{GetAccountSiteIdQueryString(request)}");
 
+    public async Task<HttpResponse<SiteNotificationsResponse>> GetSiteNotifications(string uprn)
+        => await GetAsync<SiteNotificationsResponse>($"{SiteEndpoint}/notifications/{uprn}");
+
     #endregion
 
     #region Street
@@ -64,6 +67,9 @@ public class WhitespaceServiceGateway : Gateway, IWhitespaceServiceGateway
 
     public async Task<HttpResponse<WorksheetResponse>> GetSiteWorksheets(SiteWorksheetsRequest request)
         => await GetAsync<WorksheetResponse>($"{WorksheetEndpoint}/site-worksheets{GetSiteWorksheetsQueryString(request)}");
+
+    public async Task<HttpResponse<WorksheetResponse>> GetOpenSiteWorksheets(string uprn)
+        => await GetAsync<WorksheetResponse>($"{WorksheetEndpoint}/open-site-worksheets/{uprn}");
 
     public async Task<HttpResponse<string>> CreateWorksheet(CreateWorksheetRequest request)
         => await PostAsync<string>($"{WorksheetEndpoint}", request);

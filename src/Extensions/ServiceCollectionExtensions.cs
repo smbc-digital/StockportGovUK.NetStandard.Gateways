@@ -39,6 +39,8 @@ namespace StockportGovUK.NetStandard.Gateways.Extensions
                     client.DefaultRequestHeaders.Authorization = string.IsNullOrEmpty(clientConfig?.AuthToken)
                         ? null
                         : AuthenticationHeaderValue.Parse(clientConfig.AuthToken);
+
+                    clientConfig.Headers.ToList().ForEach(header => client.DefaultRequestHeaders.Add(header.Key, header.Value));
                 })
                 .If(!string.IsNullOrEmpty(clientConfig.ProxyUrl), builder => 
                     builder.ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler() { 
