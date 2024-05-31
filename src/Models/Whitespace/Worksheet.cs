@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using StockportGovUK.NetStandard.Gateways.Enums.Whitespace;
 
 namespace StockportGovUK.NetStandard.Gateways.Models.Whitespace;
@@ -50,4 +51,7 @@ public class Worksheet
     public string ImportationReference { get; set; }
     public bool ForAction { get; set; }
     public string LastEventName { get; set; }
+    public IEnumerable<WorksheetServiceItem> WorksheetServiceItems { get; set; }
+    public IEnumerable<WorksheetServiceProperty> WorksheetServiceProperties { get; set; }
+    public IEnumerable<WorksheetNote> WorksheetNotes { get; set; }
 }
