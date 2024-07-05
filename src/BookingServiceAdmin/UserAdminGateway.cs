@@ -9,5 +9,8 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
 
         public async Task<HttpResponseMessage> GetByUsername(string username) =>
             await GetAsync($"{UserEndpoint}/name/{username}");
+
+        public async Task<HttpResponseMessage> GetByUsernameFuzzy(string username) =>
+            await GetAsync($"{UserEndpoint}/fuzzy/{username}");
     }
 }
