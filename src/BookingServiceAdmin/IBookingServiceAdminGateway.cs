@@ -120,6 +120,7 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
 
         #region User
 
+        Task<HttpResponseMessage> Get(Guid id);
         Task<HttpResponseMessage> GetByUsername(string username);
         Task<HttpResponseMessage> GetByUsernameFuzzy(string username);
 
