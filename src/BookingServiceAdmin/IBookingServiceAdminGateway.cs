@@ -122,7 +122,7 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
 
         Task<HttpResponseMessage> GetUserById(Guid id);
         Task<HttpResponseMessage> GetUserByUsername(string username);
-        Task<HttpResponseMessage> GetUserByUsernameFuzzy(string username);
+        Task<HttpResponseMessage> GetUsersByUsernameFuzzy(string username);
 
         #endregion
     }
