@@ -8,13 +8,13 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
     {
         private const string UserEndpoint = "api/v1/User";
 
-        public async Task<HttpResponseMessage> Get(Guid id) =>
+        public async Task<HttpResponseMessage> GetUserById(Guid id) =>
             await GetAsync($"{UserEndpoint}/{id}");
 
-        public async Task<HttpResponseMessage> GetByUsername(string username) =>
+        public async Task<HttpResponseMessage> GetUserByUsername(string username) =>
             await GetAsync($"{UserEndpoint}/name/{username}");
 
-        public async Task<HttpResponseMessage> GetByUsernameFuzzy(string username) =>
+        public async Task<HttpResponseMessage> GetUsersByUsernameFuzzy(string username) =>
             await GetAsync($"{UserEndpoint}/fuzzy/{username}");
     }
 }
