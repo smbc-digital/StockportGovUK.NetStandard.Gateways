@@ -123,6 +123,11 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
         Task<HttpResponseMessage> GetUserById(Guid id);
         Task<HttpResponseMessage> GetUserByUsername(string username);
         Task<HttpResponseMessage> GetUsersByUsernameFuzzy(string username);
+        Task<HttpResponseMessage> MakeUserSuperuser(BaseUserRequest request);
+        Task<HttpResponseMessage> RemoveSuperuserPermission(BaseUserRequest request);
+        Task<HttpResponseMessage> ActivateUser(BaseUserRequest request);
+        Task<HttpResponseMessage> DeactivateUser(BaseUserRequest request);
+        Task<HttpResponseMessage> RemoveUserContextPermissions(BaseUserRequest request);
 
         #endregion
     }
