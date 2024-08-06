@@ -74,8 +74,8 @@ namespace StockportGovUK.NetStandard.Gateways.VerintService
         public async Task<HttpResponse<List<AddressSearchResult>>> SearchForPropertyByPostcode(string postcode)
             => await GetAsync<List<AddressSearchResult>>($"{PropertyEndpoint}/search/{postcode}");
 
-        public async Task<HttpResponse<Address>> GetPropertyByUprn(string uprn)
-            => await GetAsync<Address>($"{PropertyEndpoint}/{uprn}");
+        public async Task<HttpResponse<Address>> GetPropertyByPlaceRef(string placeRef)
+            => await GetAsync<Address>($"{PropertyEndpoint}/{placeRef}");
 
         public async Task<HttpResponse<Address>> GetPropertyFromUprn(string uprn)
             => await GetAsync<Address>($"{PropertyEndpoint}/uprn/{uprn}");
