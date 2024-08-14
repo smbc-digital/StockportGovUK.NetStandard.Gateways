@@ -24,4 +24,6 @@ public interface IWhitespaceServiceGateway
     Task<HttpResponseMessage> AddWorksheetNote(AddWorksheetNoteRequest request);
     Task<HttpResponse<ServiceItemResponse>> GetServiceItems(string serviceId);
     Task<HttpResponse<ServiceItemResponse>> GetWorksheetServiceItems(string serviceId, string uprn);
+    Task<HttpResponse<WorksheetResponse>> GetWorksheetDetails(string worksheetId);
+    Task<HttpResponse<WorksheetResponse>> GetWorksheetDetailsByCaseReference(string caseReference);
 }
