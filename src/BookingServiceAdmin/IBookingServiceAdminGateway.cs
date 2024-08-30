@@ -130,6 +130,7 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
         Task<HttpResponseMessage> RemoveUserContextPermissions(BaseUserRequest request);
         Task<HttpResponseMessage> EnableContextPermissionForUser(UpdateUserPermissionRequest request);
         Task<HttpResponseMessage> DisableContextPermissionForUser(UpdateUserPermissionRequest request);
+        Task<HttpResponseMessage> AddUser(AddUserRequest request);
 
         #endregion
     }
