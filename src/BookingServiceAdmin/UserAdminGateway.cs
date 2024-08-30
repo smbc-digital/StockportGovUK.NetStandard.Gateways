@@ -38,5 +38,8 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
 
         public async Task<HttpResponseMessage> DisableContextPermissionForUser(UpdateUserPermissionRequest request) =>
             await PatchAsync($"{UserEndpoint}/context/disable", request);
+
+        public async Task<HttpResponseMessage> AddUser(AddUserRequest request) =>
+            await PostAsync($"{UserEndpoint}/new", request);
     }
 }
