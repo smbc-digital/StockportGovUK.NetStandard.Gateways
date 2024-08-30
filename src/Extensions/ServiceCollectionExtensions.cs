@@ -49,6 +49,8 @@ namespace StockportGovUK.NetStandard.Gateways.Extensions
                 .If(clientConfig.EnablePollyPolicies, builder => builder
                     .AddPolicyHandler(GetWaitAndRetryForeverPolicy())
                     .AddPolicyHandler(GetCircuitBreakerPolicy()));
+
+            clientConfig
         }
 
         private static T If<T>(this T t, bool cond, Func<T, T> builder) => cond ? builder(t) : t;
