@@ -44,5 +44,7 @@ namespace StockportGovUK.NetStandard.Gateways.BookingService
             UpdateAdditionalInformationMetaDataValuesRequest updateAdditionalInformationMetaDataValuesRequest);
 
         Task<HttpResponseMessage> RelateBookings(RelateBookingsRequest relateBookingsRequest);
+
+        Task<HttpResponseMessage> PurgeBookings();
     }
 }
