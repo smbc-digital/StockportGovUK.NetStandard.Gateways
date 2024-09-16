@@ -17,6 +17,7 @@ namespace StockportGovUK.NetStandard.Gateways.BookingService
         private const string LocationEndpoint = "api/v1/Location";
         private const string CancellationEndpoint = "api/v1/Cancellation";
         private const string BookingEndpoint = "api/v1/Booking";
+        private const string PurgeBookingsEndpoint = "api/v1/PurgeBookings";
         private const string RescheduleEndpoint = "api/v1/Reschedule";
         private const string NextAvailabilityAction = "/next-availability";
 
@@ -65,6 +66,9 @@ namespace StockportGovUK.NetStandard.Gateways.BookingService
 
         public async Task<HttpResponseMessage> RelateBookings(RelateBookingsRequest relateBookingsRequest) =>
             await PatchAsync($"{BookingEndpoint}/relate-bookings", relateBookingsRequest);
+
+        public async Task<HttpResponseMessage> PurgeBookings() =>
+            await GetAsync($"{BookingEndpoint}");
 
         public async Task<HttpResponse<string>> GetLocation(LocationRequest model) =>
             await GetAsync<string>($"{LocationEndpoint}{LocationQueryString(model)}");
