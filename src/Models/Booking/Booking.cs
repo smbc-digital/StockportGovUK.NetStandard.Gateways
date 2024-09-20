@@ -34,6 +34,7 @@ namespace StockportGovUK.NetStandard.Gateways.Models.Booking
         public DateTime? LatestRescheduleDate { get; set; }
         public bool? AllowLateReschedule { get; set; }
         public bool AllowAdminEmail { get; set; }
+        public string DefaultAdminEmail { get; set; }
         public DateTime? ArrivedTime { get; set; }
         public DateTime? SeenTime { get; set; }
         public DateTime? DepartureTime { get; set; }
