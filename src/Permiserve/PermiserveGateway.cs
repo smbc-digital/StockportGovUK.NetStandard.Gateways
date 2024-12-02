@@ -31,7 +31,7 @@ namespace StockportGovUK.NetStandard.Gateways.WiredPlus
             return await PostAsync<GetPermitResponse>(string.Empty, content, false);
         }
 
-        public async Task<HttpResponse<PermiServeResponse>> CreatePermit(CreatePermitRequest request)
+        public async Task<HttpResponse<PermiserveResponse>> CreatePermit(CreatePermitRequest request)
         {
             var content = new MultipartFormDataContent();
             content.AddIfNotNull(request.ApiKey, "apiKey");
@@ -43,7 +43,7 @@ namespace StockportGovUK.NetStandard.Gateways.WiredPlus
             content.AddIfNotNull(request.NotificationEmail, "notificationEmail");
             content.AddIfNotNull(request.NotificationTelephone, "notificationTelephone");
 
-            return await PostAsync<PermiServeResponse>(string.Empty, content, false);
+            return await PostAsync<PermiserveResponse>(string.Empty, content, false);
         }
     }
 }
