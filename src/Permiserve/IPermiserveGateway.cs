@@ -4,7 +4,7 @@ using StockportGovUK.NetStandard.Gateways.Response;
 
 namespace StockportGovUK.NetStandard.Gateways.WiredPlus
 {
-    public interface IPermiserviceGateway {
+    public interface IPermiserveGateway {
         Task<HttpResponse<GetPermitResponse>> GetPermit(GetPermitRequest request);
         Task<HttpResponse<PermiserveResponse>> CreatePermit(CreatePermitRequest request);
     }

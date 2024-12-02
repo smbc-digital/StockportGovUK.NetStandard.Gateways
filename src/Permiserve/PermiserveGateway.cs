@@ -5,8 +5,7 @@ using StockportGovUK.NetStandard.Gateways.Response;
 
 namespace StockportGovUK.NetStandard.Gateways.WiredPlus
 {
-
-    public class PermiserveGateway : Gateway, IPermiserviceGateway
+    public class PermiserveGateway : Gateway, IPermiserveGateway
     {
         public PermiserveGateway(HttpClient httpClient) : base(httpClient) { }
 
