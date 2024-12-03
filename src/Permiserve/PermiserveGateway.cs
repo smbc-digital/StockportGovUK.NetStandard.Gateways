@@ -32,7 +32,7 @@ namespace StockportGovUK.NetStandard.Gateways.Permiserve
             return await PostAsync<GetPermitResponse>(string.Empty, content, false);
         }
 
-        public async Task<HttpResponse<PermiserveResponse>> CreatePermit(CreatePermitRequest request)
+        public async Task<HttpResponse<CreatePermitResponse>> CreatePermit(CreatePermitRequest request)
         {
             var content = new MultipartFormDataContent();
             content.AddIfNotNull(request.ApiKey, "apiKey");
@@ -44,7 +44,7 @@ namespace StockportGovUK.NetStandard.Gateways.Permiserve
             content.AddIfNotNull(request.NotificationEmail, "notificationEmail");
             content.AddIfNotNull(request.NotificationTelephone, "notificationTelephone");
 
-            return await PostAsync<PermiserveResponse>(string.Empty, content, false);
+            return await PostAsync<CreatePermitResponse>(string.Empty, content, false);
         }
     }
 }
