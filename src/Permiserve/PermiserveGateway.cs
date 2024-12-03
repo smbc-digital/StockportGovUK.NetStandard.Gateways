@@ -1,9 +1,11 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using StockportGovUk.NetStandard.Gateways.Models.Permiserve;
+using StockportGovUK.NetStandard.Gateways.Extensions;
 using StockportGovUK.NetStandard.Gateways.Response;
 
-namespace StockportGovUK.NetStandard.Gateways.WiredPlus
+
+namespace StockportGovUK.NetStandard.Gateways.Permiserve
 {
     public class PermiserveGateway : Gateway, IPermiserveGateway
     {
