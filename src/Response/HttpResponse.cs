@@ -36,7 +36,7 @@ namespace StockportGovUK.NetStandard.Gateways.Response
                     DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
                 };
 
-                deserializedObject = JsonSerializer.Deserialize<T>(c    ontent, options);
+                deserializedObject = JsonSerializer.Deserialize<T>(content, options);
             }
             catch (Exception ex)
             {
