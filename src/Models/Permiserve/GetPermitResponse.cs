@@ -47,15 +47,15 @@ public class Permit
 
     [JsonPropertyName("dateCreated")]
     [JsonProperty("dateCreated")]
-    public DateTime DateCreated { get; set; }
+    public string DateCreated { get; set; }
 
     [JsonPropertyName("dateDispatched")]
     [JsonProperty("dateDispatched")]
-    public DateTime? DateDispatched { get; set; }
+    public string DateDispatched { get; set; }
 
     [JsonPropertyName("expiryDate")]
     [JsonProperty("expiryDate")]
-    public DateTime ExpiryDate { get; set; }
+    public string ExpiryDate { get; set; }
 
     [JsonPropertyName("cancelled")]
     [JsonProperty("cancelled")]

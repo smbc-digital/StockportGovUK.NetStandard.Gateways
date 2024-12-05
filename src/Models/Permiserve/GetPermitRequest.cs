@@ -4,7 +4,9 @@ using Newtonsoft.Json;
 
 namespace StockportGovUk.NetStandard.Gateways.Models.Permiserve;
 
-public class GetPermitRequest : BasePermitRequest{                
+public class GetPermitRequest : BasePermitRequest
+{                    
+    public string PermitId { get; set; }
     public string PermitAddress { get; set; }
     public string Uprn { get; set; }
     public string CouncilJobNumber { get; set; }

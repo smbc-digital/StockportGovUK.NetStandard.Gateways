@@ -18,18 +18,23 @@ namespace StockportGovUK.NetStandard.Gateways.Permiserve
             content.Add(new StringContent("search"), "callType");
             content.AddIfNotNull(request.ReturnType, "returnType");
             content.AddIfNotNull(request.PermitAddress, "permitAddress");
-            content.AddIfNotNull(request.Uprn, "uprn");
-            content.AddIfNotNull(request.CouncilJobNumber, "councilJobNumber");
-            content.Add(new StringContent(request.Cancelled.ToString()), "Cancelled");
-            content.AddIfNotNull(request.NotificationEmail, "notificationEmail");
-            
-            if(request.PermitType != PermitType.Unknown)
-                content.Add(new StringContent(request.PermitType.ToString()), "permitType");
-    
-            if(request.PermitState != PermitState.Unknown)
-                content.Add(new StringContent(request.PermitState.ToString()), "state");
 
-            return await PostAsync<GetPermitResponse>(string.Empty, content, false);
+            //content.AddIfNotNull(request.PermitId, "permitId");
+            //content.AddIfNotNull(request.Uprn, "uprn");
+            //content.AddIfNotNull(request.CouncilJobNumber, "councilJobNumber");
+            //content.AddIfNotNull(request.NotificationEmail, "notificationEmail");
+            
+            //if(request.Cancelled)
+            //    content.Add(new StringContent("1", "cancelled");
+
+            //if(request.PermitType != PermitType.Unknown)
+            //    content.Add(new StringContent(request.PermitType.ToString()), "permitType");
+
+            //if(request.PermitState != PermitState.Unknown)
+            //    content.Add(new StringContent(request.PermitState.ToString()), "state");
+
+            var result = await PostAsync<GetPermitResponse>("/api/", content, false);
+            return result;
         }
 
         public async Task<HttpResponse<CreatePermitResponse>> CreatePermit(CreatePermitRequest request)
@@ -44,7 +49,7 @@ namespace StockportGovUK.NetStandard.Gateways.Permiserve
             content.AddIfNotNull(request.NotificationEmail, "notificationEmail");
             content.AddIfNotNull(request.NotificationTelephone, "notificationTelephone");
 
-            return await PostAsync<CreatePermitResponse>(string.Empty, content, false);
+            return await PostAsync<CreatePermitResponse>("/api/", content, false);
         }
     }
 }

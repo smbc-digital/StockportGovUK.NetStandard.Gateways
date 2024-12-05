@@ -4,7 +4,7 @@ using StockportGovUK.NetStandard.Gateways.Response;
 
 namespace StockportGovUK.NetStandard.Gateways.Permiserve
 {
-    public interface IPermiserveGateway {
+    public interface IPermiserveGateway : IGateway {
         Task<HttpResponse<GetPermitResponse>> GetPermit(GetPermitRequest request);
         Task<HttpResponse<CreatePermitResponse>> CreatePermit(CreatePermitRequest request);
     }
