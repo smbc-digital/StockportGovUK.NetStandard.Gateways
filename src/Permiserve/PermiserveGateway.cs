@@ -48,6 +48,8 @@ namespace StockportGovUK.NetStandard.Gateways.Permiserve
             content.AddIfNotNull(request.CouncilJobNumber, "councilJobNumber");
             content.AddIfNotNull(request.NotificationEmail, "notificationEmail");
             content.AddIfNotNull(request.NotificationTelephone, "notificationTelephone");
+            content.AddIfNotNull(request.ExpiryDate, "expiryDate");
+            content.AddIfNotNull(request.Quantity.ToString(), "quantity");
 
             return await PostAsync<CreatePermitResponse>("/api/", content, false);
         }

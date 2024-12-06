@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using Newtonsoft.Json;
 
 namespace StockportGovUk.NetStandard.Gateways.Models.Permiserve;
 
@@ -17,4 +16,9 @@ public class CreatePermitRequest : BasePermitRequest
     public string NotificationEmail {get; set;}
 
     public string NotificationTelephone {get; set;}
+
+    // This should be formatted as yyyy-mm-dd
+    public string ExpiryDate {get; set;}
+
+    public int Quantity {get; set;}
 }
