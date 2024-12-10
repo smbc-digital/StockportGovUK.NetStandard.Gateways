@@ -2,8 +2,9 @@ using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using Newtonsoft.Json;
 
-namespace StockportGovUk.NetStandard.Gateways.Models.Permiserve;
-public class CreatePermitResponse : PermiserveResponse
+namespace StockportGovUk.NetStandard.Gateways.Models.Permiserv;
+
+public class CreatePermitResponse : PermiservResponse
 {
     [JsonPropertyName("Total Permits")]
     [JsonProperty("Total Permits")]

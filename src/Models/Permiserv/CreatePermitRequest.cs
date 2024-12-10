@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace StockportGovUk.NetStandard.Gateways.Models.Permiserve;
+namespace StockportGovUk.NetStandard.Gateways.Models.Permiserv;
 
 public class CreatePermitRequest : BasePermitRequest
 {                    

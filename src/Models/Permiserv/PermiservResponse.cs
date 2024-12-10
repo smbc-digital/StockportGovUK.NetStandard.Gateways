@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using Newtonsoft.Json;
 
-namespace StockportGovUk.NetStandard.Gateways.Models.Permiserve;
-public class PermiserveResponse
+namespace StockportGovUk.NetStandard.Gateways.Models.Permiserv;
+public class PermiservResponse
 {
     public string Success { get; set; }
     

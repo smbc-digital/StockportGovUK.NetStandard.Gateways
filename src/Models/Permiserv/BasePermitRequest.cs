@@ -1,14 +1,12 @@
 using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
 using Newtonsoft.Json;
 
-namespace StockportGovUk.NetStandard.Gateways.Models.Permiserve;
+namespace StockportGovUk.NetStandard.Gateways.Models.Permiserv;
 
-public class BasePermitRequest {
-
+public class BasePermitRequest 
+{
     private string _returnType;
 
-    [Required]
     public string ApiKey {get; set;}
     
     public string ReturnType {
