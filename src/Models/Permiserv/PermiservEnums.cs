@@ -1,7 +1,3 @@
-
-using System.ComponentModel.Design;
-using System.Net;
-
 public enum PermitType {
     Unknown,
     StandardPermit, 
@@ -17,11 +13,10 @@ public enum PermitState {
     Packing, 
     Dispatched,
     Quarantined,
-    Unscaned
+    Unscanned
 }
 
-
-public static class PermiserveEnumExternsions {
+public static class PermiserveEnumExtensions {
     
     public static string ToString(this PermitState permitType)
     {    
@@ -37,8 +32,8 @@ public static class PermiserveEnumExternsions {
                 return "Dispatched";
             case PermitState.Quarantined:
                 return "Quarantined";
-            case PermitState.Unscaned :
-                return "Unscaned";
+            case PermitState.Unscanned :
+                return "Unscanned";
             default:
                 return string.Empty;
         }
@@ -59,6 +54,4 @@ public static class PermiserveEnumExternsions {
                 return string.Empty;
         }
     }
-
-
 }

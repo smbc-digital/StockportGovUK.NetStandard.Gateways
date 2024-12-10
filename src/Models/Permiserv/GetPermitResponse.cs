@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using Newtonsoft.Json;
@@ -61,4 +60,3 @@ public class Permit
     [JsonProperty("cancelled")]
     public int Cancelled { get; set; }
 }
-

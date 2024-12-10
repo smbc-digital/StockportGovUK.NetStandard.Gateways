@@ -1,7 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
-using Newtonsoft.Json;
-
 namespace StockportGovUk.NetStandard.Gateways.Models.Permiserv;
 
 public class GetPermitRequest : BasePermitRequest

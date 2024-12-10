@@ -1,6 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-using Newtonsoft.Json;
-
 namespace StockportGovUk.NetStandard.Gateways.Models.Permiserv;
 
 public class BasePermitRequest 
