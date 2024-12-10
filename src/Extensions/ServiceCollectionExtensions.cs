@@ -59,6 +59,6 @@ namespace StockportGovUK.NetStandard.Gateways.Extensions
 
         public static IAsyncPolicy<HttpResponseMessage> GetCircuitBreakerPolicy() => HttpPolicyExtensions
                 .HandleTransientHttpError()
-                .CircuitBreakerAsync(2, TimeSpan.FromSeconds(30));
+                .CircuitBreakerAsync(2, TimeSpan.FromSeconds(60));
     }
 }
