@@ -38,7 +38,7 @@ namespace StockportGovUK.NetStandard.Gateways.Response
 
                 deserializedObject = JsonSerializer.Deserialize<T>(content, options);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 deserializedObject = default(T);
             }

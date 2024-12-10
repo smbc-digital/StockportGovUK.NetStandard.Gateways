@@ -1,6 +1,6 @@
 using System.Net.Http;
 
-namespace StockportGovUK.NetStandard.Gateways.WiredPlus
+namespace StockportGovUK.NetStandard.Gateways.Extensions
 {
     public static class MultipartFormDataContentExtensions
     {
