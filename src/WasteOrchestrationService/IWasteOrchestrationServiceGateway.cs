@@ -6,4 +6,5 @@ namespace StockportGovUK.NetStandard.Gateways.WasteOrchestrationService;
 public interface IWasteOrchestrationServiceGateway
 {
     Task<HttpResponse<string>> ProcessWorksheetRequest(CreateWorksheetRequest request);
+    Task<HttpResponse<string>> ProcessPermitWorksheetRequest(CreatePermitWorksheetRequest request);
 }
