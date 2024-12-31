@@ -38,6 +38,9 @@ public class WhitespaceServiceGateway : Gateway, IWhitespaceServiceGateway
     public async Task<HttpResponse<SiteServiceResponse>> GetSiteCollections(SiteServiceRequest request)
         => await GetAsync<SiteServiceResponse>($"{CollectionEndpoint}/site-collections{GetSiteCollectionsQueryString(request)}");
 
+    public async Task<HttpResponseMessage> UpdateSiteServiceItem(UpdateSiteServiceItemRequest request)
+        => await PatchAsync($"{CollectionEndpoint}/site-service-item", request);
+
     public async Task<HttpResponse<RoundIncidentResponse>> GetRoundIncidents(string uprn)
         => await GetAsync<RoundIncidentResponse>($"{CollectionEndpoint}/round-incidents/{uprn}");
 
