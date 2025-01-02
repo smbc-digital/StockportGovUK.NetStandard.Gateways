@@ -11,4 +11,13 @@ public class CreatePermitWorksheetRequest
     public Verint.Address Address { get; set; }
     public string EmailAddress { get; set; }
     public string PhoneNumber { get; set; }
+    public ExistingSiteService ExistingSiteService { get; set; }
+}
+
+public class ExistingSiteService
+{
+    public int ExistingItemQuantity { get; set; }
+    public int SiteServiceId { get; set; }
+    public DateTime ExistingSiteServiceValidFrom { get; set; }
+    public DateTime ExistingSiteServiceValidTo { get; set; }
 }
