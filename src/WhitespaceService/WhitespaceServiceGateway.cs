@@ -38,8 +38,17 @@ public class WhitespaceServiceGateway : Gateway, IWhitespaceServiceGateway
     public async Task<HttpResponse<SiteServiceResponse>> GetSiteCollections(SiteServiceRequest request)
         => await GetAsync<SiteServiceResponse>($"{CollectionEndpoint}/site-collections{GetSiteCollectionsQueryString(request)}");
 
+    public async Task<HttpResponse<SiteServiceScheduleResponse>> GetSiteAvailableRounds(string uprn)
+        => await GetAsync<SiteServiceScheduleResponse>($"{CollectionEndpoint}/site-available-rounds/{uprn}");
+
     public async Task<HttpResponseMessage> UpdateSiteServiceItem(UpdateSiteServiceItemRequest request)
         => await PatchAsync($"{CollectionEndpoint}/site-service-item", request);
+
+    public async Task<HttpResponseMessage> FakeUpdateSiteServiceItem(UpdateSiteServiceItemRequest request)
+        => await PatchAsync($"{CollectionEndpoint}/fake-site-service-item", request);
+
+    public async Task<HttpResponseMessage> AddSiteServiceItemRoundSchedule(AddSiteServiceItemRoundScheduleRequest request)
+        => await PatchAsync($"{CollectionEndpoint}/site-service-item-round-schedule", request);
 
     public async Task<HttpResponse<RoundIncidentResponse>> GetRoundIncidents(string uprn)
         => await GetAsync<RoundIncidentResponse>($"{CollectionEndpoint}/round-incidents/{uprn}");
@@ -76,6 +85,9 @@ public class WhitespaceServiceGateway : Gateway, IWhitespaceServiceGateway
 
     public async Task<HttpResponse<string>> CreateWorksheet(CreateWorksheetRequest request)
         => await PostAsync<string>($"{WorksheetEndpoint}", request);
+
+    public async Task<HttpResponse<string>> FakeCreateWorksheet(CreateWorksheetRequest request)
+        => await PostAsync<string>($"{WorksheetEndpoint}/fake", request);
 
     public async Task<HttpResponseMessage> CancelWorksheet(CancelWorksheetRequest request)
         => await PatchAsync($"{WorksheetEndpoint}", request);

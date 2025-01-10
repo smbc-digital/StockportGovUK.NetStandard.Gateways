@@ -12,7 +12,10 @@ public interface IWhitespaceServiceGateway
     Task<HttpResponse<InCabLogResponse>> GetInCabLogs(InCabLogRequest request);
     Task<HttpResponse<AdHocRoundResponse>> GetCollectionSlots(CollectionSlotsRequest request);
     Task<HttpResponse<SiteServiceResponse>> GetSiteCollections(SiteServiceRequest request);
+    Task<HttpResponse<SiteServiceScheduleResponse>> GetSiteAvailableRounds(string uprn);
     Task<HttpResponseMessage> UpdateSiteServiceItem(UpdateSiteServiceItemRequest request);
+    Task<HttpResponseMessage> FakeUpdateSiteServiceItem(UpdateSiteServiceItemRequest request);
+    Task<HttpResponseMessage> AddSiteServiceItemRoundSchedule(AddSiteServiceItemRoundScheduleRequest request);
     Task<HttpResponse<RoundIncidentResponse>> GetRoundIncidents(string uprn);
     Task<HttpResponse<SiteResponse>> GetSiteInfo(SiteInfoRequest request);
     Task<HttpResponse<SiteIdResponse>> GetAccountSiteId(AccountSiteIdRequest request);
@@ -21,6 +24,7 @@ public interface IWhitespaceServiceGateway
     Task<HttpResponse<WorksheetResponse>> GetSiteWorksheets(SiteWorksheetsRequest request);
     Task<HttpResponse<WorksheetResponse>> GetOpenSiteWorksheets(string uprn);
     Task<HttpResponse<string>> CreateWorksheet(CreateWorksheetRequest request);
+    Task<HttpResponse<string>> FakeCreateWorksheet(CreateWorksheetRequest request);
     Task<HttpResponseMessage> CancelWorksheet(CancelWorksheetRequest request);
     Task<HttpResponseMessage> AddWorksheetNote(AddWorksheetNoteRequest request);
     Task<HttpResponse<ServiceItemResponse>> GetServiceItems(string serviceId);

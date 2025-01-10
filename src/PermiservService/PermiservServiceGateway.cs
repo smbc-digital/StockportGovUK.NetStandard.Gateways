@@ -15,4 +15,7 @@ public class PermiservServiceGateway : Gateway, IPermiservServiceGateway
 
     public async Task<HttpResponse<CreatePermitResponse>> CreatePermit(CreatePermitRequest request)
         => await PostAsync<CreatePermitResponse>($"{HomeEndpoint}", request);
+
+    public async Task<HttpResponse<CreatePermitResponse>> FakeCreatePermit(CreatePermitRequest request)
+        => await PostAsync<CreatePermitResponse>($"{HomeEndpoint}/fake", request);
 }
