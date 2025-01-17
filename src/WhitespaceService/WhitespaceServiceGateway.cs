@@ -107,6 +107,9 @@ public class WhitespaceServiceGateway : Gateway, IWhitespaceServiceGateway
     public async Task<HttpResponse<WorksheetResponse>> GetWorksheetDetailsByCaseReference(string caseReference)
         => await GetAsync<WorksheetResponse>($"{WorksheetEndpoint}/case-reference/{caseReference}");
 
+    public async Task<HttpResponseMessage> ProgressWorksheetWorkflow(ProgressWorksheetWorkflowRequest request)
+        => await PatchAsync($"{WorksheetEndpoint}/workflow", request);
+
     #endregion
 
     #region Query String Generators
