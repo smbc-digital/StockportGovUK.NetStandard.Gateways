@@ -33,6 +33,7 @@ namespace StockportGovUK.NetStandard.Gateways.VerintService
         Task<HttpResponse<Address>> GetPropertyFromUprn(string uprn);
         Task<HttpResponse<List<AddressSearchResult>>> GetStreetByReference(string street);
         Task<HttpResponse<List<AddressSearchResult>>> GetStreetByUsrn(string usrn);
+        Task<HttpResponse<List<AddressSearchResult>>> SearchForPropertyByUsrn(string usrn);
         Task<HttpResponse<AddressSearchResult>> GetStreet(string reference);
         Task<HttpResponse<List<OrganisationSearchResult>>> SearchForOrganisationByName(string organisation);
         Task<HttpResponseMessage> AddNoteWithAttachments(NoteWithAttachments model);

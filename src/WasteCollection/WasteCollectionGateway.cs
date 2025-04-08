@@ -16,5 +16,8 @@ namespace StockportGovUK.NetStandard.Gateways.WasteCollection
 
         public async Task<HttpResponse<BinCollectionResponse>> GetBinCollectionDates(string uprn)
             => await GetAsync<BinCollectionResponse>($"{WasteDataEndpoint}/bin-collection-dates/{uprn}");
+
+        public async Task<HttpResponse<BinCollectionResponse>> SpikeFindMyBinCollections(string placeRef)
+            => await GetAsync<BinCollectionResponse>($"{WasteDataEndpoint}/spike-find-my-bin-collections/{placeRef}");
     }
 }

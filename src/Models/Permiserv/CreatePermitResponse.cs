@@ -16,5 +16,5 @@ public class CreatePermitResponse : PermiservResponse
 
     [JsonPropertyName("Created Permit Ids")]
     [JsonProperty("Created Permit Ids")]
-    public IEnumerable<string> CreatedPermitIds { get; set; }
+    public IEnumerable<int> CreatedPermitIds { get; set; }
 }

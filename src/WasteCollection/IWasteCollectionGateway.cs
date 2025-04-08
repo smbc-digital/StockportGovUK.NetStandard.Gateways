@@ -8,5 +8,6 @@ namespace StockportGovUK.NetStandard.Gateways.WasteCollection
     {
         Task<HttpResponse<BinCollectionResponse>> Get(long uprn);
         Task<HttpResponse<BinCollectionResponse>> GetBinCollectionDates(string uprn);
+        Task<HttpResponse<BinCollectionResponse>> SpikeFindMyBinCollections(string placeRef);
     }
 }
