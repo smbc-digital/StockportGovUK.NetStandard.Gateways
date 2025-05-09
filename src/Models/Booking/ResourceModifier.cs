@@ -14,4 +14,5 @@ public class ResourceModifier
     public string ResourceName { get; set; }
     public TimeSpan FromTime { get; set; }
     public TimeSpan UntilTime { get; set; }
+    public int ResourceDisplayOrder { get; set; }
 }
