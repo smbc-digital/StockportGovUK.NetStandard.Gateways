@@ -13,5 +13,6 @@ namespace StockportGovUK.NetStandard.Gateways.Models.Uniform
         public Customer Customer { get; set; }
         public DateTime DateItHappened { get; set; }
         public string TimeItHappened { get; set; }
+        public string KnowDate { get; set; }
     }
 }
