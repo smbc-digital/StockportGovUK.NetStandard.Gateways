@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 using StockportGovUK.NetStandard.Gateways.Models.Booking;
 using StockportGovUK.NetStandard.Gateways.Models.Booking.Request;
@@ -19,4 +20,10 @@ public partial class BookingServiceAdminGateway : Gateway, IBookingServiceAdminG
 
     public async Task<HttpResponse<int>> GetActiveResourceModifierCountForContext(GetByDateRequest request) =>
         await GetAsync<int>($"{ResourceModifierEndpoint}/context/active/day-count/{GetByDateQueryString(request)}");
+
+    public async Task<HttpResponseMessage> UpdateResourceModifier(ResourceModifierRequest request) =>
+        await PatchAsync($"{ResourceModifierEndpoint}", request);
+
+    public async Task<HttpResponseMessage> AddResourceModifier(ResourceModifierRequest request) =>
+        await PostAsync($"{ResourceModifierEndpoint}", request);
 }

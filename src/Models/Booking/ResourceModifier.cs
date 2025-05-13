@@ -11,6 +11,8 @@ public class ResourceModifier
     public bool IsCancelled { get; set; }
     public string Notes { get; set; }
     public Guid? ResourceId { get; set; }
+    public string ResourceName { get; set; }
     public TimeSpan FromTime { get; set; }
     public TimeSpan UntilTime { get; set; }
+    public int ResourceDisplayOrder { get; set; }
 }
