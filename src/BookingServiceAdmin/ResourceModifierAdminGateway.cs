@@ -23,4 +23,7 @@ public partial class BookingServiceAdminGateway : Gateway, IBookingServiceAdminG
 
     public async Task<HttpResponseMessage> UpdateResourceModifier(ResourceModifierRequest request) =>
         await PatchAsync($"{ResourceModifierEndpoint}", request);
+
+    public async Task<HttpResponseMessage> AddResourceModifier(ResourceModifierRequest request) =>
+        await PostAsync($"{ResourceModifierEndpoint}", request);
 }
