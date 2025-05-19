@@ -108,7 +108,7 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
         #region Suspension
 
         Task<HttpResponseMessage> GetSuspensionsForContext(Guid contextId);
-        Task<HttpResponseMessage> GetActiveAndFutureSuspensionsForContext(Guid contextId);
+        Task<HttpResponse<IEnumerable<Suspension>>> GetActiveAndFutureSuspensionsForContext(Guid contextId);
         Task<HttpResponseMessage> GetActiveSuspensionCountForContext(GetByDateRequest request);
         Task<HttpResponseMessage> UpdateSuspension(SuspensionRequest request);
         Task<HttpResponseMessage> AddSuspension(SuspensionRequest request);

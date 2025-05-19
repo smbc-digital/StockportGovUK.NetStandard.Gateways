@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using StockportGovUK.NetStandard.Gateways.Models.Booking;
 using StockportGovUK.NetStandard.Gateways.Models.Booking.Request;
+using StockportGovUK.NetStandard.Gateways.Response;
 
 namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
 {
@@ -12,8 +15,8 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
         public async Task<HttpResponseMessage> GetSuspensionsForContext(Guid contextId) =>
             await GetAsync($"{SuspensionEndpoint}/{contextId}");
 
-        public async Task<HttpResponseMessage> GetActiveAndFutureSuspensionsForContext(Guid contextId) =>
-            await GetAsync($"{SuspensionEndpoint}/{contextId}/active");
+        public async Task<HttpResponse<IEnumerable<Suspension>>> GetActiveAndFutureSuspensionsForContext(Guid contextId) =>
+            await GetAsync<IEnumerable<Suspension>>($"{SuspensionEndpoint}/{contextId}/active");
 
         public async Task<HttpResponseMessage> GetActiveSuspensionCountForContext(GetByDateRequest request) =>
             await GetAsync($"{SuspensionEndpoint}/active/day-count/{GetByDateQueryString(request)}");
