@@ -17,5 +17,11 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
 
         public async Task<HttpResponseMessage> GetActiveSuspensionCountForContext(GetByDateRequest request) =>
             await GetAsync($"{SuspensionEndpoint}/active/day-count/{GetByDateQueryString(request)}");
+
+        public async Task<HttpResponseMessage> UpdateSuspension(SuspensionRequest request) =>
+            await PatchAsync($"{SuspensionEndpoint}/edit", request);
+
+        public async Task<HttpResponseMessage> AddSuspension(SuspensionRequest request) =>
+            await PostAsync($"{SuspensionEndpoint}", request);
     }
 }
