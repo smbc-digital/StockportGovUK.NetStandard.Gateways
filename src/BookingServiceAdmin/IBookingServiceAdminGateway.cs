@@ -37,7 +37,6 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
         Task<HttpResponse<IEnumerable<Booking>>> GetRelatedBookings(Guid groupId);
         Task<HttpResponse<Booking>> CancelBooking(CancelBookingRequest request);
         Task<HttpResponse<IEnumerable<Note>>> AddNote(AddNoteRequest request);
-        Task<HttpResponse<IEnumerable<Status>>> GetStatuses();
         Task<HttpResponse<Booking>> UpdateStatus(UpdateBookingStatusRequest request);
         Task<HttpResponseMessage> UpdateCustomerForBooking(UpdateCustomerForBookingRequest request);
 
@@ -102,6 +101,12 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
         #region Search
 
         Task<HttpResponse<IEnumerable<BookingSearchResult>>> SearchBookings(string contextId, string searchTerm);
+
+        #endregion
+
+        #region Statuses
+
+        Task<HttpResponse<IEnumerable<Status>>> GetSystemStatuses();
 
         #endregion
 
