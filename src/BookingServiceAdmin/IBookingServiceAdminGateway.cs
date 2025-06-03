@@ -71,6 +71,17 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
 
         #endregion
 
+        #region MetaData
+
+        Task<HttpResponse<IEnumerable<MetaDataField>>> GetAppointmentMetaDataFields(Guid appointmentId);
+        Task<HttpResponseMessage> AddAppointmentMetaDataField(MetaDataField model);
+        Task<HttpResponseMessage> UpdateAppointmentMetaDataField(MetaDataField model);
+        Task<HttpResponse<IEnumerable<MetaDataDropdown>>> GetMetaDataFieldDropdowns(Guid metaDataFieldId);
+        Task<HttpResponseMessage> AddMetaDataFieldDropdown(MetaDataDropdown model);
+        Task<HttpResponseMessage> UpdateMetaDataFieldDropdown(MetaDataDropdown model);
+
+        #endregion
+
         #region Policy
 
         Task<HttpResponse<IEnumerable<Policy>>> GetPolicies(Guid contextId);
