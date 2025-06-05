@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using StockportGovUK.NetStandard.Gateways.Models.Booking;
-using StockportGovUK.NetStandard.Gateways.Models.Booking.Request;
 using StockportGovUK.NetStandard.Gateways.Response;
 
 namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin;
@@ -18,7 +17,7 @@ public partial class BookingServiceAdminGateway : Gateway, IBookingServiceAdminG
         await PostAsync($"{MetaDataEndpoint}/field", model);
 
     public async Task<HttpResponseMessage> UpdateAppointmentMetaDataField(MetaDataField model) =>
-        await PatchAsync($"{AppointmentEndpoint}/field", model);
+        await PatchAsync($"{AppointmentEndpoint}/field/edit", model);
 
     public async Task<HttpResponse<IEnumerable<MetaDataDropdown>>> GetMetaDataFieldDropdowns(Guid metaDataFieldId) =>
         await GetAsync<IEnumerable<MetaDataDropdown>>($"{MetaDataEndpoint}/{metaDataFieldId}/dropdowns");
@@ -27,5 +26,5 @@ public partial class BookingServiceAdminGateway : Gateway, IBookingServiceAdminG
         await PostAsync($"{MetaDataEndpoint}/dropdown", model);
 
     public async Task<HttpResponseMessage> UpdateMetaDataFieldDropdown(MetaDataDropdown model) =>
-        await PatchAsync($"{AppointmentEndpoint}/dropdown", model);
+        await PatchAsync($"{AppointmentEndpoint}/dropdown/edit", model);
 }
