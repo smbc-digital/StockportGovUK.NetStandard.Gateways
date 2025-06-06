@@ -17,7 +17,7 @@ public partial class BookingServiceAdminGateway : Gateway, IBookingServiceAdminG
         await PostAsync($"{MetaDataEndpoint}/field", model);
 
     public async Task<HttpResponseMessage> UpdateAppointmentMetaDataField(MetaDataField model) =>
-        await PatchAsync($"{AppointmentEndpoint}/field/edit", model);
+        await PatchAsync($"{MetaDataEndpoint}/field/edit", model);
 
     public async Task<HttpResponse<IEnumerable<MetaDataDropdown>>> GetMetaDataFieldDropdowns(Guid metaDataFieldId) =>
         await GetAsync<IEnumerable<MetaDataDropdown>>($"{MetaDataEndpoint}/{metaDataFieldId}/dropdowns");
@@ -26,5 +26,5 @@ public partial class BookingServiceAdminGateway : Gateway, IBookingServiceAdminG
         await PostAsync($"{MetaDataEndpoint}/dropdown", model);
 
     public async Task<HttpResponseMessage> UpdateMetaDataFieldDropdown(MetaDataDropdown model) =>
-        await PatchAsync($"{AppointmentEndpoint}/dropdown/edit", model);
+        await PatchAsync($"{MetaDataEndpoint}/dropdown/edit", model);
 }
