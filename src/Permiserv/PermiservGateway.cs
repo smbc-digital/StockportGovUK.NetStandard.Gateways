@@ -20,9 +20,9 @@ public class PermiservGateway : Gateway, IPermiservGateway
 
         //content.AddIfNotNull(request.PermitId, "permitId");
         //content.AddIfNotNull(request.Uprn, "uprn");
-        //content.AddIfNotNull(request.CouncilJobNumber, "councilJobNumber");
+        content.AddIfNotNull(request.CouncilJobNumber, "councilJobNumber");
         //content.AddIfNotNull(request.NotificationEmail, "notificationEmail");
-            
+
         //if(request.Cancelled)
         //    content.Add(new StringContent("1", "cancelled");
 
