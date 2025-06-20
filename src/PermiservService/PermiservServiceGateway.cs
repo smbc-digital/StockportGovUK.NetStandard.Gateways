@@ -13,6 +13,9 @@ public class PermiservServiceGateway : Gateway, IPermiservServiceGateway
     {
     }
 
+    public async Task<HttpResponse<bool>> HasPermitsForCaseReference(string caseReference)
+        => await GetAsync<bool>($"{HomeEndpoint}/has-permits-for-case-reference/{caseReference}");
+
     public async Task<HttpResponse<CreatePermitResponse>> CreatePermit(CreatePermitRequest request)
         => await PostAsync<CreatePermitResponse>($"{HomeEndpoint}", request);
 
