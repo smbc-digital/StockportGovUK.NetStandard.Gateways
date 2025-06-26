@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using StockportGovUK.NetStandard.Gateways.Models.Booking;
 using StockportGovUK.NetStandard.Gateways.Models.Booking.Request;
 using StockportGovUK.NetStandard.Gateways.Models.Booking.Response;
 using StockportGovUK.NetStandard.Gateways.Response;
@@ -29,6 +30,8 @@ namespace StockportGovUK.NetStandard.Gateways.BookingService
         Task<HttpResponse<string>> GetLocation(LocationRequest model);
 
         Task<HttpResponse<BookingInformationResponse>> GetBooking(Guid id);
+
+        Task<HttpResponse<Booking>> GetFullBooking(Guid id);
 
         Task<HttpResponse<List<BookingInformationResponse>>> GetBookingsByForeignReference(string foreignReference);
 
