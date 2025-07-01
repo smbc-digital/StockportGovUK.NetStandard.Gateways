@@ -30,6 +30,7 @@ public interface IWhitespaceServiceGateway
     Task<HttpResponse<ServiceItemResponse>> GetServiceItems(string serviceId);
     Task<HttpResponse<ServiceItemResponse>> GetWorksheetServiceItems(string serviceId, string uprn);
     Task<HttpResponse<WorksheetResponse>> GetWorksheetDetails(string worksheetId);
+    Task<HttpResponse<WorksheetResponse>> GetFullWorksheetDetails(string worksheetId);
     Task<HttpResponse<WorksheetResponse>> GetWorksheetDetailsByCaseReference(string caseReference);
     Task<HttpResponseMessage> ProgressWorksheetWorkflow(ProgressWorksheetWorkflowRequest request);
 }
