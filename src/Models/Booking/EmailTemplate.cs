@@ -10,5 +10,6 @@ public class EmailTemplate
     public string Subject { get; set; }
     public string Body { get; set; }
     public Guid? AppointmentId { get; set; }
-    public Guid? EmailType { get; set; }
+    public Guid? EmailTypeId { get; set; }
+    public string EmailTypeName { get; set; }
 }
