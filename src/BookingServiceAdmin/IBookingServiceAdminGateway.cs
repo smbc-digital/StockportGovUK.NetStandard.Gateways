@@ -71,6 +71,18 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
 
         #endregion
 
+        #region EmailTemplate
+
+        Task<HttpResponse<IEnumerable<EmailTemplate>>> GetDefaultCustomerEmailTemplatesForContext(Guid contextId);
+        Task<HttpResponse<IEnumerable<EmailTemplate>>> GetAppointmentCustomerEmailTemplates(Guid contextId, Guid appointmentId);
+        Task<HttpResponse<IEnumerable<EmailTemplate>>> GetDefaultAdminEmailTemplatesForContext(Guid contextId);
+        Task<HttpResponse<IEnumerable<EmailTemplate>>> GetAppointmentAdminEmailTemplates(Guid contextId, Guid appointmentId);
+        Task<HttpResponse<EmailTemplate>> AddAppointmentEmailTemplate(EmailTemplate template);
+        Task<HttpResponse<EmailTemplate>> UpdateAppointmentEmailTemplate(EmailTemplate template);
+        Task<HttpResponseMessage> DeleteAppointmentEmailTemplate(Guid templateId);
+
+        #endregion
+
         #region MetaData
 
         Task<HttpResponse<IEnumerable<MetaDataField>>> GetAppointmentMetaDataFields(Guid appointmentId);
