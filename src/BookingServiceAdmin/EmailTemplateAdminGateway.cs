@@ -23,6 +23,9 @@ public partial class BookingServiceAdminGateway : Gateway, IBookingServiceAdminG
     public async Task<HttpResponse<IEnumerable<EmailTemplate>>> GetAppointmentAdminEmailTemplates(Guid contextId, Guid appointmentId) =>
         await GetAsync<IEnumerable<EmailTemplate>>($"{EmailTemplateEndpoint}/{contextId}/admin/{appointmentId}");
 
+    public async Task<HttpResponse<IEnumerable<EmailTemplateType>>> GetEmailTemplateTypes() =>
+        await GetAsync<IEnumerable<EmailTemplateType>>($"{EmailTemplateEndpoint}/types");
+
     public async Task<HttpResponse<EmailTemplate>> AddAppointmentEmailTemplate(EmailTemplate template) =>
         await PostAsync<EmailTemplate>($"{EmailTemplateEndpoint}", template);
 
