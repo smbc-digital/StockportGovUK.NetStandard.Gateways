@@ -100,6 +100,7 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
         Task<HttpResponse<IEnumerable<Policy>>> GetPolicies(Guid contextId);
         Task<HttpResponse<Policy>> GetPolicy(Guid policyId);
         Task<HttpResponse<Policy>> AddPolicy(PolicyRequest request);
+        Task<HttpResponse<Policy>> UpdatePolicy(PolicyRequest request);
         Task<HttpResponseMessage> DeletePolicy(Guid policyId);
 
         #endregion
