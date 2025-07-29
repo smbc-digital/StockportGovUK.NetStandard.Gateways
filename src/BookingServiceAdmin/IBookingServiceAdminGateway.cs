@@ -58,6 +58,8 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
         Task<HttpResponse<IEnumerable<DailyPolicy>>> GetDailyPolicies(Guid contextId);
         Task<HttpResponse<DailyPolicy>> GetDailyPolicy(Guid policyId);
         Task<HttpResponse<DailyPolicy>> AddDailyPolicy(DailyPolicyRequest request);
+        Task<HttpResponse<DailyPolicy>> UpdateDailyPolicy(DailyPolicyRequest request);
+        Task<HttpResponseMessage> DeleteDailyPolicy(Guid dailyPolicyId);
 
         #endregion
 
@@ -151,6 +153,8 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
         Task<HttpResponse<IEnumerable<TimePeriodPolicy>>> GetTimePeriodPolicies(Guid contextId);
         Task<HttpResponse<TimePeriodPolicy>> GetTimePeriodPolicy(Guid policyId);
         Task<HttpResponse<TimePeriodPolicy>> AddTimePeriodPolicy(TimePeriodPolicyRequest request);
+        Task<HttpResponse<TimePeriodPolicy>> UpdateTimePeriodPolicy(TimePeriodPolicyRequest request);
+        Task<HttpResponseMessage> DeleteTimePeriodPolicy(Guid timePeriodPolicyId);
 
         #endregion
 
