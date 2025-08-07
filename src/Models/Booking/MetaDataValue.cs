@@ -8,6 +8,7 @@ public class MetaDataValue
     public string Value { get; set; }
     public DateTime DateTimeValue { get; set; }
     public int IntValue { get; set; }
+    public bool BoolValue { get; set; }
     public Guid? BookingId { get; set; }
     public Guid? MetaDataFieldId { get; set; }
     public Guid? MetaDataDropDownId { get; set; }
