@@ -38,5 +38,8 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
 
         public async Task<HttpResponseMessage> UpdateCustomerForBooking(UpdateCustomerForBookingRequest request) =>
             await PatchAsync($"{BookingEndpoint}/update-customer", request);
+
+        public async Task<HttpResponseMessage> UpdateMetaDataForBooking(List<MetaDataCombined> request) =>
+            await PatchAsync($"{BookingEndpoint}/update-metadata", request);
     }
 }
