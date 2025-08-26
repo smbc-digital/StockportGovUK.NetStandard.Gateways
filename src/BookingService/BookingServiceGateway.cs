@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using StockportGovUK.NetStandard.Gateways.Models.Booking;
 using StockportGovUK.NetStandard.Gateways.Models.Booking.Request;
 using StockportGovUK.NetStandard.Gateways.Models.Booking.Response;
 using StockportGovUK.NetStandard.Gateways.Response;
+using BookingResource = StockportGovUK.NetStandard.Gateways.Models.Booking.Request.BookingResource;
 
 namespace StockportGovUK.NetStandard.Gateways.BookingService
 {
@@ -88,6 +90,9 @@ namespace StockportGovUK.NetStandard.Gateways.BookingService
 
         public async Task<HttpResponse<BookingInformationResponse>> GetBooking(Guid id) =>
             await GetAsync<BookingInformationResponse>($"{BookingEndpoint}/{id}");
+
+        public async Task<HttpResponse<Booking>> GetFullBooking(Guid id) =>
+            await GetAsync<Booking>($"{BookingEndpoint}/{id}/full");
 
         public async Task<HttpResponse<List<BookingInformationResponse>>> GetBookingsByForeignReference(string foreignReference) =>
             await GetAsync<List<BookingInformationResponse>>($"{BookingEndpoint}/{foreignReference}/bookings");

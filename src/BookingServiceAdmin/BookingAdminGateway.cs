@@ -33,13 +33,13 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
         public async Task<HttpResponse<IEnumerable<Note>>> AddNote(AddNoteRequest request) =>
             await PostAsync<IEnumerable<Note>>($"{BookingEndpoint}/note", request);
 
-        public async Task<HttpResponse<IEnumerable<Status>>> GetStatuses() =>
-           await GetAsync<IEnumerable<Status>>($"{BookingEndpoint}/statuses");
-
         public async Task<HttpResponse<Booking>> UpdateStatus(UpdateBookingStatusRequest request) =>
            await PatchAsync<Booking>($"{BookingEndpoint}/update-status", request);
 
         public async Task<HttpResponseMessage> UpdateCustomerForBooking(UpdateCustomerForBookingRequest request) =>
             await PatchAsync($"{BookingEndpoint}/update-customer", request);
+
+        public async Task<HttpResponseMessage> UpdateMetaDataForBooking(List<MetaDataCombined> request) =>
+            await PatchAsync($"{BookingEndpoint}/update-metadata", request);
     }
 }

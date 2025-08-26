@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 using StockportGovUK.NetStandard.Gateways.Models.Booking;
 using StockportGovUK.NetStandard.Gateways.Models.Booking.Request;
@@ -19,4 +20,10 @@ public partial class BookingServiceAdminGateway : Gateway, IBookingServiceAdminG
 
     public async Task<HttpResponse<DailyPolicy>> AddDailyPolicy(DailyPolicyRequest request) =>
         await PostAsync<DailyPolicy>(DailyPolicyEndpoint, request);
+
+    public async Task<HttpResponse<DailyPolicy>> UpdateDailyPolicy(DailyPolicyRequest request) =>
+        await PatchAsync<DailyPolicy>(DailyPolicyEndpoint, request);
+
+    public async Task<HttpResponseMessage> DeleteDailyPolicy(Guid dailyPolicyId) =>
+        await DeleteAsync($"{DailyPolicyEndpoint}/{dailyPolicyId}");
 }

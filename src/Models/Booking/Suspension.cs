@@ -17,4 +17,6 @@ public class Suspension
     public Guid AppointmentGuid { get; set; }
 
     public bool IsCancelled { get; set; }
+
+    public int AppointmentDisplayOrder { get; set; }
 }

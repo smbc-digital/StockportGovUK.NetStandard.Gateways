@@ -22,7 +22,7 @@ public partial class BookingServiceAdminGateway : Gateway, IBookingServiceAdminG
         await GetAsync<int>($"{ResourceModifierEndpoint}/context/active/day-count/{GetByDateQueryString(request)}");
 
     public async Task<HttpResponseMessage> UpdateResourceModifier(ResourceModifierRequest request) =>
-        await PatchAsync($"{ResourceModifierEndpoint}", request);
+        await PatchAsync($"{ResourceModifierEndpoint}/edit", request);
 
     public async Task<HttpResponseMessage> AddResourceModifier(ResourceModifierRequest request) =>
         await PostAsync($"{ResourceModifierEndpoint}", request);

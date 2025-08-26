@@ -104,6 +104,9 @@ public class WhitespaceServiceGateway : Gateway, IWhitespaceServiceGateway
     public async Task<HttpResponse<WorksheetResponse>> GetWorksheetDetails(string worksheetId)
         => await GetAsync<WorksheetResponse>($"{WorksheetEndpoint}/{worksheetId}");
 
+    public async Task<HttpResponse<WorksheetResponse>> GetFullWorksheetDetails(string worksheetId)
+        => await GetAsync<WorksheetResponse>($"{WorksheetEndpoint}/{worksheetId}/{true}");
+
     public async Task<HttpResponse<WorksheetResponse>> GetWorksheetDetailsByCaseReference(string caseReference)
         => await GetAsync<WorksheetResponse>($"{WorksheetEndpoint}/case-reference/{caseReference}");
 

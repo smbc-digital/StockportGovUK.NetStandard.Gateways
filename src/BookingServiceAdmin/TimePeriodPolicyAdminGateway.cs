@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Net.Http;
 using System.Threading.Tasks;
 using StockportGovUK.NetStandard.Gateways.Models.Booking;
 using StockportGovUK.NetStandard.Gateways.Models.Booking.Request;
@@ -20,5 +20,11 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
 
         public async Task<HttpResponse<TimePeriodPolicy>> AddTimePeriodPolicy(TimePeriodPolicyRequest request) =>
             await PostAsync<TimePeriodPolicy>(TimePeriodPolicyEndpoint, request);
+
+        public async Task<HttpResponse<TimePeriodPolicy>> UpdateTimePeriodPolicy(TimePeriodPolicyRequest request) =>
+            await PatchAsync<TimePeriodPolicy>(TimePeriodPolicyEndpoint, request);
+
+        public async Task<HttpResponseMessage> DeleteTimePeriodPolicy(Guid timePeriodPolicyId) =>
+            await DeleteAsync($"{TimePeriodPolicyEndpoint}/{timePeriodPolicyId}");
     }
 }

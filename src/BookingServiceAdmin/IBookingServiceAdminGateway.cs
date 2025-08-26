@@ -37,9 +37,9 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
         Task<HttpResponse<IEnumerable<Booking>>> GetRelatedBookings(Guid groupId);
         Task<HttpResponse<Booking>> CancelBooking(CancelBookingRequest request);
         Task<HttpResponse<IEnumerable<Note>>> AddNote(AddNoteRequest request);
-        Task<HttpResponse<IEnumerable<Status>>> GetStatuses();
         Task<HttpResponse<Booking>> UpdateStatus(UpdateBookingStatusRequest request);
         Task<HttpResponseMessage> UpdateCustomerForBooking(UpdateCustomerForBookingRequest request);
+        Task<HttpResponseMessage> UpdateMetaDataForBooking(List<MetaDataCombined> request);
 
         #endregion
 
@@ -59,6 +59,8 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
         Task<HttpResponse<IEnumerable<DailyPolicy>>> GetDailyPolicies(Guid contextId);
         Task<HttpResponse<DailyPolicy>> GetDailyPolicy(Guid policyId);
         Task<HttpResponse<DailyPolicy>> AddDailyPolicy(DailyPolicyRequest request);
+        Task<HttpResponse<DailyPolicy>> UpdateDailyPolicy(DailyPolicyRequest request);
+        Task<HttpResponseMessage> DeleteDailyPolicy(Guid dailyPolicyId);
 
         #endregion
 
@@ -72,11 +74,37 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
 
         #endregion
 
+        #region EmailTemplate
+
+        Task<HttpResponse<IEnumerable<EmailTemplate>>> GetDefaultCustomerEmailTemplatesForContext(Guid contextId);
+        Task<HttpResponse<IEnumerable<EmailTemplate>>> GetAppointmentCustomerEmailTemplates(Guid contextId, Guid appointmentId);
+        Task<HttpResponse<IEnumerable<EmailTemplate>>> GetDefaultAdminEmailTemplatesForContext(Guid contextId);
+        Task<HttpResponse<IEnumerable<EmailTemplate>>> GetAppointmentAdminEmailTemplates(Guid contextId, Guid appointmentId);
+        Task<HttpResponse<IEnumerable<EmailTemplateType>>> GetEmailTemplateTypes();
+        Task<HttpResponse<EmailTemplate>> AddAppointmentEmailTemplate(EmailTemplate template);
+        Task<HttpResponse<EmailTemplate>> UpdateAppointmentEmailTemplate(EmailTemplate template);
+        Task<HttpResponseMessage> DeleteAppointmentEmailTemplate(Guid templateId);
+
+        #endregion
+
+        #region MetaData
+
+        Task<HttpResponse<IEnumerable<MetaDataField>>> GetAppointmentMetaDataFields(Guid appointmentId);
+        Task<HttpResponseMessage> AddAppointmentMetaDataField(MetaDataField model);
+        Task<HttpResponseMessage> UpdateAppointmentMetaDataField(MetaDataField model);
+        Task<HttpResponse<IEnumerable<MetaDataDropdown>>> GetMetaDataFieldDropdowns(Guid metaDataFieldId);
+        Task<HttpResponseMessage> AddMetaDataFieldDropdown(MetaDataDropdown model);
+        Task<HttpResponseMessage> UpdateMetaDataFieldDropdown(MetaDataDropdown model);
+
+        #endregion
+
         #region Policy
 
         Task<HttpResponse<IEnumerable<Policy>>> GetPolicies(Guid contextId);
         Task<HttpResponse<Policy>> GetPolicy(Guid policyId);
         Task<HttpResponse<Policy>> AddPolicy(PolicyRequest request);
+        Task<HttpResponse<Policy>> UpdatePolicy(PolicyRequest request);
+        Task<HttpResponseMessage> DeletePolicy(Guid policyId);
 
         #endregion
 
@@ -105,11 +133,19 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
 
         #endregion
 
+        #region Statuses
+
+        Task<HttpResponse<IEnumerable<Status>>> GetSystemStatuses();
+
+        #endregion
+
         #region Suspension
 
         Task<HttpResponseMessage> GetSuspensionsForContext(Guid contextId);
-        Task<HttpResponseMessage> GetActiveAndFutureSuspensionsForContext(Guid contextId);
+        Task<HttpResponse<IEnumerable<Suspension>>> GetActiveAndFutureSuspensionsForContext(Guid contextId);
         Task<HttpResponseMessage> GetActiveSuspensionCountForContext(GetByDateRequest request);
+        Task<HttpResponseMessage> UpdateSuspension(SuspensionRequest request);
+        Task<HttpResponseMessage> AddSuspension(SuspensionRequest request);
 
         #endregion
 
@@ -118,6 +154,8 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
         Task<HttpResponse<IEnumerable<TimePeriodPolicy>>> GetTimePeriodPolicies(Guid contextId);
         Task<HttpResponse<TimePeriodPolicy>> GetTimePeriodPolicy(Guid policyId);
         Task<HttpResponse<TimePeriodPolicy>> AddTimePeriodPolicy(TimePeriodPolicyRequest request);
+        Task<HttpResponse<TimePeriodPolicy>> UpdateTimePeriodPolicy(TimePeriodPolicyRequest request);
+        Task<HttpResponseMessage> DeleteTimePeriodPolicy(Guid timePeriodPolicyId);
 
         #endregion
 

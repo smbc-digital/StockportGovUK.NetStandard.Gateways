@@ -6,6 +6,7 @@ namespace StockportGovUK.NetStandard.Gateways.PermiservService;
 
 public interface IPermiservServiceGateway
 {
+    Task<HttpResponse<bool>> HasPermitsForCaseReference(string caseReference);
     Task<HttpResponse<CreatePermitResponse>> CreatePermit(CreatePermitRequest request);
     Task<HttpResponse<CreatePermitResponse>> FakeCreatePermit(CreatePermitRequest request);
 }
