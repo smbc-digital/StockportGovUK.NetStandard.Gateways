@@ -3,8 +3,8 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
     <Title>A package that provides base gateways using HttpClient</Title>
-    <VersionPrefix>15.10.0</VersionPrefix>
-    <LangVersion>10</LangVersion>
+    <VersionPrefix>15.11.0</VersionPrefix>
+    <LangVersion>12.0</LangVersion>
     <Authors>Colin Lees, Jon Chiles, Jon Hadley</Authors>
     <Company>Stockport Council</Company>
   </PropertyGroup>
