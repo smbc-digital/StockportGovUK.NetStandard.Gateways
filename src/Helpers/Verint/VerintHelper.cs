@@ -26,7 +26,7 @@ public class VerintHelper : IVerintHelper
         }
         catch (Exception exception)
         {
-            throw new HttpResponseException(HttpStatusCode.FailedDependency,
+            throw new HttpResponseException(424,
                 $"{nameof(VerintHelper)}::{nameof(CreateVerintOnlineFormCase)}::" +
                 $"{nameof(_verintServiceGateway)}::{nameof(_verintServiceGateway.CreateVerintOnlineFormCase)}: " +
                 $"An unexpected error occurred while creating Case - {exception.Message}");
