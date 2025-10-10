@@ -8,9 +8,14 @@ using StockportGovUK.NetStandard.Gateways.VerintService;
 
 namespace StockportGovUK.NetStandard.Gateways.Helpers.Verint;
 
-public class VerintHelper(IVerintServiceGateway verintServiceGateway) : IVerintHelper
+public class VerintHelper : IVerintHelper
 {
-    private readonly IVerintServiceGateway _verintServiceGateway = verintServiceGateway;
+    private readonly IVerintServiceGateway _verintServiceGateway;
+
+    public VerintHelper(IVerintServiceGateway verintServiceGateway)
+    {
+        _verintServiceGateway = verintServiceGateway;
+    }
 
     public async Task<VerintOnlineFormResponse> CreateVerintOnlineFormCase(VerintOnlineFormRequest request)
     {
