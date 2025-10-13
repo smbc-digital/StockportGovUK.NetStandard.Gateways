@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using StockportGovUK.NetStandard.Gateways.Models.Exceptions;
 using StockportGovUK.NetStandard.Gateways.Models.Verint.VerintOnlineForm;
 using StockportGovUK.NetStandard.Gateways.Response;
@@ -11,10 +13,12 @@ namespace StockportGovUK.NetStandard.Gateways.Helpers.Verint;
 public class VerintHelper : IVerintHelper
 {
     private readonly IVerintServiceGateway _verintServiceGateway;
+    private readonly ILogger<VerintHelper> _logger;
 
-    public VerintHelper(IVerintServiceGateway verintServiceGateway)
+    public VerintHelper(IVerintServiceGateway verintServiceGateway, ILogger<VerintHelper> logger)
     {
         _verintServiceGateway = verintServiceGateway;
+        _logger = logger;
     }
 
     public async Task<VerintOnlineFormResponse> CreateVerintOnlineFormCase(VerintOnlineFormRequest request)
@@ -39,5 +43,39 @@ public class VerintHelper : IVerintHelper
                 $"failed to create Case with status code {response.StatusCode}");
 
         return response.ResponseContent;
+    }
+
+    public async Task AddFormDataToVerintOnlineForm(VerintOnlineFormUpdateRequest request, bool logOnly = false)
+    {
+        HttpResponseMessage verintResponse;
+        try
+        {
+            verintResponse = await _verintServiceGateway.UpdateVerintOnlineFormFormData(request);
+        }
+        catch (Exception exception)
+        {
+            string log = $"{nameof(VerintHelper)}::{nameof(AddFormDataToVerintOnlineForm)}: " +
+                         $"An unexpected error occurred adding form data for VOF {request.VerintOnlineFormReference} " +
+                         $"- {exception.Message} {exception.StackTrace}";
+            if (logOnly)
+                _logger.LogError(log);
+            else
+                throw new HttpResponseException(424, log);
+
+            return;
+        }
+
+        if (!verintResponse.IsSuccessStatusCode)
+        {
+            string log = $"{nameof(VerintHelper)}::{nameof(AddFormDataToVerintOnlineForm)}: " +
+                         $"Failed to add form data for VOF {request.VerintOnlineFormReference} " +
+                         $"- {verintResponse.ReasonPhrase}";
+
+            if (logOnly)
+                _logger.LogError(log);
+            else
+                throw new HttpResponseException(verintResponse.StatusCode, log);
+        }
+            
     }
 }
