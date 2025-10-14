@@ -6,6 +6,7 @@ using StockportGovUK.NetStandard.Gateways.Models.Verint.Lookup;
 using StockportGovUK.NetStandard.Gateways.Response;
 
 namespace StockportGovUK.NetStandard.Gateways.VerintService;
+
 public partial class VerintServiceGateway : Gateway, IVerintServiceGateway
 {
     private const string OrganisationEndpoint = "api/v1/Organisation";

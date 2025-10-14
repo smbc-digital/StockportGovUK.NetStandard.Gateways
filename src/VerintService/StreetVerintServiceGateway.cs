@@ -6,6 +6,7 @@ using StockportGovUK.NetStandard.Gateways.Models.Exceptions;
 using StockportGovUK.NetStandard.Gateways.Response;
 
 namespace StockportGovUK.NetStandard.Gateways.VerintService;
+
 public partial class VerintServiceGateway : Gateway, IVerintServiceGateway
 {
     private const string StreetEndpoint = "api/v1/Street";

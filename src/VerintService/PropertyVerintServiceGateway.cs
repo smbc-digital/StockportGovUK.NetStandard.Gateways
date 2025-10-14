@@ -7,6 +7,7 @@ using StockportGovUK.NetStandard.Gateways.Response;
 using Address = StockportGovUK.NetStandard.Gateways.Models.Verint.Address;
 
 namespace StockportGovUK.NetStandard.Gateways.VerintService;
+
 public partial class VerintServiceGateway : Gateway, IVerintServiceGateway
 {
     private const string PropertyEndpoint = "api/v1/Property";
