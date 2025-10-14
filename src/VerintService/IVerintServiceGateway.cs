@@ -1,43 +1,65 @@
 ﻿using System.Collections.Generic;
-using System.Net.Http;
 using System.Threading.Tasks;
 using StockportGovUK.NetStandard.Gateways.Models.Addresses;
 using StockportGovUK.NetStandard.Gateways.Models.Verint;
 using StockportGovUK.NetStandard.Gateways.Models.Verint.Lookup;
 using StockportGovUK.NetStandard.Gateways.Models.Verint.Update;
 using StockportGovUK.NetStandard.Gateways.Models.Verint.VerintOnlineForm;
-using StockportGovUK.NetStandard.Gateways.Response;
 using Address = StockportGovUK.NetStandard.Gateways.Models.Verint.Address;
 
 namespace StockportGovUK.NetStandard.Gateways.VerintService
 {
     public interface IVerintServiceGateway
     {
-        Task<HttpResponse<Case>> GetCase(string caseRef);
-        Task<HttpResponseMessage> UpdateCaseIntegrationFormField(IntegrationFormFieldsUpdateModel content);
-        Task<HttpResponse<bool>> AddCaseFormField(AddCaseFormFieldRequest request);
-        Task<HttpResponse<int>> UpdateCaseDescription(Case crmCase);
-        Task<HttpResponse<int>> UpdateCaseQueue(Case crmCase);
-        Task<HttpResponse<string>> CreateCase(Case crmCase);
-        Task<HttpResponseMessage> LinkCase(LinkCaseRequest linkCaseRequest);
-        Task<HttpResponseMessage> UnLinkCase(LinkCaseRequest unLinkCaseRequest);
-        Task<HttpResponse<string>> CloseCase(CloseCaseRequest closeCaseRequest);
-        Task<HttpResponseMessage> ReopenCase(ReopenCaseRequest reopenCaseRequest);
-        Task<HttpResponseMessage> CleanupCase(CloseCaseRequest closeCaseRequest);
-        Task<HttpResponse<VerintOnlineForm>> GetVerintOnlineFormCase(string verintOnlineFormReference);
-        Task<HttpResponse<VerintOnlineFormResponse>> CreateVerintOnlineFormCase(VerintOnlineFormRequest verintOnlineFormRequest);
-        Task<HttpResponse<VerintOnlineFormResponse>> AttachVerintOnlineFormToCase(VerintOnlineFormRequest verintOnlineFormRequest);
-        Task<HttpResponseMessage> UpdateVerintOnlineFormFormData(VerintOnlineFormUpdateRequest request);
-        Task<HttpResponse<List<AddressSearchResult>>> SearchForPropertyByPostcode(string postcode);
-        Task<HttpResponse<Address>> GetPropertyByPlaceRef(string placeRef);
-        Task<HttpResponse<Address>> GetPropertyFromUprn(string uprn);
-        Task<HttpResponse<List<AddressSearchResult>>> GetStreetByReference(string street);
-        Task<HttpResponse<List<AddressSearchResult>>> GetStreetByUsrn(string usrn);
-        Task<HttpResponse<List<AddressSearchResult>>> SearchForPropertyByUsrn(string usrn);
-        Task<HttpResponse<AddressSearchResult>> GetStreet(string reference);
-        Task<HttpResponse<List<OrganisationSearchResult>>> SearchForOrganisationByName(string organisation);
-        Task<HttpResponseMessage> AddNoteWithAttachments(NoteWithAttachments model);
-        Task<HttpResponseMessage> AddNote(NoteRequest model);
-        Task<HttpResponse<int>> UpdateCaseTitle(Case crmCase);
+        #region Case
+
+        Task<Case> GetCase(string caseRef);
+        Task<string> CreateCase(Case crmCase);
+        Task LinkCase(LinkCaseRequest linkCaseRequest, bool logOnly = false);
+        Task UnLinkCase(LinkCaseRequest unLinkCaseRequest, bool logOnly = false);
+        Task<string> CloseCase(CloseCaseRequest closeCaseRequest, bool logOnly = false);
+        Task ReopenCase(ReopenCaseRequest reopenCaseRequest, bool logOnly = false);
+        Task CleanupCase(CloseCaseRequest closeCaseRequest, bool logOnly = false);
+        Task<int> UpdateCaseDescription(Case crmCase, bool logOnly = false);
+        Task<int> UpdateCaseQueue(Case crmCase, bool logOnly = false);
+        Task<int> UpdateCaseTitle(Case crmCase, bool logOnly = false);
+        Task UpdateCaseIntegrationFormField(IntegrationFormFieldsUpdateModel content, bool logOnly = false);
+        Task<bool> AddCaseFormField(AddCaseFormFieldRequest request, bool logOnly = false);
+        Task AddNoteWithAttachments(NoteWithAttachments model, bool logOnly = false);
+        Task AddNote(NoteRequest model, bool logOnly = false);
+
+        #endregion
+
+        #region Verint Online Form
+
+        Task<VerintOnlineForm> GetVerintOnlineFormCase(string verintOnlineFormReference);
+        Task<VerintOnlineFormResponse> CreateVerintOnlineFormCase(VerintOnlineFormRequest verintOnlineFormRequest);
+        Task<VerintOnlineFormResponse> AttachVerintOnlineFormToCase(VerintOnlineFormRequest verintOnlineFormRequest);
+        Task UpdateVerintOnlineFormFormData(VerintOnlineFormUpdateRequest request, bool logOnly = false);
+
+        #endregion
+
+        #region Property
+
+        Task<List<AddressSearchResult>> SearchForPropertyByPostcode(string postcode);
+        Task<Address> GetPropertyByPlaceRef(string placeRef);
+        Task<Address> GetPropertyFromUprn(string uprn);
+
+        #endregion
+
+        #region Street
+
+        Task<List<AddressSearchResult>> GetStreetByReference(string street);
+        Task<List<AddressSearchResult>> GetStreetByUsrn(string usrn);
+        Task<List<AddressSearchResult>> SearchForPropertyByUsrn(string usrn);
+        Task<AddressSearchResult> GetStreet(string reference);
+
+        #endregion
+
+        #region Organisation
+
+        Task<List<OrganisationSearchResult>> SearchForOrganisationByName(string organisation);
+
+        #endregion
     }
 }
