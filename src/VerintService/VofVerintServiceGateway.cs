@@ -78,7 +78,10 @@ public partial class VerintServiceGateway : Gateway, IVerintServiceGateway
         return response.ResponseContent;
     }
 
-    public async Task UpdateVerintOnlineFormFormData(VerintOnlineFormUpdateRequest request, bool logOnly = false)
+    public async Task UpdateVerintOnlineFormFormData(VerintOnlineFormUpdateRequest request) =>
+        await UpdateVerintOnlineFormFormData(request, false);
+
+    public async Task UpdateVerintOnlineFormFormData(VerintOnlineFormUpdateRequest request, bool logOnly)
     {
         HttpResponseMessage verintResponse;
         try

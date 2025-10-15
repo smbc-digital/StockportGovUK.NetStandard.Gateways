@@ -57,7 +57,10 @@ public partial class VerintServiceGateway : Gateway, IVerintServiceGateway
         return verintCaseResponse.ResponseContent;
     }
 
-    public async Task LinkCase(LinkCaseRequest linkCaseRequest, bool logOnly = false)
+    public async Task LinkCase(LinkCaseRequest linkCaseRequest) =>
+        await LinkCase(linkCaseRequest, false);
+
+    public async Task LinkCase(LinkCaseRequest linkCaseRequest, bool logOnly)
     {
         HttpResponseMessage linkVerintCaseResponse;
         try
@@ -89,7 +92,10 @@ public partial class VerintServiceGateway : Gateway, IVerintServiceGateway
         }
     }
 
-    public async Task UnLinkCase(LinkCaseRequest unLinkCaseRequest, bool logOnly = false)
+    public async Task UnLinkCase(LinkCaseRequest unLinkCaseRequest) =>
+        await UnLinkCase(unLinkCaseRequest, false);
+
+    public async Task UnLinkCase(LinkCaseRequest unLinkCaseRequest, bool logOnly)
     {
         HttpResponseMessage unLinkVerintCaseResponse;
         try
@@ -121,7 +127,10 @@ public partial class VerintServiceGateway : Gateway, IVerintServiceGateway
         }
     }
 
-    public async Task<string> CloseCase(CloseCaseRequest closeCaseRequest, bool logOnly = false)
+    public async Task<string> CloseCase(CloseCaseRequest closeCaseRequest) =>
+        await CloseCase(closeCaseRequest, false);
+
+    public async Task<string> CloseCase(CloseCaseRequest closeCaseRequest, bool logOnly)
     {
         {
             HttpResponse<string> verintCaseResponse = new();
@@ -155,7 +164,10 @@ public partial class VerintServiceGateway : Gateway, IVerintServiceGateway
         }
     }
 
-    public async Task ReopenCase(ReopenCaseRequest reopenCaseRequest, bool logOnly = false)
+    public async Task ReopenCase(ReopenCaseRequest reopenCaseRequest) =>
+        await ReopenCase(reopenCaseRequest, false);
+
+    public async Task ReopenCase(ReopenCaseRequest reopenCaseRequest, bool logOnly)
     {
         HttpResponseMessage verintCaseResponse;
 
@@ -188,7 +200,10 @@ public partial class VerintServiceGateway : Gateway, IVerintServiceGateway
         }
     }
 
-    public async Task CleanupCase(CloseCaseRequest closeCaseRequest, bool logOnly = false)
+    public async Task CleanupCase(CloseCaseRequest closeCaseRequest) =>
+        await CleanupCase(closeCaseRequest, false);
+
+    public async Task CleanupCase(CloseCaseRequest closeCaseRequest, bool logOnly)
     {
         HttpResponseMessage result;
 
@@ -221,7 +236,10 @@ public partial class VerintServiceGateway : Gateway, IVerintServiceGateway
         }
     }
 
-    public async Task<int> UpdateCaseDescription(Case crmCase, bool logOnly = false)
+    public async Task<int> UpdateCaseDescription(Case crmCase) =>
+        await UpdateCaseDescription(crmCase, false);
+
+    public async Task<int> UpdateCaseDescription(Case crmCase, bool logOnly)
     {
         HttpResponse<int> verintCaseResponse = new();
         try
@@ -253,7 +271,10 @@ public partial class VerintServiceGateway : Gateway, IVerintServiceGateway
         return verintCaseResponse.ResponseContent;
     }
 
-    public async Task<int> UpdateCaseQueue(Case crmCase, bool logOnly = false)
+    public async Task<int> UpdateCaseQueue(Case crmCase) =>
+        await UpdateCaseQueue(crmCase, false);
+
+    public async Task<int> UpdateCaseQueue(Case crmCase, bool logOnly)
     {
         HttpResponse<int> verintCaseResponse = new();
         try
@@ -285,7 +306,10 @@ public partial class VerintServiceGateway : Gateway, IVerintServiceGateway
         return verintCaseResponse.ResponseContent;
     }
 
-    public async Task<int> UpdateCaseTitle(Case crmCase, bool logOnly = false)
+    public async Task<int> UpdateCaseTitle(Case crmCase) =>
+        await UpdateCaseTitle(crmCase, false);
+
+    public async Task<int> UpdateCaseTitle(Case crmCase, bool logOnly)
     {
         HttpResponse<int> verintCaseResponse = new();
         try
@@ -317,7 +341,10 @@ public partial class VerintServiceGateway : Gateway, IVerintServiceGateway
         return verintCaseResponse.ResponseContent;
     }
 
-    public async Task UpdateCaseIntegrationFormField(IntegrationFormFieldsUpdateModel content, bool logOnly = false)
+    public async Task UpdateCaseIntegrationFormField(IntegrationFormFieldsUpdateModel content) =>
+        await UpdateCaseIntegrationFormField(content, false);
+
+    public async Task UpdateCaseIntegrationFormField(IntegrationFormFieldsUpdateModel content, bool logOnly)
     {
         HttpResponseMessage response;
 
@@ -350,7 +377,10 @@ public partial class VerintServiceGateway : Gateway, IVerintServiceGateway
         }
     }
 
-    public async Task<bool> AddCaseFormField(AddCaseFormFieldRequest request, bool logOnly = false)
+    public async Task<bool> AddCaseFormField(AddCaseFormFieldRequest request) =>
+        await AddCaseFormField(request, false);
+
+    public async Task<bool> AddCaseFormField(AddCaseFormFieldRequest request, bool logOnly)
     {
         HttpResponse<bool> response = new();
 
@@ -383,7 +413,10 @@ public partial class VerintServiceGateway : Gateway, IVerintServiceGateway
         return response.ResponseContent;
     }
 
-    public async Task AddNoteWithAttachments(NoteWithAttachments model, bool logOnly = false)
+    public async Task AddNoteWithAttachments(NoteWithAttachments model) =>
+        await AddNoteWithAttachments(model, false);
+
+    public async Task AddNoteWithAttachments(NoteWithAttachments model, bool logOnly)
     {
         HttpResponseMessage response;
         try
@@ -415,7 +448,10 @@ public partial class VerintServiceGateway : Gateway, IVerintServiceGateway
         }
     }
 
-    public async Task AddNote(NoteRequest model, bool logOnly = false)
+    public async Task AddNote(NoteRequest model) =>
+        await AddNote(model, false);
+
+    public async Task AddNote(NoteRequest model, bool logOnly)
     {
         HttpResponseMessage response;
         try
