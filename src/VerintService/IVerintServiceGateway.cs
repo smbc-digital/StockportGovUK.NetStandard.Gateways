@@ -15,18 +15,30 @@ namespace StockportGovUK.NetStandard.Gateways.VerintService
 
         Task<Case> GetCase(string caseRef);
         Task<string> CreateCase(Case crmCase);
-        Task LinkCase(LinkCaseRequest linkCaseRequest, bool logOnly = false);
-        Task UnLinkCase(LinkCaseRequest unLinkCaseRequest, bool logOnly = false);
-        Task<string> CloseCase(CloseCaseRequest closeCaseRequest, bool logOnly = false);
-        Task ReopenCase(ReopenCaseRequest reopenCaseRequest, bool logOnly = false);
-        Task CleanupCase(CloseCaseRequest closeCaseRequest, bool logOnly = false);
-        Task<int> UpdateCaseDescription(Case crmCase, bool logOnly = false);
-        Task<int> UpdateCaseQueue(Case crmCase, bool logOnly = false);
-        Task<int> UpdateCaseTitle(Case crmCase, bool logOnly = false);
-        Task UpdateCaseIntegrationFormField(IntegrationFormFieldsUpdateModel content, bool logOnly = false);
-        Task<bool> AddCaseFormField(AddCaseFormFieldRequest request, bool logOnly = false);
-        Task AddNoteWithAttachments(NoteWithAttachments model, bool logOnly = false);
-        Task AddNote(NoteRequest model, bool logOnly = false);
+        Task LinkCase(LinkCaseRequest linkCaseRequest);
+        Task LinkCase(LinkCaseRequest linkCaseRequest, bool logOnly);
+        Task UnLinkCase(LinkCaseRequest unLinkCaseRequest);
+        Task UnLinkCase(LinkCaseRequest unLinkCaseRequest, bool logOnly);
+        Task<string> CloseCase(CloseCaseRequest closeCaseRequest);
+        Task<string> CloseCase(CloseCaseRequest closeCaseRequest, bool logOnly);
+        Task ReopenCase(ReopenCaseRequest reopenCaseRequest);
+        Task ReopenCase(ReopenCaseRequest reopenCaseRequest, bool logOnly);
+        Task CleanupCase(CloseCaseRequest closeCaseRequest);
+        Task CleanupCase(CloseCaseRequest closeCaseRequest, bool logOnly);
+        Task<int> UpdateCaseDescription(Case crmCase);
+        Task<int> UpdateCaseDescription(Case crmCase, bool logOnly);
+        Task<int> UpdateCaseQueue(Case crmCase);
+        Task<int> UpdateCaseQueue(Case crmCase, bool logOnly);
+        Task<int> UpdateCaseTitle(Case crmCase);
+        Task<int> UpdateCaseTitle(Case crmCase, bool logOnly);
+        Task UpdateCaseIntegrationFormField(IntegrationFormFieldsUpdateModel content);
+        Task UpdateCaseIntegrationFormField(IntegrationFormFieldsUpdateModel content, bool logOnly);
+        Task<bool> AddCaseFormField(AddCaseFormFieldRequest request);
+        Task<bool> AddCaseFormField(AddCaseFormFieldRequest request, bool logOnly);
+        Task AddNoteWithAttachments(NoteWithAttachments model);
+        Task AddNoteWithAttachments(NoteWithAttachments model, bool logOnly);
+        Task AddNote(NoteRequest model);
+        Task AddNote(NoteRequest model, bool logOnly);
 
         #endregion
 
@@ -35,7 +47,8 @@ namespace StockportGovUK.NetStandard.Gateways.VerintService
         Task<VerintOnlineForm> GetVerintOnlineFormCase(string verintOnlineFormReference);
         Task<VerintOnlineFormResponse> CreateVerintOnlineFormCase(VerintOnlineFormRequest verintOnlineFormRequest);
         Task<VerintOnlineFormResponse> AttachVerintOnlineFormToCase(VerintOnlineFormRequest verintOnlineFormRequest);
-        Task UpdateVerintOnlineFormFormData(VerintOnlineFormUpdateRequest request, bool logOnly = false);
+        Task UpdateVerintOnlineFormFormData(VerintOnlineFormUpdateRequest request);
+        Task UpdateVerintOnlineFormFormData(VerintOnlineFormUpdateRequest request, bool logOnly);
 
         #endregion
 
