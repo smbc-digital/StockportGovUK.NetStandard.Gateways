@@ -13,6 +13,8 @@ namespace StockportGovUK.NetStandard.Gateways.Extensions.Models
         public string ProxyUrl { get; set; }
         public int ProxyPort { get; set; }
         public IEnumerable<HeaderEntry> Headers { get; set; } = Enumerable.Empty<HeaderEntry>();
+        public int TimeoutInSeconds { get; set; } = 60;
+        public int Retries { get; set; } = 2;
 
     }
 

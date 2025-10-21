@@ -47,18 +47,18 @@ namespace StockportGovUK.NetStandard.Gateways.Extensions
                         Proxy = new WebProxy(clientConfig.ProxyUrl, clientConfig.ProxyPort) // e,g, new WebProxy("172.16.0.166", 8080)
                 }))
                 .If(clientConfig.EnablePollyPolicies, builder => builder
-                    .AddPolicyHandler(GetWaitAndRetryForeverPolicy())
-                    .AddPolicyHandler(GetCircuitBreakerPolicy()));
+                    .AddPolicyHandler(GetWaitAndRetryForeverPolicy(clientConfig.Retries))
+                    .AddPolicyHandler(GetCircuitBreakerPolicy(clientConfig.TimeoutInSeconds)));
         }
 
         private static T If<T>(this T t, bool cond, Func<T, T> builder) => cond ? builder(t) : t;
 
-        public static IAsyncPolicy<HttpResponseMessage> GetWaitAndRetryForeverPolicy() => HttpPolicyExtensions
+        public static IAsyncPolicy<HttpResponseMessage> GetWaitAndRetryForeverPolicy(int retries) => HttpPolicyExtensions
                 .HandleTransientHttpError()
-                .WaitAndRetryForeverAsync(retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)));
+                .WaitAndRetryForeverAsync(retryAttempt => TimeSpan.FromSeconds(Math.Pow(retries, retryAttempt)));
 
-        public static IAsyncPolicy<HttpResponseMessage> GetCircuitBreakerPolicy() => HttpPolicyExtensions
+        public static IAsyncPolicy<HttpResponseMessage> GetCircuitBreakerPolicy(int timeoutInSeconds) => HttpPolicyExtensions
                 .HandleTransientHttpError()
-                .CircuitBreakerAsync(2, TimeSpan.FromSeconds(60));
+                .CircuitBreakerAsync(2, TimeSpan.FromSeconds(timeoutInSeconds));
     }
 }
