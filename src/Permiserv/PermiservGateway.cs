@@ -43,6 +43,7 @@ public class PermiservGateway : Gateway, IPermiservGateway
         content.Add(new StringContent("insert"), "callType");
         content.AddIfNotNull(request.ReturnType, "returnType");
         content.AddIfNotNull(request.PermitAddress, "permitAddress");
+        content.AddIfNotNull(request.DeliveryAddress, "deliveryAddress");
         content.AddIfNotNull(request.Uprn, "uprn");
         content.AddIfNotNull(request.CouncilJobNumber, "councilJobNumber");
         content.AddIfNotNull(request.NotificationEmail, "notificationEmail");
