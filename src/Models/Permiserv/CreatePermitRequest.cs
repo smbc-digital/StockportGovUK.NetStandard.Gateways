@@ -5,20 +5,22 @@ namespace StockportGovUk.NetStandard.Gateways.Models.Permiserv;
 public class CreatePermitRequest : BasePermitRequest
 {                    
     [Required]
-    public string PermitAddress {get; set;}
+    public string PermitAddress { get; set; }
+
+    public string DeliveryAddress { get; set; }
     
     [Required]
-    public string Uprn  {get; set;}
+    public string Uprn  { get; set; }
     
     [Required]
-    public string CouncilJobNumber {get; set;}
+    public string CouncilJobNumber { get; set; }
 
-    public string NotificationEmail {get; set;}
+    public string NotificationEmail { get; set; }
 
-    public string NotificationTelephone {get; set;}
+    public string NotificationTelephone { get; set; }
 
     // This should be formatted as yyyy-mm-dd
-    public string ExpiryDate {get; set;}
+    public string ExpiryDate { get; set; }
 
-    public int Quantity {get; set;}
+    public int Quantity { get; set; }
 }
