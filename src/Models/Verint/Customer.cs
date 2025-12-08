@@ -33,24 +33,24 @@ namespace StockportGovUK.NetStandard.Gateways.Models.Verint
         {
             get
             {
-                string fullName = this.Surname;
+                string fullName = Surname;
 
-                if (!string.IsNullOrWhiteSpace(this.Forename))
+                if (!string.IsNullOrWhiteSpace(Forename))
                 {
-                    fullName = (this.Forename + " " + fullName).TrimEnd();
+                    fullName = $"{Forename} {fullName}".TrimEnd();
                 }
 
-                if (!string.IsNullOrWhiteSpace(this.Initials))
+                if (!string.IsNullOrWhiteSpace(Initials))
                 {
-                    fullName = (this.Initials + " " + fullName).TrimEnd();
+                    fullName = $"{Initials} {fullName}".TrimEnd();
                 }
 
-                if (!string.IsNullOrWhiteSpace(this.Title))
+                if (!string.IsNullOrWhiteSpace(Title))
                 {
-                    fullName = (this.Title + " " + fullName).TrimEnd();
+                    fullName = $"{Title} {fullName}".TrimEnd();
                 }
 
-                return (fullName == null) ? null : fullName.Trim();
+                return fullName?.Trim();
             }
         }
 

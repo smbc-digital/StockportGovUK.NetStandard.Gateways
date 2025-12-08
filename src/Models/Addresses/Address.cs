@@ -18,21 +18,21 @@ namespace StockportGovUK.NetStandard.Gateways.Models.Addresses
 
         public override string ToString()
         {
-            if (!string.IsNullOrEmpty(this.PlaceRef))
+            if (!string.IsNullOrEmpty(PlaceRef))
             {
-                return $"{this.SelectedAddress},({this.PlaceRef})";
+                return $"{SelectedAddress},({PlaceRef})";
 
             }
             else
             {
-                return $"{this.AddressLine1}, {this.AddressLine2}, {this.Town}, {this.Postcode}";
+                return $"{AddressLine1}, {AddressLine2}, {Town}, {Postcode}";
             }
         }
 
         public string ToStringWithoutPlaceRef()
         {
             if (IsAutomaticallyFound)
-                return $"{SelectedAddress}";
+                return SelectedAddress;
 
             if (string.IsNullOrEmpty(AddressLine2))
                 return $"{AddressLine1}, {Town}, {Postcode}";

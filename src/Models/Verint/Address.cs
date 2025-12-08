@@ -14,7 +14,7 @@ namespace StockportGovUK.NetStandard.Gateways.Models.Verint
             this.Description = strDescription;
         }
 
-        public Address(Models.Addresses.Address address)
+        public Address(Addresses.Address address)
         {
             if(string.IsNullOrEmpty(address.PlaceRef))
             {
