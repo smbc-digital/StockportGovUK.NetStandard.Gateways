@@ -8,9 +8,9 @@ namespace StockportGovUK.NetStandard.Gateways.Tests.Unit.Models.Verint
         [Fact]
         public void Address_WithReferenceAndDescription_ShouldSetProperties()
         {
-            Address address = new("REF123", "Test Description");
+            Address address = new("123456", "Test Description");
 
-            Assert.Equal("REF123", address.Reference);
+            Assert.Equal("123456", address.Reference);
             Assert.Equal("Test Description", address.Description);
         }
 
@@ -19,18 +19,18 @@ namespace StockportGovUK.NetStandard.Gateways.Tests.Unit.Models.Verint
         {
             Gateways.Models.Addresses.Address source = new()
             {
-                AddressLine1 = "Line1",
-                AddressLine2 = "Line2",
-                Town = "Townsville",
+                AddressLine1 = "AddressLine1",
+                AddressLine2 = "AddressLine2",
+                Town = "Town",
                 Postcode = "SK1 1AA",
                 PlaceRef = null
             };
 
             Address address = new(source);
 
-            Assert.Equal("Line1", address.AddressLine1);
-            Assert.Equal("Line2", address.AddressLine2);
-            Assert.Equal("Townsville", address.AddressLine3);
+            Assert.Equal("AddressLine1", address.AddressLine1);
+            Assert.Equal("AddressLine2", address.AddressLine2);
+            Assert.Equal("Town", address.AddressLine3);
             Assert.Equal("SK1 1AA", address.Postcode);
             Assert.Null(address.UPRN);
             Assert.Null(address.Reference);

@@ -14,7 +14,7 @@ namespace StockportGovUK.NetStandard.Gateways.Tests.Unit.Models.FormBuilder
         {
             PostPaymentUpdateRequest request = new()
             {
-                Reference = "ABC123",
+                Reference = "123456",
                 PaymentStatus = status
             };
 
