@@ -41,7 +41,7 @@ namespace StockportGovUK.NetStandard.Gateways.Tests.Unit.Models.Verint
         [Fact]
         public void AssociatedWithBehaviour_ShouldReturnStreet_WhenStreetReferenceExists()
         {
-            Case c = new() { Street = new Street { Reference = "ST123" } };
+            Case c = new() { Street = new Street { Reference = "123456" } };
             
             Assert.Equal(AssociatedWithBehaviourEnum.Street, c.AssociatedWithBehaviour);
         }
@@ -49,7 +49,7 @@ namespace StockportGovUK.NetStandard.Gateways.Tests.Unit.Models.Verint
         [Fact]
         public void AssociatedWithBehaviour_ShouldReturnProperty_WhenPropertyReferenceExists()
         {
-            Case c = new() { Property = new Address { Reference = "PR123" } };
+            Case c = new() { Property = new Address { Reference = "123456" } };
             
             Assert.Equal(AssociatedWithBehaviourEnum.Property, c.AssociatedWithBehaviour);
         }
@@ -57,7 +57,7 @@ namespace StockportGovUK.NetStandard.Gateways.Tests.Unit.Models.Verint
         [Fact]
         public void AssociatedWithBehaviour_ShouldReturnOrganisation_WhenOrganisationReferenceExists()
         {
-            Case c = new() { Organisation = new Organisation { Reference = "ORG123" } };
+            Case c = new() { Organisation = new Organisation { Reference = "123456" } };
             
             Assert.Equal(AssociatedWithBehaviourEnum.Organisation, c.AssociatedWithBehaviour);
         }
@@ -65,7 +65,7 @@ namespace StockportGovUK.NetStandard.Gateways.Tests.Unit.Models.Verint
         [Fact]
         public void AssociatedWithBehaviour_ShouldReturnIndividual_WhenCustomerReferenceExists()
         {
-            Case c = new() { Customer = new Customer { CustomerReference = "CUST123" } };
+            Case c = new() { Customer = new Customer { CustomerReference = "123456" } };
             
             Assert.Equal(AssociatedWithBehaviourEnum.Individual, c.AssociatedWithBehaviour);
         }
@@ -148,7 +148,7 @@ namespace StockportGovUK.NetStandard.Gateways.Tests.Unit.Models.Verint
         public void AddCaseFormFieldIfNotNullOrEmpty_ShouldNotAddField_WhenValueIsEmpty()
         {
             Case c = new();
-            c.AddCaseFormFieldIfNotNullOrEmpty("Key1", "");
+            c.AddCaseFormFieldIfNotNullOrEmpty("Key1", string.Empty);
 
             Assert.Empty(c.CaseFormFields);
         }

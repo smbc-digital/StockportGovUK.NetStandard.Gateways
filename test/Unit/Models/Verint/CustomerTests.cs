@@ -40,7 +40,7 @@ namespace StockportGovUK.NetStandard.Gateways.Tests.Unit.Models.Verint
         [Fact]
         public void FullName_ShouldReturnSurname_WhenOtherFieldsAreEmpty()
         {
-            Customer customer = new() { Forename = "", Initials = "", Title = "", Surname = "Surname" };
+            Customer customer = new() { Forename = string.Empty, Initials = string.Empty, Title = string.Empty, Surname = "Surname" };
             
             Assert.Equal("Surname", customer.FullName);
         }
