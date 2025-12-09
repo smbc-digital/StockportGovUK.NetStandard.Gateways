@@ -9,17 +9,13 @@ namespace StockportGovUK.NetStandard.Gateways.Models.FormBuilder
         public string PaymentStatusDescription
         {
             get{
-                switch(PaymentStatus)
+                return PaymentStatus switch
                 {
-                    case EPaymentStatus.Failure:
-                        return "Payment failed";
-                    case EPaymentStatus.Declined:
-                        return "Payment declined";
-                    case EPaymentStatus.Cancelled:
-                        return "Payment cancelled";    
-                    default:
-                        return "Paid";
-                }
+                    EPaymentStatus.Failure => "Payment failed",
+                    EPaymentStatus.Declined => "Payment declined",
+                    EPaymentStatus.Cancelled => "Payment cancelled",
+                    _ => "Paid",
+                };
             }
         }
     }
