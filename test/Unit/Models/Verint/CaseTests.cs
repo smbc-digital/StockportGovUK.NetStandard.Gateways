@@ -9,15 +9,15 @@ namespace StockportGovUK.NetStandard.Gateways.Tests.Unit.Models.Verint
         [Fact]
         public void Constructor_ShouldInitialiseCollectionsAndDefaults()
         {
-            Case c = new();
+            Case crmCase = new();
 
-            Assert.NotEqual(Guid.Empty, c.ID);
-            Assert.NotNull(c.IntegrationFormFields);
-            Assert.NotNull(c.CaseFormFields);
-            Assert.NotNull(c.CustomAttributes);
-            Assert.NotNull(c.NotesWithAttachments);
-            Assert.Equal(string.Empty, c.CaseReference);
-            Assert.Equal(RaisedByBehaviourEnum.Individual, c.RaisedByBehaviour);
+            Assert.NotEqual(Guid.Empty, crmCase.ID);
+            Assert.NotNull(crmCase.IntegrationFormFields);
+            Assert.NotNull(crmCase.CaseFormFields);
+            Assert.NotNull(crmCase.CustomAttributes);
+            Assert.NotNull(crmCase.NotesWithAttachments);
+            Assert.Equal(string.Empty, crmCase.CaseReference);
+            Assert.Equal(RaisedByBehaviourEnum.Individual, crmCase.RaisedByBehaviour);
         }
 
         [Theory]
@@ -25,67 +25,67 @@ namespace StockportGovUK.NetStandard.Gateways.Tests.Unit.Models.Verint
         [InlineData(123, true)]
         public void HasEventCode_ShouldReturnExpected(int code, bool expected)
         {
-            Case c = new() { EventCode = code };
+            Case crmCase = new() { EventCode = code };
             
-            Assert.Equal(expected, c.HasEventCode);
+            Assert.Equal(expected, crmCase.HasEventCode);
         }
 
         [Fact]
         public void AssociatedWithBehaviour_ShouldReturnExplicitValue_WhenSet()
         {
-            Case c = new() { AssociatedWithBehaviour = AssociatedWithBehaviourEnum.Property };
+            Case crmCase = new() { AssociatedWithBehaviour = AssociatedWithBehaviourEnum.Property };
             
-            Assert.Equal(AssociatedWithBehaviourEnum.Property, c.AssociatedWithBehaviour);
+            Assert.Equal(AssociatedWithBehaviourEnum.Property, crmCase.AssociatedWithBehaviour);
         }
 
         [Fact]
         public void AssociatedWithBehaviour_ShouldReturnStreet_WhenStreetReferenceExists()
         {
-            Case c = new() { Street = new Street { Reference = "123456" } };
+            Case crmCase = new() { Street = new Street { Reference = "123456" } };
             
-            Assert.Equal(AssociatedWithBehaviourEnum.Street, c.AssociatedWithBehaviour);
+            Assert.Equal(AssociatedWithBehaviourEnum.Street, crmCase.AssociatedWithBehaviour);
         }
 
         [Fact]
         public void AssociatedWithBehaviour_ShouldReturnProperty_WhenPropertyReferenceExists()
         {
-            Case c = new() { Property = new Address { Reference = "123456" } };
+            Case crmCase = new() { Property = new Address { Reference = "123456" } };
             
-            Assert.Equal(AssociatedWithBehaviourEnum.Property, c.AssociatedWithBehaviour);
+            Assert.Equal(AssociatedWithBehaviourEnum.Property, crmCase.AssociatedWithBehaviour);
         }
 
         [Fact]
         public void AssociatedWithBehaviour_ShouldReturnOrganisation_WhenOrganisationReferenceExists()
         {
-            Case c = new() { Organisation = new Organisation { Reference = "123456" } };
+            Case crmCase = new() { Organisation = new Organisation { Reference = "123456" } };
             
-            Assert.Equal(AssociatedWithBehaviourEnum.Organisation, c.AssociatedWithBehaviour);
+            Assert.Equal(AssociatedWithBehaviourEnum.Organisation, crmCase.AssociatedWithBehaviour);
         }
 
         [Fact]
         public void AssociatedWithBehaviour_ShouldReturnIndividual_WhenCustomerReferenceExists()
         {
-            Case c = new() { Customer = new Customer { CustomerReference = "123456" } };
+            Case crmCase = new() { Customer = new Customer { CustomerReference = "123456" } };
             
-            Assert.Equal(AssociatedWithBehaviourEnum.Individual, c.AssociatedWithBehaviour);
+            Assert.Equal(AssociatedWithBehaviourEnum.Individual, crmCase.AssociatedWithBehaviour);
         }
 
         [Fact]
         public void AssociatedWithBehaviour_ShouldReturnNon_WhenNoReferencesExist()
         {
-            Case c = new();
+            Case crmCase = new();
             
-            Assert.Equal(AssociatedWithBehaviourEnum.Non, c.AssociatedWithBehaviour);
+            Assert.Equal(AssociatedWithBehaviourEnum.Non, crmCase.AssociatedWithBehaviour);
         }
 
         [Fact]
         public void SearchForIntegrationFormField_ShouldReturnField_WhenExists()
         {
-            Case c = new();
+            Case crmCase = new();
 
-            c.IntegrationFormFields.Add(new CustomField("Field1", "Value1"));
+            crmCase.IntegrationFormFields.Add(new CustomField("Field1", "Value1"));
 
-            CustomField result = c.SearchForIntegrationFormField("Field1");
+            CustomField result = crmCase.SearchForIntegrationFormField("Field1");
 
             Assert.NotNull(result);
             Assert.Equal("Value1", result.Value);
@@ -94,8 +94,8 @@ namespace StockportGovUK.NetStandard.Gateways.Tests.Unit.Models.Verint
         [Fact]
         public void SearchForIntegrationFormField_ShouldReturnNull_WhenNotFound()
         {
-            Case c = new();
-            CustomField result = c.SearchForIntegrationFormField("Missing");
+            Case crmCase = new();
+            CustomField result = crmCase.SearchForIntegrationFormField("Missing");
             
             Assert.Null(result);
         }
@@ -103,10 +103,10 @@ namespace StockportGovUK.NetStandard.Gateways.Tests.Unit.Models.Verint
         [Fact]
         public void SearchForCaseFormFields_ShouldReturnField_WhenExists()
         {
-            Case c = new();
-            c.CaseFormFields.Add(new CustomField("Field1", "Value1"));
+            Case crmCase = new();
+            crmCase.CaseFormFields.Add(new CustomField("Field1", "Value1"));
 
-            CustomField result = c.SearchForCaseFormFields("Field1");
+            CustomField result = crmCase.SearchForCaseFormFields("Field1");
 
             Assert.NotNull(result);
             Assert.Equal("Value1", result.Value);
@@ -115,51 +115,51 @@ namespace StockportGovUK.NetStandard.Gateways.Tests.Unit.Models.Verint
         [Fact]
         public void SetCustomFieldValue_ShouldUpdateValue_WhenFieldExists()
         {
-            Case c = new();
-            c.CaseFormFields.Add(new CustomField("Key1", "OldValue"));
+            Case crmCase = new();
+            crmCase.CaseFormFields.Add(new CustomField("Key1", "OldValue"));
 
-            c.SetCustomFieldValue("Key1", "NewValue");
+            crmCase.SetCustomFieldValue("Key1", "NewValue");
 
-            Assert.Equal("NewValue", c.CaseFormFields[0].Value);
+            Assert.Equal("NewValue", crmCase.CaseFormFields[0].Value);
         }
 
         [Fact]
         public void SetCustomFieldValue_ShouldDoNothing_WhenFieldNotFound()
         {
-            Case c = new();
-            c.CaseFormFields.Add(new CustomField("Key1", "OldValue"));
+            Case crmCase = new();
+            crmCase.CaseFormFields.Add(new CustomField("Key1", "OldValue"));
 
-            c.SetCustomFieldValue("OtherKey", "NewValue");
+            crmCase.SetCustomFieldValue("OtherKey", "NewValue");
 
-            Assert.Equal("OldValue", c.CaseFormFields[0].Value);
+            Assert.Equal("OldValue", crmCase.CaseFormFields[0].Value);
         }
 
         [Fact]
         public void AddCaseFormFieldIfNotNullOrEmpty_ShouldAddField_WhenValueIsNotEmpty()
         {
-            Case c = new();
-            c.AddCaseFormFieldIfNotNullOrEmpty("Key1", "Value1");
+            Case crmCase = new();
+            crmCase.AddCaseFormFieldIfNotNullOrEmpty("Key1", "Value1");
 
-            Assert.Single(c.CaseFormFields);
-            Assert.Equal("Value1", c.CaseFormFields[0].Value);
+            Assert.Single(crmCase.CaseFormFields);
+            Assert.Equal("Value1", crmCase.CaseFormFields[0].Value);
         }
 
         [Fact]
         public void AddCaseFormFieldIfNotNullOrEmpty_ShouldNotAddField_WhenValueIsEmpty()
         {
-            Case c = new();
-            c.AddCaseFormFieldIfNotNullOrEmpty("Key1", string.Empty);
+            Case crmCase = new();
+            crmCase.AddCaseFormFieldIfNotNullOrEmpty("Key1", string.Empty);
 
-            Assert.Empty(c.CaseFormFields);
+            Assert.Empty(crmCase.CaseFormFields);
         }
 
         [Fact]
         public void CustomAttributeValue_ShouldReturnValue_WhenAttributeExists()
         {
-            Case c = new();
-            c.CustomAttributes.Add(new CustomField("Attr1", "Val1"));
+            Case crmCase = new();
+            crmCase.CustomAttributes.Add(new CustomField("Attr1", "Val1"));
 
-            string result = c.CustomAttributeValue("Attr1");
+            string result = crmCase.CustomAttributeValue("Attr1");
 
             Assert.Equal("Val1", result);
         }
@@ -167,9 +167,9 @@ namespace StockportGovUK.NetStandard.Gateways.Tests.Unit.Models.Verint
         [Fact]
         public void CustomAttributeValue_ShouldReturnNull_WhenAttributeNotFound()
         {
-            Case c = new();
+            Case crmCase = new();
 
-            string result = c.CustomAttributeValue("Missing");
+            string result = crmCase.CustomAttributeValue("Missing");
             
             Assert.Null(result);
         }
@@ -177,23 +177,23 @@ namespace StockportGovUK.NetStandard.Gateways.Tests.Unit.Models.Verint
         [Fact]
         public void SetCustomAttribute_ShouldReplaceExistingAttribute()
         {
-            Case c = new();
-            c.CustomAttributes.Add(new CustomField("Attr1", "Value"));
+            Case crmCase = new();
+            crmCase.CustomAttributes.Add(new CustomField("Attr1", "Value"));
 
-            c.SetCustomAttribute("Attr1", "NewValue");
+            crmCase.SetCustomAttribute("Attr1", "NewValue");
 
-            Assert.Single(c.CustomAttributes);
-            Assert.Equal("NewValue", c.CustomAttributes[0].Value);
+            Assert.Single(crmCase.CustomAttributes);
+            Assert.Equal("NewValue", crmCase.CustomAttributes[0].Value);
         }
 
         [Fact]
         public void SetCustomAttribute_ShouldAddNewAttribute_WhenNotExists()
         {
-            Case c = new();
-            c.SetCustomAttribute("Attr1", "Value");
+            Case crmCase = new();
+            crmCase.SetCustomAttribute("Attr1", "Value");
 
-            Assert.Single(c.CustomAttributes);
-            Assert.Equal("Value", c.CustomAttributes[0].Value);
+            Assert.Single(crmCase.CustomAttributes);
+            Assert.Equal("Value", crmCase.CustomAttributes[0].Value);
         }
     }
 }

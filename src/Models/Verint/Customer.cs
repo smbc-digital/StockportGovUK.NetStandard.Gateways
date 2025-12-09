@@ -36,19 +36,13 @@ namespace StockportGovUK.NetStandard.Gateways.Models.Verint
                 string fullName = Surname;
 
                 if (!string.IsNullOrWhiteSpace(Forename))
-                {
                     fullName = $"{Forename} {fullName}".TrimEnd();
-                }
 
                 if (!string.IsNullOrWhiteSpace(Initials))
-                {
                     fullName = $"{Initials} {fullName}".TrimEnd();
-                }
 
                 if (!string.IsNullOrWhiteSpace(Title))
-                {
                     fullName = $"{Title} {fullName}".TrimEnd();
-                }
 
                 return fullName?.Trim();
             }

@@ -19,14 +19,9 @@ namespace StockportGovUK.NetStandard.Gateways.Models.Addresses
         public override string ToString()
         {
             if (!string.IsNullOrEmpty(PlaceRef))
-            {
                 return $"{SelectedAddress},({PlaceRef})";
-
-            }
-            else
-            {
-                return $"{AddressLine1}, {AddressLine2}, {Town}, {Postcode}";
-            }
+            
+            return $"{AddressLine1}, {AddressLine2}, {Town}, {Postcode}";
         }
 
         public string ToStringWithoutPlaceRef()
