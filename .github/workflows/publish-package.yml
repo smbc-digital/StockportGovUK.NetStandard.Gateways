@@ -18,6 +18,10 @@ jobs:
       # Build
       - name: Build project
         run: dotnet build
+      
+      # Test
+      - name: Run unit tests
+        run: dotnet test --configuration Release --no-build
         
       # Pack
       - name: Package project
