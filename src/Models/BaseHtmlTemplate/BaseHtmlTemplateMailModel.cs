@@ -4,6 +4,6 @@ namespace StockportGovUK.NetStandard.Gateways.Models.BaseHtmlTemplate
 {
     public class BaseHtmlTemplateMailModel : BaseMailModel
     {
-        new public string Content { get; set; }
+        public override string TemplateName => "BaseHtmlTemplate.html";
     }
 }
