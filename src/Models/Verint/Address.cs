@@ -14,9 +14,9 @@ namespace StockportGovUK.NetStandard.Gateways.Models.Verint
             this.Description = strDescription;
         }
 
-        public Address(Models.Addresses.Address address)
+        public Address(Addresses.Address address)
         {
-            if(string.IsNullOrEmpty(address.PlaceRef))
+            if (string.IsNullOrEmpty(address.PlaceRef))
             {
                 AddressLine1 = address.AddressLine1;
                 AddressLine2 = address.AddressLine2;
@@ -66,29 +66,23 @@ namespace StockportGovUK.NetStandard.Gateways.Models.Verint
         {
             get
             {
-                bool isFullyResolved = this.Number != null &&
-                                        this.AddressLine1 != null &&
-                                        this.City != null &&
-                                        this.Postcode != null &&
-                                        this.Number != string.Empty &&
-                                        this.AddressLine1 != string.Empty &&
-                                        this.City != string.Empty &&
-                                        this.Postcode != string.Empty;
-
-                return isFullyResolved;
+                return !string.IsNullOrEmpty(Number) &&
+                       !string.IsNullOrEmpty(AddressLine1) &&
+                       !string.IsNullOrEmpty(City) &&
+                       !string.IsNullOrEmpty(Postcode);
             }
         }
 
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            AppendString(this.Number, sb);
-            AppendString(this.BusinessName, sb);
-            AppendString(this.AddressLine1, sb);
-            AppendString(this.AddressLine2, sb);
-            AppendString(this.AddressLine3, sb);
-            AppendString(this.City, sb);
-            AppendString(this.Postcode, sb);
+            AppendString(Number, sb);
+            AppendString(BusinessName, sb);
+            AppendString(AddressLine1, sb);
+            AppendString(AddressLine2, sb);
+            AppendString(AddressLine3, sb);
+            AppendString(City, sb);
+            AppendString(Postcode, sb);
             string s = sb.ToString();
             s = s.Trim();
             s = s.TrimEnd(new char[] { ',' });
@@ -97,7 +91,7 @@ namespace StockportGovUK.NetStandard.Gateways.Models.Verint
 
         private StringBuilder AppendString(string s, StringBuilder sb)
         {
-            if ((!string.IsNullOrWhiteSpace(s)))
+            if (!string.IsNullOrWhiteSpace(s))
                 sb.Append(s + ", ");
 
             return sb;

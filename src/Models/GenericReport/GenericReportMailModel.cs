@@ -5,6 +5,7 @@ namespace StockportGovUK.NetStandard.Gateways.Models.GenericReport
 {
     public class GenericReportMailModel : BaseMailModel
     {
+        public override string TemplateName => "GenericReport.html";
         public string Reference { get; set; }
         public string Header { get; set; }
         public bool ShowRefNumber { get; set; } = false;
