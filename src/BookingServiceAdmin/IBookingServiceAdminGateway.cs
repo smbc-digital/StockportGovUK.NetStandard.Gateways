@@ -35,6 +35,8 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
         Task<HttpResponse<IEnumerable<Booking>>> GetNewAndConfirmedBookings(Guid contextId);
         Task<HttpResponse<Booking>> GetBooking(Guid bookingId);
         Task<HttpResponse<IEnumerable<Booking>>> GetRelatedBookings(Guid groupId);
+        Task<HttpResponse<IEnumerable<Booking>>> GetFutureCustomerBookings(Guid customerId);
+        Task<HttpResponse<IEnumerable<Booking>>> GetCustomerBookings(Guid customerId);
         Task<HttpResponse<Booking>> CancelBooking(CancelBookingRequest request);
         Task<HttpResponse<IEnumerable<Note>>> AddNote(AddNoteRequest request);
         Task<HttpResponse<Booking>> UpdateStatus(UpdateBookingStatusRequest request);
