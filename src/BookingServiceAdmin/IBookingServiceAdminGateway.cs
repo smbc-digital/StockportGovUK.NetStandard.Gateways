@@ -56,6 +56,12 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
 
         #endregion
 
+        #region Customer
+
+        Task<HttpResponseMessage> UpdateCustomerDetails(Customer request);
+
+        #endregion
+
         #region DailyPolicy
 
         Task<HttpResponse<IEnumerable<DailyPolicy>>> GetDailyPolicies(Guid contextId);
