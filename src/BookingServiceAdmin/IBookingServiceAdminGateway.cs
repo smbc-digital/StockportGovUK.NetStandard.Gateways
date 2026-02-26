@@ -59,6 +59,7 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
         #region Customer
 
         Task<HttpResponseMessage> UpdateCustomerDetails(Customer request);
+        Task<HttpResponse<List<Customer>>> SearchCustomers(string customerName, string customerPostcode, string customerEmail, string customerPhone);
 
         #endregion
 
