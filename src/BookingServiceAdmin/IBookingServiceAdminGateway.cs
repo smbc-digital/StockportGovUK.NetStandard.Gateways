@@ -32,6 +32,7 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
 
         Task<HttpResponse<int>> GetDayBookingCountForContext(GetByDateRequest request);
         Task<HttpResponse<IEnumerable<Booking>>> GetDayBookingsForContext(GetByDateRequest request);
+        Task<HttpResponse<IEnumerable<Booking>>> GetDayRangeBookingsForContext(GetByDateRequest request);
         Task<HttpResponse<IEnumerable<Booking>>> GetNewAndConfirmedBookings(Guid contextId);
         Task<HttpResponse<Booking>> GetBooking(Guid bookingId);
         Task<HttpResponse<IEnumerable<Booking>>> GetRelatedBookings(Guid groupId);
