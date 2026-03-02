@@ -18,6 +18,9 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
         public async Task<HttpResponse<IEnumerable<Booking>>> GetDayBookingsForContext(GetByDateRequest request) =>
             await GetAsync<IEnumerable<Booking>>($"{BookingEndpoint}/day-list/context/{GetByDateQueryString(request)}");
 
+        public async Task<HttpResponse<IEnumerable<Booking>>> GetDayRangeBookingsForContext(GetByDateRequest request) =>
+            await GetAsync<IEnumerable<Booking>>($"{BookingEndpoint}/day-range-list/context/{GetByDateRangeQueryString(request)}");
+
         public async Task<HttpResponse<IEnumerable<Booking>>> GetNewAndConfirmedBookings(Guid contextId) =>
             await GetAsync<IEnumerable<Booking>>($"{BookingEndpoint}/new-and-confirmed-bookings/{contextId}");
 
