@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using StockportGovUK.NetStandard.Gateways.Models.Booking;
 using StockportGovUK.NetStandard.Gateways.Models.Booking.Request;
+using StockportGovUK.NetStandard.Gateways.Models.Booking.Response;
 using StockportGovUK.NetStandard.Gateways.Response;
 
 namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
@@ -171,6 +172,8 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
 
         #region User
 
+        Task<HttpResponse<List<ContextUserResponse>>> GetSuperUsers();
+        Task<HttpResponse<List<ContextUserResponse>>> GetContextUsers(Guid contextId);
         Task<HttpResponseMessage> GetUserById(Guid id);
         Task<HttpResponseMessage> GetUserByUsername(string username);
         Task<HttpResponseMessage> GetUsersByUsernameFuzzy(string username);
