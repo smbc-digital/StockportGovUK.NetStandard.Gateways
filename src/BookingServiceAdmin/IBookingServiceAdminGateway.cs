@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using StockportGovUK.NetStandard.Gateways.Models.Booking;
 using StockportGovUK.NetStandard.Gateways.Models.Booking.Request;
+using StockportGovUK.NetStandard.Gateways.Models.Booking.Response;
 using StockportGovUK.NetStandard.Gateways.Response;
 
 namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
@@ -32,6 +33,7 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
 
         Task<HttpResponse<int>> GetDayBookingCountForContext(GetByDateRequest request);
         Task<HttpResponse<IEnumerable<Booking>>> GetDayBookingsForContext(GetByDateRequest request);
+        Task<HttpResponse<IEnumerable<Booking>>> GetDayRangeBookingsForContext(GetByDateRequest request);
         Task<HttpResponse<IEnumerable<Booking>>> GetNewAndConfirmedBookings(Guid contextId);
         Task<HttpResponse<Booking>> GetBooking(Guid bookingId);
         Task<HttpResponse<IEnumerable<Booking>>> GetRelatedBookings(Guid groupId);
@@ -53,6 +55,13 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
         Task<HttpResponse<Context>> UpdateContext(ContextRequest request);
         Task<HttpResponse<Context>> AddContext(ContextRequest request);
         Task<HttpResponseMessage> SetContextAvailability(ContextAvailabilityRequest request);
+
+        #endregion
+
+        #region Customer
+
+        Task<HttpResponseMessage> UpdateCustomerDetails(Customer request);
+        Task<HttpResponse<List<Customer>>> SearchCustomers(string customerName, string customerPostcode, string customerEmail, string customerPhone);
 
         #endregion
 
@@ -163,6 +172,8 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
 
         #region User
 
+        Task<HttpResponse<List<ContextUserResponse>>> GetSuperUsers();
+        Task<HttpResponse<List<ContextUserResponse>>> GetContextUsers(Guid contextId);
         Task<HttpResponseMessage> GetUserById(Guid id);
         Task<HttpResponseMessage> GetUserByUsername(string username);
         Task<HttpResponseMessage> GetUsersByUsernameFuzzy(string username);

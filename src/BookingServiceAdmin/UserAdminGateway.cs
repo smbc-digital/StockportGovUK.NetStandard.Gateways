@@ -1,13 +1,22 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using StockportGovUK.NetStandard.Gateways.Models.Booking.Request;
+using StockportGovUK.NetStandard.Gateways.Models.Booking.Response;
+using StockportGovUK.NetStandard.Gateways.Response;
 
 namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
 {
     public partial class BookingServiceAdminGateway : Gateway, IBookingServiceAdminGateway
     {
         private const string UserEndpoint = "api/v1/User";
+
+        public async Task<HttpResponse<List<ContextUserResponse>>> GetSuperUsers() =>
+            await GetAsync<List<ContextUserResponse>>($"{UserEndpoint}/superusers");
+
+        public async Task<HttpResponse<List<ContextUserResponse>>> GetContextUsers(Guid contextId) =>
+            await GetAsync<List<ContextUserResponse>>($"{UserEndpoint}/context/{contextId}");
 
         public async Task<HttpResponseMessage> GetUserById(Guid id) =>
             await GetAsync($"{UserEndpoint}/{id}");
