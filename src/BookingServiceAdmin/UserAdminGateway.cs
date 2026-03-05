@@ -50,5 +50,8 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
 
         public async Task<HttpResponseMessage> AddUser(AddUserRequest request) =>
             await PostAsync($"{UserEndpoint}/new", request);
+
+        public async Task<HttpResponseMessage> UpdateUserLastLogin(BaseUserRequest request) =>
+            await PatchAsync($"{UserEndpoint}/login", request);
     }
 }
