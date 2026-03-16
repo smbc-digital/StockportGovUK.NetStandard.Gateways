@@ -10,8 +10,8 @@ public partial class BookingServiceAdminGateway : Gateway, IBookingServiceAdminG
 {
     private const string ExportsEndpoint = "api/v1/Exports";
 
-    public async Task<HttpResponse<List<Export>>> GetExportsForContext(Guid contextId) =>
-        await GetAsync<List<Export>>($"{ExportsEndpoint}/context/{contextId}");
+    public async Task<HttpResponse<IEnumerable<Export>>> GetExportsForContext(Guid contextId) =>
+        await GetAsync<IEnumerable<Export>>($"{ExportsEndpoint}/context/{contextId}");
 
     public async Task<HttpResponse<Export>> GetExport(Guid exportId) =>
         await GetAsync<Export>($"{ExportsEndpoint}/{exportId}");

@@ -100,7 +100,7 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
 
         #region Export
 
-        Task<HttpResponse<List<Export>>> GetExportsForContext(Guid contextId);
+        Task<HttpResponse<IEnumerable<Export>>> GetExportsForContext(Guid contextId);
         Task<HttpResponse<Export>> GetExport(Guid exportId);
 
         #endregion
