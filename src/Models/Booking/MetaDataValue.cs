@@ -11,5 +11,6 @@ public class MetaDataValue
     public bool BoolValue { get; set; }
     public Guid? BookingId { get; set; }
     public Guid? MetaDataFieldId { get; set; }
+    public string MetaDataFieldKey { get; set; }
     public Guid? MetaDataDropDownId { get; set; }
 }
