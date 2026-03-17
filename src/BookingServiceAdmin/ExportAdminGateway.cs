@@ -16,4 +16,7 @@ public partial class BookingServiceAdminGateway : Gateway, IBookingServiceAdminG
 
     public async Task<HttpResponse<Export>> GetExport(GetByDateRequest request) =>
         await GetAsync<Export>($"{ExportsEndpoint}/{GetByDateRangeQueryString(request)}");
+
+    public async Task<HttpResponse<Export>> GetDefaultExport(GetByDateRequest request) =>
+        await GetAsync<Export>($"{ExportsEndpoint}/default/{GetByDateRangeQueryString(request)}");
 }
