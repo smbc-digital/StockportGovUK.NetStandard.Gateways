@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 using StockportGovUK.NetStandard.Gateways.Models.Booking;
 using StockportGovUK.NetStandard.Gateways.Models.Booking.Request;
@@ -19,4 +20,7 @@ public partial class BookingServiceAdminGateway : Gateway, IBookingServiceAdminG
 
     public async Task<HttpResponse<Export>> GetDefaultExport(GetByDateRequest request) =>
         await GetAsync<Export>($"{ExportsEndpoint}/default/{GetByDateRangeQueryString(request)}");
+
+    public async Task<HttpResponseMessage> AddExport(Export request) =>
+        await PostAsync($"{ExportsEndpoint}", request);
 }
