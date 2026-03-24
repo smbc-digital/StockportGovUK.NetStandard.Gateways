@@ -10,5 +10,5 @@ public class AdviceProGateway : Gateway, IAdviceProGateway
     }
 
     public async Task<HttpResponseMessage> CreateReferral(object request)
-        => await PostAsync("referral", request);
+        => await PostAsync("referrals", request);
 }
