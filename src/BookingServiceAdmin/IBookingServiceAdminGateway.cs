@@ -98,6 +98,15 @@ namespace StockportGovUK.NetStandard.Gateways.BookingServiceAdmin
 
         #endregion
 
+        #region Export
+
+        Task<HttpResponse<IEnumerable<Export>>> GetExportsForContext(Guid contextId);
+        Task<HttpResponse<Export>> GetExport(GetByDateRequest request);
+        Task<HttpResponse<Export>> GetDefaultExport(GetByDateRequest request);
+        Task<HttpResponseMessage> AddExport(Export request);
+
+        #endregion
+
         #region MetaData
 
         Task<HttpResponse<IEnumerable<MetaDataField>>> GetAppointmentMetaDataFields(Guid appointmentId);
