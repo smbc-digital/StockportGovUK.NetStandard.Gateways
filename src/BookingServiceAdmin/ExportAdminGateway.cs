@@ -23,4 +23,7 @@ public partial class BookingServiceAdminGateway : Gateway, IBookingServiceAdminG
 
     public async Task<HttpResponseMessage> AddExport(Export request) =>
         await PostAsync($"{ExportsEndpoint}", request);
+
+    public async Task<HttpResponseMessage> DeleteExport(Guid exportId) =>
+        await DeleteAsync($"{ExportsEndpoint}/{exportId}");
 }
