@@ -25,6 +25,8 @@ namespace StockportGovUK.NetStandard.Gateways.UniformService
 
 		private const string TaxiLicenceEndpointCheckIsOpen = "api/v1/TaxiLicensing/CheckIsOpen";
 
+		private const string FoodSafetyEndpoint = "api/v1/FoodSafety";
+
 		public UniformServiceGateway(HttpClient httpClient) : base(httpClient)
 		{
 		}
@@ -73,5 +75,8 @@ namespace StockportGovUK.NetStandard.Gateways.UniformService
 
         public async Task<HttpResponseMessage> CloseServiceRequest(CloseUniformServiceRequest request)
             => await PatchAsync($"{CaseEndpoint}/close", request);
+
+		public async Task<HttpResponse<string>> CreateFoodSafetyRequest(FoodSafetyServiceRequest request)
+			=> await PostAsync<string>($"{FoodSafetyEndpoint}", request);
     }
 }
