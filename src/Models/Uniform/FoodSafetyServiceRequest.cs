@@ -9,10 +9,7 @@ public class FoodSafetyServiceRequest
     public string Description { get; set; }
     public string BusinessName { get; set; }
     public Address BusinessAddress { get; set; }
-    public Address CustomerAddress { get; set; }
-    public string CustomerName { get; set; }
-    public string CustomerPhone { get; set; }
-    public string CustomerEmail { get; set; }
+    public Customer Customer { get; set; }
     public DateTime IncidentDate { get; set; }
     public string IncidentTime { get; set; }
 }
