@@ -22,5 +22,6 @@ namespace StockportGovUK.NetStandard.Gateways.UniformService
 		Task<HttpResponse<string>> UpdateTaxiLicenceRequestWithDetails(TaxiLicensingUpdateRequest request);
 		Task<HttpResponse<string>> CheckTaxiLicenceRequestIsOpen(TaxiLicensingUpdateRequest request);
         Task<HttpResponseMessage> CloseServiceRequest(CloseUniformServiceRequest request);
+		Task<HttpResponse<string>> CreateFoodSafetyRequest(FoodSafetyServiceRequest request);
     }
 }

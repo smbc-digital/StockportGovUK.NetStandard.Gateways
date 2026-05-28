@@ -51,6 +51,8 @@ namespace StockportGovUK.NetStandard.Gateways.Models.Verint
 
         public int EventCode { get; set; }
 
+        public string ClassificationType { get; set; }
+
         public string EventId { get; set; }
 
         public string Status { get; set; }
