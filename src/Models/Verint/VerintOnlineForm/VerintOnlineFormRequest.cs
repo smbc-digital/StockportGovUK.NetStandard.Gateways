@@ -11,7 +11,7 @@ namespace StockportGovUK.NetStandard.Gateways.Models.Verint.VerintOnlineForm
         [Required]
         public string FormName { get; set; }
 
-        [Required]
         public IDictionary<string, string> FormData { get; set; }
+        public IDictionary<string, object> FormDataAllTypes { get; set; }
     }
 }
