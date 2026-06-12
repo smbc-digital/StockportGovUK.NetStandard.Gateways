@@ -2,7 +2,6 @@
 
 public class Context : BasicContext
 {
-    public bool IsDisabled { get; set; }
     public bool IsQueueing { get; set; }
     public string QueueId { get; set; }
     public bool IsUserLocationRequired { get; set; }
