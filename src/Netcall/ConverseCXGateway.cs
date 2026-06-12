@@ -9,7 +9,8 @@ namespace StockportGovUK.NetStandard.Gateways.Netcall
     {
         private const string NETCALL_ENDPOINT = "/api/v1/recordings";
 
-        public ConverseCXGateway(HttpClient httpClient) : base(httpClient);
+        public ConverseCXGateway(HttpClient httpClient) : base(httpClient)
+        {}
         
         public async Task<HttpResponseMessage> PauseRecordingAsync(string pid, string netcallUserId)
             => await PutAsync(NETCALL_ENDPOINT, new ConverseCXRequestModel(ConverseCXRequestModel.RecordingStateValue.Pause, netcallUserId), true);
