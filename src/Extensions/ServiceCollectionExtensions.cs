@@ -22,15 +22,25 @@ namespace StockportGovUK.NetStandard.Gateways.Extensions
         public static IHttpClientBuilder AddHttpClient<TInterface, TImplementation>(this IServiceCollection services, IConfiguration configuration, string configurationSection)
             where TInterface : class
             where TImplementation : class, TInterface
-            => services.AddHttpClient<TInterface, TImplementation>(configuration.GetSection(configurationSection).Get<HttpClientConfiguration>());
+            => services.AddHttpClient<TInterface, TImplementation>(configuration.GetSection(configurationSection).Get<HttpClientConfiguration>(), configurationSection);
 
-        private static IHttpClientBuilder AddHttpClient<TInterface, TImplementation>(this IServiceCollection services, HttpClientConfiguration clientConfig)
+        public static IHttpClientBuilder AddKeyedHttpClient<TInterface, TImplementation>(this IServiceCollection services, IConfiguration configuration, string clientName)
+            where TInterface : class
+            where TImplementation : class, TInterface
+            => services.AddKeyedHttpClient<TInterface, TImplementation>(configuration, clientName, $"{typeof(TInterface).FullName.Split('.').Last()}Config");
+
+        public static IHttpClientBuilder AddKeyedHttpClient<TInterface, TImplementation>(this IServiceCollection services, IConfiguration configuration, string clientName, string configurationSection)
+            where TInterface : class
+            where TImplementation : class, TInterface
+            => services.AddKeyedHttpClient<TInterface, TImplementation>(configuration.GetSection(configurationSection).Get<HttpClientConfiguration>(), clientName, configurationSection);
+
+        private static IHttpClientBuilder AddHttpClient<TInterface, TImplementation>(this IServiceCollection services, HttpClientConfiguration clientConfig, string configurationSection = null)
             where TInterface : class
             where TImplementation : class, TInterface
         {
             if (clientConfig == null)
             {
-                throw new InvalidDataException($"Config section {typeof(TInterface).FullName.Split('.').Last()}Config not defined");
+                throw new InvalidDataException($"Config section {configurationSection ?? typeof(TInterface).FullName.Split('.').Last()}Config not defined");
             }
 
             return services.AddHttpClient<TInterface, TImplementation>(client =>
@@ -46,6 +56,34 @@ namespace StockportGovUK.NetStandard.Gateways.Extensions
                     builder.ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler() { 
                         Proxy = new WebProxy(clientConfig.ProxyUrl, clientConfig.ProxyPort) // e,g, new WebProxy("172.16.0.166", 8080)
                 }))
+                .If(clientConfig.EnablePollyPolicies, builder => builder
+                    .AddPolicyHandler(GetWaitAndRetryForeverPolicy(clientConfig.Retries))
+                    .AddPolicyHandler(GetCircuitBreakerPolicy(clientConfig.TimeoutInSeconds)));
+        }
+
+        private static IHttpClientBuilder AddKeyedHttpClient<TInterface, TImplementation>(this IServiceCollection services, HttpClientConfiguration clientConfig, string clientName, string configurationSection = null)
+            where TInterface : class
+            where TImplementation : class, TInterface
+        {
+            if (clientConfig == null)
+            {
+                throw new InvalidDataException($"Config section {configurationSection ?? typeof(TInterface).FullName.Split('.').Last()}Config not defined");
+            }
+
+            return services.AddHttpClient<TInterface, TImplementation>(clientName, client =>
+                {
+                    client.BaseAddress = string.IsNullOrEmpty(clientConfig.BaseUrl) ? null : new Uri(clientConfig.BaseUrl);
+                    client.DefaultRequestHeaders.Authorization = string.IsNullOrEmpty(clientConfig?.AuthToken)
+                        ? null
+                        : AuthenticationHeaderValue.Parse(clientConfig.AuthToken);
+
+                    clientConfig.Headers.ToList().ForEach(header => client.DefaultRequestHeaders.Add(header.Key, header.Value));
+                })
+                .If(!string.IsNullOrEmpty(clientConfig.ProxyUrl), builder =>
+                    builder.ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler()
+                    {
+                        Proxy = new WebProxy(clientConfig.ProxyUrl, clientConfig.ProxyPort) // e,g, new WebProxy("172.16.0.166", 8080)
+                    }))
                 .If(clientConfig.EnablePollyPolicies, builder => builder
                     .AddPolicyHandler(GetWaitAndRetryForeverPolicy(clientConfig.Retries))
                     .AddPolicyHandler(GetCircuitBreakerPolicy(clientConfig.TimeoutInSeconds)));
