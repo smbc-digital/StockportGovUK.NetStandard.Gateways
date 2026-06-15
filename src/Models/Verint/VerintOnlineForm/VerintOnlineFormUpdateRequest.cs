@@ -6,4 +6,5 @@ public class VerintOnlineFormUpdateRequest
 {
     public string VerintOnlineFormReference { get; set; }
     public IDictionary<string, string> FormData { get; set; }
+    public IDictionary<string, string[]> FormDataCheckbox { get; set; }
 }
