@@ -5,11 +5,11 @@ using StockportGovUK.NetStandard.Gateways.Netcall.Models;
 
 namespace StockportGovUK.NetStandard.Gateways.Netcall
 {
-    public class ConverseCXGateway : Gateway, IConverseCXGateway
+    public class ConverseCXBaseGateway : Gateway, IConverseCXGateway
     {
         private const string NETCALL_ENDPOINT = "/api/v1/recordings";
 
-        public ConverseCXGateway(HttpClient httpClient) : base(httpClient)
+        public ConverseCXBaseGateway(HttpClient httpClient) : base(httpClient)
         {}
         
         public async Task<HttpResponseMessage> PauseRecordingAsync(string agentId)
