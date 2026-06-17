@@ -1,15 +1,14 @@
-using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 using StockportGovUK.NetStandard.Gateways.Netcall.Models;
 
 namespace StockportGovUK.NetStandard.Gateways.Netcall
 {
-    public class ConverseCXBaseGateway : Gateway, IConverseCXGateway
+    public class ConverseCXGateway : Gateway, IConverseCXGateway
     {
         private const string NETCALL_ENDPOINT = "/api/v1/recordings";
 
-        public ConverseCXBaseGateway(HttpClient httpClient) : base(httpClient)
+        public ConverseCXGateway(HttpClient httpClient) : base(httpClient)
         {}
         
         public async Task<HttpResponseMessage> PauseRecordingAsync(string agentId)
