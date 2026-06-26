@@ -10,11 +10,17 @@ namespace StockportGovUK.NetStandard.Gateways.Netcall
 
         public ConverseCXGateway(HttpClient httpClient) : base(httpClient)
         {}
-        
-        public async Task<HttpResponseMessage> PauseRecordingAsync(string agentId)
-            => await PutAsync(NETCALL_ENDPOINT, new ConverseCXRequestModel(ConverseCXRequestModel.RecordingStateValue.Pause, agentId), true);
 
-        public async Task<HttpResponseMessage> ResumeRecordingAsync(string agentId)
-            => await PutAsync(NETCALL_ENDPOINT, new ConverseCXRequestModel(ConverseCXRequestModel.RecordingStateValue.Resume, agentId), true);
+        public async Task<HttpResponseMessage> PauseRecordingByEmailAsync(string email)
+            => await PutAsync(NETCALL_ENDPOINT, new ConverseCXRecordingRequestModel(ConverseCXRecordingStateEnum.Pause, agentId: null, agentEmail: email), true);
+
+        public async Task<HttpResponseMessage> PauseRecordingByIdAsync(string agentId)
+            => await PutAsync(NETCALL_ENDPOINT, new ConverseCXRecordingRequestModel(ConverseCXRecordingStateEnum.Pause, agentId: agentId, agentEmail: null), true);
+
+        public async Task<HttpResponseMessage> ResumeRecordingByEmailAsync(string email)
+            => await PutAsync(NETCALL_ENDPOINT, new ConverseCXRecordingRequestModel(ConverseCXRecordingStateEnum.Resume, agentId: null, agentEmail: email), true);
+
+        public async Task<HttpResponseMessage> ResumeRecordingByIdAsync(string agentId)
+            => await PutAsync(NETCALL_ENDPOINT, new ConverseCXRecordingRequestModel(ConverseCXRecordingStateEnum.Resume, agentId: agentId, agentEmail: null), true);
     }
 }

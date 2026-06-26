@@ -5,8 +5,12 @@ namespace StockportGovUK.NetStandard.Gateways.Netcall
 {
     public interface IConverseCXGateway : IGateway
     {
-        Task<HttpResponseMessage> PauseRecordingAsync(string agentId);   
+        Task<HttpResponseMessage> PauseRecordingByIdAsync(string agentId);   
 
-        Task<HttpResponseMessage> ResumeRecordingAsync(string agentId);
+        Task<HttpResponseMessage> ResumeRecordingByIdAsync(string agentId);
+
+        Task<HttpResponseMessage> PauseRecordingByEmailAsync(string email);   
+
+        Task<HttpResponseMessage> ResumeRecordingByEmailAsync(string email);
     }
 }
