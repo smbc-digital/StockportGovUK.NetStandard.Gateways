@@ -10,6 +10,7 @@ namespace StockportGovUK.NetStandard.Gateways.Netcall.Models
         {
             RecordingState = recordingState.ToApiValue();
             AgentId = agentId;
+            AgentEmail = agentEmail;
         }
 
         [JsonProperty("agentId")]
