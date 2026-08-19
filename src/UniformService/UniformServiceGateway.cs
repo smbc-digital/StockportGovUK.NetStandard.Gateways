@@ -76,7 +76,10 @@ namespace StockportGovUK.NetStandard.Gateways.UniformService
         public async Task<HttpResponseMessage> CloseServiceRequest(CloseUniformServiceRequest request)
             => await PatchAsync($"{CaseEndpoint}/close", request);
 
-		public async Task<HttpResponse<string>> CreateFoodSafetyRequest(FoodSafetyServiceRequest request)
+        public async Task<HttpResponse<string>> TestUniformConnection()
+            => await GetAsync<string>($"{CaseEndpoint}/test");
+
+        public async Task<HttpResponse<string>> CreateFoodSafetyRequest(FoodSafetyServiceRequest request)
 			=> await PostAsync<string>($"{FoodSafetyEndpoint}", request);
     }
 }
