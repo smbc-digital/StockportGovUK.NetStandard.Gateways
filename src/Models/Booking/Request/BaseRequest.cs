@@ -21,5 +21,8 @@ namespace StockportGovUK.NetStandard.Gateways.Models.Booking.Request
 
         public List<BookingResource> OptionalResources { get; set; }
 
+        public int NumberOfParallelAppointmentsRequired { get; set; } = 1;
+
+        public List<BookingResource> RequiredResources { get; set; }
     }
 }
