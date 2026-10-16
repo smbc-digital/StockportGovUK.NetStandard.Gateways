@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace StockportGovUK.NetStandard.Gateways.Models.Booking.Request
@@ -21,5 +22,6 @@ namespace StockportGovUK.NetStandard.Gateways.Models.Booking.Request
         public string AdditionalInformation { get; set; }
 
         public int NumberOfParallelAppointmentsRequired { get; set; } = 1;
+        public List<BookingResource> RequiredResources { get; set; }
     }
 }
